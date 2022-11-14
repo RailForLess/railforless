@@ -1,0 +1,37 @@
+table {
+	border-collapse: collapse;
+	background-color: black;
+	border-radius: 1.5rem;
+	opacity: 0.85;
+	overflow: hidden;
+	width: 65%;
+}
+
+td,
+th {
+	padding: 0.3rem;
+}
+
+th {
+	background-color: black;
+	padding-bottom: 0.75rem;
+	padding-top: 0.75rem;
+}
+
+tr:nth-child(odd) {
+	background-color: rgba(128, 128, 128, 0.25);
+}
+
+@media all and (min-width: 769px) and (max-width: 1099px) {
+	table {
+		width: 100%;
+	}
+}
+
+@media all and (max-width: 768px) {
+	table {
+		display: block;
+		overflow: scroll;
+		width: 80vw;
+	}
+}

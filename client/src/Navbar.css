@@ -1,0 +1,32 @@
+header {
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	width: 100vw;
+}
+
+nav {
+	align-items: center;
+	display: flex;
+	height: 5vh;
+	justify-content: space-around;
+	width: 25vw;
+}
+
+nav a {
+	font-size: 1.25rem;
+	text-decoration: none;
+}
+
+@media all and (min-width: 769px) and (max-width: 1099px) {
+	nav {
+		width: 50vw;
+	}
+}
+
+@media all and (max-width: 768px) {
+	nav {
+		height: 10vh;
+		width: 100vw;
+	}
+}

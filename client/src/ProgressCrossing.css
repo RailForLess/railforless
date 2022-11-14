@@ -1,0 +1,12 @@
+#crossing {
+	bottom: 0;
+	height: 20vh;
+	left: 75%;
+	position: absolute;
+}
+
+@media all and (max-width: 768px) {
+	#crossing {
+		left: 55%;
+	}
+}

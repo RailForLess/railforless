@@ -1,0 +1,33 @@
+main {
+	background: black;
+	background-size: cover;
+	background-position: center;
+	display: flex;
+	min-height: 95vh;
+	justify-content: center;
+	width: 100vw;
+}
+
+#main-container {
+	min-height: 90vh;
+	margin-top: 5vh;
+	overflow-x: visible;
+	width: 70%;
+}
+
+@media all and (min-width: 769px) and (max-width: 1099px) {
+	#main-container {
+		width: 80%;
+	}
+}
+
+@media all and (max-width: 768px) {
+	main {
+		min-height: 100vh;
+	}
+
+	#main-container {
+		margin-top: 10vh;
+		width: 90%;
+	}
+}

@@ -1,0 +1,14 @@
+* {
+	box-sizing: border-box;
+	color: white;
+	font-family: "Inter Tight", sans-serif;
+	font-size: 16px;
+	margin: 0;
+	overflow-x: hidden;
+	padding: 0;
+	text-align: center;
+}
+
+.refresh {
+	cursor: pointer;
+}

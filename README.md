@@ -48,6 +48,8 @@ interval. **Running a real browser and funneling requests through a proxy slows
 down the scraping process considerably, but is the only way to get
 fares at scale without detection**.
 
+![](https://github.com/tikkisean/rail-for-less/blob/master/client/public/images/demo.gif)
+
 # About me
 
 My name is [Sean Eddy](https://seaneddy.com/)—I am currently a sophomore at

@@ -81,57 +81,63 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		if (!status) {
-			updateStatus();
-			alert("Server busy, please wait. Refresh status indicator for updates.");
-			return;
-		} else if (!deptStations.includes(deptStation)) {
-			alert("Please enter a valid departure station.");
-			return;
-		} else if (!arrivalStations.includes(arrivalStation)) {
-			alert("Please enter a valid arrival station.");
-			return;
-		} else if (
-			!(coach || business || first) &&
-			!(roomette || bedroom || familyBedroom)
-		) {
-			alert("Please select at least one seating or room option.");
-			return;
-		}
-		setFares({});
-		const socket = io.connect("https://www.railforless.us:5000");
+		fetch("/status")
+			.then((res) => res.json())
+			.then((data) => {
+				setStatus(data.status);
+				if (!data.status) {
+					alert(
+						"Server busy, please wait. Refresh status indicator for updates."
+					);
+					return;
+				} else if (!deptStations.includes(deptStation)) {
+					alert("Please enter a valid departure station.");
+					return;
+				} else if (!arrivalStations.includes(arrivalStation)) {
+					alert("Please enter a valid arrival station.");
+					return;
+				} else if (
+					!(coach || business || first) &&
+					!(roomette || bedroom || familyBedroom)
+				) {
+					alert("Please select at least one seating or room option.");
+					return;
+				}
+				setFares({});
+				const socket = io.connect("http://localhost:5000");
 
-		let date = new Date(startDate + "T00:00");
-		const dates = [];
-		while (date <= new Date(endDate + "T00:00")) {
-			dates.push(date.toLocaleString().split(",")[0]);
-			date.setDate(date.getDate() + 1);
-		}
+				let date = new Date(startDate + "T00:00");
+				const dates = [];
+				while (date <= new Date(endDate + "T00:00")) {
+					dates.push(date.toLocaleString().split(",")[0]);
+					date.setDate(date.getDate() + 1);
+				}
 
-		const fareMessage = {
-			deptStation: deptStation,
-			arrivalStation: arrivalStation,
-			dates: dates,
-			coach: coach,
-			business: business,
-			first: first,
-			roomette: roomette,
-			bedroom: bedroom,
-			familyBedroom: familyBedroom,
-		};
-		socket.on("connect", function() {
-			socket.send(JSON.stringify(fareMessage));
-		});
+				const fareMessage = {
+					deptStation: deptStation,
+					arrivalStation: arrivalStation,
+					dates: dates,
+					coach: coach,
+					business: business,
+					first: first,
+					roomette: roomette,
+					bedroom: bedroom,
+					familyBedroom: familyBedroom,
+				};
+				socket.on("connect", function() {
+					socket.send(JSON.stringify(fareMessage));
+				});
 
-		socket.on("message", function(msg) {
-			msg = JSON.parse(msg);
-			if (msg.progress) {
-				setProgress(msg.progress);
-			} else if (msg.fares) {
-				socket.disconnect();
-				setFares(msg.fares);
-			}
-		});
+				socket.on("message", function(msg) {
+					msg = JSON.parse(msg);
+					if (msg.progress) {
+						setProgress(msg.progress);
+					} else if (msg.fares) {
+						socket.disconnect();
+						setFares(msg.fares);
+					}
+				});
+			});
 	}
 
 	function updateStatus() {

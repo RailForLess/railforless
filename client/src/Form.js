@@ -15,7 +15,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	let [arrivalStations, setArrivalStations] = useState([]);
 
 	useEffect(() => {
-		fetch("/stations")
+		fetch("/api/stations")
 			.then((res) => res.json())
 			.then((data) => {
 				setAllStations([...data.stations]);
@@ -81,7 +81,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-		fetch("/status")
+		fetch("/api/status")
 			.then((res) => res.json())
 			.then((data) => {
 				setStatus(data.status);
@@ -141,7 +141,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	}
 
 	function updateStatus() {
-		fetch("/status")
+		fetch("/api/status")
 			.then((res) => res.json())
 			.then((data) => {
 				setStatus(data.status);

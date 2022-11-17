@@ -38,7 +38,7 @@ how random and human-like I programmed my script to act, with a large
 enough dataset Amtrak could successfully flag my activity as
 automated.
 
-![](https://github.com/tikkisean/rail-for-less/blob/master/client/public/images/reCAPTCHA.gif)
+![](https://github.com/tikkisean/rail-for-less/blob/master/client/public/images/reCAPTCHA.png)
 
 I realized short of developing an AI trained algorithm, there was no
 way to reliably scrape this data from Amtrak's site. I shifted focus

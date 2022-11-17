@@ -59,6 +59,20 @@ export default function About() {
 					enough dataset Amtrak could successfully flag my activity as
 					automated.
 				</p>
+				<figure>
+					<img alt="" src="./images/reCAPTCHA.png" />
+					<figcaption>
+						A POST request to Google's{" "}
+						<a
+							href="https://cloud.google.com/recaptcha-enterprise"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							reCAPTCHA Enterprise
+						</a>{" "}
+						on amtrak.com
+					</figcaption>
+				</figure>
 				<p>
 					I realized short of developing an AI trained algorithm, there was no
 					way to reliably scrape this data from Amtrak's site. I shifted focus
@@ -113,7 +127,7 @@ export default function About() {
 						<br></br>
 						Fellow nerd? Check out the source code on{" "}
 						<a
-							href="https://github.com/tikkisean"
+							href="https://github.com/tikkisean/rail-for-less"
 							rel="noopener noreferrer"
 							target="_blank"
 						>

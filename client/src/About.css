@@ -1,3 +1,7 @@
+figcaption a {
+	font-size: 1rem !important;
+}
+
 .section-container {
 	background-color: rgba(0, 0, 0, 0.85);
 	border-radius: 1.5rem;
@@ -72,8 +76,8 @@ p {
 }
 
 @media all and (min-width: 1100px) {
-	#main-container {
-		max-width: 50%;
+	.section-container {
+		max-width: 70%;
 	}
 }
 

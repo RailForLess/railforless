@@ -2,7 +2,8 @@
 /server/venv/Scripts
 /server/**/*.*
 /server/venv/Lib/site-packages/h11/tests/data/test-file
+!/server/venv/Lib/site-packages/api.py
 !/server/venv/Lib/site-packages/requirements.txt
-!/server/venv/Lib/site-packages/server.py
 !/server/venv/Lib/site-packages/station_scraper.py
 !/server/venv/Lib/site-packages/stations.db
+!/server/venv/Lib/site-packages/ws.py

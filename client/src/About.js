@@ -137,7 +137,7 @@ export default function About() {
 					</p>
 				</div>
 			</div>
-			<a href="http://localhost:3000/" id="back-button-container">
+			<a href="/" id="back-button-container">
 				<FontAwesomeIcon icon={faArrowLeftLong} size="lg" />
 				<p>Take me back</p>
 			</a>

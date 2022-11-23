@@ -4,6 +4,7 @@ import websockets
 import sqlite3
 import json
 
+from pyvirtualdisplay import Display
 from seleniumwire import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -38,7 +39,6 @@ async def handler(websocket):
 
         await websocket.send(json.dumps({"progress": progress}))
         await asyncio.sleep(0.1)
-        print(f"Sent {progress}")
 
     with open("./status.pk", "wb") as pk:
         pickle.dump(False, pk)
@@ -71,7 +71,6 @@ async def handler(websocket):
             proxy_port += 1
         with open("./proxy.pk", "wb") as pk:
             pickle.dump(proxy[:-5] + str(proxy_port), pk)
-        print(old_proxy)
         return old_proxy
 
     noTrains = False
@@ -85,8 +84,12 @@ async def handler(websocket):
                 await send_progress(i, len(
                     dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}")
 
+                display = Display(visible=1, size=(1280, 1440))
+                display.start()
+
                 if (i != 0):
                     driver.quit()
+                    display.stop()
                 time.sleep(2)
 
                 seleniumwire_options = {
@@ -114,8 +117,7 @@ async def handler(websocket):
                     driver.get("http://www.amtrak.com/")
                 except:
                     pass
-                driver.set_window_position(0, 0)
-                driver.set_window_size(1280, 1440)
+                driver.maximize_window()
 
             await send_progress(i, len(dates), "Inputting travel information")
             await asyncio.sleep(0.1)
@@ -384,19 +386,24 @@ async def handler(websocket):
                 await asyncio.sleep(0.1)
 
                 driver.close()
+                display.stop()
                 break
             else:
                 i += 1
     except:
-        await send_progress(i, len(dates), "ERROR")
+        pass
 
     with open("./status.pk", "wb") as pk:
         pickle.dump(True, pk)
-    if (len(fares) == 0):
-        await send_progress(i, len(dates), "No trains found!")
+
+    try:
+        if (len(fares) == 0):
+            await send_progress(i, len(dates), "No trains found!")
+            await asyncio.sleep(0.1)
+        await websocket.send(json.dumps({"fares": fares}))
         await asyncio.sleep(0.1)
-    await websocket.send(json.dumps({"fares": fares}))
-    await asyncio.sleep(0.1)
+    except:
+        pass
 
 
 async def main():

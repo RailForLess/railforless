@@ -13,10 +13,16 @@ for row in soup.findAll('table')[1].tbody.findAll('tr')[1:]:
     station_state = row.findAll("td")[3].findAll("a")[0].contents[0]
     station_info.append((station_name, station_code, station_state))
 
-conn = sqlite3.connect("./server/venv/lib/site-packages/stations.db")
+conn = sqlite3.connect("./stations.db")
 c = conn.cursor()
+c. execute(""" CREATE TABLE IF NOT EXISTS stations (
+    name text,
+    code text,
+    state text
+);""")
 c.execute("DELETE FROM stations")
 for info in station_info:
-    c.execute(f'INSERT INTO stations VALUES ("{info[0]}", "{info[1]}", "{info[2]}")')
+    c.execute(
+        f'INSERT INTO stations VALUES ("{info[0]}", "{info[1]}", "{info[2]}")')
 conn.commit()
 conn.close()

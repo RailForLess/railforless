@@ -22,13 +22,13 @@ tr:nth-child(odd) {
 	background-color: rgba(128, 128, 128, 0.25);
 }
 
-@media all and (min-width: 769px) and (max-width: 1099px) {
+@media all and (min-width: 481px) and (max-width: 1099px) {
 	table {
 		width: 100%;
 	}
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 480px) {
 	table {
 		display: block;
 		overflow: scroll;

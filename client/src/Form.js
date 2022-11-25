@@ -103,7 +103,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					return;
 				}
 				setFares({});
-				const socket = new WebSocket("wss://railforless.us/ws");
+				// const socket = new WebSocket("wss://railforless.us/ws");
+
+				// Enable the line below during development
+				const socket = new WebSocket("ws://localhost:5001");
 
 				let date = new Date(startDate + "T00:00");
 				const dates = [];

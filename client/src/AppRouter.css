@@ -21,7 +21,7 @@ main {
 	}
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 480px) {
 	main {
 		min-height: 100vh;
 	}

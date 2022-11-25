@@ -1,4 +1,6 @@
 /client/node_modules
+/server/chromedriver
+/server/chromedriver.exe
 /server/proxy.pk
 /server/reset_proxy.py
 /server/stations.db

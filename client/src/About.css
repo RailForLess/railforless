@@ -81,7 +81,7 @@ p {
 	}
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 480px) {
 	.section-container figure {
 		margin: 1rem 0;
 		width: 100%;

@@ -1,8 +1,12 @@
 from flask import Flask
+# uncomment the line below when developing on Windows
+# from flask_cors import CORS
 import sqlite3
 import pickle
 
 app = Flask(__name__)
+# uncomment the line below when developing on Windows
+# CORS(app)
 
 
 @app.route("/api/stations")

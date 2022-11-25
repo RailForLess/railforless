@@ -29,7 +29,7 @@ h3 {
 	height: 30vh;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 480px) {
 	h1 {
 		font-size: 3rem;
 	}

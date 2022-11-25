@@ -18,13 +18,13 @@ nav a {
 	text-decoration: none;
 }
 
-@media all and (min-width: 769px) and (max-width: 1099px) {
+@media all and (min-width: 481px) and (max-width: 1099px) {
 	nav {
 		width: 50vw;
 	}
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 480px) {
 	nav {
 		height: 10vh;
 		width: 100vw;

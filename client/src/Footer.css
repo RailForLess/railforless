@@ -14,7 +14,7 @@ footer div {
 	gap: 0.5rem;
 }
 
-@media all and (max-width: 768px) {
+@media all and (max-width: 480px) {
 	footer {
 		flex-direction: column;
 		justify-content: space-evenly;

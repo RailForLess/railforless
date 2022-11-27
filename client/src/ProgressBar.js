@@ -7,10 +7,10 @@ export default function ProgressBar({ progress }) {
 
 	useEffect(() => {
 		if (progress.time) {
-			setBarWidth(100);
+			setBarWidth(0);
 			setTimeout(() => {
 				setTransition(true);
-				setBarWidth(0);
+				setBarWidth(100);
 				setTimeout(() => {
 					setTransition(false);
 				}, 100);
@@ -25,7 +25,7 @@ export default function ProgressBar({ progress }) {
 				style={{
 					width: barWidth + "%",
 					transition:
-						barWidth === 0 && transition
+						barWidth === 100 && transition
 							? `width ${progress.time}s linear`
 							: "width 0s",
 				}}

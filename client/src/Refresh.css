@@ -1,0 +1,4 @@
+svg {
+	cursor: pointer;
+	transition: transform 0.25s;
+}

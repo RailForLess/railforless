@@ -46,6 +46,10 @@ label {
 	gap: 1rem;
 }
 
+.dropdown {
+	transition: transform 0.25s;
+}
+
 .input-column {
 	flex: 1;
 }

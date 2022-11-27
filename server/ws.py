@@ -5,7 +5,7 @@ import sqlite3
 import json
 
 from pyvirtualdisplay import Display
-from seleniumwire import webdriver
+from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -29,11 +29,13 @@ async def handler(websocket):
         c.execute(query)
         return c.fetchall()[0][0]
 
-    async def send_progress(i, numDates, info):
+    async def send_progress(i, numDates, info, time=None):
         progress = dict()
 
         progress["percentComplete"] = round(
             round((i if len(info.split()) == 6 else i + 1) / numDates, 2) * 100)
+        if time:
+            progress["time"] = time
         progress["info"] = info
         progress["date"] = f'Fetching date {i + 1} of {numDates}'
 
@@ -82,7 +84,7 @@ async def handler(websocket):
             date = dates[i]
             if (i % 3 == 0):
                 await send_progress(i, len(
-                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}")
+                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 20)
 
                 # comment out the two lines below when developing on Windows
                 display = Display(visible=1, size=(1280, 1440))
@@ -114,12 +116,14 @@ async def handler(websocket):
                     "excludeSwitches", ["enable-automation"])
 
                 driver = webdriver.Chrome(
-                    options=options, seleniumwire_options=seleniumwire_options, service=service)
+                    options=options, service=service)
                 driver.set_page_load_timeout(18)
                 try:
                     driver.get("http://www.amtrak.com/")
                 except Exception:
-                    driver.maximize_window()
+                    pass
+                driver.maximize_window()
+                driver.set_page_load_timeout(15)
 
             await send_progress(i, len(dates), "Inputting travel information")
             await asyncio.sleep(0.1)
@@ -180,7 +184,7 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(i, len(dates), "Waiting on amtrak.com")
+            await send_progress(i, len(dates), "Waiting on amtrak.com", 15)
             await asyncio.sleep(0.1)
 
             WebDriverWait(driver, 25).until(
@@ -263,12 +267,8 @@ async def handler(websocket):
                         rooms_button.click()
                         delay()
 
-                        bedroom_button = None
-                        try:
-                            bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
-                                By.XPATH, "//button[@aria-label='Bedroom']")))
-                        except Exception:
-                            pass
+                        bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
+                            By.XPATH, "//button[@aria-label='Bedroom']")))
                         family_bedroom_button = driver.find_elements(
                             By.XPATH, "//button[@aria-label='Family Bedroom']")
                         if (family_bedroom_button):
@@ -393,6 +393,7 @@ async def handler(websocket):
             else:
                 i += 1
     except Exception:
+        # comment out the line below when developing on Windows
         display.stop()
         pass
 

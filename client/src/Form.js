@@ -80,6 +80,27 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+
+		if (!deptStations.includes(deptStation)) {
+			alert("Please enter a valid departure station.");
+			return;
+		} else if (!arrivalStations.includes(arrivalStation)) {
+			alert("Please enter a valid arrival station.");
+			return;
+		} else if (
+			!(coach || business || first) &&
+			!(roomette || bedroom || familyBedroom)
+		) {
+			alert("Please select at least one seating or room option.");
+			return;
+		} else if (
+			!window.confirm(
+				"Requesting fares may take a few minutes, and you will not be able to refresh this page. Continue?"
+			)
+		) {
+			return;
+		}
+
 		fetch("/api/status")
 			.then((res) => res.json())
 			.then((data) => {
@@ -89,57 +110,47 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						"Server busy, please wait. Refresh status indicator for updates."
 					);
 					return;
-				} else if (!deptStations.includes(deptStation)) {
-					alert("Please enter a valid departure station.");
-					return;
-				} else if (!arrivalStations.includes(arrivalStation)) {
-					alert("Please enter a valid arrival station.");
-					return;
-				} else if (
-					!(coach || business || first) &&
-					!(roomette || bedroom || familyBedroom)
-				) {
-					alert("Please select at least one seating or room option.");
-					return;
-				}
-				setFares({});
-				// const socket = new WebSocket("wss://railforless.us/ws");
+				} else {
+					setFares({});
 
-				// Enable the line below during development
-				const socket = new WebSocket("ws://localhost:5001");
+					const socket = new WebSocket("wss://railforless.us/ws");
 
-				let date = new Date(startDate + "T00:00");
-				const dates = [];
-				while (date <= new Date(endDate + "T00:00")) {
-					dates.push(date.toLocaleString().split(",")[0]);
-					date.setDate(date.getDate() + 1);
-				}
+					// Enable the line below during development
+					// const socket = new WebSocket("ws://localhost:5001");
 
-				const fareMessage = {
-					deptStation: deptStation,
-					arrivalStation: arrivalStation,
-					dates: dates,
-					coach: coach,
-					business: business,
-					first: first,
-					roomette: roomette,
-					bedroom: bedroom,
-					familyBedroom: familyBedroom,
-				};
-				socket.onopen = (e) => {
-					socket.send(JSON.stringify(fareMessage));
-				};
-
-				socket.onmessage = (msg) => {
-					const data = JSON.parse(msg.data);
-					console.log(data);
-					if (data.progress) {
-						setProgress(data.progress);
-					} else if (data.fares) {
-						socket.close();
-						setFares(data.fares);
+					let date = new Date(startDate + "T00:00");
+					const dates = [];
+					while (date <= new Date(endDate + "T00:00")) {
+						dates.push(date.toLocaleString().split(",")[0]);
+						date.setDate(date.getDate() + 1);
 					}
-				};
+
+					const fareMessage = {
+						deptStation: deptStation,
+						arrivalStation: arrivalStation,
+						dates: dates,
+						coach: coach,
+						business: business,
+						first: first,
+						roomette: roomette,
+						bedroom: bedroom,
+						familyBedroom: familyBedroom,
+					};
+					socket.onopen = (e) => {
+						socket.send(JSON.stringify(fareMessage));
+					};
+
+					socket.onmessage = (msg) => {
+						const data = JSON.parse(msg.data);
+						console.log(data);
+						if (data.progress) {
+							setProgress(data.progress);
+						} else if (data.fares) {
+							socket.close();
+							setFares(data.fares);
+						}
+					};
+				}
 			});
 	}
 
@@ -238,6 +249,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					>
 						<h3>Seats</h3>
 						<FontAwesomeIcon
+							className="dropdown"
 							icon={faAngleDown}
 							style={{
 								transform: seatsExpanded ? "rotate(180deg)" : "rotate(0)",
@@ -250,6 +262,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					>
 						<h3>Rooms</h3>
 						<FontAwesomeIcon
+							className="dropdown"
 							icon={faAngleDown}
 							style={{
 								transform: roomsExpanded ? "rotate(180deg)" : "rotate(0)",

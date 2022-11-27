@@ -1,7 +1,6 @@
 import React from "react";
+import Refresh from "./Refresh";
 import "./Status.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 
 export default function Status({ status, updateStatus }) {
 	return (
@@ -11,12 +10,7 @@ export default function Status({ status, updateStatus }) {
 				alt=""
 				src={`./images/${status ? "status-true" : "status-false"}.png`}
 			/>
-			<FontAwesomeIcon
-				className="refresh"
-				icon={faRefresh}
-				onClick={updateStatus}
-				size="lg"
-			/>
+			<Refresh update={updateStatus} />
 		</div>
 	);
 }

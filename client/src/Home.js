@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Form from "./Form";
+import ProgressBar from "./ProgressBar";
 import FareTable from "./FareTable";
 import ProgressTrain from "./ProgressTrain";
 import ProgressCrossing from "./ProgressCrossing";
@@ -20,6 +21,7 @@ export default function Home() {
 			return (
 				<div id="progress" style={{ height: "auto" }}>
 					<h1>{progress.percentComplete + "%"}</h1>
+					{progress.time && <ProgressBar progress={progress} />}
 					<h2>{progress.date}</h2>
 					<h2>{progress.info}</h2>
 				</div>

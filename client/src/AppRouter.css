@@ -15,7 +15,7 @@ main {
 	width: 70%;
 }
 
-@media all and (min-width: 769px) and (max-width: 1099px) {
+@media all and (min-width: 481px) and (max-width: 1099px) {
 	#main-container {
 		width: 80%;
 	}

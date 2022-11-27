@@ -1,7 +1,6 @@
 import React from "react";
+import Refresh from "./Refresh";
 import "./Footer.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 
 export default function Footer({ imageIndex, imageInfo, setImageIndex }) {
 	function handleUpdate() {
@@ -15,12 +14,7 @@ export default function Footer({ imageIndex, imageInfo, setImageIndex }) {
 	return (
 		<footer>
 			<div>
-				<FontAwesomeIcon
-					className="refresh"
-					icon={faRefresh}
-					onClick={handleUpdate}
-					size="lg"
-				/>
+				<Refresh update={handleUpdate} />
 				<h3>
 					Photo by{" "}
 					<a

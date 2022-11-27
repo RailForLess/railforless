@@ -2,12 +2,13 @@ Windows Development Instructions
 
 1. Clone this repo with "git clone https://github.com/tikkisean/rail-for-less.git"
 2. Add line '"proxy": "http://localhost:5000",' to /package.json
-3. Install Python packages with "pip install -r requirements.txt" in /server
-4. Download chromedriver for your Chrome version from https://chromedriver.chromium.org/downloads,
+3. Follow instrutions in /client/src/Form.js to change WebSocket address
+4. Install Python packages with "pip install -r requirements.txt" in /server
+5. Download chromedriver for your Chrome version from https://chromedriver.chromium.org/downloads,
    name this file "chromedriver" and place it in /server
-5. Follow instructions in /server/ws.py to disable pyvirtualdisplay
-6. Install Flask-CORS with "pip install flask-cors"
-7. Follow instructions in /server/api.py to enable Flask-CORS
-8. Run /server/api.py
-9. Run /server/ws.py
-10. Open React development server with "npm start" in /client
+6. Follow instructions in /server/ws.py to disable pyvirtualdisplay
+7. Install Flask-CORS with "pip install flask-cors"
+8. Follow instructions in /server/api.py to enable Flask-CORS
+9. Run /server/api.py
+10. Run /server/ws.py
+11. Open React development server with "npm start" in /client

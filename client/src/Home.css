@@ -26,16 +26,14 @@ h3 {
 }
 
 #progress {
-	height: 30vh;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
 }
 
 @media all and (max-width: 480px) {
 	h1 {
 		font-size: 3rem;
-	}
-
-	#progress {
-		height: 10vh;
 	}
 
 	#progress-train {

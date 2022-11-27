@@ -95,7 +95,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			return;
 		} else if (
 			!window.confirm(
-				"Requesting fares may take a few minutes, and you will not be able to refresh this page."
+				"Requesting fares may take a few minutes and you will not be able to refresh this page."
 			)
 		) {
 			return;

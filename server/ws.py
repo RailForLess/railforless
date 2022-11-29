@@ -125,7 +125,7 @@ async def handler(websocket):
                 driver.maximize_window()
                 driver.set_page_load_timeout(15)
 
-            await send_progress(i, len(dates), "Inputting travel information")
+            await send_progress(i, len(dates), "Entering travel information")
             await asyncio.sleep(0.1)
 
             if not (i % 3 == 0 or noTrains):
@@ -252,7 +252,7 @@ async def handler(websocket):
 
                 rooms_button = service.find_elements(
                     By.XPATH, ".//button[contains(.,'Rooms')]")
-                if (rooms_button and route != "Mixed Service"):
+                if (rooms_button and route != "Mixed Service" and route != "Multiple Trains"):
                     rooms_button = rooms_button[0]
                     if (roomette or bedroom or family_bedroom):
                         await send_progress(
@@ -267,16 +267,20 @@ async def handler(websocket):
                         rooms_button.click()
                         delay()
 
-                        bedroom_button = None
-                        try:
-                            bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
-                                By.XPATH, "//button[@aria-label='Bedroom']")))
-                        except Exception:
-                            pass
-                        family_bedroom_button = driver.find_elements(
-                            By.XPATH, "//button[@aria-label='Family Bedroom']")
-                        if (family_bedroom_button):
-                            family_bedroom_button = family_bedroom_button[0]
+                        if (bedroom):
+                            bedroom_button = None
+                            try:
+                                bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
+                                    By.XPATH, "//button[@aria-label='Bedroom']")))
+                            except Exception:
+                                pass
+                        if (family_bedroom):
+                            family_bedroom_button = None
+                            try:
+                                family_bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
+                                    By.XPATH, "//button[@aria-label='Family Bedroom']")))
+                            except Exception:
+                                pass
                         if (not (bedroom_button or family_bedroom_button)):
                             search_results = driver.find_element(
                                 By.XPATH, "//div[@class='search-results-leg-travel-class-content']")
@@ -333,7 +337,7 @@ async def handler(websocket):
                             fare["roomette"] = rooms_price
                         if (bedroom and bedroom_button):
                             bedroom_button.click()
-                            WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
+                            WebDriverWait(driver, 3).until(EC.element_to_be_clickable(
                                 (By.XPATH, "//button[contains(.,'Add to Cart')]")))
                             accomodation_pill = driver.find_elements(
                                 By.XPATH, "//accomodation-pill")[1]
@@ -349,7 +353,7 @@ async def handler(websocket):
                                 family_bedroom_button).perform()
                             delay()
                             family_bedroom_button.click()
-                            WebDriverWait(driver, 5).until(EC.element_to_be_clickable(
+                            WebDriverWait(driver, 3).until(EC.element_to_be_clickable(
                                 (By.XPATH, "//button[contains(.,'Add to Cart')]")))
                             accomodation_pill = driver.find_elements(
                                 By.XPATH, "//accomodation-pill")[1]

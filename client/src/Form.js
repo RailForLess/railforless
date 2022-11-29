@@ -6,6 +6,7 @@ import {
 	faAngleDown,
 	faCircleQuestion,
 	faDollarSign,
+	faHeartbeat,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Form({ fares, setFares, progress, setProgress }) {
@@ -95,7 +96,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			return;
 		} else if (
 			!window.confirm(
-				"Requesting fares may take a few minutes and you will not be able to refresh this page."
+				"Requesting fares may take a few minutes and you will not be able to refresh this page. Note that room fares are only available on direct routes and the first departure each date will be selected."
 			)
 		) {
 			return;
@@ -142,7 +143,6 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 					socket.onmessage = (msg) => {
 						const data = JSON.parse(msg.data);
-						console.log(data);
 						if (data.progress) {
 							setProgress(data.progress);
 						} else if (data.fares) {

@@ -74,7 +74,7 @@ export default function About() {
 					</figcaption>
 				</figure>
 				<p>
-					I realized short of developing an AI trained algorithm, there was no
+					I realized short of developing an AI-trained algorithm, there was no
 					way to reliably scrape this data from Amtrak's site. I shifted focus
 					from programming a human-like script to anonymizing my requests. This
 					website exploits the weakness that Amtrak needs at least a few

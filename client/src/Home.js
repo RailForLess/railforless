@@ -30,12 +30,10 @@ export default function Home() {
 	}
 
 	function crossingState() {
-		if (progressBool()) {
-			if (progress.percentComplete >= 30) {
-				return <ProgressCrossing />;
-			} else {
-				return <img alt="" id="crossing" src={`./images/crossing-up.png`} />;
-			}
+		if (progress.percentComplete > 0) {
+			return <ProgressCrossing />;
+		} else {
+			return <img alt="" id="crossing" src={`./images/crossing-up.png`} />;
 		}
 	}
 
@@ -61,7 +59,7 @@ export default function Home() {
 			{progressState()}
 			{progressBool() && <ProgressTrain progress={progress} />}
 			{progressBool() && <div style={{ height: "5vh" }}></div>}
-			{crossingState()}
+			{progressBool() && crossingState()}
 		</div>
 	);
 }

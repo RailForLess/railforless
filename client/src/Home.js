@@ -15,9 +15,15 @@ export default function Home() {
 	}
 
 	function progressState() {
-		if (Object.keys(progress).length === 0) {
-			return <div id="progress"></div>;
-		} else if (Object.keys(fares).length === 0) {
+		if (
+			Object.keys(progress).length === 0 &&
+			!window.matchMedia("(max-width: 480px)").matches
+		) {
+			return <div style={{ height: "30vh" }}></div>;
+		} else if (
+			Object.keys(progress).length > 0 &&
+			Object.keys(fares).length === 0
+		) {
 			return (
 				<div id="progress" style={{ height: "auto" }}>
 					<h1>{progress.percentComplete + "%"}</h1>

@@ -38,9 +38,9 @@ how random and human-like I programmed my script to act, with a large
 enough dataset Amtrak could successfully flag my activity as
 automated.
 
-![](https://github.com/tikkisean/rail-for-less/blob/master/client/public/images/reCAPTCHA.png)
+![](https://github.com/tikkisean/rail-for-less/blob/main/client/public/images/reCAPTCHA.png)
 
-I realized short of developing an AI trained algorithm, there was no
+I realized short of developing an AI-trained algorithm, there was no
 way to reliably scrape this data from Amtrak's site. I shifted focus
 from programming a human-like script to anonymizing my requests. This
 website exploits the weakness that Amtrak needs at least a few
@@ -50,7 +50,7 @@ interval. **Running a real browser and funneling requests through a proxy slows
 down the scraping process considerably, but is the only way to get
 fares at scale without detection**.
 
-![](https://github.com/tikkisean/rail-for-less/blob/master/client/public/images/demo.gif)
+![](https://github.com/tikkisean/rail-for-less/blob/main/client/public/images/demo.gif)
 
 # About me
 

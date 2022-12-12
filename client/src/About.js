@@ -16,7 +16,7 @@ export default function About() {
 					find countless threads discussing this same limitation of Amtrak's
 					website. This problem was the catalyst for Amsnag&mdash;a now defunct
 					Amtrak scraping service. The service stopped working after Amtrak
-					updated their website to the more complex, Javascript-heavy site it is
+					updated their website to the more complex, JavaScript-heavy site it is
 					today. My goal when developing this site was to restore as much of
 					Amsnag's original functionality as possible.
 				</p>
@@ -35,7 +35,7 @@ export default function About() {
 				<p>
 					Now, the overwhelming majority of modern websites generate content
 					dynamically (including this site). A simple HTTP request is no longer
-					sufficient for scraping these heavy sites, as Javascript code must run
+					sufficient for scraping these heavy sites, as JavaScript code must run
 					asynchronously to load the page contents. Therefore, the only reliable
 					way to navigate and scrape these websites is through a browser. I
 					chose the browser automation package{" "}
@@ -51,7 +51,7 @@ export default function About() {
 				<p>
 					I quickly learned why Amsnag had not yet been replaced&mdash;Amtrak
 					utilizes an advanced bot-detection algorithm that makes automated fare
-					scraping exceedingly difficult. In addition to the Javascript running
+					scraping exceedingly difficult. In addition to the JavaScript running
 					to load the page, Amtrak runs code that monitors your mouse movements
 					and interaction patterns to filter out suspected automated activity. I
 					tried for weeks to get around this algorithm to no avail. No matter
@@ -107,7 +107,7 @@ export default function About() {
 						</a>
 						&mdash;I am currently a sophomore at the University of Arizona
 						pursuing a B.S. and ultimately an M.S. in Computer Science with a
-						minor in entrepreneurship and innovation.
+						minor in Entrepreneurship and Innovation.
 						<br></br>
 						<br></br>
 						This project is my first dynamic website; reach out to me at{" "}

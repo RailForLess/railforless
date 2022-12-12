@@ -42,7 +42,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		return filteredStations;
 	}
 
-	const [direct, setDirect] = useState(true);
+	const [direct, setDirect] = useState(false);
 
 	const [deptStation, setDeptStation] = useState("");
 
@@ -74,6 +74,15 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		setDeptStations({ ...allStations });
 	}
 
+	function autocorrect(input, stations) {
+		for (const station in stations) {
+			if (input.toLowerCase() === station.toLowerCase()) {
+				return station;
+			}
+		}
+		return input;
+	}
+
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
 
@@ -89,12 +98,11 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		if (direct) {
 			if (
 				!window.confirm(
-					"Room fares are only available on direct routes, but you will still have access to all other information."
+					"Room fares are only available on direct routes. Would you like to disable this option?"
 				)
 			) {
 				return;
 			}
-
 			setRoomsExpanded(false);
 			setRoomette(false);
 			setBedroom(false);
@@ -154,10 +162,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				} else {
 					setFares({});
 
-					const socket = new WebSocket("wss://railforless.us/ws");
+					// const socket = new WebSocket("wss://railforless.us/ws");
 
 					// Enable the line below during development
-					// const socket = new WebSocket("ws://localhost:5001");
+					const socket = new WebSocket("ws://localhost:5001");
 
 					let date = new Date(startDate + "T00:00");
 					const dates = [];
@@ -222,6 +230,18 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function handleRoomsExpanded() {
 		if (!roomsExpanded) {
+			if (!direct) {
+				if (
+					!window.confirm(
+						"Room fares are only available on direct routes. Would you like to enable this option?"
+					)
+				) {
+					return;
+				}
+				setDirect(true);
+				setDeptStation("");
+				setArrivalStation("");
+			}
 			setSeatsExpanded(false);
 			setMoreExpanded(false);
 		}
@@ -246,7 +266,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						id="from"
 						list="dept-stations"
 						name="from"
-						onChange={(e) => setDeptStation(e.target.value)}
+						onChange={(e) =>
+							setDeptStation(autocorrect(e.target.value, deptStations))
+						}
 						required
 						style={{ color: renderInputColor(deptStation, deptStations) }}
 						type="search"
@@ -262,7 +284,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						id="to"
 						list="arrival-stations"
 						name="to"
-						onChange={(e) => setArrivalStation(e.target.value)}
+						onChange={(e) =>
+							setArrivalStation(autocorrect(e.target.value, arrivalStations))
+						}
 						required
 						style={{
 							color: renderInputColor(arrivalStation, arrivalStations),
@@ -318,21 +342,16 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							}}
 						/>
 					</div>
-					{direct && (
-						<div
-							className="options-toggle"
-							onClick={() => handleRoomsExpanded()}
-						>
-							<h3>Rooms</h3>
-							<FontAwesomeIcon
-								className="dropdown"
-								icon={faAngleDown}
-								style={{
-									transform: roomsExpanded ? "rotate(180deg)" : "rotate(0)",
-								}}
-							/>
-						</div>
-					)}
+					<div className="options-toggle" onClick={() => handleRoomsExpanded()}>
+						<h3>Rooms</h3>
+						<FontAwesomeIcon
+							className="dropdown"
+							icon={faAngleDown}
+							style={{
+								transform: roomsExpanded ? "rotate(180deg)" : "rotate(0)",
+							}}
+						/>
+					</div>
 					<div className="options-toggle" onClick={() => handleMoreExpanded()}>
 						<h3>More</h3>
 						<FontAwesomeIcon

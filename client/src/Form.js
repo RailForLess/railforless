@@ -6,52 +6,72 @@ import {
 	faAngleDown,
 	faCircleQuestion,
 	faDollarSign,
-	faHeartbeat,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Form({ fares, setFares, progress, setProgress }) {
-	let [allStations, setAllStations] = useState([]);
-	let [deptStations, setDeptStations] = useState([]);
-	let [arrivalStations, setArrivalStations] = useState([]);
+	let [allStations, setAllStations] = useState({});
+	let [deptStations, setDeptStations] = useState({});
+	let [arrivalStations, setArrivalStations] = useState({});
 
 	useEffect(() => {
 		fetch("/api/stations")
 			.then((res) => res.json())
 			.then((data) => {
-				setAllStations([...data.stations]);
-				setDeptStations([...data.stations]);
-				setArrivalStations([...data.stations]);
+				setAllStations({ ...data.stations });
+				setDeptStations({ ...data.stations });
+				setArrivalStations({ ...data.stations });
 			});
 	}, []);
 
-	function renderStations(mode) {
-		return mode.map((station) => (
+	function renderStations(stations) {
+		return Object.keys(stations).map((station) => (
 			<option key={station} value={station}></option>
 		));
 	}
 
+	function filterStations(routeStation, stations) {
+		let filteredStations = {};
+		for (const station in stations) {
+			const mutualStation = stations[station].some((route) => {
+				return stations[routeStation].includes(route);
+			});
+			if (mutualStation) {
+				filteredStations[station] = stations[station];
+			}
+		}
+		return filteredStations;
+	}
+
+	const [direct, setDirect] = useState(true);
+
 	const [deptStation, setDeptStation] = useState("");
 
-	if (arrivalStations.includes(deptStation)) {
-		arrivalStations.splice(arrivalStations.indexOf(deptStation), 1);
+	if (arrivalStations.hasOwnProperty(deptStation)) {
+		if (direct) {
+			arrivalStations = filterStations(deptStation, arrivalStations);
+		}
+		delete arrivalStations[deptStation];
 		setArrivalStations(arrivalStations);
 	} else if (
-		!allStations.includes(deptStation) &&
-		arrivalStations.length !== allStations.length
+		!allStations.hasOwnProperty(deptStation) &&
+		Object.keys(arrivalStations).length !== Object.keys(allStations).length
 	) {
-		setArrivalStations([...allStations]);
+		setArrivalStations({ ...allStations });
 	}
 
 	const [arrivalStation, setArrivalStation] = useState("");
 
-	if (deptStations.includes(arrivalStation)) {
-		deptStations.splice(deptStations.indexOf(arrivalStation), 1);
+	if (deptStations.hasOwnProperty(arrivalStation)) {
+		if (direct) {
+			deptStations = filterStations(arrivalStation, deptStations);
+		}
+		delete deptStations[arrivalStation];
 		setDeptStations(deptStations);
 	} else if (
-		!allStations.includes(arrivalStation) &&
-		deptStations.length !== allStations.length
+		!allStations.hasOwnProperty(arrivalStation) &&
+		Object.keys(deptStations).length !== Object.keys(allStations).length
 	) {
-		setDeptStations([...allStations]);
+		setDeptStations({ ...allStations });
 	}
 
 	const [startDate, setStartDate] = useState("");
@@ -65,8 +85,28 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	const [bedroom, setBedroom] = useState(false);
 	const [familyBedroom, setFamilyBedroom] = useState(false);
 
+	function handleSetDirect() {
+		if (direct) {
+			if (
+				!window.confirm(
+					"Room fares are only available on direct routes, but you will still have access to all other information."
+				)
+			) {
+				return;
+			}
+
+			setRoomsExpanded(false);
+			setRoomette(false);
+			setBedroom(false);
+			setFamilyBedroom(false);
+		}
+		setDeptStation("");
+		setArrivalStation("");
+		setDirect(!direct);
+	}
+
 	function renderInputColor(station, stations) {
-		if (!stations.includes(station)) {
+		if (!stations.hasOwnProperty(station)) {
 			return "darkGray";
 		}
 	}
@@ -82,10 +122,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 
-		if (!deptStations.includes(deptStation)) {
+		if (!Object.keys(deptStations).includes(deptStation)) {
 			alert("Please enter a valid departure station.");
 			return;
-		} else if (!arrivalStations.includes(arrivalStation)) {
+		} else if (!Object.keys(arrivalStations).includes(arrivalStation)) {
 			alert("Please enter a valid arrival station.");
 			return;
 		} else if (
@@ -96,7 +136,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			return;
 		} else if (
 			!window.confirm(
-				"Requesting fares may take a few minutes and you will not be able to refresh this page. Note that room fares are only available on direct routes and the first departure each date will be selected."
+				"Requesting fares may take a few minutes and you will not be able to refresh this page. Note that the first departure each date will be selected."
 			)
 		) {
 			return;
@@ -170,6 +210,31 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	const [seatsExpanded, setSeatsExpanded] = useState(false);
 	const [roomsExpanded, setRoomsExpanded] = useState(false);
+	const [moreExpanded, setMoreExpanded] = useState(false);
+
+	function handleSeatsExpanded() {
+		if (!seatsExpanded) {
+			setRoomsExpanded(false);
+			setMoreExpanded(false);
+		}
+		setSeatsExpanded(!seatsExpanded);
+	}
+
+	function handleRoomsExpanded() {
+		if (!roomsExpanded) {
+			setSeatsExpanded(false);
+			setMoreExpanded(false);
+		}
+		setRoomsExpanded(!roomsExpanded);
+	}
+
+	function handleMoreExpanded() {
+		if (!moreExpanded) {
+			setSeatsExpanded(false);
+			setRoomsExpanded(false);
+		}
+		setMoreExpanded(!moreExpanded);
+	}
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -243,10 +308,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			</div>
 			<div id="more-options">
 				<div id="options-container">
-					<div
-						className="options-toggle"
-						onClick={() => setSeatsExpanded(!seatsExpanded)}
-					>
+					<div className="options-toggle" onClick={() => handleSeatsExpanded()}>
 						<h3>Seats</h3>
 						<FontAwesomeIcon
 							className="dropdown"
@@ -256,16 +318,28 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							}}
 						/>
 					</div>
-					<div
-						className="options-toggle"
-						onClick={() => setRoomsExpanded(!roomsExpanded)}
-					>
-						<h3>Rooms</h3>
+					{direct && (
+						<div
+							className="options-toggle"
+							onClick={() => handleRoomsExpanded()}
+						>
+							<h3>Rooms</h3>
+							<FontAwesomeIcon
+								className="dropdown"
+								icon={faAngleDown}
+								style={{
+									transform: roomsExpanded ? "rotate(180deg)" : "rotate(0)",
+								}}
+							/>
+						</div>
+					)}
+					<div className="options-toggle" onClick={() => handleMoreExpanded()}>
+						<h3>More</h3>
 						<FontAwesomeIcon
 							className="dropdown"
 							icon={faAngleDown}
 							style={{
-								transform: roomsExpanded ? "rotate(180deg)" : "rotate(0)",
+								transform: moreExpanded ? "rotate(180deg)" : "rotate(0)",
 							}}
 						/>
 					</div>
@@ -393,6 +467,20 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						>
 							<FontAwesomeIcon icon={faCircleQuestion} />
 						</a>
+					</div>
+				</div>
+			)}
+			{moreExpanded && (
+				<div className="input-row">
+					<div className="checkbox">
+						<input
+							checked={direct}
+							id="direct"
+							name="direct"
+							onChange={(e) => handleSetDirect()}
+							type="checkbox"
+						/>
+						<label htmlFor="direct">Direct routes only</label>
 					</div>
 				</div>
 			)}

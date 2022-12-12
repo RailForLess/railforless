@@ -23,9 +23,7 @@ async def handler(websocket):
     request = await websocket.recv()
 
     def get_station_code(station):
-        query = f"SELECT code from stations WHERE name = '{station.split(' (')[0]}'"
-        if (len(station.split(' (')) == 2):
-            query += f" AND state = '{station.split('(')[1].split(')')[0]}'"
+        query = f"SELECT code from stations WHERE name = '{station}'"
         c.execute(query)
         return c.fetchall()[0][0]
 
@@ -67,8 +65,8 @@ async def handler(websocket):
             proxy = pickle.load(pk)
         old_proxy = proxy
         proxy_port = int(proxy[-5:])
-        if (proxy_port == 40249):
-            proxy_port = 40200
+        if (proxy_port == 40099):
+            proxy_port = 40050
         else:
             proxy_port += 1
         with open("./proxy.pk", "wb") as pk:
@@ -327,13 +325,15 @@ async def handler(websocket):
                                         (By.XPATH, "(.//span[@class='font-light ng-tns-c154-29'])[2]")),
                                         EC.presence_of_element_located((By.XPATH, "(.//span[@class='font-light ng-tns-c154-30'])[2]"))))
                                 room_type = room_type.text
-                                if (room_type == "Bedroom" and bedroom):
+                                if (room_type == "Roomette" and roomette):
+                                    fare["roomette"] = rooms_price
+                                elif (room_type == "Bedroom" and bedroom):
                                     fare["bedroom"] = rooms_price
                                 elif (room_type == "Family Bedroom" and family_bedroom):
                                     fare["familyBedroom"] = rooms_price
                             except Exception:
                                 pass
-                        if (roomette and not ("bedroom" in fare or "familyBedroom" in fare)):
+                        if (roomette and (bedroom_button or family_bedroom_button)):
                             fare["roomette"] = rooms_price
                         if (bedroom and bedroom_button):
                             bedroom_button.click()

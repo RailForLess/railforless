@@ -98,4 +98,10 @@ label {
 	.input-row {
 		flex-wrap: wrap;
 	}
+
+	#more-options {
+		align-items: center;
+		flex-direction: column;
+		gap: 1rem;
+	}
 }

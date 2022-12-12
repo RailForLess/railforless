@@ -1,7 +1,7 @@
 #train {
 	bottom: 0;
-	height: 5vh;
-	left: -72.5vh;
+	height: 3rem;
+	left: -43.5rem;
 	position: absolute;
 	transition: left 10s;
 }

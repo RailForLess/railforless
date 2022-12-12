@@ -8,7 +8,7 @@ header {
 nav {
 	align-items: center;
 	display: flex;
-	height: 5vh;
+	height: 3rem;
 	justify-content: space-around;
 	width: 25vw;
 }
@@ -26,7 +26,7 @@ nav a {
 
 @media all and (max-width: 480px) {
 	nav {
-		height: 10vh;
+		height: 6rem;
 		width: 100vw;
 	}
 }

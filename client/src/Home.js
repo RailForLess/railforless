@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Form from "./Form";
 import ProgressBar from "./ProgressBar";
 import FareTable from "./FareTable";

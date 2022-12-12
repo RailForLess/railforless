@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request
 # uncomment the line below when developing on Windows
 # from flask_cors import CORS
 import sqlite3
@@ -14,18 +15,13 @@ def stations():
     conn = sqlite3.connect(
         "./stations.db")
     c = conn.cursor()
-    c.execute("SELECT name, state from stations")
+    c.execute("SELECT name, route from stations")
     rows = c.fetchall()
-    stations = list(map(lambda row: row[0], rows))
-    station_info = list()
-    for row in rows:
-        data = ""
-        data = row[0]
-        if (stations.count(row[0]) > 1):
-            data += f' ({row[1]})'
-        station_info.append(data)
     conn.close()
-    return {"stations": station_info}
+    stations = dict()
+    for row in rows:
+        stations[row[0]] = row[1].split(",")[:-1]
+    return {"stations": stations}
 
 
 @app.route("/api/status")

@@ -55,8 +55,8 @@ fares at scale without detection**.
 # About me
 
 My name is [Sean Eddy](https://seaneddy.com/)—I am currently a sophomore at
-the University of Arizona pursuing a B.S. and ultimately a M.S. in Computer
-Science with a minor in entrepreneurship and innovation. This project is my
+the University of Arizona pursuing a B.S. and ultimately an M.S. in Computer
+Science with a minor in Entrepreneurship and Innovation. This project is my
 first dynamic website; reach out to me at sean@railforless.us to report any
 bugs or feature requests. Like the site? Donate on my [Buy Me a Coffee](https://www.buymeacoffee.com/seaneddy)
 page. Proxies, web hosting, and domain

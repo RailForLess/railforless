@@ -21,8 +21,8 @@ export default function ProgressTrain({ progress }) {
 			id="train"
 			src="./images/progress-train.png"
 			style={{
-				left: `calc(${-calcMargin()}vw - 74vh + ${progress.percentComplete /
-					100} * (74vh + 100vw))`,
+				left: `calc(${-calcMargin()}vw - 44.4rem + ${progress.percentComplete /
+					100} * (44.4rem + 100vw))`,
 			}}
 		/>
 	);

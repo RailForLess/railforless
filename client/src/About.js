@@ -106,7 +106,7 @@ export default function About() {
 							Sean Eddy
 						</a>
 						&mdash;I am currently a sophomore at the University of Arizona
-						pursuing a B.S. and ultimately a M.S. in Computer Science with a
+						pursuing a B.S. and ultimately an M.S. in Computer Science with a
 						minor in entrepreneurship and innovation.
 						<br></br>
 						<br></br>

@@ -10,7 +10,7 @@ main {
 
 #main-container {
 	min-height: 90vh;
-	margin-top: 5vh;
+	margin-top: 3rem;
 	overflow-x: visible;
 	width: 70%;
 }
@@ -27,7 +27,7 @@ main {
 	}
 
 	#main-container {
-		margin-top: 10vh;
+		margin-top: 6rem;
 		width: 90%;
 	}
 }

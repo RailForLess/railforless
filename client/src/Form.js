@@ -103,14 +103,12 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			) {
 				return;
 			}
-			setRoomsExpanded(false);
 			setRoomette(false);
 			setBedroom(false);
 			setFamilyBedroom(false);
 		}
-		setDeptStation("");
-		setArrivalStation("");
 		setDirect(!direct);
+		setArrivalStations({ ...allStations });
 	}
 
 	function renderInputColor(station, stations) {
@@ -162,10 +160,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				} else {
 					setFares({});
 
-					// const socket = new WebSocket("wss://railforless.us/ws");
+					const socket = new WebSocket("wss://railforless.us/ws");
 
 					// Enable the line below during development
-					const socket = new WebSocket("ws://localhost:5001");
+					// const socket = new WebSocket("ws://localhost:5001");
 
 					let date = new Date(startDate + "T00:00");
 					const dates = [];
@@ -239,8 +237,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					return;
 				}
 				setDirect(true);
-				setDeptStation("");
-				setArrivalStation("");
+				setArrivalStations({ ...allStations });
 			}
 			setSeatsExpanded(false);
 			setMoreExpanded(false);

@@ -6,7 +6,7 @@ export default function Footer({ imageIndex, imageInfo, setImageIndex }) {
 	function handleUpdate() {
 		let newImageIndex = imageIndex;
 		while (newImageIndex === imageIndex) {
-			newImageIndex = Math.floor(Math.random() * 5);
+			newImageIndex = Math.floor(Math.random() * 6);
 		}
 		setImageIndex(newImageIndex);
 	}

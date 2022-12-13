@@ -41,9 +41,16 @@ export default function App() {
 			license: "CC BY-SA 2.0",
 			licenseLink: "https://creativecommons.org/licenses/by-sa/2.0/deed.en",
 		},
+		{
+			imageNum: 6,
+			author: "Jerry Huddleston",
+			authorLink: "https://www.flickr.com/people/9265232@N04",
+			license: "CC BY 2.0",
+			licenseLink: "https://creativecommons.org/licenses/by/2.0/deed.en",
+		},
 	];
 
-	const [imageIndex, setImageIndex] = useState(Math.floor(Math.random() * 5));
+	const [imageIndex, setImageIndex] = useState(Math.floor(Math.random() * 6));
 
 	return (
 		<div className="App">

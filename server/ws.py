@@ -68,7 +68,7 @@ async def handler(websocket):
             date = dates[i]
             if (i % 3 == 0):
                 await send_progress(i, len(
-                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 22)
+                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 15)
 
                 if (i != 0):
                     driver.quit()
@@ -91,23 +91,23 @@ async def handler(websocket):
                 options = webdriver.ChromeOptions()
                 options.add_argument("--no-sandbox")
                 options.add_argument("--remote-debugging-port=9225")
-                options.add_argument('ignore-certificate-errors')
+                options.add_argument("ignore-certificate-errors")
                 options.add_argument(
-                    '--disable-blink-features=AutomationControlled')
+                    "--disable-blink-features=AutomationControlled")
                 options.add_experimental_option(
-                    'useAutomationExtension', False)
+                    "useAutomationExtension", False)
                 options.add_experimental_option(
                     "excludeSwitches", ["enable-automation"])
 
                 driver = webdriver.Chrome(
                     options=options, seleniumwire_options=seleniumwire_options, service=service)
-                driver.set_page_load_timeout(18)
+                driver.set_page_load_timeout(12)
                 try:
                     driver.get("http://www.amtrak.com/")
                 except Exception:
                     pass
                 driver.maximize_window()
-                driver.set_page_load_timeout(15)
+                driver.set_page_load_timeout(10)
 
             await send_progress(i, len(dates), "Entering travel information")
             await asyncio.sleep(0.1)
@@ -168,10 +168,10 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(i, len(dates), "Waiting on amtrak.com", 17)
+            await send_progress(i, len(dates), "Waiting on amtrak.com", 12)
             await asyncio.sleep(0.1)
 
-            WebDriverWait(driver, 25).until(
+            WebDriverWait(driver, 20).until(
                 EC.any_of(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'New Search')]")),
                           EC.element_to_be_clickable(
                     (By.XPATH, "//button[contains(.,'Cancel')]")),

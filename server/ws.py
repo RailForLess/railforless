@@ -19,8 +19,6 @@ import math
 
 
 async def handler(websocket):
-    request = await websocket.recv()
-
     async def send_progress(i, numDates, info, time=None):
         progress = dict()
 
@@ -33,15 +31,6 @@ async def handler(websocket):
 
         await websocket.send(json.dumps({"progress": progress}))
         await asyncio.sleep(0.1)
-
-    with open("./status.pk", "wb") as pk:
-        pickle.dump(False, pk)
-
-    args = json.loads(request)
-    dept_code, arrival_code = args["deptCode"], args["arrivalCode"]
-    dates = args["dates"]
-    coach, business, first = args["coach"], args["business"], args["first"]
-    roomette, bedroom, family_bedroom = args["roomette"], args["bedroom"], args["familyBedroom"]
 
     def delay():
         time.sleep(random.randint(10, 20) / 100)
@@ -59,10 +48,21 @@ async def handler(websocket):
             pickle.dump(proxy[:-5] + str(proxy_port), pk)
         return old_proxy
 
-    noTrains = False
-    fares = list()
-
     try:
+        request = await websocket.recv()
+
+        with open("./status.pk", "wb") as pk:
+            pickle.dump(False, pk)
+
+        args = json.loads(request)
+        dept_code, arrival_code = args["deptCode"], args["arrivalCode"]
+        dates = args["dates"]
+        coach, business, first = args["coach"], args["business"], args["first"]
+        roomette, bedroom, family_bedroom = args["roomette"], args["bedroom"], args["familyBedroom"]
+
+        noTrains = False
+        fares = list()
+
         i = 0
         while (i < len(dates)):
             date = dates[i]
@@ -390,14 +390,21 @@ async def handler(websocket):
             else:
                 i += 1
     except Exception:
-        # comment out the line below when developing on Windows
-        display.stop()
-        pass
+        try:
+            driver.quit()
+        except Exception:
+            pass
 
-    with open("./status.pk", "wb") as pk:
-        pickle.dump(True, pk)
+        # comment out the try-except block below when developing on Windows
+        try:
+            display.stop()
+        except Exception:
+            pass
 
     try:
+        with open("./status.pk", "wb") as pk:
+            pickle.dump(True, pk)
+
         if (len(fares) == 0):
             await send_progress(i, len(dates), "No trains found!")
             await asyncio.sleep(0.1)

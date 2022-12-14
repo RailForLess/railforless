@@ -68,7 +68,7 @@ async def handler(websocket):
             date = dates[i]
             if (i % 3 == 0):
                 await send_progress(i, len(
-                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 15)
+                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 16)
 
                 if (i != 0):
                     driver.quit()
@@ -106,8 +106,6 @@ async def handler(websocket):
                     driver.get("http://www.amtrak.com/")
                 except Exception:
                     pass
-                driver.maximize_window()
-                driver.set_page_load_timeout(10)
 
             await send_progress(i, len(dates), "Entering travel information")
             await asyncio.sleep(0.1)
@@ -168,7 +166,7 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(i, len(dates), "Waiting on amtrak.com", 12)
+            await send_progress(i, len(dates), "Waiting on amtrak.com", 14)
             await asyncio.sleep(0.1)
 
             WebDriverWait(driver, 20).until(

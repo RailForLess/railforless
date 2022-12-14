@@ -15,12 +15,15 @@ def stations():
     conn = sqlite3.connect(
         "./stations.db")
     c = conn.cursor()
-    c.execute("SELECT name, route from stations")
+    c.execute("SELECT * from stations")
     rows = c.fetchall()
     conn.close()
     stations = dict()
     for row in rows:
-        stations[row[0]] = row[1].split(",")[:-1]
+        name, code, routes = row[0], row[1], row[2].split(",")[:-1]
+        stations[name] = dict()
+        stations[name]["code"] = code
+        stations[name]["routes"] = routes
     return {"stations": stations}
 
 

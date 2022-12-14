@@ -15,6 +15,21 @@ main {
 	width: 70%;
 }
 
+.fade-in-translate {
+	animation: fadeInTranslate 2s;
+}
+
+@keyframes fadeInTranslate {
+	0% {
+		opacity: 0;
+		transform: translate(0, 2rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
 @media all and (min-width: 481px) and (max-width: 1099px) {
 	#main-container {
 		width: 80%;

@@ -25,7 +25,7 @@ export default function Home() {
 			Object.keys(fares).length === 0
 		) {
 			return (
-				<div id="progress" style={{ height: "auto" }}>
+				<div class="fade-in" id="progress" style={{ height: "auto" }}>
 					<h1>{progress.percentComplete + "%"}</h1>
 					{progress.time && <ProgressBar progress={progress} />}
 					<h2>{progress.date}</h2>
@@ -39,13 +39,20 @@ export default function Home() {
 		if (progress.percentComplete > 0) {
 			return <ProgressCrossing />;
 		} else {
-			return <img alt="" id="crossing" src={`./images/crossing-up.png`} />;
+			return (
+				<img
+					alt=""
+					class="fade-in"
+					id="crossing"
+					src={`./images/crossing-up.png`}
+				/>
+			);
 		}
 	}
 
 	return (
 		<div id="hero-text-container">
-			<div id="hero-text">
+			<div class="fade-in-translate" id="hero-text">
 				<h1>RailForLess.us</h1>
 				{Object.keys(fares).length === 0 && (
 					<h2>

@@ -30,18 +30,18 @@ for row in soup.findAll('table')[1].tbody.findAll('tr')[1:]:
 for station in stations:
     if (names.count(station[0]) > 1):
         station[0] = station[0] + f' ({station[2]})'
+    del station[2]
 
 conn = sqlite3.connect("./stations.db")
 c = conn.cursor()
 c. execute(""" CREATE TABLE IF NOT EXISTS stations (
     name text,
     code text,
-    state text,
-    route text
+    routes text
 );""")
 c.execute("DELETE FROM stations")
 for station in stations:
     c.execute(
-        f'INSERT INTO stations VALUES ("{station[0]}", "{station[1]}", "{station[2]}", "{station[3]}")')
+        f'INSERT INTO stations VALUES ("{station[0]}", "{station[1]}", "{station[2]}")')
 conn.commit()
 conn.close()

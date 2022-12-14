@@ -1,7 +1,6 @@
 import asyncio
 import websockets
 
-import sqlite3
 import json
 
 from pyvirtualdisplay import Display
@@ -22,11 +21,6 @@ import math
 async def handler(websocket):
     request = await websocket.recv()
 
-    def get_station_code(station):
-        query = f"SELECT code from stations WHERE name = '{station}'"
-        c.execute(query)
-        return c.fetchall()[0][0]
-
     async def send_progress(i, numDates, info, time=None):
         progress = dict()
 
@@ -44,16 +38,8 @@ async def handler(websocket):
         pickle.dump(False, pk)
 
     args = json.loads(request)
-    dept_station, arrival_station = args["deptStation"], args["arrivalStation"]
+    dept_code, arrival_code = args["deptCode"], args["arrivalCode"]
     dates = args["dates"]
-
-    conn = sqlite3.connect(
-        "./stations.db")
-    c = conn.cursor()
-    dept_code, arrival_code = get_station_code(
-        dept_station), get_station_code(arrival_station)
-    conn.close()
-
     coach, business, first = args["coach"], args["business"], args["first"]
     roomette, bedroom, family_bedroom = args["roomette"], args["bedroom"], args["familyBedroom"]
 
@@ -397,7 +383,7 @@ async def handler(websocket):
                 await send_progress(i, len(dates), "Finishing up")
                 await asyncio.sleep(0.1)
 
-                driver.close()
+                driver.quit()
                 # comment out the line below when developing on Windows
                 display.stop()
                 break

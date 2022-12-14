@@ -53,7 +53,7 @@ export default function App() {
 	const [imageIndex, setImageIndex] = useState(Math.floor(Math.random() * 6));
 
 	return (
-		<div className="App">
+		<div class="fade-in">
 			<Navbar />
 			<AppRouter imageNum={imageInfo[imageIndex].imageNum} />
 			<Footer

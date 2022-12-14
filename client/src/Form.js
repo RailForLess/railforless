@@ -25,15 +25,17 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function renderStations(stations) {
 		return Object.keys(stations).map((station) => (
-			<option key={station} value={station}></option>
+			<option key={station} value={station}>
+				{station}
+			</option>
 		));
 	}
 
 	function filterStations(routeStation, stations) {
 		let filteredStations = {};
 		for (const station in stations) {
-			const mutualStation = stations[station].some((route) => {
-				return stations[routeStation].includes(route);
+			const mutualStation = stations[station].routes.some((route) => {
+				return stations[routeStation].routes.includes(route);
 			});
 			if (mutualStation) {
 				filteredStations[station] = stations[station];
@@ -76,7 +78,11 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function autocorrect(input, stations) {
 		for (const station in stations) {
-			if (input.toLowerCase() === station.toLowerCase()) {
+			if (
+				input.toLowerCase().replaceAll(" ", "") ===
+					station.toLowerCase().replaceAll(" ", "") ||
+				input == stations[station].code
+			) {
 				return station;
 			}
 		}
@@ -173,8 +179,8 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					}
 
 					const fareMessage = {
-						deptStation: deptStation,
-						arrivalStation: arrivalStation,
+						deptCode: deptStations[deptStation].code,
+						arrivalCode: arrivalStations[arrivalStation].code,
 						dates: dates,
 						coach: coach,
 						business: business,
@@ -254,43 +260,73 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<datalist id="dept-stations">{renderStations(deptStations)}</datalist>
+		<form class="fade-in-translate" onSubmit={handleSubmit}>
 			<div className="input-row">
+				<datalist id="dept-stations">{renderStations(deptStations)}</datalist>
 				<div className="input-column">
 					<label htmlFor="from">Departure Station</label>
-					<input
-						id="from"
-						list="dept-stations"
-						name="from"
-						onChange={(e) =>
-							setDeptStation(autocorrect(e.target.value, deptStations))
-						}
-						required
-						style={{ color: renderInputColor(deptStation, deptStations) }}
-						type="search"
-						value={deptStation}
-					/>
+					{window.matchMedia("(min-width: 481px)").matches && (
+						<input
+							id="from"
+							list="dept-stations"
+							name="from"
+							onChange={(e) =>
+								setDeptStation(autocorrect(e.target.value, deptStations))
+							}
+							placeholder="name or code"
+							required
+							style={{ color: renderInputColor(deptStation, deptStations) }}
+							type="search"
+							value={deptStation}
+						/>
+					)}
+					{window.matchMedia("(max-width: 480px)").matches && (
+						<select
+							id="from"
+							name="from"
+							onChange={(e) => setDeptStation(e.target.value)}
+							required
+							value={deptStation}
+						>
+							<option></option>
+							{renderStations(deptStations)}
+						</select>
+					)}
 				</div>
 				<datalist id="arrival-stations">
 					{renderStations(arrivalStations)}
 				</datalist>
 				<div className="input-column">
 					<label htmlFor="to">Arrival Station</label>
-					<input
-						id="to"
-						list="arrival-stations"
-						name="to"
-						onChange={(e) =>
-							setArrivalStation(autocorrect(e.target.value, arrivalStations))
-						}
-						required
-						style={{
-							color: renderInputColor(arrivalStation, arrivalStations),
-						}}
-						type="text"
-						value={arrivalStation}
-					/>
+					{window.matchMedia("(min-width: 481px)").matches && (
+						<input
+							id="to"
+							list="arrival-stations"
+							name="to"
+							onChange={(e) =>
+								setArrivalStation(autocorrect(e.target.value, arrivalStations))
+							}
+							placeholder="name or code"
+							required
+							style={{
+								color: renderInputColor(arrivalStation, arrivalStations),
+							}}
+							type="search"
+							value={arrivalStation}
+						/>
+					)}
+					{window.matchMedia("(max-width: 480px)").matches && (
+						<select
+							id="to"
+							name="to"
+							onChange={(e) => setArrivalStation(e.target.value)}
+							required
+							value={arrivalStation}
+						>
+							<option></option>
+							{renderStations(arrivalStations)}
+						</select>
+					)}
 				</div>
 				<div className="input-column">
 					<label htmlFor="start-date">Start Date</label>

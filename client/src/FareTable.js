@@ -68,7 +68,7 @@ export default function FareTable({ fares }) {
 	}
 
 	return (
-		<table>
+		<table class="fade-in">
 			<thead>
 				<tr key="headers">
 					{headerArray.map((header) => (

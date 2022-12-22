@@ -68,7 +68,7 @@ async def handler(websocket):
             date = dates[i]
             if (i % 3 == 0):
                 await send_progress(i, len(
-                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 16)
+                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 20)
 
                 if (i != 0):
                     driver.quit()
@@ -101,7 +101,7 @@ async def handler(websocket):
 
                 driver = webdriver.Chrome(
                     options=options, seleniumwire_options=seleniumwire_options, service=service)
-                driver.set_page_load_timeout(12)
+                driver.set_page_load_timeout(15)
                 try:
                     driver.get("http://www.amtrak.com/")
                 except Exception:
@@ -166,7 +166,7 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(i, len(dates), "Waiting on amtrak.com", 14)
+            await send_progress(i, len(dates), "Waiting on amtrak.com", 17)
             await asyncio.sleep(0.1)
 
             WebDriverWait(driver, 20).until(
@@ -348,10 +348,12 @@ async def handler(websocket):
                             else:
                                 family_bedroom_price = rooms_price
                             fare["familyBedroom"] = family_bedroom_price
-                        rooms_button.click()
                         html = driver.find_element(By.TAG_NAME, "html")
                         html.send_keys(Keys.HOME)
-                        time.sleep(1)
+                        time.sleep(0.5)
+                        rooms_button.click()
+                        html.send_keys(Keys.HOME)
+                        time.sleep(0.5)
 
                 capacity = details.find_element(
                     By.XPATH, ".//div[@class='seat-capacity-text']").text

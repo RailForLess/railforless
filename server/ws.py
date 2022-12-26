@@ -68,7 +68,7 @@ async def handler(websocket):
             date = dates[i]
             if (i % 3 == 0):
                 await send_progress(i, len(
-                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 20)
+                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 30)
 
                 if (i != 0):
                     driver.quit()
@@ -101,7 +101,7 @@ async def handler(websocket):
 
                 driver = webdriver.Chrome(
                     options=options, seleniumwire_options=seleniumwire_options, service=service)
-                driver.set_page_load_timeout(15)
+                driver.set_page_load_timeout(25)
                 try:
                     driver.get("http://www.amtrak.com/")
                 except Exception:
@@ -166,10 +166,10 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(i, len(dates), "Waiting on amtrak.com", 17)
+            await send_progress(i, len(dates), "Waiting on amtrak.com", 27)
             await asyncio.sleep(0.1)
 
-            WebDriverWait(driver, 20).until(
+            WebDriverWait(driver, 30).until(
                 EC.any_of(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'New Search')]")),
                           EC.element_to_be_clickable(
                     (By.XPATH, "//button[contains(.,'Cancel')]")),
@@ -234,6 +234,7 @@ async def handler(websocket):
 
                 rooms_button = service.find_elements(
                     By.XPATH, ".//button[contains(.,'Rooms')]")
+                bedroom_button, family_bedroom_button = None, None
                 if (rooms_button and route != "Mixed Service" and route != "Multiple Trains"):
                     rooms_button = rooms_button[0]
                     if (roomette or bedroom or family_bedroom):
@@ -250,14 +251,12 @@ async def handler(websocket):
                         delay()
 
                         if (bedroom):
-                            bedroom_button = None
                             try:
                                 bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
                                     By.XPATH, "//button[@aria-label='Bedroom']")))
                             except Exception:
                                 pass
                         if (family_bedroom):
-                            family_bedroom_button = None
                             try:
                                 family_bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
                                     By.XPATH, "//button[@aria-label='Family Bedroom']")))

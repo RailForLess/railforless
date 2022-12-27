@@ -68,7 +68,7 @@ async def handler(websocket):
             date = dates[i]
             if (i % 3 == 0):
                 await send_progress(i, len(
-                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 30)
+                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 25)
 
                 if (i != 0):
                     driver.quit()
@@ -101,7 +101,7 @@ async def handler(websocket):
 
                 driver = webdriver.Chrome(
                     options=options, seleniumwire_options=seleniumwire_options, service=service)
-                driver.set_page_load_timeout(25)
+                driver.set_page_load_timeout(20)
                 try:
                     driver.get("http://www.amtrak.com/")
                 except Exception:
@@ -139,7 +139,7 @@ async def handler(websocket):
                 arrival_station_input.send_keys(arrival_code)
                 delay()
 
-            dept_date_input = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((
+            dept_date_input = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
                 By.XPATH, "//input[@data-julie='departdisplay_booking_oneway']")))
             ActionChains(driver).move_to_element(dept_date_input).perform()
             delay()
@@ -166,14 +166,17 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(i, len(dates), "Waiting on amtrak.com", 27)
+            await send_progress(i, len(dates), "Waiting on amtrak.com", 22)
             await asyncio.sleep(0.1)
 
-            WebDriverWait(driver, 30).until(
-                EC.any_of(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'New Search')]")),
-                          EC.element_to_be_clickable(
-                    (By.XPATH, "//button[contains(.,'Cancel')]")),
-                    EC.presence_of_element_located((By.XPATH, "//div[@class='col-12 d-inline-flex']"))))
+            try:
+                WebDriverWait(driver, 10).until(
+                    EC.any_of(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'New Search')]")),
+                            EC.element_to_be_clickable(
+                        (By.XPATH, "//button[contains(.,'Cancel')]")),
+                        EC.presence_of_element_located((By.XPATH, "//div[@class='col-12 d-inline-flex']"))))
+            except:
+                pass
             if driver.find_elements(By.XPATH, "//button[contains(.,'Cancel')]") or \
                     driver.find_elements(By.XPATH, "//div[@class='col-12 d-inline-flex']"):
                 if driver.find_elements(By.XPATH, "//button[contains(.,'Cancel')]"):
@@ -268,7 +271,7 @@ async def handler(websocket):
                             try:
                                 room_type = WebDriverWait(search_results, 3).until(
                                     EC.any_of(EC.presence_of_element_located((By.XPATH, "(.//span[@class='font-light ng-tns-c154-10'])[2]")),
-                                              EC.presence_of_element_located(
+                                            EC.presence_of_element_located(
                                         (By.XPATH, "(.//span[@class='font-light ng-tns-c154-11'])[2]")),
                                         EC.presence_of_element_located(
                                         (By.XPATH, "(.//span[@class='font-light ng-tns-c154-12'])[2]")),

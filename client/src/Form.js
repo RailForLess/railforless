@@ -46,6 +46,8 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	const [direct, setDirect] = useState(false);
 
+	const [lastStationModified, setLastStationModified] = useState("");
+
 	const [deptStation, setDeptStation] = useState("");
 
 	if (arrivalStations.hasOwnProperty(deptStation)) {
@@ -77,12 +79,32 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	}
 
 	function autocorrect(input, stations) {
-		for (const station in stations) {
+		for (const station in allStations) {
 			if (
 				input.toLowerCase().replaceAll(" ", "") ===
 					station.toLowerCase().replaceAll(" ", "") ||
-				input == stations[station].code
+				input == allStations[station].code
 			) {
+				if (station === "Lorton" || station === "Sanford") {
+					alert(
+						"Unfortunately, Auto Train fares are not supported at this time."
+					);
+					return "";
+				} else if (
+					allStations.hasOwnProperty(station) &&
+					!stations.hasOwnProperty(station) &&
+					direct &&
+					station != (arrivalStations ? deptStation : arrivalStation)
+				) {
+					alert(
+						`Direct routes only enabled, but ${
+							stations == deptStations ? station : deptStation
+						} to ${
+							stations == arrivalStations ? station : arrivalStation
+						} is not a direct route. This option can be disabled under "More".`
+					);
+					return "";
+				}
 				return station;
 			}
 		}
@@ -104,7 +126,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		if (direct) {
 			if (
 				!window.confirm(
-					"Room fares are only available on direct routes. Would you like to disable this option?"
+					"Room fares are only available on direct routes. Are you sure you want to disable this option?"
 				)
 			) {
 				return;
@@ -133,7 +155,6 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function handleSubmit(e) {
 		e.preventDefault();
-
 		if (!Object.keys(deptStations).includes(deptStation)) {
 			alert("Please enter a valid departure station.");
 			return;
@@ -215,6 +236,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	}
 
 	const [status, setStatus] = useState(false);
+
+	setInterval(() => {
+		updateStatus();
+	}, 5000);
 
 	useEffect(() => {
 		updateStatus();

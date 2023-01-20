@@ -19,15 +19,15 @@ import math
 
 
 async def handler(websocket):
-    async def send_progress(i, numDates, info, time=None):
+    async def send_progress(date_index, percent_index, numDates, info, time=None):
         progress = dict()
 
         progress["percentComplete"] = round(
-            round((i if len(info.split()) == 6 else i + 1) / numDates, 2) * 100)
+            round(percent_index / (numDates + math.ceil(numDates / 3)), 2) * 100)
         if time:
             progress["time"] = time
         progress["info"] = info
-        progress["date"] = f'Fetching date {i + 1} of {numDates}'
+        progress["date"] = f'Fetching date {date_index + 1} of {numDates}'
 
         await websocket.send(json.dumps({"progress": progress}))
         await asyncio.sleep(0.1)
@@ -40,8 +40,8 @@ async def handler(websocket):
             proxy = pickle.load(pk)
         old_proxy = proxy
         proxy_port = int(proxy[-5:])
-        if (proxy_port == 40149):
-            proxy_port = 40100
+        if (proxy_port == 40249):
+            proxy_port = 40200
         else:
             proxy_port += 1
         with open("./proxy.pk", "wb") as pk:
@@ -63,19 +63,18 @@ async def handler(websocket):
         noTrains = False
         fares = list()
 
-        i = 0
-        while (i < len(dates)):
-            date = dates[i]
-            if (i % 3 == 0):
-                await send_progress(i, len(
-                    dates), f"Connecting to proxy {math.ceil((i + 1) / 3)} of {math.ceil(len(dates) / 3)}", 19)
+        date_index, percent_index = 0, 0
+        while (date_index < len(dates)):
+            date = dates[date_index]
+            if (date_index % 3 == 0):
+                await send_progress(date_index, percent_index, len(
+                    dates), f"Connecting to proxy {math.ceil((date_index + 1) / 3)} of {math.ceil(len(dates) / 3)}", 17)
 
-                if (i != 0):
+                if (date_index != 0):
                     driver.quit()
 
                     # comment out the line below when developing on Windows
                     display.stop()
-                time.sleep(2)
 
                 # comment out the two lines below when developing on Windows
                 display = Display(visible=1, size=(1280, 1440))
@@ -103,14 +102,17 @@ async def handler(websocket):
                     options=options, seleniumwire_options=seleniumwire_options, service=service)
                 driver.set_page_load_timeout(15)
                 try:
-                    driver.get("http://www.amtrak.com/")
+                    driver.get("https://www.amtrak.com/")
                 except Exception:
                     pass
+                driver.set_page_load_timeout(10)
 
-            await send_progress(i, len(dates), "Entering travel information")
+                percent_index += 1
+
+            await send_progress(date_index, percent_index, len(dates), "Entering travel information")
             await asyncio.sleep(0.1)
 
-            if not (i % 3 == 0 or noTrains):
+            if (date_index % 3 != 0 and not noTrains):
                 new_search_button = driver.find_element(
                     By.XPATH, "//button[contains(.,'New Search')]")
                 ActionChains(driver).move_to_element(
@@ -119,7 +121,7 @@ async def handler(websocket):
                 new_search_button.click()
                 delay()
 
-            if (i % 3 == 0):
+            if (date_index % 3 == 0):
                 dept_station_input = driver.find_element(
                     By.XPATH, "//input[@data-placeholder='From']")
                 ActionChains(driver).move_to_element(
@@ -129,6 +131,7 @@ async def handler(websocket):
                 delay()
                 dept_station_input.send_keys(dept_code)
                 delay()
+
                 arrival_station_input = driver.find_element(
                     By.XPATH, "//input[@data-placeholder='To']")
                 ActionChains(driver).move_to_element(
@@ -166,7 +169,7 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(i, len(dates), "Waiting on amtrak.com", 17)
+            await send_progress(date_index, percent_index, len(dates), "Waiting on amtrak.com", 12)
             await asyncio.sleep(0.1)
 
             try:
@@ -241,8 +244,7 @@ async def handler(websocket):
                 if (rooms_button and route != "Mixed Service" and route != "Multiple Trains"):
                     rooms_button = rooms_button[0]
                     if (roomette or bedroom or family_bedroom):
-                        await send_progress(
-                            i, len(dates), "Browsing available rooms")
+                        await send_progress(date_index, percent_index, len(dates), "Browsing available rooms")
                         await asyncio.sleep(0.1)
 
                         rooms_price = rooms_button.find_element(
@@ -381,8 +383,10 @@ async def handler(websocket):
                 if (any(fare_type in ["coach", "business", "first", "roomette", "bedroom", "familyBedroom"] for fare_type in fare)):
                     fares.append(fare)
 
-            if (i == len(dates) - 1):
-                await send_progress(i, len(dates), "Finishing up")
+            if (date_index == len(dates) - 1):
+                percent_index += 1
+
+                await send_progress(date_index, percent_index, len(dates), "Finishing up")
                 await asyncio.sleep(0.1)
 
                 driver.quit()
@@ -390,7 +394,8 @@ async def handler(websocket):
                 display.stop()
                 break
             else:
-                i += 1
+                date_index += 1
+                percent_index += 1
     except Exception:
         try:
             driver.quit()
@@ -408,7 +413,7 @@ async def handler(websocket):
             pickle.dump(True, pk)
 
         if (len(fares) == 0):
-            await send_progress(i, len(dates), "No trains found!")
+            await send_progress(date_index, percent_index, len(dates), "No trains found!")
             await asyncio.sleep(0.1)
         await websocket.send(json.dumps({"fares": fares}))
         await asyncio.sleep(0.1)

@@ -309,7 +309,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						<select
 							id="from"
 							name="from"
-							onChange={(e) => setDeptStation(e.target.value)}
+							onChange={(e) =>
+								setDeptStation(autocorrect(e.target.value, deptStations))
+							}
 							required
 							value={deptStation}
 						>
@@ -344,7 +346,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						<select
 							id="to"
 							name="to"
-							onChange={(e) => setArrivalStation(e.target.value)}
+							onChange={(e) =>
+								setArrivalStation(autocorrect(e.target.value, arrivalStations))
+							}
 							required
 							value={arrivalStation}
 						>

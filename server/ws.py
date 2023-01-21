@@ -68,7 +68,7 @@ async def handler(websocket):
             date = dates[date_index]
             if (date_index % 3 == 0):
                 await send_progress(date_index, percent_index, len(
-                    dates), f"Connecting to proxy {math.ceil((date_index + 1) / 3)} of {math.ceil(len(dates) / 3)}", 17)
+                    dates), f"Connecting to proxy {math.ceil((date_index + 1) / 3)} of {math.ceil(len(dates) / 3)}", 19)
 
                 if (date_index != 0):
                     driver.quit()

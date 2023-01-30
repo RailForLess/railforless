@@ -423,7 +423,7 @@ async def handler(websocket):
 
         await websocket.send(json.dumps({"fares": fares}))
 
-        if (len(fares) > 0):
+        if (len(fares) > 0 and share):
             with open("./recent_searches.pk", "rb") as pk:
                 recent_searches = list()
                 fares[0]["deptStation"] = dept_station

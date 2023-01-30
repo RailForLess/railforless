@@ -1,0 +1,32 @@
+#recent-searches-button {
+	animation-iteration-count: infinite;
+	animation-name: arrow-down;
+	animation-duration: 2s;
+	cursor: pointer;
+	position: relative;
+}
+
+#recent-searches-button-container {
+	height: 4.3rem;
+	transition: all 0.25s;
+}
+
+#recent-searches-button-container:hover {
+	transform: scale(1.1);
+}
+
+#recent-searches-button sup {
+	font-size: 0.75rem;
+}
+
+@keyframes arrow-down {
+	0% {
+		top: 0;
+	}
+	50% {
+		top: 0.5rem;
+	}
+	100% {
+		top: 0;
+	}
+}

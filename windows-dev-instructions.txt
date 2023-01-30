@@ -2,7 +2,7 @@ Windows Development Instructions
 
 1. Clone this repo with "git clone https://github.com/tikkisean/rail-for-less.git"
 2. Add line '"proxy": "http://localhost:5000",' to /client/package.json
-3. Follow instrutions in /client/src/Form.js to change WebSocket address
+3. Follow instructions in /client/src/Form.js to change WebSocket address
 4. Install Python packages with "pip install -r requirements.txt" in /server
 5. Download chromedriver for your Chrome version from https://chromedriver.chromium.org/downloads,
    name this file "chromedriver" and place it in /server

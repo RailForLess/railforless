@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Form from "./Form";
-import ProgressBar from "./ProgressBar";
 import FareTable from "./FareTable";
+import ProgressBar from "./ProgressBar";
 import ProgressTrain from "./ProgressTrain";
 import ProgressCrossing from "./ProgressCrossing";
+import RecentSearchesButton from "./RecentSearchesButton";
 import "./Home.css";
 
-export default function Home() {
+export default function Home({ recentSearches, setRecentSearches }) {
 	const [progress, setProgress] = useState({});
 	const [fares, setFares] = useState({});
 
@@ -51,7 +52,7 @@ export default function Home() {
 	}
 
 	return (
-		<div id="hero-text-container">
+		<div className="hero-text-container">
 			<div class="fade-in-translate" id="hero-text">
 				<h1>RailForLess.us</h1>
 				{Object.keys(fares).length === 0 && (
@@ -73,6 +74,11 @@ export default function Home() {
 			{progressBool() && <ProgressTrain progress={progress} />}
 			{progressBool() && <div style={{ height: "5vh" }}></div>}
 			{progressBool() && crossingState()}
+			{!progressBool() &&
+				Object.keys(fares).length === 0 &&
+				recentSearches.length === 0 && (
+					<RecentSearchesButton setRecentSearches={setRecentSearches} />
+				)}
 		</div>
 	);
 }

@@ -33,7 +33,6 @@ p {
 }
 
 .section-container,
-#about-container,
 #back-button-container {
 	align-items: center;
 	display: flex;

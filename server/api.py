@@ -10,6 +10,12 @@ app = Flask(__name__)
 # CORS(app)
 
 
+@app.route("/api/recent-searches")
+def recent_searches():
+    with open("./recent_searches.pk", "rb") as pk:
+        return {"recentSearches": pickle.load(pk)}
+
+
 @app.route("/api/stations")
 def stations():
     conn = sqlite3.connect(

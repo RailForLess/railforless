@@ -55,13 +55,18 @@ async def handler(websocket):
             pickle.dump(False, pk)
 
         args = json.loads(request)
+        dept_station, arrival_station = args["deptStation"], args["arrivalStation"]
         dept_code, arrival_code = args["deptCode"], args["arrivalCode"]
+        requestTime = args["requestTime"]
         dates = args["dates"]
         coach, business, first = args["coach"], args["business"], args["first"]
         roomette, bedroom, family_bedroom = args["roomette"], args["bedroom"], args["familyBedroom"]
+        share = args["share"]
 
         noTrains = False
         fares = list()
+        addInfo = dict()
+        fares.append(addInfo)
 
         date_index, percent_index = 0, 0
         while (date_index < len(dates)):
@@ -415,8 +420,23 @@ async def handler(websocket):
         if (len(fares) == 0):
             await send_progress(date_index, percent_index, len(dates), "No trains found!")
             await asyncio.sleep(0.1)
+
         await websocket.send(json.dumps({"fares": fares}))
-        await asyncio.sleep(0.1)
+
+        if (len(fares) > 0):
+            with open("./recent_searches.pk", "rb") as pk:
+                recent_searches = list()
+                fares[0]["deptStation"] = dept_station
+                fares[0]["arrivalStation"] = arrival_station
+                fares[0]["requestTime"] = requestTime
+                try:
+                    recent_searches = pickle.load(pk)
+                    recent_searches.insert(0, fares)
+                except Exception:
+                    pass
+            with open("./recent_searches.pk", "wb") as pk:
+                pickle.dump(
+                    recent_searches if recent_searches else [fares], pk)
     except Exception:
         pass
 

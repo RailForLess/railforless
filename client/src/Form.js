@@ -46,8 +46,6 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	const [direct, setDirect] = useState(false);
 
-	const [lastStationModified, setLastStationModified] = useState("");
-
 	const [deptStation, setDeptStation] = useState("");
 
 	if (arrivalStations.hasOwnProperty(deptStation)) {
@@ -122,7 +120,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	const [bedroom, setBedroom] = useState(false);
 	const [familyBedroom, setFamilyBedroom] = useState(false);
 
-	function handleSetDirect() {
+	const [share, setShare] = useState(true);
+
+	function handleDirect() {
 		if (direct) {
 			if (
 				!window.confirm(
@@ -145,11 +145,22 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		}
 	}
 
+	function calcMaxStartDate() {
+		const maxStartDate = new Date();
+		maxStartDate.setFullYear(maxStartDate.getFullYear() + 1);
+		return maxStartDate.toISOString().split("T")[0];
+	}
+
 	function calcMaxEndDate() {
 		if (startDate) {
 			const maxEndDate = new Date(startDate);
 			maxEndDate.setDate(maxEndDate.getDate() + 8);
-			return maxEndDate.toISOString().split("T")[0];
+			const maxStartDate = new Date(calcMaxStartDate());
+			return maxEndDate < maxStartDate
+				? maxEndDate.toISOString().split("T")[0]
+				: maxStartDate.toISOString().split("T")[0];
+		} else {
+			return calcMaxStartDate();
 		}
 	}
 
@@ -169,7 +180,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			return;
 		} else if (
 			!window.confirm(
-				"Requesting fares may take a few minutes and you will not be able to refresh this page. Note that the first departure each date will be selected."
+				"Requesting fares may take a few minutes and you will not be able to refresh this page. Note that the first departure each date will be selected." +
+					(share
+						? " The results of this search will be shared with others at the bottom of this page. Fare sharing can be disabled under the More menu."
+						: "")
 			)
 		) {
 			return;
@@ -200,8 +214,11 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					}
 
 					const fareMessage = {
+						deptStation: deptStation,
+						arrivalStation: arrivalStation,
 						deptCode: deptStations[deptStation].code,
 						arrivalCode: arrivalStations[arrivalStation].code,
+						requestTime: JSON.stringify(new Date()),
 						dates: dates,
 						coach: coach,
 						business: business,
@@ -209,6 +226,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						roomette: roomette,
 						bedroom: bedroom,
 						familyBedroom: familyBedroom,
+						share: share,
 					};
 					socket.onopen = (e) => {
 						socket.send(JSON.stringify(fareMessage));
@@ -282,6 +300,19 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			setRoomsExpanded(false);
 		}
 		setMoreExpanded(!moreExpanded);
+	}
+
+	function handleShare() {
+		if (share) {
+			if (
+				!window.confirm(
+					"Sharing fares allows others to view the results of your search without having to make a new request. Are you sure you want to disable this option?"
+				)
+			) {
+				return;
+			}
+		}
+		setShare(!share);
 	}
 
 	return (
@@ -361,6 +392,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					<label htmlFor="start-date">Start Date</label>
 					<input
 						id="start-date"
+						max={calcMaxStartDate()}
 						min={new Date().toISOString().split("T")[0]}
 						name="start-date"
 						onChange={(e) => setStartDate(e.target.value)}
@@ -374,7 +406,11 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					<input
 						id="end-date"
 						max={calcMaxEndDate()}
-						min={startDate}
+						min={
+							startDate.length > 0
+								? startDate
+								: new Date().toISOString().split("T")[0]
+						}
 						name="end-date"
 						onChange={(e) => setEndDate(e.target.value)}
 						required
@@ -558,10 +594,20 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							checked={direct}
 							id="direct"
 							name="direct"
-							onChange={(e) => handleSetDirect()}
+							onChange={(e) => handleDirect()}
 							type="checkbox"
 						/>
 						<label htmlFor="direct">Direct routes only</label>
+					</div>
+					<div className="checkbox">
+						<input
+							checked={share}
+							id="share"
+							name="share"
+							onChange={(e) => handleShare(!share)}
+							type="checkbox"
+						/>
+						<label htmlFor="share">Share fares</label>
 					</div>
 				</div>
 			)}

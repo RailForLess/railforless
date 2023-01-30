@@ -5,7 +5,7 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function About() {
 	return (
-		<div id="about-container">
+		<div className="hero-text-container">
 			<div class="fade-in-translate section-container">
 				<h1>Background</h1>
 				<p>

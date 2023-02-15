@@ -5,7 +5,6 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function FareTable({ fares }) {
 	const addInfo = fares.shift();
-	console.log(new Date(addInfo.requestTime).toLocaleString());
 
 	const headerSet = new Set(["route", "date"]);
 	const fareTypes = {};
@@ -73,7 +72,7 @@ export default function FareTable({ fares }) {
 	}
 
 	return (
-		<div class="fare-table">
+		<div class="fare-table fade-in">
 			{Object.keys(addInfo).length > 0 && (
 				<div class="table-info">
 					<div class="table-stations">
@@ -83,7 +82,7 @@ export default function FareTable({ fares }) {
 					</div>
 				</div>
 			)}
-			<table class="fade-in">
+			<table>
 				<thead>
 					<tr key="headers">
 						{headerArray.map((header) => (

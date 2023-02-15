@@ -4,13 +4,17 @@ import "./RecentSearchesButton.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
-export default function RecentSearchesButton({ setRecentSearches }) {
+export default function RecentSearchesButton({
+	setRecentSearches,
+	setMaxRecentSearch,
+}) {
 	function handleClick() {
 		fetch("/api/recent-searches")
 			.then((res) => res.json())
 			.then((data) => {
 				flushSync(() => {
 					setRecentSearches(data.recentSearches);
+					setMaxRecentSearch(10);
 				});
 				const element = document.getElementById("recent-searches");
 				element.scrollIntoView({ behavior: "smooth" });

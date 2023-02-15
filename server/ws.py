@@ -417,13 +417,13 @@ async def handler(websocket):
         with open("./status.pk", "wb") as pk:
             pickle.dump(True, pk)
 
-        if (len(fares) == 0):
+        if (len(fares) == 1):
             await send_progress(date_index, percent_index, len(dates), "No trains found!")
             await asyncio.sleep(0.1)
+        else:
+            await websocket.send(json.dumps({"fares": fares}))
 
-        await websocket.send(json.dumps({"fares": fares}))
-
-        if (len(fares) > 0 and share):
+        if (len(fares) > 1 and share):
             with open("./recent_searches.pk", "rb") as pk:
                 recent_searches = list()
                 fares[0]["deptStation"] = dept_station

@@ -4,6 +4,7 @@ from flask import request
 # from flask_cors import CORS
 import sqlite3
 import pickle
+from datetime import datetime
 
 app = Flask(__name__)
 # uncomment the line below when developing on Windows
@@ -35,6 +36,9 @@ def stations():
 
 @app.route("/api/status")
 def status():
+    time = datetime.now()
+    if (time.hour == 2 and time.minute >= 50 or time.hour == 3 and time.minute <= 5):
+        return {"status":  False}
     with open("./status.pk", "rb") as pk:
         return {"status": pickle.load(pk)}
 

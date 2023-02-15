@@ -7,7 +7,11 @@ import ProgressCrossing from "./ProgressCrossing";
 import RecentSearchesButton from "./RecentSearchesButton";
 import "./Home.css";
 
-export default function Home({ recentSearches, setRecentSearches }) {
+export default function Home({
+	recentSearches,
+	setRecentSearches,
+	setMaxRecentSearch,
+}) {
 	const [progress, setProgress] = useState({});
 	const [fares, setFares] = useState({});
 
@@ -77,7 +81,10 @@ export default function Home({ recentSearches, setRecentSearches }) {
 			{!progressBool() &&
 				Object.keys(fares).length === 0 &&
 				recentSearches.length === 0 && (
-					<RecentSearchesButton setRecentSearches={setRecentSearches} />
+					<RecentSearchesButton
+						setRecentSearches={setRecentSearches}
+						setMaxRecentSearch={setMaxRecentSearch}
+					/>
 				)}
 		</div>
 	);

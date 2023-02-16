@@ -138,7 +138,7 @@ export default function About() {
 				</div>
 			</div>
 			<a class="fade-in-translate" href="/" id="back-button-container">
-				<FontAwesomeIcon icon={faArrowLeftLong} size="lg" />
+				<FontAwesomeIcon icon={faArrowLeftLong} size="xl" />
 				<p>Take me back</p>
 			</a>
 		</div>

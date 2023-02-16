@@ -4,9 +4,15 @@ import About from "./About";
 import Home from "./Home";
 import "./AppRouter.css";
 import FareTable from "./FareTable";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export default function AppRouter({ imageNum }) {
 	const [recentSearches, setRecentSearches] = useState([]);
+	const [maxRecentSearch, setMaxRecentSearch] = useState(0);
+
+	const recentSearchesToLoad = recentSearches.slice(0, maxRecentSearch);
 
 	return (
 		<main>
@@ -26,6 +32,7 @@ export default function AppRouter({ imageNum }) {
 									<Home
 										recentSearches={recentSearches}
 										setRecentSearches={setRecentSearches}
+										setMaxRecentSearch={setMaxRecentSearch}
 									/>
 								}
 							/>
@@ -38,9 +45,27 @@ export default function AppRouter({ imageNum }) {
 				<div class="main-background" id="recent-searches">
 					<div id="main-container">
 						<div class="fade-in-translate hero-text-container">
-							{recentSearches.map((search, index) => (
-								<FareTable key={index} fares={search} />
+							{recentSearchesToLoad.map((search, index) => (
+								<FareTable key={index} fares={[...search]} />
 							))}
+							<div id="recent-search-button-container">
+								{maxRecentSearch < recentSearches.length && (
+									<div
+										class="recent-search-button"
+										onClick={() => setMaxRecentSearch(maxRecentSearch + 10)}
+									>
+										<p>Load more</p>
+										<FontAwesomeIcon icon={faArrowDown} size="xl" />
+									</div>
+								)}
+								<div
+									class="recent-search-button"
+									onClick={() => setRecentSearches([])}
+								>
+									<p>Close</p>
+									<FontAwesomeIcon icon={faXmark} size="xl" />
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>

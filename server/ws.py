@@ -40,8 +40,8 @@ async def handler(websocket):
             proxy = pickle.load(pk)
         old_proxy = proxy
         proxy_port = int(proxy[-5:])
-        if (proxy_port == 40249):
-            proxy_port = 40200
+        if (proxy_port == 41199):
+            proxy_port = 41150
         else:
             proxy_port += 1
         with open("./proxy.pk", "wb") as pk:

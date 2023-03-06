@@ -1,0 +1,69 @@
+.feedback-column {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+textarea {
+	background-color: gray;
+	border: none;
+	border-radius: 0.5rem;
+	width: 100%;
+}
+
+#donate-button {
+	align-items: center;
+	background: red;
+	border-radius: 1rem;
+	display: flex;
+	gap: 1rem;
+	justify-content: space-around;
+	padding: 1rem;
+	text-decoration: none;
+	transition: background-color 0.25s;
+	width: min-content;
+}
+
+#donate-button:hover {
+	background-color: rgb(200, 0, 0);
+}
+
+#feedback-container {
+	background-color: rgba(0, 0, 0, 0.65);
+	border-radius: 1.5rem;
+	display: flex;
+	padding: 1rem;
+}
+
+#feedback-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+#thumbs-container {
+	display: flex;
+	gap: 2rem;
+	justify-content: center;
+}
+
+#thumbs-container svg {
+	transition: all 0.25s;
+}
+
+#thumbs-container svg:hover {
+	transform: rotate(10deg);
+}
+
+@media all and (min-width: 1100px) {
+	#feedback-container {
+		max-width: 40%;
+	}
+}
+
+@media all and (min-width: 769px) and (max-width: 1099px) {
+	#feedback-container {
+		max-width: 70%;
+	}
+}

@@ -6,6 +6,7 @@ import {
 	faAngleDown,
 	faCircleQuestion,
 	faDollarSign,
+	faRightLeft,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Form({ fares, setFares, progress, setProgress }) {
@@ -59,6 +60,14 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		Object.keys(arrivalStations).length !== Object.keys(allStations).length
 	) {
 		setArrivalStations({ ...allStations });
+	}
+
+	function handleSwap() {
+		setDeptStations({ ...allStations });
+		setArrivalStations({ ...allStations });
+		const tempArrivalStation = arrivalStation;
+		setArrivalStation(deptStation);
+		setDeptStation(tempArrivalStation);
 	}
 
 	const [arrivalStation, setArrivalStation] = useState("");
@@ -316,7 +325,11 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	}
 
 	return (
-		<form class="fade-in-translate" onSubmit={handleSubmit}>
+		<form
+			className="fade-in-translate"
+			id="search-form"
+			onSubmit={handleSubmit}
+		>
 			<div className="input-row">
 				<datalist id="dept-stations">{renderStations(deptStations)}</datalist>
 				<div className="input-column">
@@ -351,6 +364,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						</select>
 					)}
 				</div>
+				<FontAwesomeIcon icon={faRightLeft} onClick={() => handleSwap()} />
 				<datalist id="arrival-stations">
 					{renderStations(arrivalStations)}
 				</datalist>

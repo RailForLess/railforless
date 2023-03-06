@@ -11,6 +11,14 @@ app = Flask(__name__)
 # CORS(app)
 
 
+@app.route("/api/feedback", methods=["POST"])
+def feedback():
+    feedback = request.get_json(force=True)
+    file = open("feedback.txt", "a")
+    file.write(f"{'GOOD' if feedback['bool'] else 'BAD'} - {feedback['text']}\n")
+    return {}
+
+
 @app.route("/api/recent-searches")
 def recent_searches():
     with open("./recent_searches.pk", "rb") as pk:

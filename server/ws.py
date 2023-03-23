@@ -40,8 +40,8 @@ async def handler(websocket):
             proxy = pickle.load(pk)
         old_proxy = proxy
         proxy_port = int(proxy[-5:])
-        if (proxy_port == 41199):
-            proxy_port = 41150
+        if (proxy_port == 10100):
+            proxy_port = 10001
         else:
             proxy_port += 1
         with open("./proxy.pk", "wb") as pk:
@@ -174,7 +174,7 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(date_index, percent_index, len(dates), "Waiting on amtrak.com", 12)
+            await send_progress(date_index, percent_index, len(dates), "Waiting on amtrak.com", 10)
             await asyncio.sleep(0.1)
 
             try:

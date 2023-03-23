@@ -5,8 +5,8 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 export default function About() {
 	return (
-		<div className="hero-text-container">
-			<div class="fade-in-translate section-container">
+		<div className="hero-text-container fade-in-translate">
+			<div className="section-container">
 				<h1>Background</h1>
 				<p>
 					I created this site because Amtrak makes the process of viewing fares
@@ -21,7 +21,7 @@ export default function About() {
 					Amsnag's original functionality as possible.
 				</p>
 			</div>
-			<div class="fade-in-translate section-container">
+			<div className="section-container">
 				<h1>Development</h1>
 				<p>
 					In order to understand what made the development of this site so
@@ -92,7 +92,7 @@ export default function About() {
 					<figcaption>Selenium web scraping on amtrak.com</figcaption>
 				</figure>
 			</div>
-			<div class="fade-in-translate section-container">
+			<div className="section-container">
 				<h1>About me</h1>
 				<div id="about-me-container">
 					<img alt="" src="/images/headshot.jpg" />
@@ -137,7 +137,7 @@ export default function About() {
 					</p>
 				</div>
 			</div>
-			<a class="fade-in-translate" href="/" id="back-button-container">
+			<a href="/" id="back-button-container">
 				<FontAwesomeIcon icon={faArrowLeftLong} size="xl" />
 				<p>Take me back</p>
 			</a>

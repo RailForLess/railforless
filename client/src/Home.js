@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Form from "./Form";
 import FareTable from "./FareTable";
+import Feedback from "./Feedback";
 import ProgressBar from "./ProgressBar";
 import ProgressTrain from "./ProgressTrain";
 import ProgressCrossing from "./ProgressCrossing";
@@ -75,6 +76,8 @@ export default function Home({
 			/>
 			{Object.keys(fares).length > 0 && <FareTable fares={fares} />}
 			{progressState()}
+			{(Object.keys(fares).length > 0 ||
+				progress.info == "No trains found!") && <Feedback />}
 			{progressBool() && <ProgressTrain progress={progress} />}
 			{progressBool() && <div style={{ height: "5vh" }}></div>}
 			{progressBool() && crossingState()}

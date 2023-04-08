@@ -82,7 +82,7 @@ async def handler(websocket):
                     display.stop()
 
                 # comment out the two lines below when developing on Windows
-                display = Display(visible=1, size=(1280, 1440))
+                display = Display(visible=1, size=(1920, 1080))
                 display.start()
 
                 seleniumwire_options = {
@@ -105,6 +105,7 @@ async def handler(websocket):
 
                 driver = webdriver.Chrome(
                     options=options, seleniumwire_options=seleniumwire_options, service=service)
+                driver.maximize_window()
                 driver.set_page_load_timeout(15)
                 try:
                     driver.get("https://www.amtrak.com/")

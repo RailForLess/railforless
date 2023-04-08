@@ -15,7 +15,8 @@ app = Flask(__name__)
 def feedback():
     feedback = request.get_json(force=True)
     file = open("feedback.txt", "a")
-    file.write(f"{'GOOD' if feedback['bool'] else 'BAD'} - {feedback['text']}\n")
+    file.write(
+        f"{'GOOD' if feedback['bool'] else 'BAD'} - {feedback['text']}\n")
     return {}
 
 

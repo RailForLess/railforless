@@ -44,7 +44,7 @@ export default function Feedback() {
 					</div>
 				</div>
 			)}
-			{(feedbackBool == true || feedbackBool == false) && (
+			{(feedbackBool === true || feedbackBool === false) && (
 				<div class="feedback-column">
 					<h2>
 						{submit

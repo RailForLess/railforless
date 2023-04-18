@@ -90,7 +90,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			if (
 				input.toLowerCase().replaceAll(" ", "") ===
 					station.toLowerCase().replaceAll(" ", "") ||
-				input == allStations[station].code
+				input === allStations[station].code
 			) {
 				if (station === "Lorton" || station === "Sanford") {
 					alert(
@@ -101,13 +101,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					allStations.hasOwnProperty(station) &&
 					!stations.hasOwnProperty(station) &&
 					direct &&
-					station != (arrivalStations ? deptStation : arrivalStation)
+					station !== (arrivalStations ? deptStation : arrivalStation)
 				) {
 					alert(
 						`Direct routes only enabled, but ${
-							stations == deptStations ? station : deptStation
+							stations === deptStations ? station : deptStation
 						} to ${
-							stations == arrivalStations ? station : arrivalStation
+							stations === arrivalStations ? station : arrivalStation
 						} is not a direct route. This option can be disabled under "More".`
 					);
 					return "";

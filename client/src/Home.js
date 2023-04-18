@@ -77,7 +77,7 @@ export default function Home({
 			{Object.keys(fares).length > 0 && <FareTable fares={fares} />}
 			{progressState()}
 			{(Object.keys(fares).length > 0 ||
-				progress.info == "No trains found!") && <Feedback />}
+				progress.info === "No trains found!") && <Feedback />}
 			{progressBool() && <ProgressTrain progress={progress} />}
 			{progressBool() && <div style={{ height: "5vh" }}></div>}
 			{progressBool() && crossingState()}

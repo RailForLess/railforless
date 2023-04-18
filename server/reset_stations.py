@@ -10,9 +10,9 @@ stations = list()
 names = list()
 for row in soup.findAll('table')[1].tbody.findAll('tr')[1:]:
     name = row.findAll("td")[0].findAll("a")[0].contents[0]
-    names.append(name)
     code = row.findAll("td")[1].contents[0].rstrip()
     state = row.findAll("td")[3].findAll("a")[0].contents[0]
+    name += f" ({state})"
     routes_html = row.findAll("td")[4].findAll("a")
     routes = ""
     for route in routes_html:
@@ -25,12 +25,7 @@ for row in soup.findAll('table')[1].tbody.findAll('tr')[1:]:
                 pass
             formatted_route += route_component
         routes += formatted_route + ","
-    stations.append([name, code, state, routes])
-
-for station in stations:
-    if (names.count(station[0]) > 1):
-        station[0] = station[0] + f' ({station[2]})'
-    del station[2]
+    stations.append([name, code, routes])
 
 conn = sqlite3.connect("./stations.db")
 c = conn.cursor()

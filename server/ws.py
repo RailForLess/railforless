@@ -82,7 +82,8 @@ async def handler(websocket):
                     display.stop()
 
                 # comment out the two lines below when developing on Windows
-                display = Display(visible=1, size=(1920, 1080))
+                display = Display(visible=1, size=(
+                    random.randint(1300, 1400), random.randint(700, 800)))
                 display.start()
 
                 seleniumwire_options = {
@@ -111,7 +112,6 @@ async def handler(websocket):
                     driver.get("https://www.amtrak.com/")
                 except Exception:
                     pass
-                driver.set_page_load_timeout(10)
 
                 percent_index += 1
 
@@ -175,7 +175,7 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(date_index, percent_index, len(dates), "Waiting on amtrak.com", 10)
+            await send_progress(date_index, percent_index, len(dates), "Waiting on amtrak.com", 15)
             await asyncio.sleep(0.1)
 
             try:

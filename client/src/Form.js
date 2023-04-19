@@ -144,6 +144,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				return;
 			}
 			setDirect(true);
+			setArrivalStations({ ...allStations });
 		}
 		setCheapestRoom(false);
 		switch (roomType) {

@@ -24,9 +24,7 @@ export default function RecentSearchesButton({
 	return (
 		<div id="recent-searches-button-container">
 			<div id="recent-searches-button" onClick={handleClick}>
-				<h2>
-					See what others are searching <sup>NEW</sup>
-				</h2>
+				<h2>See what others are searching</h2>
 				<FontAwesomeIcon icon={faAngleDown} size="2xl" />
 			</div>
 		</div>

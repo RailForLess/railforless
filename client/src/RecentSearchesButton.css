@@ -15,10 +15,6 @@
 	transform: scale(1.1);
 }
 
-#recent-searches-button sup {
-	font-size: 0.75rem;
-}
-
 @keyframes arrow-down {
 	0% {
 		top: 0;

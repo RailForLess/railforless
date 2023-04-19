@@ -57,10 +57,11 @@ async def handler(websocket):
         args = json.loads(request)
         dept_station, arrival_station = args["deptStation"], args["arrivalStation"]
         dept_code, arrival_code = args["deptCode"], args["arrivalCode"]
-        requestTime = args["requestTime"]
+        request_time = args["requestTime"]
         dates = args["dates"]
         coach, business, first = args["coach"], args["business"], args["first"]
-        roomette, bedroom, family_bedroom = args["roomette"], args["bedroom"], args["familyBedroom"]
+        cheapest_room, roomette, bedroom, family_bedroom = args[
+            "cheapestRoom"], args["roomette"], args["bedroom"], args["familyBedroom"]
         share = args["share"]
 
         noTrains = False
@@ -204,6 +205,8 @@ async def handler(websocket):
                 details = driver.find_element(
                     By.XPATH, "(//div[contains(@class,'details d-flex flex-grow-1')])[1]")
 
+                fare["date"] = date
+
                 route = details.find_elements(
                     By.XPATH, "(.//span[@class='mix-name'])[1]"
                 )
@@ -217,8 +220,6 @@ async def handler(websocket):
                     else:
                         route = "Multiple Trains"
                 fare["route"] = route
-
-                fare["date"] = date
 
                 service = driver.find_element(
                     By.XPATH, "(//div[contains(@class,'service d-flex flex-grow-1')])[1]")
@@ -247,14 +248,15 @@ async def handler(websocket):
                 rooms_button = service.find_elements(
                     By.XPATH, ".//button[contains(.,'Rooms')]")
                 bedroom_button, family_bedroom_button = None, None
-                if (rooms_button and route != "Mixed Service" and route != "Multiple Trains"):
+                if (rooms_button):
                     rooms_button = rooms_button[0]
-                    if (roomette or bedroom or family_bedroom):
+                    rooms_price = rooms_button.find_element(
+                        By.XPATH, ".//span[@class='amount ng-star-inserted']").text
+                    if (cheapest_room):
+                        fare["rooms"] = rooms_price
+                    elif ((roomette or bedroom or family_bedroom) and route != "Mixed Service" and route != "Multiple Trains"):
                         await send_progress(date_index, percent_index, len(dates), "Browsing available rooms")
                         await asyncio.sleep(0.1)
-
-                        rooms_price = rooms_button.find_element(
-                            By.XPATH, ".//span[@class='amount ng-star-inserted']").text
                         ActionChains(driver).move_to_element(
                             rooms_button).perform()
                         delay()
@@ -368,8 +370,7 @@ async def handler(websocket):
                 capacity = details.find_element(
                     By.XPATH, ".//div[@class='seat-capacity-text']").text
                 if (capacity):
-                    fare["capacity"] = capacity.split(
-                    )[0][capacity.index("%") - 2:capacity.index("%") + 1]
+                    fare["capacity"] = capacity.split()[0]
 
                 depart_time = details.find_element(
                     By.XPATH, "(.//span[@class='font-light'])[1]").text
@@ -386,7 +387,7 @@ async def handler(websocket):
                     By.XPATH, "(.//span[@class='time-period'])[2]").text
                 fare["arrives"] = arrival_time + arrival_period
 
-                if (any(fare_type in ["coach", "business", "first", "roomette", "bedroom", "familyBedroom"] for fare_type in fare)):
+                if (any(fare_type in ["coach", "business", "first", "rooms", "roomette", "bedroom", "familyBedroom"] for fare_type in fare)):
                     fares.append(fare)
 
             if (date_index == len(dates) - 1):
@@ -429,7 +430,7 @@ async def handler(websocket):
                 recent_searches = list()
                 fares[0]["deptStation"] = dept_station
                 fares[0]["arrivalStation"] = arrival_station
-                fares[0]["requestTime"] = requestTime
+                fares[0]["requestTime"] = request_time
                 try:
                     recent_searches = pickle.load(pk)
                     recent_searches.insert(0, fares)

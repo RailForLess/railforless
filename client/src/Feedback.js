@@ -28,7 +28,7 @@ export default function Feedback() {
 	return (
 		<div className="fade-in-translate" id="feedback-container">
 			{feedbackBool == null && (
-				<div class="feedback-column">
+				<div className="feedback-column">
 					<h2>Find what you were looking for?</h2>
 					<div id="thumbs-container">
 						<FontAwesomeIcon
@@ -45,7 +45,7 @@ export default function Feedback() {
 				</div>
 			)}
 			{(feedbackBool === true || feedbackBool === false) && (
-				<div class="feedback-column">
+				<div className="feedback-column">
 					<h2>
 						{submit
 							? "Thank you for your feedback. Consider donating to keep the trains running!"

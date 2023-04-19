@@ -6,7 +6,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 export default function FareTable({ fares }) {
 	const addInfo = fares.shift();
 
-	const headerSet = new Set(["route", "date"]);
+	const headerSet = new Set(["date", "route"]);
 	const fareTypes = {};
 
 	fares.forEach((fare) => {
@@ -16,6 +16,7 @@ export default function FareTable({ fares }) {
 					"coach",
 					"business",
 					"first",
+					"rooms",
 					"roomette",
 					"bedroom",
 					"familyBedroom",
@@ -27,6 +28,7 @@ export default function FareTable({ fares }) {
 		});
 	});
 
+	headerSet.add("capacity");
 	headerSet.add("departs");
 	headerSet.add("duration");
 	headerSet.add("arrives");
@@ -72,10 +74,10 @@ export default function FareTable({ fares }) {
 	}
 
 	return (
-		<div class="fare-table fade-in">
+		<div className="fare-table fade-in">
 			{Object.keys(addInfo).length > 0 && (
-				<div class="table-info">
-					<div class="table-stations">
+				<div className="table-info">
+					<div className="table-stations">
 						<h2>{addInfo.deptStation}</h2>
 						<FontAwesomeIcon icon={faArrowRight} size="lg" />
 						<h2>{addInfo.arrivalStation}</h2>
@@ -118,7 +120,7 @@ export default function FareTable({ fares }) {
 				</tbody>
 			</table>
 			{Object.keys(addInfo).length > 0 && (
-				<div class="table-info">
+				<div className="table-info">
 					<h3>
 						{"last updated " +
 							new Date(JSON.parse(addInfo.requestTime)).toLocaleString()}

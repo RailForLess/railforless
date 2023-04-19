@@ -31,7 +31,7 @@ export default function Home({
 			Object.keys(fares).length === 0
 		) {
 			return (
-				<div class="fade-in" id="progress" style={{ height: "auto" }}>
+				<div className="fade-in" id="progress" style={{ height: "auto" }}>
 					<h1>{progress.percentComplete + "%"}</h1>
 					{progress.time && <ProgressBar progress={progress} />}
 					<h2>{progress.date}</h2>
@@ -48,7 +48,7 @@ export default function Home({
 			return (
 				<img
 					alt=""
-					class="fade-in"
+					className="fade-in"
 					id="crossing"
 					src={`./images/crossing-up.png`}
 				/>
@@ -58,7 +58,7 @@ export default function Home({
 
 	return (
 		<div className="hero-text-container">
-			<div class="fade-in-translate" id="hero-text">
+			<div className="fade-in-translate" id="hero-text">
 				<h1>RailForLess.us</h1>
 				{Object.keys(fares).length === 0 && (
 					<h2>

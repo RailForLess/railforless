@@ -92,7 +92,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					station.toLowerCase().replaceAll(" ", "") ||
 				input === allStations[station].code
 			) {
-				if (station === "Lorton" || station === "Sanford") {
+				if (station === "Lorton (VA)" || station === "Sanford (FL)") {
 					alert(
 						"Unfortunately, Auto Train fares are not supported at this time."
 					);
@@ -125,17 +125,49 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	const [business, setBusiness] = useState(false);
 	const [first, setFirst] = useState(false);
 
+	function handleCheapestRoom() {
+		setRoomette(false);
+		setBedroom(false);
+		setFamilyBedroom(false);
+		setCheapestRoom(!cheapestRoom);
+	}
+
+	const [cheapestRoom, setCheapestRoom] = useState(true);
+
+	function handleRoomType(roomType) {
+		if (!direct) {
+			if (
+				!window.confirm(
+					"Fares for specific room types are only available on direct routes. Filter by direct routes only?"
+				)
+			) {
+				return;
+			}
+			setDirect(true);
+		}
+		setCheapestRoom(false);
+		switch (roomType) {
+			case "roomette":
+				setRoomette(!roomette);
+				break;
+			case "bedroom":
+				setBedroom(!bedroom);
+				break;
+			case "family-bedroom":
+				setFamilyBedroom(!familyBedroom);
+				break;
+		}
+	}
+
 	const [roomette, setRoomette] = useState(false);
 	const [bedroom, setBedroom] = useState(false);
 	const [familyBedroom, setFamilyBedroom] = useState(false);
 
-	const [share, setShare] = useState(true);
-
 	function handleDirect() {
-		if (direct) {
+		if (direct && (roomette || bedroom || familyBedroom)) {
 			if (
 				!window.confirm(
-					"Room fares are only available on direct routes. Are you sure you want to disable this option?"
+					"Fares for specific room types are only available on direct routes. Are you sure you want to disable this option?"
 				)
 			) {
 				return;
@@ -147,6 +179,8 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		setDirect(!direct);
 		setArrivalStations({ ...allStations });
 	}
+
+	const [share, setShare] = useState(true);
 
 	function renderInputColor(station, stations) {
 		if (!stations.hasOwnProperty(station)) {
@@ -182,20 +216,59 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			alert("Please enter a valid arrival station.");
 			return;
 		} else if (
-			!(coach || business || first) &&
-			!(roomette || bedroom || familyBedroom)
+			!(
+				coach ||
+				business ||
+				first ||
+				cheapestRoom ||
+				roomette ||
+				bedroom ||
+				familyBedroom
+			)
 		) {
 			alert("Please select at least one seating or room option.");
 			return;
-		} else if (
-			!window.confirm(
-				"Requesting fares may take a few minutes and you will not be able to refresh this page. Note that the first departure each date will be selected." +
-					(share
-						? " The results of this search will be shared with others at the bottom of this page. Fare sharing can be disabled under the More menu."
-						: "")
-			)
-		) {
-			return;
+		} else {
+			let confirmMsg = "Please confirm the following information:\n\n";
+			confirmMsg += `Stations\n\t${deptStation} -> ${arrivalStation}\n`;
+
+			const dates = getDates(startDate, endDate);
+
+			confirmMsg += `Date${dates.length > 1 ? "s" : ""}\n`;
+			dates.forEach((date) => {
+				confirmMsg += `\t${date}\n`;
+			});
+
+			confirmMsg += "Seats\n";
+			if (!(coach || business || first)) {
+				confirmMsg += "\tNone selected\n";
+			} else {
+				confirmMsg += coach ? "\tCoach\n" : "";
+				confirmMsg += business ? "\tBusiness\n" : "";
+				confirmMsg += first ? "\tFirst\n" : "";
+			}
+
+			confirmMsg += "Rooms\n";
+			if (!(cheapestRoom || roomette || bedroom || familyBedroom)) {
+				confirmMsg += "\tNone selected\n";
+			} else {
+				confirmMsg += cheapestRoom ? "\tCheapest available\n" : "";
+				confirmMsg += roomette ? "\tRoomette\n" : "";
+				confirmMsg += bedroom ? "\tBedroom\n" : "";
+				confirmMsg += familyBedroom ? "\tFamily Bedroom\n" : "";
+			}
+
+			confirmMsg +=
+				"\nRequesting fares may take a few minutes and you will not be able to refresh this page.";
+			confirmMsg +=
+				" Note that the first departure each date will be selected.";
+			confirmMsg += share
+				? ' The results of this search will be shared with others at the bottom of this page. Fare sharing can be disabled under the "More" menu.'
+				: "";
+
+			if (!window.confirm(confirmMsg)) {
+				return;
+			}
 		}
 
 		fetch("/api/status")
@@ -215,23 +288,17 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					// Enable the line below during development
 					// const socket = new WebSocket("ws://localhost:5001");
 
-					let date = new Date(startDate + "T00:00");
-					const dates = [];
-					while (date <= new Date(endDate + "T00:00")) {
-						dates.push(date.toLocaleString().split(",")[0]);
-						date.setDate(date.getDate() + 1);
-					}
-
 					const fareMessage = {
 						deptStation: deptStation,
 						arrivalStation: arrivalStation,
 						deptCode: deptStations[deptStation].code,
 						arrivalCode: arrivalStations[arrivalStation].code,
 						requestTime: JSON.stringify(new Date()),
-						dates: dates,
+						dates: getDates(startDate, endDate),
 						coach: coach,
 						business: business,
 						first: first,
+						cheapestRoom: cheapestRoom,
 						roomette: roomette,
 						bedroom: bedroom,
 						familyBedroom: familyBedroom,
@@ -252,6 +319,16 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					};
 				}
 			});
+	}
+
+	function getDates(startDate, endDate) {
+		let date = new Date(startDate + "T00:00");
+		const dates = [];
+		while (date <= new Date(endDate + "T00:00")) {
+			dates.push(date.toLocaleString().split(",")[0]);
+			date.setDate(date.getDate() + 1);
+		}
+		return dates;
 	}
 
 	function updateStatus() {
@@ -286,17 +363,6 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	function handleRoomsExpanded() {
 		if (!roomsExpanded) {
-			if (!direct) {
-				if (
-					!window.confirm(
-						"Room fares are only available on direct routes. Would you like to enable this option?"
-					)
-				) {
-					return;
-				}
-				setDirect(true);
-				setArrivalStations({ ...allStations });
-			}
 			setSeatsExpanded(false);
 			setMoreExpanded(false);
 		}
@@ -547,10 +613,22 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				<div className="input-row">
 					<div className="checkbox">
 						<input
+							checked={cheapestRoom}
+							id="cheapest-room"
+							name="cheapest-room"
+							onChange={(e) => handleCheapestRoom()}
+							type="checkbox"
+						/>
+						<label htmlFor="cheapest-room">
+							Cheapest available <sup>NEW</sup>
+						</label>
+					</div>
+					<div className="checkbox">
+						<input
 							checked={roomette}
 							id="roomette"
 							name="roomette"
-							onChange={(e) => setRoomette(!roomette)}
+							onChange={(e) => handleRoomType("roomette")}
 							type="checkbox"
 						/>
 						<img alt="" src="./images/roomette-white.svg" />
@@ -568,7 +646,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							checked={bedroom}
 							id="bedroom"
 							name="bedroom"
-							onChange={(e) => setBedroom(!bedroom)}
+							onChange={(e) => handleRoomType("bedroom")}
 							type="checkbox"
 						/>
 						<img alt="" src="./images/family-bedroom-white.svg" />
@@ -586,7 +664,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							checked={familyBedroom}
 							id="family-bedroom"
 							name="family-bedroom"
-							onChange={(e) => setFamilyBedroom(!familyBedroom)}
+							onChange={(e) => handleRoomType("family-bedroom")}
 							type="checkbox"
 						/>
 						<img alt="" src="./images/bedroom-white.svg" />

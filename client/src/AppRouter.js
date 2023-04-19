@@ -17,13 +17,13 @@ export default function AppRouter({ imageNum }) {
 	return (
 		<main>
 			<div
-				class="main-background"
+				className="main-background"
 				style={{
 					backgroundImage: `url("./images/hero-${imageNum}.png")`,
 					minHeight: "95vh",
 				}}
 			>
-				<div class="hero" id="main-container">
+				<div className="hero" id="main-container">
 					<BrowserRouter>
 						<Routes>
 							<Route
@@ -42,16 +42,16 @@ export default function AppRouter({ imageNum }) {
 				</div>
 			</div>
 			{recentSearches.length > 0 && (
-				<div class="main-background" id="recent-searches">
+				<div className="main-background" id="recent-searches">
 					<div id="main-container">
-						<div class="fade-in-translate hero-text-container">
+						<div className="fade-in-translate hero-text-container">
 							{recentSearchesToLoad.map((search, index) => (
 								<FareTable key={index} fares={[...search]} />
 							))}
 							<div id="recent-search-button-container">
 								{maxRecentSearch < recentSearches.length && (
 									<div
-										class="recent-search-button"
+										className="recent-search-button"
 										onClick={() => setMaxRecentSearch(maxRecentSearch + 10)}
 									>
 										<p>Load more</p>
@@ -59,7 +59,7 @@ export default function AppRouter({ imageNum }) {
 									</div>
 								)}
 								<div
-									class="recent-search-button"
+									className="recent-search-button"
 									onClick={() => setRecentSearches([])}
 								>
 									<p>Close</p>

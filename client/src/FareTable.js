@@ -6,7 +6,8 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 export default function FareTable({ fares }) {
 	const addInfo = fares.shift();
 
-	const headerSet = new Set(["date", "route"]);
+	const headerArray = ["date", "route"];
+	const variableHeaderSet = new Set();
 	const fareTypes = {};
 
 	fares.forEach((fare) => {
@@ -20,23 +21,38 @@ export default function FareTable({ fares }) {
 					"roomette",
 					"bedroom",
 					"familyBedroom",
+					"capacity",
 				].includes(header)
 			) {
-				headerSet.add(header);
-				fareTypes[header] = { values: new Set() };
+				variableHeaderSet.add(header);
+				if (header !== "capacity") {
+					fareTypes[header] = { values: new Set() };
+				}
 			}
 		});
 	});
 
-	headerSet.add("capacity");
-	headerSet.add("departs");
-	headerSet.add("duration");
-	headerSet.add("arrives");
+	[
+		"coach",
+		"business",
+		"first",
+		"rooms",
+		"roomette",
+		"bedroom",
+		"familyBedroom",
+		"capacity",
+	].forEach((fareType) => {
+		if (variableHeaderSet.has(fareType)) {
+			headerArray.push(fareType);
+		}
+	});
+	headerArray.push("departs", "duration", "arrives");
+	console.log(headerArray);
 
 	const formattedFares = [];
 	for (let i = 0; i < fares.length; i++) {
 		formattedFares.push({});
-		headerSet.forEach((header) => {
+		headerArray.forEach((header) => {
 			if (!Object.keys(fares[i]).includes(header)) {
 				formattedFares[i][header] = "";
 			} else {
@@ -54,7 +70,6 @@ export default function FareTable({ fares }) {
 		fareTypes[fareType].min = Math.min(...fareTypes[fareType].values);
 	});
 
-	const headerArray = Array.from(headerSet);
 	if (headerArray.includes("familyBedroom")) {
 		headerArray[headerArray.indexOf("familyBedroom")] = "Family Bedroom";
 	}

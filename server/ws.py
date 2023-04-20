@@ -176,7 +176,7 @@ async def handler(websocket):
             delay()
             find_trains_button.click()
 
-            await send_progress(date_index, percent_index, len(dates), "Waiting on amtrak.com", 15)
+            await send_progress(date_index, percent_index, len(dates), "Waiting on amtrak.com", 10)
             await asyncio.sleep(0.1)
 
             try:

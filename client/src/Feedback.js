@@ -53,6 +53,13 @@ export default function Feedback() {
 							? "Great! Anything I can improve?"
 							: "Sorry about that. How can I improve?"}
 					</h2>
+					{!submit && !feedbackBool && (
+						<h3>
+							This site breaks from time to time due to factors beyond my
+							control. If you believe the site is currently broken, please{" "}
+							<a href="mailto:sean@railforless.us">contact me</a> directly.
+						</h3>
+					)}
 					{!submit && (
 						<form id="feedback-form" onSubmit={handleSubmit}>
 							<textarea

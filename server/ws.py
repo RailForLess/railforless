@@ -38,15 +38,13 @@ async def handler(websocket):
     def get_proxy():
         with open("./proxy.pk", "rb") as pk:
             proxy = pickle.load(pk)
-        old_proxy = proxy
-        proxy_port = int(proxy[-5:])
-        if (proxy_port == 10100):
-            proxy_port = 10001
-        else:
-            proxy_port += 1
+        old_proxy_port = int(proxy[-5:])
+        proxy_port = old_proxy_port
+        while (proxy_port == old_proxy_port):
+            proxy_port = random.randint(10001, 10100)
         with open("./proxy.pk", "wb") as pk:
             pickle.dump(proxy[:-5] + str(proxy_port), pk)
-        return old_proxy
+        return proxy
 
     try:
         request = await websocket.recv()
@@ -108,7 +106,7 @@ async def handler(websocket):
                 driver = webdriver.Chrome(
                     options=options, seleniumwire_options=seleniumwire_options, service=service)
                 driver.maximize_window()
-                driver.set_page_load_timeout(15)
+                driver.set_page_load_timeout(30)
                 try:
                     driver.get("https://www.amtrak.com/")
                 except Exception:

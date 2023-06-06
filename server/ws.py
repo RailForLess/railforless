@@ -114,10 +114,10 @@ async def handler(websocket):
 
                 percent_index += 1
 
-            await send_progress(date_index, percent_index, len(dates), "Entering travel information")
-            await asyncio.sleep(0.1)
-
             if (date_index % 3 != 0 and not noTrains):
+                await send_progress(date_index, percent_index, len(dates), "Beginning new search")
+                await asyncio.sleep(0.1)
+
                 new_search_button = driver.find_element(
                     By.XPATH, "//button[contains(.,'New Search')]")
                 ActionChains(driver).move_to_element(
@@ -127,6 +127,19 @@ async def handler(websocket):
                 delay()
 
             if (date_index % 3 == 0):
+                await send_progress(date_index, percent_index, len(dates), "Accepting cookies")
+                await asyncio.sleep(0.1)
+
+                cookie_accept = driver.find_element(
+                    By.XPATH, "//button[@id='onetrust-accept-btn-handler']")
+                ActionChains(driver).move_to_element(cookie_accept).perform()
+                delay()
+                cookie_accept.click()
+                delay()
+
+                await send_progress(date_index, percent_index, len(dates), "Entering departure station")
+                await asyncio.sleep(0.1)
+
                 dept_station_input = driver.find_element(
                     By.XPATH, "//input[@data-placeholder='From']")
                 ActionChains(driver).move_to_element(
@@ -137,6 +150,9 @@ async def handler(websocket):
                 dept_station_input.send_keys(dept_code)
                 delay()
 
+                await send_progress(date_index, percent_index, len(dates), "Entering arrival station")
+                await asyncio.sleep(0.1)
+
                 arrival_station_input = driver.find_element(
                     By.XPATH, "//input[@data-placeholder='To']")
                 ActionChains(driver).move_to_element(
@@ -146,6 +162,9 @@ async def handler(websocket):
                 delay()
                 arrival_station_input.send_keys(arrival_code)
                 delay()
+
+            await send_progress(date_index, percent_index, len(dates), "Entering travel date")
+            await asyncio.sleep(0.1)
 
             dept_date_input = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
                 By.XPATH, "//input[@data-julie='departdisplay_booking_oneway']")))
@@ -167,6 +186,9 @@ async def handler(websocket):
 
             noTrains = False
 
+            await send_progress(date_index, percent_index, len(dates), "Submitting request")
+            await asyncio.sleep(0.1)
+
             find_trains_button = driver.find_element(
                 By.XPATH, "(//button[@data-julie='findtrains'])[1]")
             ActionChains(driver).move_to_element(
@@ -181,15 +203,15 @@ async def handler(websocket):
                 WebDriverWait(driver, 10).until(
                     EC.any_of(EC.element_to_be_clickable((By.XPATH, "//button[contains(.,'New Search')]")),
                               EC.element_to_be_clickable(
-                        (By.XPATH, "//button[contains(.,'Cancel')]")),
+                        (By.XPATH, "//button[@aria-label='Cancel']")),
                         EC.presence_of_element_located((By.XPATH, "//div[@class='col-12 d-inline-flex']"))))
             except Exception:
                 pass
-            if driver.find_elements(By.XPATH, "//button[contains(.,'Cancel')]") or \
+            if driver.find_elements(By.XPATH, "//button[@aria-label='Cancel']") or \
                     driver.find_elements(By.XPATH, "//div[@class='col-12 d-inline-flex']"):
-                if driver.find_elements(By.XPATH, "//button[contains(.,'Cancel')]"):
+                if driver.find_elements(By.XPATH, "//button[@aria-label='Cancel']"):
                     cancel_button = driver.find_element(
-                        By.XPATH, "//button[contains(.,'Cancel')]")
+                        By.XPATH, "//button[@aria-label='Cancel']")
                     ActionChains(driver).move_to_element(
                         cancel_button).perform()
                     delay()
@@ -253,8 +275,9 @@ async def handler(websocket):
                     if (cheapest_room):
                         fare["rooms"] = rooms_price
                     elif ((roomette or bedroom or family_bedroom) and route != "Mixed Service" and route != "Multiple Trains"):
-                        await send_progress(date_index, percent_index, len(dates), "Browsing available rooms")
+                        await send_progress(date_index, percent_index, len(dates), "Opening rooms menu")
                         await asyncio.sleep(0.1)
+
                         ActionChains(driver).move_to_element(
                             rooms_button).perform()
                         delay()
@@ -330,6 +353,12 @@ async def handler(websocket):
                         if (roomette and (bedroom_button or family_bedroom_button)):
                             fare["roomette"] = rooms_price
                         if (bedroom and bedroom_button):
+                            await send_progress(date_index, percent_index, len(dates), "Getting bedroom price")
+                            await asyncio.sleep(0.1)
+
+                            ActionChains(driver).move_to_element(
+                                bedroom_button).perform()
+                            delay()
                             bedroom_button.click()
                             WebDriverWait(driver, 3).until(EC.element_to_be_clickable(
                                 (By.XPATH, "//button[contains(.,'Add to Cart')]")))
@@ -343,6 +372,9 @@ async def handler(websocket):
                                 bedroom_price = rooms_price
                             fare["bedroom"] = bedroom_price
                         if (family_bedroom and family_bedroom_button):
+                            await send_progress(date_index, percent_index, len(dates), "Getting family bedroom price")
+                            await asyncio.sleep(0.1)
+
                             ActionChains(driver).move_to_element(
                                 family_bedroom_button).perform()
                             delay()
@@ -358,6 +390,9 @@ async def handler(websocket):
                             else:
                                 family_bedroom_price = rooms_price
                             fare["familyBedroom"] = family_bedroom_price
+                        await send_progress(date_index, percent_index, len(dates), "Closing rooms menu")
+                        await asyncio.sleep(0.1)
+
                         html = driver.find_element(By.TAG_NAME, "html")
                         html.send_keys(Keys.HOME)
                         time.sleep(0.5)

@@ -1,0 +1,16 @@
+#update-bar {
+	background: red;
+	font-weight: 500;
+	padding: 0.25rem;
+	width: 100vw;
+}
+
+#update-bar-container {
+	position: relative;
+}
+
+#update-bar-container svg {
+	bottom: 0.25rem;
+	position: absolute;
+	right: 1rem;
+}

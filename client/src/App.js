@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import UpdateBar from "./UpdateBar";
 import Navbar from "./Navbar";
 import AppRouter from "./AppRouter";
 import Footer from "./Footer";
@@ -49,11 +50,13 @@ export default function App() {
 			licenseLink: "https://creativecommons.org/licenses/by/2.0/deed.en",
 		},
 	];
-
 	const [imageIndex, setImageIndex] = useState(Math.floor(Math.random() * 6));
+
+	const [updateBarClose, setUpdateBarClose] = useState(false);
 
 	return (
 		<div className="fade-in">
+			{!updateBarClose && <UpdateBar setUpdateBarClose={setUpdateBarClose} />}
 			<Navbar />
 			<AppRouter imageNum={imageInfo[imageIndex].imageNum} />
 			<Footer

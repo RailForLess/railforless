@@ -198,7 +198,11 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	function calcMaxEndDate() {
 		if (startDate) {
 			const maxEndDate = new Date(startDate);
-			maxEndDate.setDate(maxEndDate.getDate() + 8);
+			console.log(new Date().getHours());
+			const thirtyDaySearch =
+				new Date().getHours() >= 19 || new Date().getHours() < 7;
+			console.log(thirtyDaySearch);
+			maxEndDate.setDate(maxEndDate.getDate() + (thirtyDaySearch ? 29 : 8));
 			const maxStartDate = new Date(calcMaxStartDate());
 			return maxEndDate < maxStartDate
 				? maxEndDate.toISOString().split("T")[0]

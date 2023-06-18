@@ -199,7 +199,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		if (startDate) {
 			const maxEndDate = new Date(startDate);
 			const thirtyDaySearch =
-				new Date().getUTCHours >= 1 && new Date().getUTCHours() < 13;
+				new Date().getUTCHours() >= 1 && new Date().getUTCHours() < 13;
 			maxEndDate.setDate(maxEndDate.getDate() + (thirtyDaySearch ? 29 : 8));
 			const maxStartDate = new Date(calcMaxStartDate());
 			return maxEndDate < maxStartDate

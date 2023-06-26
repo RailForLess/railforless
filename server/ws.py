@@ -91,7 +91,7 @@ async def handler(websocket):
                     }
                 }
 
-                service = Service(r"chromedriver")
+                details = Service(r"chromedriver")
                 options = webdriver.ChromeOptions()
                 options.add_argument("--no-sandbox")
                 options.add_argument("--remote-debugging-port=9225")
@@ -104,7 +104,7 @@ async def handler(websocket):
                     "excludeSwitches", ["enable-automation"])
 
                 driver = webdriver.Chrome(
-                    options=options, seleniumwire_options=seleniumwire_options, service=service)
+                    options=options, seleniumwire_options=seleniumwire_options, service=details)
                 driver.maximize_window()
                 driver.set_page_load_timeout(30)
                 try:
@@ -127,16 +127,6 @@ async def handler(websocket):
                 delay()
 
             if (date_index % 3 == 0):
-                await send_progress(date_index, percent_index, len(dates), "Accepting cookies")
-                await asyncio.sleep(0.1)
-
-                cookie_accept = driver.find_element(
-                    By.XPATH, "//button[@id='onetrust-accept-btn-handler']")
-                ActionChains(driver).move_to_element(cookie_accept).perform()
-                delay()
-                cookie_accept.click()
-                delay()
-
                 await send_progress(date_index, percent_index, len(dates), "Entering departure station")
                 await asyncio.sleep(0.1)
 
@@ -223,7 +213,7 @@ async def handler(websocket):
                 fare = dict()
 
                 details = driver.find_element(
-                    By.XPATH, "(//div[contains(@class,'details d-flex flex-grow-1')])[1]")
+                    By.XPATH, "//div[contains(@amt-auto-test-id,'autoId-one-way-journey-solution-0-0')]")
 
                 fare["date"] = date
 
@@ -241,162 +231,64 @@ async def handler(websocket):
                         route = "Multiple Trains"
                 fare["route"] = route
 
-                service = driver.find_element(
-                    By.XPATH, "(//div[contains(@class,'service d-flex flex-grow-1')])[1]")
-
                 if (coach):
-                    coach_button = service.find_elements(
-                        By.XPATH, ".//button[contains(.,'Coach')]")
-                    if (coach_button):
-                        fare["coach"] = coach_button[0].find_element(
-                            By.XPATH, ".//span[@class='amount ng-star-inserted']").text
+                    coach_price = details.find_elements(
+                        By.XPATH, ".//p[contains(text(),'Coach')]/parent::div//span[contains(@class,'price-tag')]")
+                    if (coach_price and coach_price[0].text.isnumeric()):
+                        fare["coach"] = "$" + coach_price[0].text
 
                 if (business):
-                    business_button = service.find_elements(
-                        By.XPATH, ".//button[contains(.,'Business')]")
-                    if (business_button):
-                        fare["business"] = business_button[0].find_element(
-                            By.XPATH, ".//span[@class='amount ng-star-inserted']").text
+                    business_price = details.find_elements(
+                        By.XPATH, ".//p[contains(text(),'Business')]/parent::div//span[contains(@class,'price-tag')]")
+                    if (business_price and business_price[0].text.isnumeric()):
+                        fare["business"] = "$" + business_price[0].text
 
                 if (first):
-                    first_button = service.find_elements(
-                        By.XPATH, ".//button[contains(.,'First')]")
-                    if (first_button):
-                        fare["first"] = first_button[0].find_element(
-                            By.XPATH, ".//span[@class='amount ng-star-inserted']").text
+                    first_price = details.find_elements(
+                        By.XPATH, ".//p[contains(text(),'First')]/parent::div//span[contains(@class,'price-tag')]")
+                    if (first_price and first_price[0].text.isnumeric()):
+                        fare["first"] = "$" + first_price[0].text
 
-                rooms_button = service.find_elements(
-                    By.XPATH, ".//button[contains(.,'Rooms')]")
-                bedroom_button, family_bedroom_button = None, None
+                rooms_button = details.find_elements(
+                    By.XPATH, ".//p[contains(text(),'Private Rooms')]/parent::div/parent::div")
                 if (rooms_button):
                     rooms_button = rooms_button[0]
-                    rooms_price = rooms_button.find_element(
-                        By.XPATH, ".//span[@class='amount ng-star-inserted']").text
+                    rooms_price = "$" + rooms_button.find_element(
+                        By.XPATH, ".//span[contains(@class,'price-tag')]").text
                     if (cheapest_room):
                         fare["rooms"] = rooms_price
                     elif ((roomette or bedroom or family_bedroom) and route != "Mixed Service" and route != "Multiple Trains"):
-                        await send_progress(date_index, percent_index, len(dates), "Opening rooms menu")
+                        await send_progress(date_index, percent_index, len(dates), "Getting rooms prices")
                         await asyncio.sleep(0.1)
 
                         ActionChains(driver).move_to_element(
                             rooms_button).perform()
                         delay()
                         rooms_button.click()
-                        delay()
+                        time.sleep(2)
 
+                        if (roomette):
+                            roomette_price = details.find_elements(
+                                By.XPATH, ".//div[contains(text(),'ROOMETTE')]/parent::div/parent::div/parent::div//span[@class='price-currency']")
+                            if (roomette_price):
+                                fare["roomette"] = roomette_price[0].text
                         if (bedroom):
-                            try:
-                                bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
-                                    By.XPATH, "//button[@aria-label='Bedroom']")))
-                            except Exception:
-                                pass
-                        if (family_bedroom):
-                            try:
-                                family_bedroom_button = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((
-                                    By.XPATH, "//button[@aria-label='Family Bedroom']")))
-                            except Exception:
-                                pass
-                        if (not (bedroom_button or family_bedroom_button)):
-                            search_results = driver.find_element(
-                                By.XPATH, "//div[@class='search-results-leg-travel-class-content']")
-                            try:
-                                room_type = WebDriverWait(search_results, 3).until(
-                                    EC.any_of(EC.presence_of_element_located((By.XPATH, "(.//span[@class='font-light ng-tns-c154-10'])[2]")),
-                                              EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-11'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-12'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-13'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-14'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-15'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-16'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-17'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-18'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-19'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-20'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-21'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-22'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-23'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-24'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-25'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-26'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-27'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-28'])[2]")),
-                                        EC.presence_of_element_located(
-                                        (By.XPATH, "(.//span[@class='font-light ng-tns-c154-29'])[2]")),
-                                        EC.presence_of_element_located((By.XPATH, "(.//span[@class='font-light ng-tns-c154-30'])[2]"))))
-                                room_type = room_type.text
-                                if (room_type == "Roomette" and roomette):
-                                    fare["roomette"] = rooms_price
-                                elif (room_type == "Bedroom" and bedroom):
-                                    fare["bedroom"] = rooms_price
-                                elif (room_type == "Family Bedroom" and family_bedroom):
-                                    fare["familyBedroom"] = rooms_price
-                            except Exception:
-                                pass
-                        if (roomette and (bedroom_button or family_bedroom_button)):
-                            fare["roomette"] = rooms_price
-                        if (bedroom and bedroom_button):
-                            await send_progress(date_index, percent_index, len(dates), "Getting bedroom price")
-                            await asyncio.sleep(0.1)
-
-                            ActionChains(driver).move_to_element(
-                                bedroom_button).perform()
-                            delay()
-                            bedroom_button.click()
-                            WebDriverWait(driver, 3).until(EC.element_to_be_clickable(
-                                (By.XPATH, "//button[contains(.,'Add to Cart')]")))
-                            accomodation_pill = driver.find_elements(
-                                By.XPATH, "//accomodation-pill")[1]
-                            bedroom_price = accomodation_pill.find_elements(
-                                By.XPATH, ".//span[@class='price-currency']")
+                            bedroom_price = details.find_elements(
+                                By.XPATH, ".//div[contains(text(),'BEDROOM')]/parent::div/parent::div/parent::div//span[@class='price-currency']")
                             if (bedroom_price):
-                                bedroom_price = bedroom_price[0].text
-                            else:
-                                bedroom_price = rooms_price
-                            fare["bedroom"] = bedroom_price
-                        if (family_bedroom and family_bedroom_button):
-                            await send_progress(date_index, percent_index, len(dates), "Getting family bedroom price")
-                            await asyncio.sleep(0.1)
-
-                            ActionChains(driver).move_to_element(
-                                family_bedroom_button).perform()
-                            delay()
-                            family_bedroom_button.click()
-                            WebDriverWait(driver, 3).until(EC.element_to_be_clickable(
-                                (By.XPATH, "//button[contains(.,'Add to Cart')]")))
-                            accomodation_pill = driver.find_elements(
-                                By.XPATH, "//accomodation-pill")[1]
-                            family_bedroom_price = accomodation_pill.find_elements(
-                                By.XPATH, ".//span[@class='price-currency']")
+                                fare["bedroom"] = bedroom_price[0].text
+                        if (family_bedroom):
+                            family_bedroom_price = details.find_elements(
+                                By.XPATH, ".//div[contains(text(),'FAMILY BEDROOM')]/parent::div/parent::div/parent::div//span[@class='price-currency']")
                             if (family_bedroom_price):
-                                family_bedroom_price = family_bedroom_price[0].text
-                            else:
-                                family_bedroom_price = rooms_price
-                            fare["familyBedroom"] = family_bedroom_price
-                        await send_progress(date_index, percent_index, len(dates), "Closing rooms menu")
-                        await asyncio.sleep(0.1)
+                                fare["familyBedroom"] = family_bedroom_price[0].text
 
                         html = driver.find_element(By.TAG_NAME, "html")
                         html.send_keys(Keys.HOME)
                         time.sleep(0.5)
-                        rooms_button.click()
+                        details.find_element(
+                            By.XPATH, ".//p[contains(text(),'Private Rooms')]/parent::div").click()
+                        delay()
                         html.send_keys(Keys.HOME)
                         time.sleep(0.5)
 
@@ -406,18 +298,18 @@ async def handler(websocket):
                     fare["capacity"] = capacity.split()[0]
 
                 depart_time = details.find_element(
-                    By.XPATH, "(.//span[@class='font-light'])[1]").text
+                    By.XPATH, "(.//span[contains(@class,'time font-light')])[1]").text
                 depart_period = details.find_element(
-                    By.XPATH, "(.//span[@class='time-period'])[1]").text
+                    By.XPATH, "(.//span[contains(@class,'time-period')])[1]").text
                 fare["departs"] = depart_time + depart_period
 
-                fare["duration"] = driver.find_element(
-                    By.XPATH, "(//span[@amt-auto-test-id='journey-duration'])[1]").text
+                fare["duration"] = details.find_element(
+                    By.XPATH, ".//div[contains(@class,'journey-travel-time')]//span[@class='text-center ng-star-inserted']").text
 
                 arrival_time = details.find_element(
-                    By.XPATH, "(.//span[@class='font-light'])[2]").text
+                    By.XPATH, "(.//span[contains(@class,'time font-light')])[2]").text
                 arrival_period = details.find_element(
-                    By.XPATH, "(.//span[@class='time-period'])[2]").text
+                    By.XPATH, "(.//span[contains(@class,'time-period')])[2]").text
                 fare["arrives"] = arrival_time + arrival_period
 
                 if (any(fare_type in ["coach", "business", "first", "rooms", "roomette", "bedroom", "familyBedroom"] for fare_type in fare)):

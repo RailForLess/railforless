@@ -7,7 +7,8 @@ export default function UpdateBar({ setUpdateBarClose }) {
 	return (
 		<div id="update-bar-container">
 			<p id="update-bar">
-				30-day searches now available from 7pm CST - 7am CST!
+				6/26/2023 - Scraping algorithm up and running after UI change on
+				amtrak.com
 			</p>
 			<FontAwesomeIcon
 				icon={faXmark}

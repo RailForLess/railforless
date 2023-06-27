@@ -251,10 +251,11 @@ async def handler(websocket):
 
                 rooms_button = details.find_elements(
                     By.XPATH, ".//p[contains(text(),'Private Rooms')]/parent::div/parent::div")
-                if (rooms_button):
-                    rooms_button = rooms_button[0]
-                    rooms_price = "$" + rooms_button.find_element(
-                        By.XPATH, ".//span[contains(@class,'price-tag')]").text
+                rooms_price = details.find_elements(
+                    By.XPATH, ".//p[contains(text(),'Private Rooms')]/parent::div/parent::div//span[contains(@class,'price-tag')]")
+                if (rooms_button and rooms_price):
+                    rooms_button, rooms_price = rooms_button[0], "$" + \
+                        rooms_price[0].text
                     if (cheapest_room):
                         fare["rooms"] = rooms_price
                     elif ((roomette or bedroom or family_bedroom) and route != "Mixed Service" and route != "Multiple Trains"):

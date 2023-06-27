@@ -7,8 +7,8 @@ export default function UpdateBar({ setUpdateBarClose }) {
 	return (
 		<div id="update-bar-container">
 			<p id="update-bar">
-				6/26/2023 - Scraping algorithm up and running after UI change on
-				amtrak.com
+				6/27/2023 - Fixed sold out rooms bug causing premature search
+				termination
 			</p>
 			<FontAwesomeIcon
 				icon={faXmark}

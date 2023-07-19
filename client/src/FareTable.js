@@ -20,7 +20,7 @@ export default function FareTable({ fares }) {
 					"rooms",
 					"roomette",
 					"bedroom",
-					"familyBedroom",
+					"familyRoom",
 					"capacity",
 				].includes(header)
 			) {
@@ -39,7 +39,7 @@ export default function FareTable({ fares }) {
 		"rooms",
 		"roomette",
 		"bedroom",
-		"familyBedroom",
+		"familyRoom",
 		"capacity",
 	].forEach((fareType) => {
 		if (variableHeaderSet.has(fareType)) {
@@ -70,8 +70,8 @@ export default function FareTable({ fares }) {
 		fareTypes[fareType].min = Math.min(...fareTypes[fareType].values);
 	});
 
-	if (headerArray.includes("familyBedroom")) {
-		headerArray[headerArray.indexOf("familyBedroom")] = "Family Bedroom";
+	if (headerArray.includes("familyRoom")) {
+		headerArray[headerArray.indexOf("familyRoom")] = "Family Room";
 	}
 
 	function rowHasMinValue(fare) {

@@ -128,7 +128,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	function handleCheapestRoom() {
 		setRoomette(false);
 		setBedroom(false);
-		setFamilyBedroom(false);
+		setFamilyRoom(false);
 		setCheapestRoom(!cheapestRoom);
 	}
 
@@ -154,18 +154,18 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			case "bedroom":
 				setBedroom(!bedroom);
 				break;
-			case "family-bedroom":
-				setFamilyBedroom(!familyBedroom);
+			case "family-room":
+				setFamilyRoom(!familyRoom);
 				break;
 		}
 	}
 
 	const [roomette, setRoomette] = useState(false);
 	const [bedroom, setBedroom] = useState(false);
-	const [familyBedroom, setFamilyBedroom] = useState(false);
+	const [familyRoom, setFamilyRoom] = useState(false);
 
 	function handleDirect() {
-		if (direct && (roomette || bedroom || familyBedroom)) {
+		if (direct && (roomette || bedroom || familyRoom)) {
 			if (
 				!window.confirm(
 					"Fares for specific room types are only available on direct routes. Are you sure you want to disable this option?"
@@ -175,7 +175,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			}
 			setRoomette(false);
 			setBedroom(false);
-			setFamilyBedroom(false);
+			setFamilyRoom(false);
 		}
 		setDirect(!direct);
 		setArrivalStations({ ...allStations });
@@ -226,7 +226,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				cheapestRoom ||
 				roomette ||
 				bedroom ||
-				familyBedroom
+				familyRoom
 			)
 		) {
 			alert("Please select at least one seating or room option.");
@@ -252,13 +252,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			}
 
 			confirmMsg += "Rooms\n";
-			if (!(cheapestRoom || roomette || bedroom || familyBedroom)) {
+			if (!(cheapestRoom || roomette || bedroom || familyRoom)) {
 				confirmMsg += "\tNone selected\n";
 			} else {
 				confirmMsg += cheapestRoom ? "\tCheapest available\n" : "";
 				confirmMsg += roomette ? "\tRoomette\n" : "";
 				confirmMsg += bedroom ? "\tBedroom\n" : "";
-				confirmMsg += familyBedroom ? "\tFamily Bedroom\n" : "";
+				confirmMsg += familyRoom ? "\tFamily Room\n" : "";
 			}
 
 			confirmMsg +=
@@ -304,7 +304,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						cheapestRoom: cheapestRoom,
 						roomette: roomette,
 						bedroom: bedroom,
-						familyBedroom: familyBedroom,
+						familyRoom: familyRoom,
 						share: share,
 					};
 					socket.onopen = (e) => {
@@ -652,7 +652,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							onChange={(e) => handleRoomType("bedroom")}
 							type="checkbox"
 						/>
-						<img alt="" src="./images/family-bedroom-white.svg" />
+						<img alt="" src="./images/family-room-white.svg" />
 						<label htmlFor="bedroom">Bedroom</label>
 						<a
 							href="https://www.amtrak.com/bedroom"
@@ -664,14 +664,14 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					</div>
 					<div className="checkbox">
 						<input
-							checked={familyBedroom}
-							id="family-bedroom"
-							name="family-bedroom"
-							onChange={(e) => handleRoomType("family-bedroom")}
+							checked={familyRoom}
+							id="family-room"
+							name="family-room"
+							onChange={(e) => handleRoomType("family-room")}
 							type="checkbox"
 						/>
 						<img alt="" src="./images/bedroom-white.svg" />
-						<label htmlFor="family-bedroom">Family Bedroom</label>
+						<label htmlFor="family-room">Family Room</label>
 						<a
 							href="https://www.amtrak.com/family-room"
 							rel="noopener noreferrer"

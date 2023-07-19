@@ -58,8 +58,8 @@ async def handler(websocket):
         request_time = args["requestTime"]
         dates = args["dates"]
         coach, business, first = args["coach"], args["business"], args["first"]
-        cheapest_room, roomette, bedroom, family_bedroom = args[
-            "cheapestRoom"], args["roomette"], args["bedroom"], args["familyBedroom"]
+        cheapest_room, roomette, bedroom, family_room = args[
+            "cheapestRoom"], args["roomette"], args["bedroom"], args["familyRoom"]
         share = args["share"]
 
         noTrains = False
@@ -258,7 +258,7 @@ async def handler(websocket):
                         rooms_price[0].text
                     if (cheapest_room):
                         fare["rooms"] = rooms_price
-                    elif ((roomette or bedroom or family_bedroom) and route != "Mixed Service" and route != "Multiple Trains"):
+                    elif ((roomette or bedroom or family_room) and route != "Mixed Service" and route != "Multiple Trains"):
                         await send_progress(date_index, percent_index, len(dates), "Getting rooms prices")
                         await asyncio.sleep(0.1)
 
@@ -278,11 +278,11 @@ async def handler(websocket):
                                 By.XPATH, ".//div[contains(text(),'BEDROOM')]/parent::div/parent::div/parent::div//span[@class='price-currency']")
                             if (bedroom_price):
                                 fare["bedroom"] = bedroom_price[0].text
-                        if (family_bedroom):
-                            family_bedroom_price = details.find_elements(
-                                By.XPATH, ".//div[contains(text(),'FAMILY BEDROOM')]/parent::div/parent::div/parent::div//span[@class='price-currency']")
-                            if (family_bedroom_price):
-                                fare["familyBedroom"] = family_bedroom_price[0].text
+                        if (family_room):
+                            family_room_price = details.find_elements(
+                                By.XPATH, ".//div[contains(text(),'FAMILY ROOM')]/parent::div/parent::div/parent::div//span[@class='price-currency']")
+                            if family_room_price:
+                                fare["familyRoom"] = family_room_price[0].text
 
                         html = driver.find_element(By.TAG_NAME, "html")
                         html.send_keys(Keys.HOME)
@@ -313,7 +313,7 @@ async def handler(websocket):
                     By.XPATH, "(.//span[contains(@class,'time-period')])[2]").text
                 fare["arrives"] = arrival_time + arrival_period
 
-                if (any(fare_type in ["coach", "business", "first", "rooms", "roomette", "bedroom", "familyBedroom"] for fare_type in fare)):
+                if (any(fare_type in ["coach", "business", "first", "rooms", "roomette", "bedroom", "familyRoom"] for fare_type in fare)):
                     fares.append(fare)
 
             if (date_index == len(dates) - 1):

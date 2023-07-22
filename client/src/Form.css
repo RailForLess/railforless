@@ -55,6 +55,21 @@ sup {
 	justify-content: space-around;
 }
 
+.menu-select {
+	align-items: center;
+	display: flex;
+	gap: 1rem;
+}
+
+.menu-select input,
+.menu-select select {
+	min-width: 10rem;
+}
+
+.menu-select label {
+	flex-shrink: 0;
+}
+
 .options-toggle {
 	display: flex;
 	cursor: pointer;
@@ -69,7 +84,9 @@ sup {
 
 #options-container {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 1rem;
+	justify-content: center;
 }
 
 #search-form {
@@ -110,5 +127,14 @@ sup {
 
 	#search-form {
 		width: 100%;
+	}
+}
+
+@keyframes highlight {
+	0% {
+		transform: scale(1.25, 1.25);
+	}
+	100% {
+		transform: scale(1, 1);
 	}
 }

@@ -10,8 +10,14 @@
 }
 
 .table-info {
+	align-items: center;
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
+}
+
+.table-info #traveler-info {
+	margin-top: 0.5rem;
 }
 
 .table-stations {

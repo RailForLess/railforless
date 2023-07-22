@@ -92,12 +92,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					station.toLowerCase().replaceAll(" ", "") ||
 				input === allStations[station].code
 			) {
-				if (station === "Lorton (VA)" || station === "Sanford (FL)") {
-					alert(
-						"Unfortunately, Auto Train fares are not supported at this time."
-					);
-					return "";
-				} else if (
+				if (
 					allStations.hasOwnProperty(station) &&
 					!stations.hasOwnProperty(station) &&
 					direct &&
@@ -117,6 +112,22 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		}
 		return input;
 	}
+
+	useEffect(() => {
+		if (deptStation === "Lorton (VA)") {
+			setArrivalStation("Sanford (FL)");
+		} else if (deptStation === "Sanford (FL)") {
+			setArrivalStation("Lorton (VA)");
+		}
+	}, [deptStation]);
+
+	useEffect(() => {
+		if (arrivalStation === "Lorton (VA)") {
+			setDeptStation("Sanford (FL)");
+		} else if (arrivalStation === "Sanford (FL)") {
+			setDeptStation("Lorton (VA)");
+		}
+	}, [arrivalStation]);
 
 	const [startDate, setStartDate] = useState("");
 	const [endDate, setEndDate] = useState("");
@@ -181,6 +192,40 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		setArrivalStations({ ...allStations });
 	}
 
+	const [route, setRoute] = useState("");
+	const [mutualRoutes, setMutualRoutes] = useState([]);
+
+	useEffect(() => {
+		const tempMutualRoutes = getMutualRoutes();
+		setMutualRoutes(tempMutualRoutes);
+		if (tempMutualRoutes.length > 1) {
+			switchMenu(setRouteExpanded, routeExpanded);
+			setRouteExpanded(true);
+			setRoute(tempMutualRoutes[0]);
+		} else {
+			setRoute("");
+		}
+	}, [deptStation, arrivalStation]);
+
+	function getMutualRoutes() {
+		const deptStationInfo = allStations[deptStation];
+		const arrivalStationInfo = allStations[arrivalStation];
+		const routes = [];
+		if (deptStationInfo && arrivalStationInfo) {
+			deptStationInfo.routes.forEach((route) => {
+				if (arrivalStationInfo.routes.includes(route)) {
+					routes.push(route);
+				}
+			});
+		}
+		return routes;
+	}
+
+	const [timeOfDay, setTimeOfDay] = useState("earliest-available");
+
+	const [travelerQuantity, setTravelerQuantity] = useState("1");
+	const [travelerType, setTravelerType] = useState("adult");
+
 	const [share, setShare] = useState(true);
 
 	function renderInputColor(station, stations) {
@@ -198,15 +243,30 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	function calcMaxEndDate() {
 		if (startDate) {
 			const maxEndDate = new Date(startDate);
-			const thirtyDaySearch =
-				new Date().getUTCHours() >= 1 && new Date().getUTCHours() < 13;
-			maxEndDate.setDate(maxEndDate.getDate() + (thirtyDaySearch ? 29 : 8));
+			maxEndDate.setDate(maxEndDate.getDate() + 29);
 			const maxStartDate = new Date(calcMaxStartDate());
 			return maxEndDate < maxStartDate
 				? maxEndDate.toISOString().split("T")[0]
 				: maxStartDate.toISOString().split("T")[0];
 		} else {
 			return calcMaxStartDate();
+		}
+	}
+
+	function handleEndDate(endDate) {
+		if (
+			startDate &&
+			!(new Date().getUTCHours() >= 1 && new Date().getUTCHours() < 13) &&
+			Math.round(
+				(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
+			) > 9
+		) {
+			alert(
+				"10-30 day searches are only available during off-peak times from 7PM-7AM CST. Consider shortening your search to 9 days or less or try again later."
+			);
+			return "";
+		} else {
+			return endDate;
 		}
 	}
 
@@ -217,6 +277,16 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			return;
 		} else if (!Object.keys(arrivalStations).includes(arrivalStation)) {
 			alert("Please enter a valid arrival station.");
+			return;
+		} else if (
+			(deptStation === "Lorton (VA)" && arrivalStation !== "Sanford (FL)") ||
+			(deptStation === "Sanford (FL)" && arrivalStation !== "Lorton (VA)") ||
+			(arrivalStation === "Lorton (VA)" && deptStation !== "Sanford (FL)") ||
+			(arrivalStation === "Sanford (FL)" && deptStation !== "Lorton (VA)")
+		) {
+			alert(
+				"Auto Train is only available between Lorton (VA) and Sanford (FL)."
+			);
 			return;
 		} else if (
 			!(
@@ -261,10 +331,19 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				confirmMsg += familyRoom ? "\tFamily Room\n" : "";
 			}
 
+			confirmMsg += `${
+				travelerQuantity > 1 ? "Travelers" : "Traveler"
+			}\n\t${travelerQuantity} ${travelerType.charAt(0).toUpperCase() +
+				travelerType.slice(1)}${travelerQuantity > 1 ? "s" : ""}\n`;
+
+			confirmMsg += "Route\n";
+			confirmMsg += route ? `\t${route}\n` : "";
+			confirmMsg += `\t${
+				timeOfDay === "earliest-available" ? "Earliest available" : timeOfDay
+			}\n`;
+
 			confirmMsg +=
 				"\nRequesting fares may take a few minutes and you will not be able to refresh this page.";
-			confirmMsg +=
-				" Note that the first departure each date will be selected.";
 			confirmMsg += share
 				? ' The results of this search will be shared with others at the bottom of this page. Fare sharing can be disabled under the "More" menu.'
 				: "";
@@ -305,8 +384,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						roomette: roomette,
 						bedroom: bedroom,
 						familyRoom: familyRoom,
+						route: route,
+						timeOfDay: timeOfDay,
+						travelerQuantity: travelerQuantity,
+						travelerType: travelerType,
 						share: share,
 					};
+
 					socket.onopen = (e) => {
 						socket.send(JSON.stringify(fareMessage));
 					};
@@ -354,30 +438,17 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	const [seatsExpanded, setSeatsExpanded] = useState(false);
 	const [roomsExpanded, setRoomsExpanded] = useState(false);
+	const [routeExpanded, setRouteExpanded] = useState(false);
+	const [travelersExpanded, setTravelersExpanded] = useState(false);
 	const [moreExpanded, setMoreExpanded] = useState(false);
 
-	function handleSeatsExpanded() {
-		if (!seatsExpanded) {
-			setRoomsExpanded(false);
-			setMoreExpanded(false);
-		}
-		setSeatsExpanded(!seatsExpanded);
-	}
-
-	function handleRoomsExpanded() {
-		if (!roomsExpanded) {
-			setSeatsExpanded(false);
-			setMoreExpanded(false);
-		}
-		setRoomsExpanded(!roomsExpanded);
-	}
-
-	function handleMoreExpanded() {
-		if (!moreExpanded) {
-			setSeatsExpanded(false);
-			setRoomsExpanded(false);
-		}
-		setMoreExpanded(!moreExpanded);
+	function switchMenu(setMenuExpanded, menuExpanded) {
+		setSeatsExpanded(false);
+		setRoomsExpanded(false);
+		setRouteExpanded(false);
+		setTravelersExpanded(false);
+		setMoreExpanded(false);
+		setMenuExpanded(!menuExpanded);
 	}
 
 	function handleShare() {
@@ -495,7 +566,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 								: new Date().toISOString().split("T")[0]
 						}
 						name="end-date"
-						onChange={(e) => setEndDate(e.target.value)}
+						onChange={(e) => setEndDate(handleEndDate(e.target.value))}
 						required
 						type="date"
 						value={endDate}
@@ -513,7 +584,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			</div>
 			<div id="more-options">
 				<div id="options-container">
-					<div className="options-toggle" onClick={() => handleSeatsExpanded()}>
+					<div
+						className="options-toggle"
+						onClick={() => switchMenu(setSeatsExpanded, seatsExpanded)}
+					>
 						<h3>Seats</h3>
 						<FontAwesomeIcon
 							className="dropdown"
@@ -523,7 +597,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							}}
 						/>
 					</div>
-					<div className="options-toggle" onClick={() => handleRoomsExpanded()}>
+					<div
+						className="options-toggle"
+						onClick={() => switchMenu(setRoomsExpanded, roomsExpanded)}
+					>
 						<h3>Rooms</h3>
 						<FontAwesomeIcon
 							className="dropdown"
@@ -533,7 +610,36 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							}}
 						/>
 					</div>
-					<div className="options-toggle" onClick={() => handleMoreExpanded()}>
+					<div
+						className="options-toggle"
+						onClick={() => switchMenu(setRouteExpanded, routeExpanded)}
+					>
+						<h3>Route</h3>
+						<FontAwesomeIcon
+							className="dropdown"
+							icon={faAngleDown}
+							style={{
+								transform: routeExpanded ? "rotate(180deg)" : "rotate(0)",
+							}}
+						/>
+					</div>
+					<div
+						className="options-toggle"
+						onClick={() => switchMenu(setTravelersExpanded, travelersExpanded)}
+					>
+						<h3>Travelers</h3>
+						<FontAwesomeIcon
+							className="dropdown"
+							icon={faAngleDown}
+							style={{
+								transform: travelersExpanded ? "rotate(180deg)" : "rotate(0)",
+							}}
+						/>
+					</div>
+					<div
+						className="options-toggle"
+						onClick={() => switchMenu(setMoreExpanded, moreExpanded)}
+					>
 						<h3>More</h3>
 						<FontAwesomeIcon
 							className="dropdown"
@@ -622,9 +728,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							onChange={(e) => handleCheapestRoom()}
 							type="checkbox"
 						/>
-						<label htmlFor="cheapest-room">
-							Cheapest available <sup>NEW</sup>
-						</label>
+						<label htmlFor="cheapest-room">Cheapest available</label>
 					</div>
 					<div className="checkbox">
 						<input
@@ -679,6 +783,91 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						>
 							<FontAwesomeIcon icon={faCircleQuestion} />
 						</a>
+					</div>
+				</div>
+			)}
+			{routeExpanded && (
+				<div className="input-row" id="route-row">
+					<div
+						className="menu-select"
+						style={{
+							animation: mutualRoutes.length <= 1 ? "none" : "highlight 1s",
+							opacity: mutualRoutes.length <= 1 ? "0.5" : "1",
+							pointerEvents: mutualRoutes.length <= 1 ? "none" : "auto",
+						}}
+					>
+						<label htmlFor="route">Route</label>
+						<select
+							{...(mutualRoutes.length <= 1 && { disabled: true })}
+							id="route"
+							name="route"
+							onChange={(e) => setRoute(e.target.value)}
+							required
+							value={route}
+						>
+							{mutualRoutes.map((route) => (
+								<option key={route} value={route}>
+									{route}
+								</option>
+							))}
+						</select>
+					</div>
+					<div className="menu-select">
+						<label htmlFor="time-of-day">Time of day</label>
+						<select
+							id="time-of-day"
+							name="time-of-day"
+							onChange={(e) => setTimeOfDay(e.target.value)}
+							value={timeOfDay}
+						>
+							<option key="earliest-available" value="earliest-available">
+								Earliest available
+							</option>
+							<option key="12a-6a" value="12a-6a">
+								12a-6a
+							</option>
+							<option key="6a-12p" value="6a-12p">
+								6a-12p
+							</option>
+							<option key="12p-6p" value="12p-6p">
+								12p-6p
+							</option>
+							<option key="6p-12a" value="6p-12a">
+								6p-12a
+							</option>
+						</select>
+					</div>
+				</div>
+			)}
+			{travelersExpanded && (
+				<div className="input-row">
+					<div className="menu-select">
+						<label htmlFor="traveler-quantity">Traveler quantity</label>{" "}
+						<input
+							id="traveler-quantity"
+							max="8"
+							min="1"
+							name="traveler-quantity"
+							onChange={(e) => setTravelerQuantity(e.target.value)}
+							type="number"
+							value={travelerQuantity}
+						/>
+					</div>
+					<div className="menu-select">
+						<label htmlFor="traveler-type">Traveler type</label>
+						<select
+							id="traveler-type"
+							name="traveler-type"
+							onChange={(e) => setTravelerType(e.target.value)}
+							value={travelerType}
+						>
+							<option value="adult">
+								{travelerQuantity > 1 ? "Adults" : "Adult"}
+							</option>
+							<option value="senior">
+								{travelerQuantity > 1 ? "Seniors" : "Senior"}
+							</option>
+						</select>
 					</div>
 				</div>
 			)}

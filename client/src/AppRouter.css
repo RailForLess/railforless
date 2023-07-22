@@ -30,6 +30,10 @@
 	width: min-content;
 }
 
+.recent-search-button p {
+	font-size: 1.25rem;
+}
+
 .recent-search-button:hover {
 	background-color: rgb(200, 0, 0);
 }

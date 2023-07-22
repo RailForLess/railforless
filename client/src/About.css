@@ -14,8 +14,8 @@ figcaption a {
 }
 
 .section-container b,
-li,
-p {
+.section-container li,
+.section-container p {
 	font-size: 1.25rem;
 }
 
@@ -68,6 +68,10 @@ p {
 	transition: background-color 0.25s;
 	white-space: nowrap;
 	width: min-content;
+}
+
+#back-button-container p {
+	font-size: 1.25rem;
 }
 
 #back-button-container:hover {

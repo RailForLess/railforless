@@ -10,10 +10,10 @@
 }
 
 .fade-in {
-	animation: fadeIn 1s;
+	animation: fade-in 1s;
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
 	0% {
 		opacity: 0;
 		transform: scale(1.1, 1.1);

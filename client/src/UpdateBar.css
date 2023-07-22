@@ -1,5 +1,6 @@
 #update-bar {
 	background: red;
+	font-size: 1.25rem;
 	font-weight: 500;
 	padding: 0.25rem;
 	width: 100vw;
@@ -7,6 +8,11 @@
 
 #update-bar-container {
 	position: relative;
+}
+
+#update-bar-container span {
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 #update-bar-container svg {

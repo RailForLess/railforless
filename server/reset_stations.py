@@ -17,14 +17,16 @@ for row in soup.findAll('table')[1].tbody.findAll('tr')[1:]:
     routes = ""
     for route in routes_html:
         route = route.contents
-        formatted_route = ""
+        formatted_routes = ""
         for route_component in route:
             try:
                 route_component = route_component.contents[0]
             except:
                 pass
-            formatted_route += route_component
-        routes += formatted_route + ","
+            formatted_routes += route_component
+        formatted_routes = formatted_routes.split(" and ")
+        for formatted_route in formatted_routes:
+            routes += formatted_route + ","
     stations.append([name, code, routes])
 
 conn = sqlite3.connect("./stations.db")

@@ -97,6 +97,7 @@ export default function FareTable({ fares }) {
 						<FontAwesomeIcon icon={faArrowRight} size="lg" />
 						<h2>{addInfo.arrivalStation}</h2>
 					</div>
+					<h3 id="traveler-info">{addInfo.travelerInfo}</h3>
 				</div>
 			)}
 			<table>

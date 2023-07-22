@@ -259,7 +259,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			!(new Date().getUTCHours() >= 1 && new Date().getUTCHours() < 13) &&
 			Math.round(
 				(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
-			) > 9
+			) > 8
 		) {
 			alert(
 				"10-30 day searches are only available during off-peak times from 7PM-7AM CST. Consider shortening your search to 9 days or less or try again later."

@@ -129,6 +129,12 @@ async def handler(websocket):
                 delay()
 
             if (date_index % 3 == 0):
+                cookie_accept = driver.find_elements(
+                    By.XPATH, "//button[@id='onetrust-accept-btn-handler']")
+                if (cookie_accept):
+                    cookie_accept[0].click()
+                    delay()
+
                 await send_progress(date_index, percent_index, len(dates), "Entering departure station")
                 await asyncio.sleep(0.1)
 

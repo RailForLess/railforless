@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { getDialog } from "./Dialog";
 import Status from "./Status";
 import "./Form.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -98,12 +99,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					direct &&
 					station !== (arrivalStations ? deptStation : arrivalStation)
 				) {
-					alert(
+					getDialog(
 						`Direct routes only enabled, but ${
 							stations === deptStations ? station : deptStation
 						} to ${
 							stations === arrivalStations ? station : arrivalStation
-						} is not a direct route. This option can be disabled under "More".`
+						} is not a direct route. This option can be disabled under "More".`,
+						"alert"
 					);
 					return "";
 				}
@@ -145,12 +147,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	const [cheapestRoom, setCheapestRoom] = useState(true);
 
-	function handleRoomType(roomType) {
+	async function handleRoomType(roomType) {
 		if (!direct) {
 			if (
-				!window.confirm(
-					"Fares for specific room types are only available on direct routes. Filter by direct routes only?"
-				)
+				!(await getDialog(
+					"Fares for specific room types are only available on direct routes. Filter by direct routes only?",
+					"confirm"
+				))
 			) {
 				return;
 			}
@@ -175,12 +178,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	const [bedroom, setBedroom] = useState(false);
 	const [familyRoom, setFamilyRoom] = useState(false);
 
-	function handleDirect() {
+	async function handleDirect() {
 		if (direct && (roomette || bedroom || familyRoom)) {
 			if (
-				!window.confirm(
-					"Fares for specific room types are only available on direct routes. Are you sure you want to disable this option?"
-				)
+				!(await getDialog(
+					"Fares for specific room types are only available on direct routes. Are you sure you want to disable this option?",
+					"confirm"
+				))
 			) {
 				return;
 			}
@@ -207,6 +211,23 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		}
 	}, [deptStation, arrivalStation]);
 
+	useEffect(() => {
+		if (route === "Acela") {
+			setCoach(false);
+			setBusiness(true);
+			setCheapestRoom(false);
+			setRoomette(false);
+			setBedroom(false);
+			setFamilyRoom(false);
+			setRoomsExpanded(false);
+		} else {
+			setFirst(false);
+			setCoach(true);
+			setBusiness(false);
+			setCheapestRoom(true);
+		}
+	}, [route]);
+
 	function getMutualRoutes() {
 		const deptStationInfo = allStations[deptStation];
 		const arrivalStationInfo = allStations[arrivalStation];
@@ -221,7 +242,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		return routes;
 	}
 
-	const [timeOfDay, setTimeOfDay] = useState("earliest-available");
+	const [timeOfDay, setTimeOfDay] = useState("anytime");
 
 	const [travelerQuantity, setTravelerQuantity] = useState("1");
 	const [travelerType, setTravelerType] = useState("adult");
@@ -261,8 +282,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				(new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)
 			) > 8
 		) {
-			alert(
-				"10-30 day searches are only available during off-peak times from 7PM-7AM CST. Consider shortening your search to 9 days or less or try again later."
+			getDialog(
+				"10-30 day searches are only available during off-peak times from 7PM-7AM CST. Consider shortening your search to 9 days or less or try again later.",
+				"alert"
 			);
 			return "";
 		} else {
@@ -270,13 +292,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		}
 	}
 
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
 		if (!Object.keys(deptStations).includes(deptStation)) {
-			alert("Please enter a valid departure station.");
+			getDialog("Please enter a valid departure station.", "alert");
 			return;
 		} else if (!Object.keys(arrivalStations).includes(arrivalStation)) {
-			alert("Please enter a valid arrival station.");
+			getDialog("Please enter a valid arrival station.", "alert");
 			return;
 		} else if (
 			(deptStation === "Lorton (VA)" && arrivalStation !== "Sanford (FL)") ||
@@ -284,8 +306,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			(arrivalStation === "Lorton (VA)" && deptStation !== "Sanford (FL)") ||
 			(arrivalStation === "Sanford (FL)" && deptStation !== "Lorton (VA)")
 		) {
-			alert(
-				"Auto Train is only available between Lorton (VA) and Sanford (FL)."
+			getDialog(
+				"Auto Train is only available between Lorton (VA) and Sanford (FL).",
+				"alert"
 			);
 			return;
 		} else if (
@@ -299,56 +322,63 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				familyRoom
 			)
 		) {
-			alert("Please select at least one seating or room option.");
+			getDialog("Please select at least one seating or room option.", "alert");
 			return;
 		} else {
-			let confirmMsg = "Please confirm the following information:\n\n";
-			confirmMsg += `Stations\n\t${deptStation} -> ${arrivalStation}\n`;
+			let confirmMsg = "Please confirm the following information:<br><br>";
+			confirmMsg += `Stations<br>&emsp;${deptStation} -> ${arrivalStation}<br>`;
 
 			const dates = getDates(startDate, endDate);
 
-			confirmMsg += `Date${dates.length > 1 ? "s" : ""}\n`;
-			dates.forEach((date) => {
-				confirmMsg += `\t${date}\n`;
-			});
+			confirmMsg += `Date${dates.length > 1 ? "s" : ""}<br>`;
+			confirmMsg += `&emsp;${dates[0]}`;
+			confirmMsg += `${
+				dates.length > 1 ? ` -> ${dates[dates.length - 1]}` : ""
+			}<br>`;
 
-			confirmMsg += "Seats\n";
+			confirmMsg += "Seats<br>";
 			if (!(coach || business || first)) {
-				confirmMsg += "\tNone selected\n";
+				confirmMsg += "&emsp;None selected<br>";
 			} else {
-				confirmMsg += coach ? "\tCoach\n" : "";
-				confirmMsg += business ? "\tBusiness\n" : "";
-				confirmMsg += first ? "\tFirst\n" : "";
+				confirmMsg += coach ? "&emsp;Coach<br>" : "";
+				confirmMsg += business ? "&emsp;Business<br>" : "";
+				confirmMsg += first ? "&emsp;First<br>" : "";
 			}
 
-			confirmMsg += "Rooms\n";
+			confirmMsg += "Rooms<br>";
 			if (!(cheapestRoom || roomette || bedroom || familyRoom)) {
-				confirmMsg += "\tNone selected\n";
+				confirmMsg += "&emsp;None selected<br>";
 			} else {
-				confirmMsg += cheapestRoom ? "\tCheapest available\n" : "";
-				confirmMsg += roomette ? "\tRoomette\n" : "";
-				confirmMsg += bedroom ? "\tBedroom\n" : "";
-				confirmMsg += familyRoom ? "\tFamily Room\n" : "";
+				confirmMsg += cheapestRoom ? "&emsp;Cheapest available<br>" : "";
+				confirmMsg += roomette ? "&emsp;Roomette<br>" : "";
+				confirmMsg += bedroom ? "&emsp;Bedroom<br>" : "";
+				confirmMsg += familyRoom ? "&emsp;Family Room<br>" : "";
 			}
 
 			confirmMsg += `${
 				travelerQuantity > 1 ? "Travelers" : "Traveler"
-			}\n\t${travelerQuantity} ${travelerType.charAt(0).toUpperCase() +
-				travelerType.slice(1)}${travelerQuantity > 1 ? "s" : ""}\n`;
+			}<br>&emsp;${travelerQuantity} ${travelerType.charAt(0).toUpperCase() +
+				travelerType.slice(1)}${travelerQuantity > 1 ? "s" : ""}<br>`;
 
-			confirmMsg += "Route\n";
-			confirmMsg += route ? `\t${route}\n` : "";
-			confirmMsg += `\t${
-				timeOfDay === "earliest-available" ? "Earliest available" : timeOfDay
-			}\n`;
+			confirmMsg += "Route<br>";
+			confirmMsg += `${route ? `&emsp;${route}` : "N/A"}<br>`;
+
+			confirmMsg += "Time of day<br>";
+			confirmMsg += `&emsp;${
+				timeOfDay === "anytime" ? "Anytime" : timeOfDay
+			}<br>`;
+
+			confirmMsg += `<br>Estimated wait: ~${Math.ceil(
+				dates.length / 3
+			)} minute${Math.ceil(dates.length / 3) > 1 ? "s" : ""}<br>`;
 
 			confirmMsg +=
-				"\nRequesting fares may take a few minutes and you will not be able to refresh this page.";
+				"<br>Requesting fares may take a few minutes and you will not be able to refresh this page.";
 			confirmMsg += share
 				? ' The results of this search will be shared with others at the bottom of this page. Fare sharing can be disabled under the "More" menu.'
 				: "";
 
-			if (!window.confirm(confirmMsg)) {
+			if (!(await getDialog(confirmMsg, "confirm"))) {
 				return;
 			}
 		}
@@ -358,8 +388,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			.then((data) => {
 				setStatus(data.status);
 				if (!data.status) {
-					alert(
-						"Server busy, please wait. Refresh status indicator for updates."
+					getDialog(
+						"Server busy, please wait. Refresh status indicator for updates.",
+						"alert"
 					);
 					return;
 				} else {
@@ -451,12 +482,13 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		setMenuExpanded(!menuExpanded);
 	}
 
-	function handleShare() {
+	async function handleShare() {
 		if (share) {
 			if (
-				!window.confirm(
-					"Sharing fares allows others to view the results of your search without having to make a new request. Are you sure you want to disable this option?"
-				)
+				!(await getDialog(
+					"Sharing fares allows others to view the results of your search without having to make a new request. Are you sure you want to disable this option?",
+					"confirm"
+				))
 			) {
 				return;
 			}
@@ -600,6 +632,10 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 					<div
 						className="options-toggle"
 						onClick={() => switchMenu(setRoomsExpanded, roomsExpanded)}
+						style={{
+							opacity: route === "Acela" ? "0.5" : "1",
+							pointerEvents: route === "Acela" ? "none" : "auto",
+						}}
 					>
 						<h3>Rooms</h3>
 						<FontAwesomeIcon
@@ -654,9 +690,16 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			</div>
 			{seatsExpanded && (
 				<div className="input-row">
-					<div className="checkbox">
+					<div
+						className="checkbox"
+						style={{
+							opacity: route === "Acela" ? "0.5" : "1",
+							pointerEvents: route === "Acela" ? "none" : "auto",
+						}}
+					>
 						<input
 							checked={coach}
+							{...(route === "Acela" && { disabled: true })}
 							id="coach"
 							name="coach"
 							onChange={(e) => setCoach(!coach)}
@@ -694,10 +737,17 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							<FontAwesomeIcon icon={faCircleQuestion} />
 						</a>
 					</div>
-					<div className="checkbox">
+					<div
+						className="checkbox"
+						style={{
+							opacity: route !== "Acela" ? "0.5" : "1",
+							pointerEvents: route !== "Acela" ? "none" : "auto",
+						}}
+					>
 						<input
 							id="first"
 							checked={first}
+							{...(route !== "Acela" && { disabled: true })}
 							name="first"
 							onChange={(e) => setFirst(!first)}
 							type="checkbox"
@@ -813,28 +863,40 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						</select>
 					</div>
 					<div className="menu-select">
-						<label htmlFor="time-of-day">Time of day</label>
+						<div style={{ display: "flex", flexShrink: "0", gap: "0.25rem" }}>
+							<label htmlFor="time-of-day">Time of day</label>
+							<sup>NEW</sup>
+						</div>
 						<select
 							id="time-of-day"
 							name="time-of-day"
 							onChange={(e) => setTimeOfDay(e.target.value)}
 							value={timeOfDay}
 						>
-							<option key="earliest-available" value="earliest-available">
-								Earliest available
+							<option key="anytime" value="anytime">
+								Anytime
 							</option>
 							<option key="12a-6a" value="12a-6a">
-								12a-6a
+								12 AM - 6 AM
 							</option>
 							<option key="6a-12p" value="6a-12p">
-								6a-12p
+								6 AM - 12 PM
 							</option>
 							<option key="12p-6p" value="12p-6p">
-								12p-6p
+								12 PM - 6 PM
 							</option>
 							<option key="6p-12a" value="6p-12a">
-								6p-12a
+								6 PM - 12 AM
 							</option>
+							{["AM", "PM"].map((time) =>
+								[12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((hour) => (
+									<option
+										key={`${hour}${time[0].toLowerCase()}`}
+										value={`${hour}${time[0].toLowerCase()}`}
+									>{`${hour} ${time}`}</option>
+								))
+							)}
+							;
 						</select>
 					</div>
 				</div>

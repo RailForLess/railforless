@@ -5,12 +5,11 @@ import json
 
 from pyvirtualdisplay import Display
 from seleniumwire import webdriver
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 import pickle
 import time
@@ -23,7 +22,7 @@ async def handler(websocket):
         progress = dict()
 
         progress["percentComplete"] = round(
-            round(percent_index / (numDates + math.ceil(numDates / 3)), 2) * 100)
+            round(percent_index / (numDates + 2 * math.ceil(numDates / 3)), 2) * 100)
         if time:
             progress["time"] = time
         progress["info"] = info
@@ -36,14 +35,10 @@ async def handler(websocket):
         time.sleep(random.randint(10, 20) / 100)
 
     def get_proxy():
-        with open("./proxy.pk", "rb") as pk:
-            proxy = pickle.load(pk)
-        old_proxy_port = int(proxy[-5:])
-        proxy_port = old_proxy_port
-        while (proxy_port == old_proxy_port):
-            proxy_port = random.randint(10001, 10100)
-        with open("./proxy.pk", "wb") as pk:
-            pickle.dump(proxy[:-5] + str(proxy_port), pk)
+        with open("./proxies.pk", "rb") as pk:
+            proxies = pickle.load(pk)
+        proxy = proxies["proxies"][proxies["index"]]
+        proxies["index"] = (proxies["index"] + 1) % 20
         return proxy
 
     try:
@@ -75,14 +70,22 @@ async def handler(websocket):
         while (date_index < len(dates)):
             date = dates[date_index]
             if (date_index % 3 == 0):
-                await send_progress(date_index, percent_index, len(
-                    dates), f"Connecting to proxy {math.ceil((date_index + 1) / 3)} of {math.ceil(len(dates) / 3)}", 19)
-
                 if (date_index != 0):
                     driver.quit()
 
                     # comment out the line below when developing on Windows
                     display.stop()
+
+                await send_progress(date_index, percent_index, len(
+                    dates), f"Waiting 5 seconds...", 5)
+                await asyncio.sleep(0.1)
+                time.sleep(5)
+
+                percent_index += 1
+
+                await send_progress(date_index, percent_index, len(
+                    dates), f"Connecting to proxy {math.ceil((date_index + 1) / 3)} of {math.ceil(len(dates) / 3)}", 10)
+                await asyncio.sleep(0.1)
 
                 # comment out the two lines below when developing on Windows
                 display = Display(visible=1, size=(
@@ -91,12 +94,16 @@ async def handler(websocket):
 
                 seleniumwire_options = {
                     "proxy": {
-                        "http": get_proxy()
+                        "https": get_proxy()
                     }
                 }
 
+                # change 'chromedriver' to 'chromedriver.exe' when developing on Windows
                 details = Service(r"chromedriver")
+
                 options = webdriver.ChromeOptions()
+                options.add_argument("--incognito")
+                options.add_argument('--disable-extensions')
                 options.add_argument("--no-sandbox")
                 options.add_argument("--remote-debugging-port=9225")
                 options.add_argument("ignore-certificate-errors")
@@ -106,35 +113,46 @@ async def handler(websocket):
                     "useAutomationExtension", False)
                 options.add_experimental_option(
                     "excludeSwitches", ["enable-automation"])
+                options.add_argument(
+                    f"user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{random.randint(114, 117)}.0.0.0 Safari/537.36")
 
                 driver = webdriver.Chrome(
                     options=options, seleniumwire_options=seleniumwire_options, service=details)
+                driver.execute_script(
+                    "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+                driver.execute_cdp_cmd(
+                    "Page.removeScriptToEvaluateOnNewDocument", {"identifier": "1"})
                 driver.maximize_window()
                 driver.set_page_load_timeout(30)
                 try:
                     driver.get("https://www.amtrak.com/" +
-                               ("auto-train-experience" if auto_train else ""))
+                               ("auto-train-experience" if auto_train else "departure"))
                 except Exception:
                     pass
 
                 percent_index += 1
 
+            if (date_index % 3 == 0):
+                cookie_accept = driver.find_elements(
+                    By.XPATH, "//button[@id='onetrust-accept-btn-handler']")
+                if (cookie_accept):
+                    await send_progress(date_index, percent_index, len(dates), "Accepting cookies")
+                    await asyncio.sleep(0.1)
+
+                    cookie_accept[0].click()
+                    delay()
+
             if (date_index % 3 != 0 and not noTrains):
                 await send_progress(date_index, percent_index, len(dates), "Beginning new search")
                 await asyncio.sleep(0.1)
 
+            if (not noTrains):
                 new_search_button = driver.find_element(
                     By.XPATH, "//button[contains(.,'New Search')]")
                 new_search_button.click()
                 delay()
 
             if (date_index % 3 == 0):
-                cookie_accept = driver.find_elements(
-                    By.XPATH, "//button[@id='onetrust-accept-btn-handler']")
-                if (cookie_accept):
-                    cookie_accept[0].click()
-                    delay()
-
                 await send_progress(date_index, percent_index, len(dates), "Entering departure station")
                 await asyncio.sleep(0.1)
 
@@ -183,7 +201,7 @@ async def handler(websocket):
                 await asyncio.sleep(0.1)
 
                 travelers_button = driver.find_element(
-                    By.XPATH, "//img[@alt='Add travelers and discounts']")
+                    By.XPATH, "//button[contains(.,'1Traveler')]")
                 travelers_button.click()
                 delay()
 
@@ -198,7 +216,7 @@ async def handler(websocket):
                     By.XPATH, "//button[@amt-auto-test-id='traveler-component-senior-incr-button']")
                 for traveler in range(traveler_quantity):
                     (adult_add_button if traveler_type ==
-                     "adult" else senior_add_button).click()
+                        "adult" else senior_add_button).click()
                     delay()
 
             noTrains = False
@@ -233,17 +251,37 @@ async def handler(websocket):
             if (not noTrains):
                 filter_button = driver.find_elements(
                     By.XPATH, "//span[contains(.,'Sort/Filter')]")
-                if (pref_route or time_of_day != "earliest-available") and filter_button:
+                if (pref_route or time_of_day != "anytime") and filter_button:
                     await send_progress(date_index, percent_index, len(dates), "Filtering results")
                     await asyncio.sleep(0.1)
 
                     filter_button[0].click()
                     time.sleep(0.75)
 
-                    time_of_day_button = driver.find_elements(
-                        By.XPATH, f"//button[contains(.,'{time_of_day}')]")
-                    if (time_of_day != "earliest-available" and time_of_day_button):
-                        time_of_day_button[0].click()
+                    if (time_of_day != "anytime"):
+                        if ("-" in time_of_day):
+                            time_of_day_button = driver.find_elements(
+                                By.XPATH, f"//button[contains(.,'{time_of_day}')]")
+                        else:
+                            sort_button = driver.find_element(
+                                By.XPATH, "//label[@class='mat-radio-label'][contains(.,'Departure Time')]")
+                            sort_button.click()
+                            delay()
+                            if (time_of_day == "12a" or ((time_of_day[-1] == "a") and int(time_of_day[:-1]) < 6)):
+                                time_of_day_button = driver.find_elements(
+                                    By.XPATH, f"//button[contains(.,'12a-6a')]")
+                            elif (time_of_day[-1] == "a"):
+                                time_of_day_button = driver.find_elements(
+                                    By.XPATH, f"//button[contains(.,'6a-12p')]")
+                            elif (time_of_day == "12p" or (int(time_of_day[:-1]) < 6)):
+                                time_of_day_button = driver.find_elements(
+                                    By.XPATH, f"//button[contains(.,'12p-6p')]")
+                            else:
+                                time_of_day_button = driver.find_elements(
+                                    By.XPATH, f"//button[contains(.,'6p-12a')]")
+                        if (time_of_day_button):
+                            time_of_day_button[0].click()
+                            delay()
 
                     route_button = driver.find_elements(
                         By.XPATH, f"//button[contains(.,'{pref_route}')]")
@@ -272,8 +310,19 @@ async def handler(websocket):
                     filter_button.click()
                     delay()
 
-                details = driver.find_elements(
-                    By.XPATH, "//div[contains(@amt-auto-test-id,'autoId-one-way-journey-solution-0-0')]")
+                if (len(time_of_day) <= 3):
+                    i = 0
+                    while (details := driver.find_elements(By.XPATH, f"//div[contains(@amt-auto-test-id,'autoId-one-way-journey-solution-0-{i}')]")):
+                        depart_hour = details[0].find_element(
+                            By.XPATH, "(.//span[contains(@class,'time font-light')])[1]").text.split(":")[0]
+                        depart_period = details[0].find_element(
+                            By.XPATH, "(.//span[contains(@class,'time-period')])[1]").text
+                        if (time_of_day[:-1] == depart_hour and time_of_day[-1] == depart_period):
+                            break
+                        i += 1
+                else:
+                    details = driver.find_elements(
+                        By.XPATH, "//div[contains(@amt-auto-test-id,'autoId-one-way-journey-solution-0-0')]")
                 if (details):
                     fare = dict()
 
@@ -354,10 +403,10 @@ async def handler(websocket):
                             html.send_keys(Keys.HOME)
                             time.sleep(0.5)
 
-                    capacity = details.find_element(
-                        By.XPATH, ".//div[@class='seat-capacity-text']").text
+                    capacity = details.find_elements(
+                        By.XPATH, ".//div[@class='seat-capacity-text']")
                     if (capacity):
-                        fare["capacity"] = capacity.split()[0]
+                        fare["capacity"] = capacity[0].text.split()[0]
 
                     depart_time = details.find_element(
                         By.XPATH, "(.//span[contains(@class,'time font-light')])[1]").text
@@ -396,11 +445,11 @@ async def handler(websocket):
         except Exception:
             pass
 
-        # comment out the try-except block below when developing on Windows
-        try:
-            display.stop()
-        except Exception:
-            pass
+    # comment out the try-except block below when developing on Windows
+    try:
+        display.stop()
+    except Exception:
+        pass
 
     try:
         with open("./status.pk", "wb") as pk:

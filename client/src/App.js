@@ -49,8 +49,29 @@ export default function App() {
 			license: "CC BY 2.0",
 			licenseLink: "https://creativecommons.org/licenses/by/2.0/deed.en",
 		},
+		{
+			imageNum: 7,
+			author: "Marc Glucksman",
+			authorLink: "https://www.riverrailphoto.com/",
+			license: "Amtrak Media",
+			licenseLink: "https://media.amtrak.com/terms-of-use/",
+		},
+		{
+			imageNum: 8,
+			author: "Marc Glucksman",
+			authorLink: "https://www.riverrailphoto.com/",
+			license: "Amtrak Media",
+			licenseLink: "https://media.amtrak.com/terms-of-use/",
+		},
+		{
+			imageNum: 9,
+			author: "Marc Glucksman",
+			authorLink: "https://www.riverrailphoto.com/",
+			license: "Amtrak Media",
+			licenseLink: "https://media.amtrak.com/terms-of-use/",
+		},
 	];
-	const [imageIndex, setImageIndex] = useState(Math.floor(Math.random() * 6));
+	const [imageIndex, setImageIndex] = useState(Math.floor(Math.random() * 9));
 
 	const [updateBarClose, setUpdateBarClose] = useState(false);
 

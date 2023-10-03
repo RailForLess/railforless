@@ -23,7 +23,7 @@ export default function AppRouter({ imageNum }) {
 					minHeight: "95vh",
 				}}
 			>
-				<div className="hero" id="main-container">
+				<div className="hero main-container">
 					<BrowserRouter>
 						<Routes>
 							<Route
@@ -43,7 +43,7 @@ export default function AppRouter({ imageNum }) {
 			</div>
 			{recentSearches.length > 0 && (
 				<div className="main-background" id="recent-searches">
-					<div id="main-container">
+					<div className="main-container">
 						<div className="fade-in-translate hero-text-container">
 							{recentSearchesToLoad.map((search, index) => (
 								<FareTable key={index} fares={[...search]} />

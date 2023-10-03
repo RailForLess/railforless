@@ -15,6 +15,11 @@
 	width: 100vw;
 }
 
+.main-container {
+	overflow-x: visible;
+	width: 70%;
+}
+
 .recent-search-button {
 	align-items: center;
 	background-color: red;
@@ -38,11 +43,6 @@
 	background-color: rgb(200, 0, 0);
 }
 
-#main-container {
-	overflow-x: visible;
-	width: 70%;
-}
-
 #recent-search-button-container {
 	align-items: center;
 	display: flex;
@@ -61,7 +61,7 @@
 }
 
 @media all and (min-width: 481px) and (max-width: 1099px) {
-	#main-container {
+	.main-container {
 		width: 80%;
 	}
 }
@@ -75,7 +75,7 @@
 		min-height: 100vh;
 	}
 
-	#main-container {
+	.main-container {
 		width: 90%;
 	}
 

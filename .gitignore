@@ -2,7 +2,7 @@
 /server/chromedriver
 /server/chromedriver.exe
 /server/feedback.txt
-/server/proxy.pk
+/server/proxies.pk
 /server/recent_searches.pk
 /server/reset_proxy.py
 /server/stations.db

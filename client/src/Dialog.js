@@ -58,6 +58,7 @@ export default function Dialog({ text, type }) {
 }
 
 export function getDialog(text, type) {
+	window.scrollTo(0, 0);
 	dialogRoot = document.getElementById("dialog-root");
 	dialogRoot.style.visibility = "visible";
 	dialogRoot.style.backdropFilter = "blur(6px)";

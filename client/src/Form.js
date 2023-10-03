@@ -361,7 +361,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				travelerType.slice(1)}${travelerQuantity > 1 ? "s" : ""}<br>`;
 
 			confirmMsg += "Route<br>";
-			confirmMsg += `${route ? `&emsp;${route}` : "N/A"}<br>`;
+			confirmMsg += `&emsp;${route ? route : "N/A"}<br>`;
 
 			confirmMsg += "Time of day<br>";
 			confirmMsg += `&emsp;${

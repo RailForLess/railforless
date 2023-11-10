@@ -357,8 +357,9 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 			confirmMsg += `${
 				travelerQuantity > 1 ? "Travelers" : "Traveler"
-			}<br>&emsp;${travelerQuantity} ${travelerType.charAt(0).toUpperCase() +
-				travelerType.slice(1)}${travelerQuantity > 1 ? "s" : ""}<br>`;
+			}<br>&emsp;${travelerQuantity} ${
+				travelerType.charAt(0).toUpperCase() + travelerType.slice(1)
+			}${travelerQuantity > 1 ? "s" : ""}<br>`;
 
 			confirmMsg += "Route<br>";
 			confirmMsg += `&emsp;${route ? route : "N/A"}<br>`;

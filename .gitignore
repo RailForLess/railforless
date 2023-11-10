@@ -1,9 +1,1 @@
-/client/node_modules
-/server/chromedriver
-/server/chromedriver.exe
-/server/feedback.txt
-/server/proxies.pk
-/server/recent_searches.pk
-/server/reset_proxy.py
-/server/stations.db
-/server/status.pk
+/node_modules

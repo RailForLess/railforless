@@ -1,4 +1,3 @@
-import React from "react";
 import Refresh from "./Refresh";
 import "./Status.css";
 

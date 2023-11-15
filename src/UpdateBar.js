@@ -1,8 +1,6 @@
-import React from "react";
 import { getDialog } from "./Dialog";
 import "./UpdateBar.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import CloseIcon from "@mui/icons-material/Close";
 
 export default function UpdateBar({ setUpdateBarClose }) {
 	function announceUpdate() {
@@ -27,11 +25,7 @@ export default function UpdateBar({ setUpdateBarClose }) {
 				The future of railforless.us{" "}
 				<span onClick={announceUpdate}>Read more</span>
 			</p>
-			<FontAwesomeIcon
-				icon={faXmark}
-				onClick={() => setUpdateBarClose(true)}
-				size="lg"
-			/>
+			<CloseIcon onClick={() => setUpdateBarClose(true)} />
 		</div>
 	);
 }

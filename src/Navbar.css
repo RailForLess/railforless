@@ -1,9 +1,8 @@
 header {
+	background: rgb(32, 33, 36);
 	display: flex;
 	justify-content: center;
-	position: absolute;
 	width: 100vw;
-	z-index: 10;
 }
 
 nav {
@@ -17,6 +16,10 @@ nav {
 nav a {
 	font-size: 1.25rem;
 	text-decoration: none;
+}
+
+nav > a:last-child {
+	display: flex;
 }
 
 @media all and (min-width: 481px) and (max-width: 1099px) {

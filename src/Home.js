@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Form from "./Form";
 import FareTable from "./FareTable";
 import Feedback from "./Feedback";
 import ProgressBar from "./ProgressBar";
 import ProgressTrain from "./ProgressTrain";
 import ProgressCrossing from "./ProgressCrossing";
-import RecentSearchesButton from "./RecentSearchesButton";
 import "./Home.css";
 
 export default function Home({
@@ -56,39 +55,35 @@ export default function Home({
 		}
 	}
 
+	function setHeroContainerHeight() {
+		const width = window.innerWidth;
+		document.querySelector("#hero-container").style.height = `calc(100% - (${
+			width <= 480 ? 90 : width <= 1099 ? 80 : 50
+		}vw * (267 / 1251)) + ${width <= 480 ? 0.5 : 1.5}rem - 0.3rem)`;
+	}
+	setTimeout(setHeroContainerHeight, 0);
+	window.onresize = setHeroContainerHeight;
+
 	return (
-		<div className="hero-text-container">
-			<div className="fade-in-translate" id="hero-text">
-				<h1>RailForLess.us</h1>
-				{Object.keys(fares).length === 0 && (
-					<h2>
-						Rail travel should be accessible to <em>everyone</em>. Find the
-						cheapest fares for Amtrak routes across the country with flexible
-						scheduling.
-					</h2>
-				)}
+		<div className="main-container">
+			<img alt="" src="./images/hero.svg" />
+			<div id="hero-container">
+				<div className="fade-in-translate" id="hero-text">
+					<h1>RailForLess.us</h1>
+				</div>
+				<Form
+					fares={fares}
+					setFares={setFares}
+					progress={progress}
+					setProgress={setProgress}
+				/>
+				{Object.keys(fares).length > 0 && <FareTable fares={fares} />}
+				{(Object.keys(fares).length > 0 ||
+					progress.info === "No trains found!") && <Feedback />}
+				{progressBool() && <ProgressTrain progress={progress} />}
+				{progressBool() && <div style={{ height: "5vh" }}></div>}
+				{progressBool() && crossingState()}
 			</div>
-			<Form
-				fares={fares}
-				setFares={setFares}
-				progress={progress}
-				setProgress={setProgress}
-			/>
-			{Object.keys(fares).length > 0 && <FareTable fares={fares} />}
-			{progressState()}
-			{(Object.keys(fares).length > 0 ||
-				progress.info === "No trains found!") && <Feedback />}
-			{progressBool() && <ProgressTrain progress={progress} />}
-			{progressBool() && <div style={{ height: "5vh" }}></div>}
-			{progressBool() && crossingState()}
-			{!progressBool() &&
-				Object.keys(fares).length === 0 &&
-				recentSearches.length === 0 && (
-					<RecentSearchesButton
-						setRecentSearches={setRecentSearches}
-						setMaxRecentSearch={setMaxRecentSearch}
-					/>
-				)}
 		</div>
 	);
 }

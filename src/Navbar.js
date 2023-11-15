@@ -1,7 +1,5 @@
-import React from "react";
 import "./Navbar.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function Navbar() {
 	return (
@@ -21,7 +19,7 @@ export default function Navbar() {
 					rel="noopener noreferrer"
 					target="_blank"
 				>
-					<FontAwesomeIcon icon={faGithub} size={"lg"} />
+					<GitHubIcon />
 				</a>
 			</nav>
 		</header>

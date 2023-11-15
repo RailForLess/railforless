@@ -1,4 +1,3 @@
-import React from "react";
 import { flushSync } from "react-dom";
 import "./RecentSearchesButton.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

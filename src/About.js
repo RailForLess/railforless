@@ -1,7 +1,5 @@
-import React from "react";
 import "./About.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function About() {
 	return (
@@ -138,7 +136,7 @@ export default function About() {
 				</div>
 			</div>
 			<a href="/" id="back-button-container">
-				<FontAwesomeIcon icon={faArrowLeftLong} size="xl" />
+				<ArrowBackIcon />
 				<p>Take me back</p>
 			</a>
 		</div>

@@ -1,16 +1,26 @@
 * {
 	box-sizing: border-box;
-	color: white;
-	font-family: "Inter Tight", sans-serif;
-	font-size: 16px;
+	font-family: "Google Sans", "Roboto", "Arial", "sans-serif";
 	margin: 0;
-	overflow-x: hidden;
 	padding: 0;
 	text-align: center;
 }
 
+a {
+	color: white;
+}
+
 .fade-in {
 	animation: fade-in 1s;
+}
+
+#root {
+	height: 100vh;
+}
+
+@font-face {
+	font-family: "Google Sans";
+	src: url("./fonts/ProductSans-Regular.ttf");
 }
 
 @keyframes fade-in {

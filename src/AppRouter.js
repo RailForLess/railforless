@@ -1,46 +1,44 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import About from "./About";
 import Home from "./Home";
 import "./AppRouter.css";
 import FareTable from "./FareTable";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import CloseIcon from "@mui/icons-material/Close";
 
-export default function AppRouter({ imageNum }) {
+export default function AppRouter({ updateBarClose }) {
 	const [recentSearches, setRecentSearches] = useState([]);
 	const [maxRecentSearch, setMaxRecentSearch] = useState(0);
 
 	const recentSearchesToLoad = recentSearches.slice(0, maxRecentSearch);
 
+	function setMainHeight() {
+		document.querySelector("main").style.height =
+			window.innerWidth <= 480
+				? "auto"
+				: `calc(100% - 6rem - ${!updateBarClose ? 2.4 : 0}rem)`;
+	}
+	setTimeout(setMainHeight, 0);
+	window.onresize = setMainHeight;
+
 	return (
 		<main>
-			<div
-				className="main-background"
-				style={{
-					backgroundImage: `url("./images/hero-${imageNum}.png")`,
-					minHeight: "95vh",
-				}}
-			>
-				<div className="hero main-container">
-					<BrowserRouter>
-						<Routes>
-							<Route
-								path="/"
-								element={
-									<Home
-										recentSearches={recentSearches}
-										setRecentSearches={setRecentSearches}
-										setMaxRecentSearch={setMaxRecentSearch}
-									/>
-								}
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path="/"
+						element={
+							<Home
+								recentSearches={recentSearches}
+								setRecentSearches={setRecentSearches}
+								setMaxRecentSearch={setMaxRecentSearch}
 							/>
-							<Route path="/about" element={<About />} />
-						</Routes>
-					</BrowserRouter>
-				</div>
-			</div>
+						}
+					/>
+					<Route path="/about" element={<About />} />
+				</Routes>
+			</BrowserRouter>
 			{recentSearches.length > 0 && (
 				<div className="main-background" id="recent-searches">
 					<div className="main-container">
@@ -55,7 +53,7 @@ export default function AppRouter({ imageNum }) {
 										onClick={() => setMaxRecentSearch(maxRecentSearch + 10)}
 									>
 										<p>Load more</p>
-										<FontAwesomeIcon icon={faArrowDown} size="xl" />
+										<ArrowDownwardIcon size="xl" />
 									</div>
 								)}
 								<div
@@ -63,7 +61,7 @@ export default function AppRouter({ imageNum }) {
 									onClick={() => setRecentSearches([])}
 								>
 									<p>Close</p>
-									<FontAwesomeIcon icon={faXmark} size="xl" />
+									<CloseIcon size="xl" />
 								</div>
 							</div>
 						</div>

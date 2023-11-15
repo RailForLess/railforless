@@ -1,36 +1,17 @@
-import React from "react";
-import Refresh from "./Refresh";
 import "./Footer.css";
 
-export default function Footer({ imageIndex, imageInfo, setImageIndex }) {
-	function handleUpdate() {
-		let newImageIndex = imageIndex;
-		while (newImageIndex === imageIndex) {
-			newImageIndex = Math.floor(Math.random() * 9);
-		}
-		setImageIndex(newImageIndex);
-	}
-
+export default function Footer() {
 	return (
 		<footer>
 			<div>
-				<Refresh update={handleUpdate} />
 				<h3>
 					Photo by{" "}
-					<a
-						href={imageInfo[imageIndex].authorLink}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						{imageInfo[imageIndex].author}
+					<a href="#" rel="noopener noreferrer" target="_blank">
+						null
 					</a>{" "}
 					| licensed{" "}
-					<a
-						href={imageInfo[imageIndex].licenseLink}
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						{imageInfo[imageIndex].license}
+					<a href="#" rel="noopener noreferrer" target="_blank">
+						null
 					</a>
 				</h3>
 			</div>

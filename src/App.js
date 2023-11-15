@@ -1,90 +1,47 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import UpdateBar from "./UpdateBar";
 import Navbar from "./Navbar";
 import AppRouter from "./AppRouter";
 import Footer from "./Footer";
 import "./App.css";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function App() {
-	const imageInfo = [
-		{
-			imageNum: 1,
-			author: "Mds08011",
-			authorLink: "https://commons.wikimedia.org/wiki/User:Mds08011",
-			license: "CC BY 4.0",
-			licenseLink: "https://creativecommons.org/licenses/by/4.0/deed.en",
-		},
-		{
-			imageNum: 2,
-			author: "Steve Wilson",
-			authorLink: "https://www.flickr.com/people/36989019@N08",
-			license: "CC BY-SA 2.0",
-			licenseLink: "https://creativecommons.org/licenses/by-sa/2.0/deed.en",
-		},
-		{
-			imageNum: 3,
-			author: "Jerry Huddleston",
-			authorLink: "https://www.flickr.com/people/9265232@N04",
-			license: "CC BY 2.0",
-			licenseLink: "https://creativecommons.org/licenses/by/2.0/deed.en",
-		},
-		{
-			imageNum: 4,
-			author: "Carter Pape",
-			authorLink: "https://commons.wikimedia.org/wiki/User:Carter_Pape",
-			license: "CC BY-SA 4.0",
-			licenseLink: "https://creativecommons.org/licenses/by-sa/4.0/deed.en",
-		},
-		{
-			imageNum: 5,
-			author: "David Gubler",
-			authorLink: "http://www.bahnbilder.ch/",
-			license: "CC BY-SA 2.0",
-			licenseLink: "https://creativecommons.org/licenses/by-sa/2.0/deed.en",
-		},
-		{
-			imageNum: 6,
-			author: "Jerry Huddleston",
-			authorLink: "https://www.flickr.com/people/9265232@N04",
-			license: "CC BY 2.0",
-			licenseLink: "https://creativecommons.org/licenses/by/2.0/deed.en",
-		},
-		{
-			imageNum: 7,
-			author: "Marc Glucksman",
-			authorLink: "https://www.riverrailphoto.com/",
-			license: "Amtrak Media",
-			licenseLink: "https://media.amtrak.com/terms-of-use/",
-		},
-		{
-			imageNum: 8,
-			author: "Marc Glucksman",
-			authorLink: "https://www.riverrailphoto.com/",
-			license: "Amtrak Media",
-			licenseLink: "https://media.amtrak.com/terms-of-use/",
-		},
-		{
-			imageNum: 9,
-			author: "Marc Glucksman",
-			authorLink: "https://www.riverrailphoto.com/",
-			license: "Amtrak Media",
-			licenseLink: "https://media.amtrak.com/terms-of-use/",
-		},
-	];
-	const [imageIndex, setImageIndex] = useState(Math.floor(Math.random() * 9));
+	const [updateBarClose, setUpdateBarClose] = useState(true);
 
-	const [updateBarClose, setUpdateBarClose] = useState(false);
+	const primary = {
+		main: "#89B3F7",
+		hover: "#9DC0F9",
+	};
+
+	const darkTheme = createTheme({
+		palette: {
+			mode: "dark",
+			primary: primary,
+		},
+		typography: {
+			button: {
+				textTransform: "none",
+			},
+		},
+	});
 
 	return (
-		<div className="fade-in">
-			{!updateBarClose && <UpdateBar setUpdateBarClose={setUpdateBarClose} />}
-			<Navbar />
-			<AppRouter imageNum={imageInfo[imageIndex].imageNum} />
-			<Footer
-				imageIndex={imageIndex}
-				imageInfo={imageInfo}
-				setImageIndex={setImageIndex}
-			/>
-		</div>
+		<ThemeProvider theme={darkTheme}>
+			<CssBaseline />
+			<LocalizationProvider dateAdapter={AdapterDayjs}>
+				<div className="fade-in" style={{ height: "100%" }}>
+					{!updateBarClose && (
+						<UpdateBar setUpdateBarClose={setUpdateBarClose} />
+					)}
+					<Navbar />
+					<AppRouter updateBarClose={updateBarClose} />
+					<Footer />
+				</div>
+			</LocalizationProvider>
+		</ThemeProvider>
 	);
 }

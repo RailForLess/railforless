@@ -1,7 +1,5 @@
-import React from "react";
 import "./FareTable.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import EastIcon from "@mui/icons-material/East";
 
 export default function FareTable({ fares }) {
 	const addInfo = fares.shift();
@@ -94,7 +92,7 @@ export default function FareTable({ fares }) {
 				<div className="table-info">
 					<div className="table-stations">
 						<h2>{addInfo.deptStation}</h2>
-						<FontAwesomeIcon icon={faArrowRight} size="lg" />
+						<EastIcon />
 						<h2>{addInfo.arrivalStation}</h2>
 					</div>
 					<h3 id="traveler-info">{addInfo.travelerInfo}</h3>

@@ -1,12 +1,8 @@
-import React from "react";
 import { createRoot } from "react-dom/client";
 import "./Dialog.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faBullhorn,
-	faTriangleExclamation,
-} from "@fortawesome/free-solid-svg-icons";
-import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
+import CampaignIcon from "@mui/icons-material/Campaign";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import WarningIcon from "@mui/icons-material/Warning";
 
 let dialogResolve, dialogRoot, root;
 
@@ -25,15 +21,8 @@ export default function Dialog({ text, type }) {
 		<div className="main-container">
 			<div className="fade-in" id="dialog-container">
 				<div className="dialog-bar">
-					<FontAwesomeIcon
-						icon={type === "announce" ? faBullhorn : faTriangleExclamation}
-						size="xl"
-					/>
-					<FontAwesomeIcon
-						icon={faCircleXmark}
-						onClick={() => close(false)}
-						size="xl"
-					/>
+					{type === "announce" ? <CampaignIcon /> : <WarningIcon />}
+					<HighlightOffIcon onClick={() => close(false)} />
 				</div>
 				<p
 					dangerouslySetInnerHTML={{ __html: text }}

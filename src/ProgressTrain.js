@@ -1,4 +1,3 @@
-import React from "react";
 import "./ProgressTrain.css";
 
 export default function ProgressTrain({ progress }) {
@@ -21,8 +20,9 @@ export default function ProgressTrain({ progress }) {
 			id="train"
 			src="./images/progress-train.png"
 			style={{
-				left: `calc(${-calcMargin()}vw - 44.4rem + ${progress.percentComplete /
-					100} * (44.4rem + 100vw))`,
+				left: `calc(${-calcMargin()}vw - 44.4rem + ${
+					progress.percentComplete / 100
+				} * (44.4rem + 100vw))`,
 			}}
 		/>
 	);

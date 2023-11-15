@@ -1,23 +1,17 @@
-.fade-in-translate {
-	animation: fadeInTranslate 2s;
-}
-
-.hero {
-	margin-top: 3rem;
-}
-
-.main-background {
-	background: rgba(0, 0, 0, 0.9);
-	background-size: cover;
-	background-position: center;
+main {
+	background: rgb(32, 33, 36);
 	display: flex;
 	justify-content: center;
 	width: 100vw;
 }
 
+.fade-in-translate {
+	animation: fadeInTranslate 2s;
+}
+
 .main-container {
-	overflow-x: visible;
-	width: 70%;
+	overflow-y: hidden;
+	width: 50%;
 }
 
 .recent-search-button {
@@ -69,10 +63,6 @@
 @media all and (max-width: 480px) {
 	.hero {
 		margin-top: 6rem;
-	}
-
-	main {
-		min-height: 100vh;
 	}
 
 	.main-container {

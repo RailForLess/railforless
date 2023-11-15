@@ -16,7 +16,7 @@
 }
 
 #update-bar-container svg {
-	bottom: 0.25rem;
+	bottom: 0.5rem;
 	position: absolute;
 	right: 1rem;
 }

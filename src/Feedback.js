@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Feedback.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-	faMugSaucer,
-	faThumbsUp,
-	faThumbsDown,
-} from "@fortawesome/free-solid-svg-icons";
+import LocalCafeIcon from "@mui/icons-material/LocalCafe";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 
 export default function Feedback() {
 	const [feedbackBool, setFeedbackBool] = useState(null);
@@ -31,16 +28,8 @@ export default function Feedback() {
 				<div className="feedback-column">
 					<h2>Find what you were looking for?</h2>
 					<div id="thumbs-container">
-						<FontAwesomeIcon
-							icon={faThumbsUp}
-							onClick={() => setFeedbackBool(true)}
-							size="2xl"
-						/>
-						<FontAwesomeIcon
-							icon={faThumbsDown}
-							onClick={() => setFeedbackBool(false)}
-							size="2xl"
-						/>
+						<ThumbUpIcon onClick={() => setFeedbackBool(true)} />
+						<ThumbDownIcon onClick={() => setFeedbackBool(false)} />
 					</div>
 				</div>
 			)}
@@ -83,7 +72,7 @@ export default function Feedback() {
 							target="_blank"
 						>
 							<p>Donate</p>
-							<FontAwesomeIcon icon={faMugSaucer} />
+							<LocalCafeIcon />
 						</a>
 					)}
 				</div>

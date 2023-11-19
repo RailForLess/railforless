@@ -54,14 +54,43 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	const [fareClass, setFareClass] = useState("coach");
 
-	const options = ["test"];
+	const [stations, setStations] = useState([]);
+
+	useEffect(() => {
+		fetch("https://railforless.us/api/stations-dev")
+			.then((res) => res.json())
+			.then((stationsData) => {
+				setStations(stationsData);
+				fetch("http://ip-api.com/json/?fields=status,lat,lon")
+					.then((res) => res.json())
+					.then((ipData) => {
+						if (ipData.status === "success") {
+							setOrigin(
+								stationsData.reduce((a, b) =>
+									Math.sqrt(
+										(a.lon - ipData.lon) ** 2 + (a.lat - ipData.lat) ** 2
+									) <
+									Math.sqrt(
+										(b.lon - ipData.lon) ** 2 + (b.lat - ipData.lat) ** 2
+									)
+										? a
+										: b
+								)
+							);
+						}
+					});
+			});
+	}, []);
+
+	const [origin, setOrigin] = useState(null);
+	const [destination, setDestination] = useState(null);
 
 	return (
 		<form>
 			<div className="input-row">
 				<Select
 					className="secondary-input secondary-select"
-					disableUnderline="true"
+					disableUnderline={true}
 					value={tripType}
 					variant="standard"
 					onChange={(e) => setTripType(e.target.value)}
@@ -79,7 +108,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						).style.backgroundColor = "#4C5667")
 					}
 				>
-					<MenuItem value="round-trip">
+					<MenuItem key="round-trip" value="round-trip">
 						<div
 							style={{ alignItems: "center", display: "flex", gap: "0.5rem" }}
 						>
@@ -87,7 +116,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							<div>Round trip</div>
 						</div>
 					</MenuItem>
-					<MenuItem value="one-way">
+					<MenuItem key="one-way" value="one-way">
 						<div style={{ alignItems: "center", display: "flex", gap: "1rem" }}>
 							<ArrowRightAltIcon />
 							<div>One way</div>
@@ -137,6 +166,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							className="number-row"
 							disableRipple
 							id={travelerType}
+							key={travelerType}
 							onClick={(e) => e.stopPropagation()}
 						>
 							<div>
@@ -212,7 +242,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 				</Menu>
 				<Select
 					className="secondary-input secondary-select"
-					disableUnderline="true"
+					disableUnderline={true}
 					value={fareClass}
 					variant="standard"
 					onChange={(e) => setFareClass(e.target.value)}
@@ -230,23 +260,55 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 						).style.backgroundColor = "#4C5667")
 					}
 				>
-					<MenuItem value="coach">Coach</MenuItem>
-					<MenuItem value="business">Business</MenuItem>
-					<MenuItem value="first">First</MenuItem>
-					<MenuItem value="sleeper">Sleeper</MenuItem>
+					<MenuItem key="coach" value="coach">
+						Coach
+					</MenuItem>
+					<MenuItem key="business" value="business">
+						Business
+					</MenuItem>
+					<MenuItem key="first" value="first">
+						First
+					</MenuItem>
+					<MenuItem key="sleeper" value="sleeper">
+						Sleeper
+					</MenuItem>
 				</Select>
 			</div>
 			<div className="input-row" id="middle-row">
 				<Autocomplete
-					renderInput={(params) => <TextField {...params} label="Departing" />}
-					options={options}
+					getOptionLabel={(option) =>
+						`${option.name}, ${option.state} (${option.code})`
+					}
+					noOptionsText="No stations found"
+					onChange={(e, v) => setOrigin(v)}
+					options={stations}
+					renderInput={(params) => (
+						<TextField
+							{...params}
+							label="Departing"
+							placeholder="name or code"
+						/>
+					)}
+					value={origin}
 				/>
 				<IconButton>
 					<SwapHorizIcon size="large" />
 				</IconButton>
 				<Autocomplete
-					renderInput={(params) => <TextField {...params} label="Arriving" />}
-					options={options}
+					getOptionLabel={(option) =>
+						`${option.name}, ${option.state} (${option.code})`
+					}
+					noOptionsText="No stations found"
+					onChange={(e, v) => setDestination(v)}
+					options={stations}
+					renderInput={(params) => (
+						<TextField
+							{...params}
+							label="Arriving"
+							placeholder="name or code"
+						/>
+					)}
+					value={destination}
 				/>
 				<DatePicker label="Start Date" />
 				<DatePicker label="End Date" />

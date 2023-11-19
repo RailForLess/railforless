@@ -57,7 +57,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 	const [stations, setStations] = useState([]);
 
 	useEffect(() => {
-		fetch("https://railforless.us/api/stations-dev")
+		fetch("https://api.railsave.rs/stations")
 			.then((res) => res.json())
 			.then((stationsData) => {
 				setStations(stationsData);

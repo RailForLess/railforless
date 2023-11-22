@@ -56,29 +56,34 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 
 	const [stations, setStations] = useState([]);
 
+	async function geolocate(stationsData) {
+		const res = await fetch("https://freeipapi.com/api/json");
+		if (res.status !== 200) {
+			return;
+		}
+		const ip = await res.json();
+		let sortedStationsData = [...stationsData]
+			.sort(
+				(a, b) =>
+					Math.sqrt((a.lon - ip.longitude) ** 2 + (a.lat - ip.latitude) ** 2) -
+					Math.sqrt((b.lon - ip.longitude) ** 2 + (b.lat - ip.latitude) ** 2)
+			)
+			.slice(0, 5)
+			.map((station) => ({ ...station, group: "Nearby stations" }))
+			.concat(stationsData);
+		setStations(sortedStationsData);
+		setOrigin(sortedStationsData[0]);
+	}
+
 	useEffect(() => {
 		fetch("https://api.railsave.rs/stations")
 			.then((res) => res.json())
-			.then((stationsData) => {
-				setStations(stationsData);
-				fetch("http://ip-api.com/json/?fields=status,lat,lon")
-					.then((res) => res.json())
-					.then((ipData) => {
-						if (ipData.status === "success") {
-							setOrigin(
-								stationsData.reduce((a, b) =>
-									Math.sqrt(
-										(a.lon - ipData.lon) ** 2 + (a.lat - ipData.lat) ** 2
-									) <
-									Math.sqrt(
-										(b.lon - ipData.lon) ** 2 + (b.lat - ipData.lat) ** 2
-									)
-										? a
-										: b
-								)
-							);
-						}
-					});
+			.then((data) => {
+				data = data
+					.sort((a, b) => a.stateLong.localeCompare(b.stateLong))
+					.map((station) => ({ ...station, group: station.stateLong }));
+				setStations(data);
+				geolocate(data);
 			});
 	}, []);
 
@@ -276,9 +281,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			</div>
 			<div className="input-row" id="middle-row">
 				<Autocomplete
-					getOptionLabel={(option) =>
-						`${option.name}, ${option.state} (${option.code})`
-					}
+					getOptionLabel={(station) => `${station.name} (${station.code})`}
 					noOptionsText="No stations found"
 					onChange={(e, v) => setOrigin(v)}
 					options={stations}
@@ -289,15 +292,14 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							placeholder="name or code"
 						/>
 					)}
+					groupBy={(station) => station.group}
 					value={origin}
 				/>
 				<IconButton>
 					<SwapHorizIcon size="large" />
 				</IconButton>
 				<Autocomplete
-					getOptionLabel={(option) =>
-						`${option.name}, ${option.state} (${option.code})`
-					}
+					getOptionLabel={(station) => `${station.name} (${station.code})`}
 					noOptionsText="No stations found"
 					onChange={(e, v) => setDestination(v)}
 					options={stations}
@@ -308,6 +310,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 							placeholder="name or code"
 						/>
 					)}
+					groupBy={(station) => station.group}
 					value={destination}
 				/>
 				<DatePicker label="Start Date" />

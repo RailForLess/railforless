@@ -1,0 +1,22 @@
+#blades path {
+	animation: rotate 10s infinite linear;
+	transform-box: fill-box;
+	transform-origin: 60% 54%;
+}
+
+#blades path:first-child {
+	animation: rotate 12s infinite linear !important;
+}
+
+#blades-path:last-child {
+	animation: rotate 14s infinite linear !important;
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}

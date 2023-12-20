@@ -29,6 +29,10 @@ form .MuiAutocomplete-input {
 	text-overflow: clip !important;
 }
 
+.MuiDateCalendar-root {
+	width: auto !important;
+}
+
 .MuiDayCalendar-weekContainer .Mui-selected {
 	color: white !important;
 }

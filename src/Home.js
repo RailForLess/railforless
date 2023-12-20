@@ -2,6 +2,7 @@ import { useState } from "react";
 import Form from "./Form";
 import FareTable from "./FareTable";
 import Feedback from "./Feedback";
+import Hero from "./Hero";
 import ProgressBar from "./ProgressBar";
 import ProgressTrain from "./ProgressTrain";
 import ProgressCrossing from "./ProgressCrossing";
@@ -66,7 +67,7 @@ export default function Home({
 
 	return (
 		<div className="main-container">
-			<img alt="" src="./images/hero.svg" />
+			<Hero />
 			<div id="hero-container">
 				<div className="fade-in-translate" id="hero-text">
 					<h1>RailForLess.us</h1>

@@ -17,7 +17,6 @@ h3 {
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
 	justify-content: flex-start;
 	overflow-x: visible;
 	position: relative;

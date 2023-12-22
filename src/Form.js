@@ -24,7 +24,7 @@ import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 
-export default function Form({ fares, setFares, progress, setProgress }) {
+export default function Form({ stations, setStations, origin, setOrigin }) {
 	const [tripType, setTripType] = useState("round-trip");
 	const [tripTypeSelected, setTripTypeSelected] = useState(false);
 
@@ -95,8 +95,6 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 		setStationFormat(newStationFormat);
 	}
 
-	const [stations, setStations] = useState([]);
-
 	async function geolocate(stationsData) {
 		if (localStorage.getItem("geolocate") === "false") {
 			return;
@@ -125,7 +123,7 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			localStorage.setItem("station-format", "name-and-code");
 		}
 
-		fetch("https://api.railsave.rs/stations")
+		fetch("/json/stations.json")
 			.then((res) => res.json())
 			.then((data) => {
 				data = data
@@ -142,8 +140,6 @@ export default function Form({ fares, setFares, progress, setProgress }) {
 			: stationFormat === "name-only"
 			? station.name
 			: station.code;
-
-	const [origin, setOrigin] = useState(null);
 
 	const [swapped, setSwapped] = useState(false);
 

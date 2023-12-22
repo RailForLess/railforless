@@ -9,17 +9,17 @@
 #map-svg {
 	border-radius: 1.5rem;
 	height: calc(100% - 3.25rem);
-	left: 1rem;
+	left: 0;
 	position: absolute;
 	top: 2.25rem;
-	width: calc(100% - 2rem);
+	width: 100%;
 }
 
 #zoom-out-button {
 	cursor: default;
 	pointer-events: auto;
 	position: absolute;
-	right: 2rem;
+	right: 1rem;
 	top: 3.25rem;
 	transition: transform 0.25s;
 	opacity: 0;

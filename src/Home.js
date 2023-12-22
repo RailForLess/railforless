@@ -1,12 +1,7 @@
 import { useState } from "react";
 import Form from "./Form";
-import FareTable from "./FareTable";
-import Feedback from "./Feedback";
 import Hero from "./Hero";
 import Map from "./Map";
-import ProgressBar from "./ProgressBar";
-import ProgressTrain from "./ProgressTrain";
-import ProgressCrossing from "./ProgressCrossing";
 import "./Home.css";
 
 export default function Home({}) {

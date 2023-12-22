@@ -46,7 +46,13 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 				d3.selectAll("#routes, #states, #stations g")
 					.transition()
 					.duration(duration)
-					.attr("transform", transform);
+					.attr(
+						"transform",
+						`translate(${[
+							Math.min(0, Math.max(transform.x, width - width * transform.k)),
+							Math.min(0, Math.max(transform.y, height - height * transform.k)),
+						]})scale(${transform.k})`
+					);
 				d3.selectAll("#states path")
 					.transition()
 					.duration(duration)

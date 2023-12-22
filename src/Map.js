@@ -100,7 +100,7 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 
 		const projection = d3.geoAlbersUsa();
 
-		d3.json("/geoJSON/states.geojson").then((states) => {
+		d3.json("/json/states.json").then((states) => {
 			projection.fitSize([width, height], states);
 			const geoGenerator = d3.geoPath(projection);
 
@@ -149,7 +149,7 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 				.attr("stroke", "#FFF")
 				.attr("id", (d) => d.id);
 
-			d3.json("/geoJSON/routes.geojson").then((routes) => {
+			d3.json("/json/routes.json").then((routes) => {
 				svg
 					.append("g")
 					.attr("id", "routes")

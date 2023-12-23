@@ -15,14 +15,25 @@
 	width: 100%;
 }
 
+#route-box {
+	background-color: rgba(255, 255, 255, 0.9);
+	border-radius: 1rem 0 1rem 0;
+	color: black;
+	left: 0;
+	padding: 0.75rem;
+	position: absolute;
+	top: 2.25rem;
+}
+
 #zoom-out-button {
 	cursor: default;
+	margin: 1rem;
+	opacity: 0;
 	pointer-events: auto;
 	position: absolute;
-	right: 1rem;
-	top: 3.25rem;
+	right: 0;
+	top: 2.25rem;
 	transition: transform 0.25s;
-	opacity: 0;
 }
 
 #zoom-out-button:hover {

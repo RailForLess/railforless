@@ -7,6 +7,7 @@ import "./Home.css";
 export default function Home({}) {
 	const [stations, setStations] = useState([]);
 	const [origin, setOrigin] = useState(null);
+	const [route, setRoute] = useState("");
 
 	function setHeroContainerHeight() {
 		const width = window.innerWidth;
@@ -30,7 +31,13 @@ export default function Home({}) {
 					origin={origin}
 					setOrigin={setOrigin}
 				/>
-				<Map stationsJSON={stations} origin={origin} setOrigin={setOrigin} />
+				<Map
+					stationsJSON={stations}
+					origin={origin}
+					setOrigin={setOrigin}
+					route={route}
+					setRoute={setRoute}
+				/>
 			</div>
 		</div>
 	);

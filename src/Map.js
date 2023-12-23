@@ -3,7 +3,13 @@ import * as d3 from "d3";
 import "./Map.css";
 import ZoomOutMapIcon from "@mui/icons-material/ZoomOutMap";
 
-export default function Map({ stationsJSON, origin, setOrigin }) {
+export default function Map({
+	stationsJSON,
+	origin,
+	setOrigin,
+	route,
+	setRoute,
+}) {
 	const [isLoaded, setIsLoaded] = useState(false);
 
 	function zoomToStation() {
@@ -18,6 +24,19 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 
 	let mapContainer, width, height, scaleExtent, zoom;
 
+	function disableStation(routeString, station) {
+		if (!routeString) {
+			return false;
+		}
+		if (routeString === "Silver-Service_Palmetto") {
+			return !["Palmetto", "Silver-Meteor", "Silver-Star"].some((train) =>
+				station.routes.includes(train)
+			);
+		} else {
+			return !station.routes.includes(routeString);
+		}
+	}
+
 	setTimeout(() => {
 		mapContainer = document.querySelector("#map-container");
 		width = mapContainer.clientWidth - 32;
@@ -31,7 +50,7 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 				zoomOutButton.style.cursor = transform.k === 1 ? "default" : "pointer";
 				zoomOutButton.style.opacity = transform.k === 1 ? 0 : 1;
 				zoomOutButton.style.pointerEvents = transform.k === 1 ? "none" : "auto";
-				const station = d3.select("#stations g[origin='true']");
+				const station = d3.select(".station[origin='true']");
 				let duration = 0;
 				if (!station.empty() && station.attr("time")) {
 					if (new Date().getTime() - Number(station.attr("time")) > 2000) {
@@ -43,7 +62,7 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 					station.attr("time", new Date().getTime());
 					duration = 500;
 				}
-				d3.selectAll("#routes, #states, #stations g")
+				d3.selectAll("#routes, #states, .station")
 					.transition()
 					.duration(duration)
 					.attr(
@@ -53,47 +72,91 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 							Math.min(0, Math.max(transform.y, height - height * transform.k)),
 						]})scale(${transform.k})`
 					);
-				d3.selectAll("#states path")
+				d3.selectAll(".state")
 					.transition()
 					.duration(duration)
 					.attr("stroke-width", transform.k <= 1.1 ? 0.5 : 2 / transform.k);
-				d3.selectAll("#routes path")
+				const routeElement = d3.select(".route[route='true'");
+				let routeString = "";
+				if (!routeElement.empty()) {
+					routeString = routeElement.attr("id");
+				}
+				d3.selectAll(".route[selected='false']")
 					.transition()
 					.duration(duration)
+					.attr("stroke", "red")
 					.attr("stroke-width", transform.k <= 1.1 ? 2 : 5 / transform.k);
-				d3.selectAll("#stations .not-selected circle")
+				d3.selectAll(".route[selected='true']")
 					.transition()
 					.duration(duration)
-					.attr("stroke-width", transform.k <= 1.1 ? 0.5 : 2 / transform.k);
-				d3.selectAll("#stations .selected circle")
+					.attr("stroke", "#89B3F7")
+					.attr("stroke-width", transform.k <= 1.1 ? 2 : 10 / transform.k);
+				d3.selectAll(".station").each((station) => {
+					if (!disableStation(routeString, station)) {
+						d3.select(`#${station.id}`).raise();
+					}
+				});
+				d3.selectAll(".station[selected='false'] circle")
 					.transition()
 					.duration(duration)
-					.attr("stroke-width", transform.k <= 1.1 ? 0.5 : 4 / transform.k);
-				d3.selectAll("#stations .not-selected circle")
+					.attr("r", (d) =>
+						transform.k <= 1.1 || disableStation(routeString, d)
+							? 3 / transform.k
+							: 15 / transform.k
+					)
+					.attr("stroke-width", (d) =>
+						transform.k <= 1.1 || disableStation(routeString, d)
+							? 0.5 / transform.k
+							: 2 / transform.k
+					);
+				d3.selectAll(".station[selected='true'] circle")
 					.transition()
 					.duration(duration)
-					.attr("r", transform.k <= 1.1 ? 3 : 15 / transform.k);
-				d3.selectAll("#stations .selected circle")
+					.attr("r", (d) =>
+						transform.k <= 1.1 || disableStation(routeString, d)
+							? 3 / transform.k
+							: 30 / transform.k
+					)
+					.attr("stroke-width", (d) =>
+						transform.k <= 1.1 || disableStation(routeString, d)
+							? 0.5 / transform.k
+							: 4 / transform.k
+					);
+				d3.selectAll(".station[selected='false'] text")
 					.transition()
 					.duration(duration)
-					.attr("r", transform.k <= 1.1 ? 3 : 30 / transform.k);
-				d3.selectAll("#stations .not-selected text")
+					.attr("font-size", (d) =>
+						transform.k <= 1.1 || disableStation(routeString, d)
+							? 0
+							: 10 / transform.k
+					);
+				d3.selectAll(".station[selected='true'] text")
 					.transition()
 					.duration(duration)
-					.attr("font-size", transform.k <= 1.1 ? 0 : 10 / transform.k);
-				d3.selectAll("#stations .selected text")
-					.transition()
-					.duration(duration)
-					.attr("font-size", transform.k <= 1.1 ? 0 : 20 / transform.k);
+					.attr("font-size", (d) =>
+						transform.k <= 1.1 || disableStation(routeString, d)
+							? 0
+							: 20 / transform.k
+					);
 			});
 	}, 0);
 
-	function mouseout(d) {
-		const station = d3.select(`#${d.id}`);
-		if (station.attr("origin") === "false") {
-			station.attr("class", "not-selected");
-			const circle = station.selectChild("circle");
-			const text = station.selectChild("text");
+	function routeMouseout(d) {
+		const prevRoute = d3.select(`#${d.id}`);
+		if (prevRoute.attr("route") === "false") {
+			prevRoute
+				.attr("stroke", "red")
+				.attr("stroke-width", prevRoute.attr("stroke-width") / 2)
+				.attr("selected", "false");
+		}
+	}
+
+	function stationMouseout(d) {
+		const prevStation = d3.select(`#${d.id}`);
+		if (prevStation.attr("origin") === "false") {
+			prevStation.attr("selected", "false");
+			const circle = prevStation.selectChild("circle");
+			const text = prevStation.selectChild("text");
 			circle
 				.attr("r", circle.attr("r") / 2)
 				.attr("stroke-width", circle.attr("stroke-width") / 2);
@@ -111,19 +174,31 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 			const geoGenerator = d3.geoPath(projection);
 
 			function clicked(e, d) {
-				if (d3.select(this).attr("origin") === "true") {
-					return;
+				const element = d3.select(this);
+				if (element.attr("class") === "route") {
+					if (element.attr("route") === "true") {
+						return;
+					}
+					const prevRoute = d3.select(".route[route='true']");
+					if (!prevRoute.empty()) {
+						prevRoute.attr("route", "false");
+						routeMouseout({ id: prevRoute.attr("id") });
+					}
+					element.attr("selected", "true").attr("route", "true");
+					setRoute(d.id);
+				} else {
+					if (element.attr("origin") === "true") {
+						return;
+					}
+					const prevStation = d3.select(".station[origin='true']");
+					if (!prevStation.empty()) {
+						prevStation.attr("origin", "false");
+						stationMouseout({ id: prevStation.attr("id") });
+					}
+					element.attr("selected", "true").attr("origin", "true").raise();
+					setOrigin(stationsJSON.find((station) => station.id === d.id));
 				}
-				const station = d3.select("#stations g[origin='true']");
-				if (!station.empty()) {
-					station.attr("origin", "false");
-					mouseout({ id: station.attr("id") });
-				}
-				d3.select(this)
-					.attr("class", "selected")
-					.attr("origin", "true")
-					.raise();
-				setOrigin(stationsJSON.find((station) => station.id === d.id));
+
 				const [[x0, y0], [x1, y1]] = geoGenerator.bounds(d);
 				e.stopPropagation();
 				svg
@@ -152,7 +227,8 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 				.join("path")
 				.attr("d", geoGenerator)
 				.attr("fill", "rgb(54, 55, 58)")
-				.attr("stroke", "#FFF")
+				.attr("stroke", "rgba(255, 255, 255, 0.25)")
+				.attr("class", "state")
 				.attr("id", (d) => d.id);
 
 			d3.json("/json/routes.json").then((routes) => {
@@ -166,7 +242,22 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 					.attr("fill", "transparent")
 					.attr("stroke", "red")
 					.attr("stroke-width", 2)
-					.attr("id", (d) => d.id);
+					.attr("cursor", "pointer")
+					.attr("route", "false")
+					.attr("selected", "false")
+					.attr("class", "route")
+					.attr("id", (d) => d.id)
+					.on("mouseover", (e, d) => {
+						const newRoute = d3.select(`#${d.id}`);
+						if (newRoute.attr("selected") === "false") {
+							newRoute.attr("selected", "true");
+							newRoute
+								.attr("stroke", "#89B3F7")
+								.attr("stroke-width", newRoute.attr("stroke-width") * 2);
+						}
+					})
+					.on("mouseout", (e, d) => routeMouseout(d))
+					.on("click", clicked);
 
 				const stationsGeoJSON = {
 					type: "FeatureCollection",
@@ -180,6 +271,7 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 							coordinates: [station.lon, station.lat],
 						},
 						id: station.id,
+						routes: JSON.stringify(station.routes),
 					});
 				}
 				const station = svg
@@ -188,10 +280,12 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 					.selectAll("g")
 					.data(stationsGeoJSON.features)
 					.join("g")
-					.attr("id", (d) => d.id)
-					.attr("class", "not-selected")
-					.attr("origin", "false")
 					.attr("cursor", "pointer")
+					.attr("origin", "false")
+					.attr("routes", (d) => d.routes)
+					.attr("selected", "false")
+					.attr("class", "station")
+					.attr("id", (d) => d.id)
 					.on("click", clicked);
 				station
 					.append("circle")
@@ -203,8 +297,8 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 					.attr("stroke-width", 0.5)
 					.on("mouseover", (e, d) => {
 						const station = d3.select(`#${d.id}`);
-						if (station.attr("class") === "not-selected") {
-							station.attr("class", "selected").raise();
+						if (station.attr("selected") === "false") {
+							station.attr("selected", "true").raise();
 							const circle = station.selectChild("circle");
 							const text = station.selectChild("text");
 							circle
@@ -213,7 +307,7 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 							text.attr("font-size", text.attr("font-size") * 2);
 						}
 					})
-					.on("mouseout", (e, d) => mouseout(d));
+					.on("mouseout", (e, d) => stationMouseout(d));
 				station
 					.append("text")
 					.attr("x", (d) => projection(d.geometry.coordinates)[0])
@@ -233,9 +327,15 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 	function reset() {
 		if (origin) {
 			setOrigin(null);
-			const station = d3.select("#stations g[origin='true']");
+			const station = d3.select(".station[origin='true']");
 			station.attr("origin", "false");
-			mouseout({ id: station.attr("id") });
+			stationMouseout({ id: station.attr("id") });
+		}
+		if (route) {
+			setRoute("");
+			const prevRoute = d3.select(".route[route='true']");
+			prevRoute.attr("route", "false");
+			routeMouseout({ id: prevRoute.attr("id") });
 		}
 		d3.select("#map-svg").call(zoom.transform, d3.zoomIdentity.scale(1));
 	}
@@ -243,6 +343,9 @@ export default function Map({ stationsJSON, origin, setOrigin }) {
 	return (
 		<div id="map-container">
 			<svg id="map-svg"></svg>
+			{route && (
+				<div id="route-box">{route.replace(/-/g, " ").replace(/_/g, "/")}</div>
+			)}
 			<ZoomOutMapIcon id="zoom-out-button" onClick={reset} />
 		</div>
 	);

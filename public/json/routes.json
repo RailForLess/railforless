@@ -2644,7 +2644,7 @@
 					]
 				]
 			},
-			"id": "Auto Train"
+			"id": "Auto-Train"
 		},
 		{
 			"type": "Feature",
@@ -3002,7 +3002,7 @@
 					]
 				]
 			},
-			"id": "Blue Water"
+			"id": "Blue-Water"
 		},
 		{
 			"type": "Feature",
@@ -8040,7 +8040,7 @@
 					]
 				]
 			},
-			"id": "California Zephyr"
+			"id": "California-Zephyr"
 		},
 		{
 			"type": "Feature",
@@ -9834,7 +9834,7 @@
 					]
 				]
 			},
-			"id": "Capitol Limited"
+			"id": "Capitol-Limited"
 		},
 		{
 			"type": "Feature",
@@ -13608,7 +13608,7 @@
 					]
 				]
 			},
-			"id": "Lincoln Service"
+			"id": "Lincoln-Service"
 		},
 		{
 			"type": "Feature",
@@ -16637,7 +16637,7 @@
 					]
 				]
 			},
-			"id": "Coast Starlight"
+			"id": "Coast-Starlight"
 		},
 		{
 			"type": "Feature",
@@ -21127,7 +21127,7 @@
 					]
 				]
 			},
-			"id": "Empire Builder"
+			"id": "Empire-Builder"
 		},
 		{
 			"type": "Feature",
@@ -21998,7 +21998,7 @@
 					]
 				]
 			},
-			"id": "Empire Service"
+			"id": "Empire-Service"
 		},
 		{
 			"type": "Feature",
@@ -22569,7 +22569,7 @@
 					]
 				]
 			},
-			"id": "Ethan Allen Express"
+			"id": "Ethan-Allen-Express"
 		},
 		{
 			"type": "Feature",
@@ -22886,7 +22886,7 @@
 					]
 				]
 			},
-			"id": "Heartland Flyer"
+			"id": "Heartland-Flyer"
 		},
 		{
 			"type": "Feature",
@@ -23399,7 +23399,7 @@
 					[-87.63862559268458, 41.878620896051686]
 				]
 			},
-			"id": "Illinois Zephyr"
+			"id": "Illinois-Zephyr"
 		},
 		{
 			"type": "Feature",
@@ -23792,7 +23792,7 @@
 					]
 				]
 			},
-			"id": "Keystone Service"
+			"id": "Keystone-Service"
 		},
 		{
 			"type": "Feature",
@@ -25623,7 +25623,7 @@
 					]
 				]
 			},
-			"id": "Lake Shore Limited"
+			"id": "Lake-Shore-Limited"
 		},
 		{
 			"type": "Feature",
@@ -26494,7 +26494,7 @@
 					]
 				]
 			},
-			"id": "Maple Leaf"
+			"id": "Maple-Leaf"
 		},
 		{
 			"type": "Feature",
@@ -26648,7 +26648,7 @@
 					]
 				]
 			},
-			"id": "Hartford Line"
+			"id": "Hartford-Line"
 		},
 		{
 			"type": "Feature",
@@ -27347,7 +27347,7 @@
 					]
 				]
 			},
-			"id": "Pacific Surfliner"
+			"id": "Pacific-Surfliner"
 		},
 		{
 			"type": "Feature",
@@ -30568,7 +30568,7 @@
 					]
 				]
 			},
-			"id": "Northeast Regional"
+			"id": "Northeast-Regional"
 		},
 		{
 			"type": "Feature",
@@ -30927,7 +30927,7 @@
 					]
 				]
 			},
-			"id": "San Joaquins"
+			"id": "San-Joaquins"
 		},
 		{
 			"type": "Feature",
@@ -33212,7 +33212,7 @@
 					]
 				]
 			},
-			"id": "Silver Service/Palmetto"
+			"id": "Silver-Service_Palmetto"
 		},
 		{
 			"type": "Feature",
@@ -36858,7 +36858,7 @@
 					]
 				]
 			},
-			"id": "Southwest Chief"
+			"id": "Southwest-Chief"
 		},
 		{
 			"type": "Feature",
@@ -39522,7 +39522,7 @@
 					]
 				]
 			},
-			"id": "Sunset Limited"
+			"id": "Sunset-Limited"
 		},
 		{
 			"type": "Feature",
@@ -40885,7 +40885,7 @@
 					]
 				]
 			},
-			"id": "City of New Orleans"
+			"id": "City-of-New-Orleans"
 		},
 		{
 			"type": "Feature",
@@ -44541,7 +44541,7 @@
 					[-90.20333531391563, 38.623064332328276]
 				]
 			},
-			"id": "Missouri River Runner"
+			"id": "Missouri-River-Runner"
 		},
 		{
 			"type": "Feature",
@@ -48546,7 +48546,7 @@
 					]
 				]
 			},
-			"id": "Texas Eagle"
+			"id": "Texas-Eagle"
 		},
 		{
 			"type": "Feature",
@@ -48789,7 +48789,7 @@
 					[-85.67869716554895, 42.95655230499147]
 				]
 			},
-			"id": "Pere Marquette"
+			"id": "Pere-Marquette"
 		},
 		{
 			"type": "Feature",
@@ -49575,7 +49575,7 @@
 					]
 				]
 			},
-			"id": "Capitol Corridor"
+			"id": "Capitol-Corridor"
 		},
 		{
 			"type": "Feature",

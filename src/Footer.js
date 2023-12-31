@@ -1,31 +1,74 @@
+import { useState } from "react";
 import "./Footer.css";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function Footer() {
+	const [open, setOpen] = useState(false);
+
 	return (
 		<footer>
+			<span onClick={() => setOpen(true)}>Non-Affiliation Disclaimer</span>
+			<Dialog id="disclaimer" onClose={() => setOpen(false)} open={open}>
+				<DialogTitle>Non-Affiliation Disclaimer</DialogTitle>
+				<DialogContent>
+					<DialogContentText>
+						We are not affiliated, associated, authorized, endorsed by, or in
+						any way officially connected with Amtrak, or any of its subsidiaries
+						or its affiliates. The official Amtrak website can be found at{" "}
+						<a
+							href="https://www.amtrak.com"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							https://www.amtrak.com
+						</a>
+						.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setOpen(false)}>OK</Button>
+				</DialogActions>
+			</Dialog>
+			<div className="vertical-bar"></div>
 			<div>
-				<h3>
-					Photo by{" "}
-					<a href="#" rel="noopener noreferrer" target="_blank">
-						null
-					</a>{" "}
-					| licensed{" "}
-					<a href="#" rel="noopener noreferrer" target="_blank">
-						null
+				<span>Protected by reCAPTCHA </span>
+				<span id="recaptcha-info">
+					(
+					<a
+						href="https://policies.google.com/privacy"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						Privacy Policy
 					</a>
-				</h3>
+					) (
+					<a
+						href="https://policies.google.com/terms"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						TOS
+					</a>
+					)
+				</span>
 			</div>
-			<h3>RailForLess.us is not affiliated with Amtrak.</h3>
-			<h3>
+			<div className="vertical-bar"></div>
+			<span>
 				Site by{" "}
 				<a
-					href="https://seaneddy.com/"
+					href="https://seaneddy.com"
 					rel="noopener noreferrer"
 					target="_blank"
 				>
 					Sean Eddy
-				</a>
-			</h3>
+				</a>{" "}
+				and Riley Nielsen
+			</span>
 		</footer>
 	);
 }

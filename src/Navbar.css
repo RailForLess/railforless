@@ -14,6 +14,7 @@ nav {
 }
 
 nav a {
+	color: white;
 	font-size: 1.25rem;
 	text-decoration: none;
 }
@@ -30,7 +31,6 @@ nav > a:last-child {
 
 @media all and (max-width: 480px) {
 	nav {
-		height: 6rem;
 		width: 100vw;
 	}
 }

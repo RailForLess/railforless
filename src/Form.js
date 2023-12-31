@@ -5,14 +5,23 @@ import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import CheckIcon from "@mui/icons-material/Check";
+import ErrorIcon from "@mui/icons-material/Error";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
 import RemoveIcon from "@mui/icons-material/Remove";
 import SettingsIcon from "@mui/icons-material/Settings";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import Autocomplete from "@mui/material/Autocomplete";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 import Fab from "@mui/material/Fab";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
@@ -24,7 +33,16 @@ import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 
-export default function Form({ stations, setStations, origin, setOrigin }) {
+export default function Form({
+	stations,
+	setStations,
+	origin,
+	setOrigin,
+	destination,
+	setDestination,
+	updateMap,
+	setUpdateMap,
+}) {
 	const [tripType, setTripType] = useState("round-trip");
 	const [tripTypeSelected, setTripTypeSelected] = useState(false);
 
@@ -115,6 +133,7 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 			.concat(stationsData);
 		setStations(sortedStationsData);
 		setOrigin(sortedStationsData[0]);
+		setUpdateMap(!updateMap);
 	}
 
 	useEffect(() => {
@@ -147,9 +166,8 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 		setSwapped(!swapped);
 		setDestination(origin);
 		setOrigin(destination);
+		setUpdateMap(!updateMap);
 	}
-
-	const [destination, setDestination] = useState(null);
 
 	const [dateRangeAnchor, setDateRangeAnchor] = useState(null);
 	const dateRangeOpen = Boolean(dateRangeAnchor);
@@ -392,6 +410,16 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 		dateRangeEndEdit,
 	]);
 
+	const errorBool = origin && destination && origin.id === destination.id;
+	const warningBool =
+		origin &&
+		destination &&
+		!origin.routes.some((route) => destination.routes.includes(route));
+	const errorText = errorBool
+		? "Origin and destination must be different"
+		: "Some accommodation prices unavailable";
+	const [warningOpen, setWarningOpen] = useState(false);
+
 	return (
 		<form>
 			<div className="input-row">
@@ -442,6 +470,7 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 						}}
 						onClose={() => {
 							setTravelerTypesSelected(false);
+							setTravelerTypes(travelerTypesEdit);
 							setTravelersAnchor(null);
 						}}
 						open={travelersOpen}
@@ -598,7 +627,10 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 					loading={true}
 					loadingText="Getting stations..."
 					noOptionsText="No stations found"
-					onChange={(e, v) => setOrigin(v)}
+					onChange={(e, v) => {
+						setOrigin(v);
+						setUpdateMap(!updateMap);
+					}}
 					options={stations}
 					renderInput={(params) => (
 						<TextField
@@ -607,10 +639,33 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 							placeholder="name or code"
 						/>
 					)}
+					renderOption={(props, option) => (
+						<Box
+							component="li"
+							sx={{
+								paddingLeft: destination ? "0 !important" : "",
+								"& > svg": { margin: "0 0.5rem" },
+							}}
+							{...props}
+						>
+							{destination &&
+								(option.code === destination.code ? (
+									<ErrorIcon fontSize="small" />
+								) : option.routes.some((route) =>
+										destination.routes.includes(route)
+								  ) ? (
+									<CheckIcon fontSize="small" />
+								) : (
+									<RailwayAlertIcon fontSize="small" />
+								))}
+							{stationsLabels(option)}
+						</Box>
+					)}
 					groupBy={(station) => station.group}
 					value={origin}
 				/>
 				<IconButton
+					disabled={!destination}
 					disableRipple
 					onClick={swapStations}
 					style={{ transform: `rotate(${swapped ? 180 : 0}deg)` }}
@@ -619,11 +674,15 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 				</IconButton>
 				<Autocomplete
 					disableClearable
+					disabled={!origin}
 					getOptionLabel={stationsLabels}
 					loading={true}
 					loadingText="Getting stations..."
 					noOptionsText="No stations found"
-					onChange={(e, v) => setDestination(v)}
+					onChange={(e, v) => {
+						setDestination(v);
+						setUpdateMap(!updateMap);
+					}}
 					options={stations}
 					renderInput={(params) => (
 						<TextField
@@ -631,6 +690,28 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 							label="Arriving"
 							placeholder="name or code"
 						/>
+					)}
+					renderOption={(props, option) => (
+						<Box
+							component="li"
+							sx={{
+								paddingLeft: origin ? "0 !important" : "",
+								"& > svg": { margin: "0 0.5rem" },
+							}}
+							{...props}
+						>
+							{origin &&
+								(option.code === origin.code ? (
+									<ErrorIcon fontSize="small" />
+								) : option.routes.some((route) =>
+										origin.routes.includes(route)
+								  ) ? (
+									<CheckIcon fontSize="small" />
+								) : (
+									<RailwayAlertIcon fontSize="small" />
+								))}
+							{stationsLabels(option)}
+						</Box>
 					)}
 					groupBy={(station) => station.group}
 					value={destination}
@@ -861,13 +942,47 @@ export default function Form({ stations, setStations, origin, setOrigin }) {
 					</div>
 				</Menu>
 			</div>
+			{(errorBool || warningBool) && (
+				<div id="error-text">
+					<div>
+						{errorBool ? (
+							<ErrorIcon fontSize="small" />
+						) : (
+							<RailwayAlertIcon fontSize="small" />
+						)}
+						<span>{errorText}</span>
+						{!errorBool && (
+							<span
+								id="warning-learn-more"
+								onClick={() => setWarningOpen(true)}
+							>
+								Learn more
+							</span>
+						)}
+						<Dialog onClose={() => setWarningOpen(false)} open={warningOpen}>
+							<DialogTitle>Limited Accommodation Pricing</DialogTitle>
+							<DialogContent>
+								<DialogContentText>
+									{`Your trip between ${origin.city} and ${destination.city} requires one or more transfers, and so we cannot provide Bedroom and Family Room accommodation pricing. Consider a direct route if you need these accommodations.`}
+								</DialogContentText>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={() => setWarningOpen(false)}>OK</Button>
+							</DialogActions>
+						</Dialog>
+					</div>
+				</div>
+			)}
 			<div style={{ height: 0 }}>
 				<Fab
 					color="primary"
+					disabled={errorBool}
 					variant="extended"
 					size="medium"
 					sx={{
-						bottom: "-1.75rem",
+						bottom: `-${warningBool ? "2.5" : "1.75"}rem`,
+						opacity: errorBool ? 0 : 1,
+						transition: "0.5s bottom, 0.5s opacity",
 						":hover": { bgcolor: "primary.hover" },
 					}}
 				>

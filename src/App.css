@@ -3,19 +3,19 @@
 	font-family: "Google Sans", "Roboto", "Arial", "sans-serif";
 	margin: 0;
 	padding: 0;
-	text-align: center;
-}
-
-a {
-	color: white;
 }
 
 .fade-in {
 	animation: fade-in 1s;
 }
 
+.grecaptcha-badge {
+	visibility: hidden;
+}
+
 #root {
 	height: 100vh;
+	overflow: hidden;
 }
 
 @font-face {
@@ -31,5 +31,11 @@ a {
 	100% {
 		opacity: 1;
 		transform: scale(1, 1);
+	}
+}
+
+@media all and (max-width: 800px) {
+	#root {
+		height: 120vh;
 	}
 }

@@ -4,9 +4,11 @@ import Hero from "./Hero";
 import Map from "./Map";
 import "./Home.css";
 
-export default function Home({}) {
+export default function Home() {
 	const [stations, setStations] = useState([]);
 	const [origin, setOrigin] = useState(null);
+	const [destination, setDestination] = useState(null);
+	const [updateMap, setUpdateMap] = useState(false);
 	const [route, setRoute] = useState("");
 
 	function setHeroContainerHeight() {
@@ -16,7 +18,7 @@ export default function Home({}) {
 		}vw * (267 / 1251)) + ${width <= 480 ? 0.5 : 1.5}rem - 0.3rem)`;
 	}
 	setTimeout(setHeroContainerHeight, 0);
-	window.onresize = setHeroContainerHeight;
+	window.addEventListener("resize", setHeroContainerHeight);
 
 	return (
 		<div className="main-container">
@@ -30,11 +32,18 @@ export default function Home({}) {
 					setStations={setStations}
 					origin={origin}
 					setOrigin={setOrigin}
+					destination={destination}
+					setDestination={setDestination}
+					updateMap={updateMap}
+					setUpdateMap={setUpdateMap}
 				/>
 				<Map
 					stationsJSON={stations}
 					origin={origin}
 					setOrigin={setOrigin}
+					destination={destination}
+					setDestination={setDestination}
+					updateMap={updateMap}
 					route={route}
 					setRoute={setRoute}
 				/>

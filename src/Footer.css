@@ -3,21 +3,54 @@ footer {
 	background: black;
 	bottom: 0;
 	display: flex;
+	gap: 0.5rem;
 	height: 3rem;
-	justify-content: space-around;
+	justify-content: center;
 	width: 100vw;
 }
 
-footer div {
+footer > * {
+	color: lightgray;
+}
+
+footer a,
+footer span {
+	color: lightgray;
+}
+
+footer > div {
 	align-items: center;
 	display: flex;
 	gap: 0.5rem;
 }
 
-@media all and (max-width: 480px) {
+footer > span:first-child {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.vertical-bar {
+	background-color: rgba(128, 128, 128, 0.5);
+	height: 1.25rem;
+	width: 1px;
+}
+
+#disclaimer a {
+	color: white;
+}
+
+#recaptcha-info {
+	font-size: 0.8rem;
+}
+
+@media all and (max-width: 800px) {
 	footer {
 		flex-direction: column;
-		justify-content: space-evenly;
-		height: 12rem;
+		gap: 1rem;
+		height: 10.5rem;
+	}
+
+	.vertical-bar {
+		display: none;
 	}
 }

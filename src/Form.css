@@ -5,6 +5,7 @@ form {
 	display: flex;
 	flex-direction: column;
 	padding: 0.5rem 1rem 3rem;
+	position: relative;
 	width: 100%;
 }
 
@@ -22,6 +23,10 @@ form > div:first-child {
 
 form > div:first-child .selected svg[data-testid="ArrowDropDownIcon"] {
 	transform: rotate(180deg);
+}
+
+form > div:last-child {
+	text-align: center;
 }
 
 form .MuiAutocomplete-input {
@@ -206,7 +211,8 @@ form .MuiAutocomplete-input {
 }
 
 #date-range-container {
-	flex: 2 !important;
+	flex: 1;
+	min-width: 16rem;
 }
 
 #date-range-container > * {
@@ -216,6 +222,10 @@ form .MuiAutocomplete-input {
 #date-range-container > div {
 	display: flex;
 	gap: 1rem;
+}
+
+#date-range-container input {
+	text-align: center;
 }
 
 #date-range-popover .MuiPickersLayout-root {
@@ -242,6 +252,24 @@ form .MuiAutocomplete-input {
 	padding: 1rem;
 }
 
+#error-text {
+	position: absolute;
+	bottom: 1rem;
+	color: orange;
+	display: flex;
+	opacity: 0.75;
+}
+
+#error-text > * {
+	font-size: 0.8rem;
+}
+
+#error-text div {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
 #flex-date-container {
 	display: flex;
 	padding: 1rem 1rem 0 1rem;
@@ -258,9 +286,9 @@ form .MuiAutocomplete-input {
 	transition: transform 0.25s;
 }
 
-#middle-row > div {
+#middle-row .MuiAutocomplete-root {
 	flex: 1;
-	min-width: 6rem;
+	min-width: 8rem;
 }
 
 #middle-row > div .MuiOutlinedInput-notchedOutline:hover {
@@ -278,4 +306,36 @@ form .MuiAutocomplete-input {
 #settings-popover {
 	display: flex;
 	flex-direction: column;
+}
+
+#warning-learn-more {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+@media all and (max-width: 480px) {
+	#date-range-popover-row {
+		flex-wrap: wrap;
+	}
+
+	#error-text {
+		justify-content: center;
+		left: 0;
+		width: 100%;
+	}
+
+	#middle-row .MuiAutocomplete-root {
+		min-width: auto;
+	}
+}
+
+@media all and (max-width: 420px) {
+	.select {
+		padding-left: 0.25rem !important;
+		padding-right: 0.25rem !important;
+	}
+
+	.select > svg:last-child {
+		margin-right: 0;
+	}
 }

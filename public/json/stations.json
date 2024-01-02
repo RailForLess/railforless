@@ -7,8 +7,9 @@
 		"stateShort": "MD",
 		"stateLong": "Maryland",
 		"routes": ["Northeast-Regional"],
-		"lat": "39.5083",
-		"lon": "-76.1633"
+		"lat": 39.5083,
+		"lon": -76.1633,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALY",
@@ -18,12 +19,13 @@
 		"stateShort": "OR",
 		"stateLong": "Oregon",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight"],
-		"lat": "44.6303",
-		"lon": "-123.1025"
+		"lat": 44.6303,
+		"lon": -123.1025,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALB",
-		"name": "Albany–Rensselaer",
+		"name": "Albany\u2014Rensselaer",
 		"code": "ALB",
 		"city": "Rensselaer",
 		"stateShort": "NY",
@@ -36,8 +38,9 @@
 			"Lake-Shore-Limited",
 			"Maple-Leaf"
 		],
-		"lat": "42.6414",
-		"lon": "-73.7411"
+		"lat": 42.6414,
+		"lon": -73.7411,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALI",
@@ -47,8 +50,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.2472",
-		"lon": "-84.7561"
+		"lat": 42.2472,
+		"lon": -84.7561,
+		"nearbyCities": []
 	},
 	{
 		"id": "ABQ",
@@ -58,8 +62,9 @@
 		"stateShort": "NM",
 		"stateLong": "New Mexico",
 		"routes": ["Southwest-Chief"],
-		"lat": "35.0833",
-		"lon": "-106.6478"
+		"lat": 35.0833,
+		"lon": -106.6478,
+		"nearbyCities": ["Rio Rancho"]
 	},
 	{
 		"id": "AST",
@@ -69,8 +74,9 @@
 		"stateShort": "ON",
 		"stateLong": "Ontario",
 		"routes": ["Maple-Leaf"],
-		"lat": "43.3133",
-		"lon": "-79.8556"
+		"lat": 43.3133,
+		"lon": -79.8556,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALD",
@@ -80,8 +86,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "37.7242",
-		"lon": "-80.6444"
+		"lat": 37.7242,
+		"lon": -80.6444,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALX",
@@ -99,8 +106,9 @@
 			"Silver-Meteor",
 			"Silver-Star"
 		],
-		"lat": "38.8064",
-		"lon": "-77.0622"
+		"lat": 38.8064,
+		"lon": -77.0622,
+		"nearbyCities": []
 	},
 	{
 		"id": "CNL",
@@ -110,8 +118,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "35.8636",
-		"lon": "-119.3889"
+		"lat": 35.8636,
+		"lon": -119.3889,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALC",
@@ -121,8 +130,9 @@
 		"stateShort": "OH",
 		"stateLong": "Ohio",
 		"routes": ["Capitol-Limited"],
-		"lat": "40.9214",
-		"lon": "-81.0931"
+		"lat": 40.9214,
+		"lon": -81.0931,
+		"nearbyCities": ["Akron"]
 	},
 	{
 		"id": "ALP",
@@ -132,8 +142,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "30.3572",
-		"lon": "-103.6617"
+		"lat": 30.3572,
+		"lon": -103.6617,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALN",
@@ -143,8 +154,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service", "Texas-Eagle"],
-		"lat": "38.9211",
-		"lon": "-90.1572"
+		"lat": 38.9211,
+		"lon": -90.1572,
+		"nearbyCities": []
 	},
 	{
 		"id": "ALT",
@@ -154,8 +166,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Pennsylvanian"],
-		"lat": "40.5156",
-		"lon": "-78.4011"
+		"lat": 40.5156,
+		"lon": -78.4011,
+		"nearbyCities": []
 	},
 	{
 		"id": "AMS",
@@ -165,8 +178,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Maple-Leaf"],
-		"lat": "42.9536",
-		"lon": "-74.2194"
+		"lat": 42.9536,
+		"lon": -74.2194,
+		"nearbyCities": []
 	},
 	{
 		"id": "ANA",
@@ -176,8 +190,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "33.8033",
-		"lon": "-117.8775"
+		"lat": 33.8033,
+		"lon": -117.8775,
+		"nearbyCities": ["Garden Grove", "Orange"]
 	},
 	{
 		"id": "ARB",
@@ -187,8 +202,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.2878",
-		"lon": "-83.7431"
+		"lat": 42.2878,
+		"lon": -83.7431,
+		"nearbyCities": []
 	},
 	{
 		"id": "ATN",
@@ -198,19 +214,21 @@
 		"stateShort": "AL",
 		"stateLong": "Alabama",
 		"routes": ["Crescent"],
-		"lat": "33.6492",
-		"lon": "-85.8322"
+		"lat": 33.6492,
+		"lon": -85.8322,
+		"nearbyCities": ["Murfreesboro"]
 	},
 	{
 		"id": "ACA",
-		"name": "Antioch–Pittsburg",
+		"name": "Antioch\u2014Pittsburg",
 		"code": "ACA",
 		"city": "Antioch",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "38.0181",
-		"lon": "-121.8169"
+		"lat": 38.0181,
+		"lon": -121.8169,
+		"nearbyCities": []
 	},
 	{
 		"id": "ACD",
@@ -220,8 +238,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Texas-Eagle"],
-		"lat": "37.5922",
-		"lon": "-90.6244"
+		"lat": 37.5922,
+		"lon": -90.6244,
+		"nearbyCities": []
 	},
 	{
 		"id": "ADM",
@@ -231,8 +250,9 @@
 		"stateShort": "OK",
 		"stateLong": "Oklahoma",
 		"routes": ["Heartland-Flyer"],
-		"lat": "34.1722",
-		"lon": "-97.1256"
+		"lat": 34.1722,
+		"lon": -97.1256,
+		"nearbyCities": []
 	},
 	{
 		"id": "ARD",
@@ -242,8 +262,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "40.0083",
-		"lon": "-75.2903"
+		"lat": 40.0083,
+		"lon": -75.2903,
+		"nearbyCities": []
 	},
 	{
 		"id": "ARK",
@@ -253,8 +274,9 @@
 		"stateShort": "AR",
 		"stateLong": "Arkansas",
 		"routes": ["Texas-Eagle"],
-		"lat": "34.1142",
-		"lon": "-93.0528"
+		"lat": 34.1142,
+		"lon": -93.0528,
+		"nearbyCities": []
 	},
 	{
 		"id": "AKY",
@@ -264,8 +286,9 @@
 		"stateShort": "KY",
 		"stateLong": "Kentucky",
 		"routes": ["Cardinal"],
-		"lat": "38.4808",
-		"lon": "-82.6394"
+		"lat": 38.4808,
+		"lon": -82.6394,
+		"nearbyCities": []
 	},
 	{
 		"id": "ASD",
@@ -275,8 +298,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "37.7597",
-		"lon": "-77.4811"
+		"lat": 37.7597,
+		"lon": -77.4811,
+		"nearbyCities": []
 	},
 	{
 		"id": "ATL",
@@ -286,8 +310,9 @@
 		"stateShort": "GA",
 		"stateLong": "Georgia",
 		"routes": ["Crescent"],
-		"lat": "33.7994",
-		"lon": "-84.3928"
+		"lat": 33.7994,
+		"lon": -84.3928,
+		"nearbyCities": ["Chattanooga", "Macon", "South Fulton", "Sandy Springs"]
 	},
 	{
 		"id": "ARN",
@@ -297,8 +322,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "38.9036",
-		"lon": "-121.0833"
+		"lat": 38.9036,
+		"lon": -121.0833,
+		"nearbyCities": []
 	},
 	{
 		"id": "AUS",
@@ -308,8 +334,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "30.2697",
-		"lon": "-97.7569"
+		"lat": 30.2697,
+		"lon": -97.7569,
+		"nearbyCities": []
 	},
 	{
 		"id": "BFD",
@@ -319,8 +346,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "35.3722",
-		"lon": "-119.0097"
+		"lat": 35.3722,
+		"lon": -119.0097,
+		"nearbyCities": []
 	},
 	{
 		"id": "BAL",
@@ -340,8 +368,9 @@
 			"Silver-Star",
 			"Vermonter"
 		],
-		"lat": "39.3075",
-		"lon": "-76.6156"
+		"lat": 39.3075,
+		"lon": -76.6156,
+		"nearbyCities": []
 	},
 	{
 		"id": "BAM",
@@ -351,8 +380,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Pere-Marquette"],
-		"lat": "42.3142",
-		"lon": "-86.1117"
+		"lat": 42.3142,
+		"lon": -86.1117,
+		"nearbyCities": []
 	},
 	{
 		"id": "BAR",
@@ -362,8 +392,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Southwest-Chief"],
-		"lat": "34.9047",
-		"lon": "-117.0247"
+		"lat": 34.9047,
+		"lon": -117.0247,
+		"nearbyCities": []
 	},
 	{
 		"id": "BTL",
@@ -373,8 +404,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water", "Wolverine"],
-		"lat": "42.3181",
-		"lon": "-85.1878"
+		"lat": 42.3181,
+		"lon": -85.1878,
+		"nearbyCities": []
 	},
 	{
 		"id": "BMT",
@@ -384,8 +416,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Sunset-Limited"],
-		"lat": "30.0764",
-		"lon": "-94.1275"
+		"lat": 30.0764,
+		"lon": -94.1275,
+		"nearbyCities": []
 	},
 	{
 		"id": "BEL",
@@ -395,8 +428,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades"],
-		"lat": "48.7206",
-		"lon": "-122.5111"
+		"lat": 48.7206,
+		"lon": -122.5111,
+		"nearbyCities": []
 	},
 	{
 		"id": "BLF",
@@ -406,8 +440,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "43.1364",
-		"lon": "-72.4447"
+		"lat": 43.1364,
+		"lon": -72.4447,
+		"nearbyCities": []
 	},
 	{
 		"id": "BEN",
@@ -417,8 +452,9 @@
 		"stateShort": "AZ",
 		"stateLong": "Arizona",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "31.9689",
-		"lon": "-110.2972"
+		"lat": 31.9689,
+		"lon": -110.2972,
+		"nearbyCities": []
 	},
 	{
 		"id": "BKY",
@@ -428,8 +464,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "37.8672",
-		"lon": "-122.3008"
+		"lat": 37.8672,
+		"lon": -122.3008,
+		"nearbyCities": []
 	},
 	{
 		"id": "BER",
@@ -439,19 +476,21 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
-		"lat": "41.6356",
-		"lon": "-72.7653"
+		"lat": 41.6356,
+		"lon": -72.7653,
+		"nearbyCities": []
 	},
 	{
 		"id": "BNG",
-		"name": "Bingen–White Salmon",
+		"name": "Bingen\u2014White Salmon",
 		"code": "BNG",
 		"city": "Bingen",
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Empire-Builder"],
-		"lat": "45.715",
-		"lon": "-121.4689"
+		"lat": 45.715,
+		"lon": -121.4689,
+		"nearbyCities": []
 	},
 	{
 		"id": "BHM",
@@ -461,19 +500,21 @@
 		"stateShort": "AL",
 		"stateLong": "Alabama",
 		"routes": ["Crescent"],
-		"lat": "33.5122",
-		"lon": "-86.8072"
+		"lat": 33.5122,
+		"lon": -86.8072,
+		"nearbyCities": ["Huntsville"]
 	},
 	{
 		"id": "BNL",
-		"name": "Bloomington–Normal",
+		"name": "Bloomington\u2014Normal",
 		"code": "BNL",
 		"city": "Normal",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service", "Texas-Eagle"],
-		"lat": "40.5086",
-		"lon": "-88.9842"
+		"lat": 40.5086,
+		"lon": -88.9842,
+		"nearbyCities": []
 	},
 	{
 		"id": "BBY",
@@ -483,8 +524,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Acela", "Lake-Shore-Limited", "Northeast-Regional"],
-		"lat": "42.3472",
-		"lon": "-71.0756"
+		"lat": 42.3472,
+		"lon": -71.0756,
+		"nearbyCities": ["Cambridge"]
 	},
 	{
 		"id": "BON",
@@ -494,8 +536,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Downeaster"],
-		"lat": "42.3664",
-		"lon": "-71.0622"
+		"lat": 42.3664,
+		"lon": -71.0622,
+		"nearbyCities": ["Lynn"]
 	},
 	{
 		"id": "BOS",
@@ -505,8 +548,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Acela", "Lake-Shore-Limited", "Northeast-Regional"],
-		"lat": "42.3519",
-		"lon": "-71.0553"
+		"lat": 42.3519,
+		"lon": -71.0553,
+		"nearbyCities": []
 	},
 	{
 		"id": "BRA",
@@ -516,8 +560,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "42.8508",
-		"lon": "-72.5567"
+		"lat": 42.8508,
+		"lon": -72.5567,
+		"nearbyCities": []
 	},
 	{
 		"id": "BRP",
@@ -527,8 +572,9 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Northeast-Regional", "Vermonter"],
-		"lat": "41.1778",
-		"lon": "-73.1872"
+		"lat": 41.1778,
+		"lon": -73.1872,
+		"nearbyCities": []
 	},
 	{
 		"id": "BRH",
@@ -538,8 +584,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "31.5831",
-		"lon": "-90.4411"
+		"lat": 31.5831,
+		"lon": -90.4411,
+		"nearbyCities": []
 	},
 	{
 		"id": "BRO",
@@ -549,8 +596,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.5339",
-		"lon": "-113.0133"
+		"lat": 48.5339,
+		"lon": -113.0133,
+		"nearbyCities": []
 	},
 	{
 		"id": "BRK",
@@ -560,8 +608,9 @@
 		"stateShort": "ME",
 		"stateLong": "Maine",
 		"routes": ["Downeaster"],
-		"lat": "43.9114",
-		"lon": "-69.9658"
+		"lat": 43.9114,
+		"lon": -69.9658,
+		"nearbyCities": []
 	},
 	{
 		"id": "BYN",
@@ -571,30 +620,33 @@
 		"stateShort": "OH",
 		"stateLong": "Ohio",
 		"routes": ["Lake-Shore-Limited"],
-		"lat": "41.4803",
-		"lon": "-84.5517"
+		"lat": 41.4803,
+		"lon": -84.5517,
+		"nearbyCities": []
 	},
 	{
 		"id": "BUF",
-		"name": "Buffalo–Depew",
+		"name": "Buffalo\u2014Depew",
 		"code": "BUF",
 		"city": "Depew",
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Lake-Shore-Limited", "Maple-Leaf"],
-		"lat": "42.9072",
-		"lon": "-78.7267"
+		"lat": 42.9072,
+		"lon": -78.7267,
+		"nearbyCities": []
 	},
 	{
 		"id": "BFX",
-		"name": "Buffalo–Exchange Street",
+		"name": "Buffalo\u2014Exchange Street",
 		"code": "BFX",
 		"city": "Buffalo",
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Maple-Leaf"],
-		"lat": "42.8783",
-		"lon": "-78.8739"
+		"lat": 42.8783,
+		"lon": -78.8739,
+		"nearbyCities": []
 	},
 	{
 		"id": "BUR",
@@ -604,8 +656,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight", "Pacific-Surfliner"],
-		"lat": "34.1928",
-		"lon": "-118.3522"
+		"lat": 34.1928,
+		"lon": -118.3522,
+		"nearbyCities": []
 	},
 	{
 		"id": "BBK",
@@ -615,8 +668,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.1786",
-		"lon": "-118.3119"
+		"lat": 34.1786,
+		"lon": -118.3119,
+		"nearbyCities": ["Palmdale"]
 	},
 	{
 		"id": "BCV",
@@ -626,8 +680,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "38.7975",
-		"lon": "-77.2983"
+		"lat": 38.7975,
+		"lon": -77.2983,
+		"nearbyCities": []
 	},
 	{
 		"id": "BRL",
@@ -637,8 +692,9 @@
 		"stateShort": "IA",
 		"stateLong": "Iowa",
 		"routes": ["California-Zephyr"],
-		"lat": "40.8056",
-		"lon": "-91.1017"
+		"lat": 40.8056,
+		"lon": -91.1017,
+		"nearbyCities": []
 	},
 	{
 		"id": "BNC",
@@ -648,8 +704,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Piedmont"],
-		"lat": "36.095",
-		"lon": "-79.4353"
+		"lat": 36.095,
+		"lon": -79.4353,
+		"nearbyCities": []
 	},
 	{
 		"id": "BTN",
@@ -659,8 +716,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Ethan-Allen-Express"],
-		"lat": "44.4758",
-		"lon": "-73.2194"
+		"lat": 44.4758,
+		"lon": -73.2194,
+		"nearbyCities": []
 	},
 	{
 		"id": "BWI",
@@ -676,8 +734,9 @@
 			"Palmetto",
 			"Vermonter"
 		],
-		"lat": "39.1925",
-		"lon": "-76.6947"
+		"lat": 39.1925,
+		"lon": -76.6947,
+		"nearbyCities": []
 	},
 	{
 		"id": "CML",
@@ -687,8 +746,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.2164",
-		"lon": "-119.0336"
+		"lat": 34.2164,
+		"lon": -119.0336,
+		"nearbyCities": []
 	},
 	{
 		"id": "CAM",
@@ -698,8 +758,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Silver-Star"],
-		"lat": "34.2481",
-		"lon": "-80.625"
+		"lat": 34.2481,
+		"lon": -80.625,
+		"nearbyCities": []
 	},
 	{
 		"id": "CDL",
@@ -709,8 +770,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
-		"lat": "37.7242",
-		"lon": "-89.2164"
+		"lat": 37.7242,
+		"lon": -89.2164,
+		"nearbyCities": []
 	},
 	{
 		"id": "CRV",
@@ -720,8 +782,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service", "Texas-Eagle"],
-		"lat": "39.2794",
-		"lon": "-89.8889"
+		"lat": 39.2794,
+		"lon": -89.8889,
+		"nearbyCities": []
 	},
 	{
 		"id": "CPN",
@@ -731,8 +794,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.3961",
-		"lon": "-119.5225"
+		"lat": 34.3961,
+		"lon": -119.5225,
+		"nearbyCities": []
 	},
 	{
 		"id": "CYN",
@@ -742,8 +806,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Piedmont", "Silver-Star"],
-		"lat": "35.7886",
-		"lon": "-78.7814"
+		"lat": 35.7886,
+		"lon": -78.7814,
+		"nearbyCities": []
 	},
 	{
 		"id": "CNV",
@@ -753,8 +818,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Ethan-Allen-Express"],
-		"lat": "43.6133",
-		"lon": "-73.1714"
+		"lat": 43.6133,
+		"lon": -73.1714,
+		"nearbyCities": []
 	},
 	{
 		"id": "CEN",
@@ -764,8 +830,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
-		"lat": "38.5275",
-		"lon": "-89.1361"
+		"lat": 38.5275,
+		"lon": -89.1361,
+		"nearbyCities": []
 	},
 	{
 		"id": "CTL",
@@ -775,19 +842,21 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight"],
-		"lat": "46.7175",
-		"lon": "-122.9528"
+		"lat": 46.7175,
+		"lon": -122.9528,
+		"nearbyCities": []
 	},
 	{
 		"id": "CHM",
-		"name": "Champaign–Urbana",
+		"name": "Champaign\u2014Urbana",
 		"code": "CHM",
 		"city": "Champaign",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
-		"lat": "40.1158",
-		"lon": "-88.2411"
+		"lat": 40.1158,
+		"lon": -88.2411,
+		"nearbyCities": []
 	},
 	{
 		"id": "CHS",
@@ -797,8 +866,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Palmetto", "Silver-Meteor"],
-		"lat": "32.8747",
-		"lon": "-79.9981"
+		"lat": 32.8747,
+		"lon": -79.9981,
+		"nearbyCities": []
 	},
 	{
 		"id": "CHW",
@@ -808,8 +878,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "38.3464",
-		"lon": "-81.6383"
+		"lat": 38.3464,
+		"lon": -81.6383,
+		"nearbyCities": []
 	},
 	{
 		"id": "CLT",
@@ -819,8 +890,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Crescent", "Piedmont"],
-		"lat": "35.2411",
-		"lon": "-80.8228"
+		"lat": 35.2411,
+		"lon": -80.8228,
+		"nearbyCities": []
 	},
 	{
 		"id": "CVS",
@@ -830,8 +902,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Cardinal", "Crescent", "Northeast-Regional"],
-		"lat": "38.0314",
-		"lon": "-78.4919"
+		"lat": 38.0314,
+		"lon": -78.4919,
+		"nearbyCities": []
 	},
 	{
 		"id": "CWT",
@@ -841,8 +914,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.2528",
-		"lon": "-118.5994"
+		"lat": 34.2528,
+		"lon": -118.5994,
+		"nearbyCities": []
 	},
 	{
 		"id": "CMO",
@@ -852,8 +926,9 @@
 		"stateShort": "OR",
 		"stateLong": "Oregon",
 		"routes": ["Coast-Starlight"],
-		"lat": "43.2167",
-		"lon": "-121.7814"
+		"lat": 43.2167,
+		"lon": -121.7814,
+		"nearbyCities": ["Bend"]
 	},
 	{
 		"id": "CHI",
@@ -881,8 +956,9 @@
 			"Texas-Eagle",
 			"Wolverine"
 		],
-		"lat": "41.8786",
-		"lon": "-87.6403"
+		"lat": 41.8786,
+		"lon": -87.6403,
+		"nearbyCities": []
 	},
 	{
 		"id": "CIC",
@@ -892,8 +968,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight"],
-		"lat": "39.7067",
-		"lon": "-121.8356"
+		"lat": 39.7067,
+		"lon": -121.8356,
+		"nearbyCities": []
 	},
 	{
 		"id": "CIN",
@@ -903,8 +980,9 @@
 		"stateShort": "OH",
 		"stateLong": "Ohio",
 		"routes": ["Cardinal"],
-		"lat": "39.11",
-		"lon": "-84.5378"
+		"lat": 39.11,
+		"lon": -84.5378,
+		"nearbyCities": ["Louisville", "Dayton"]
 	},
 	{
 		"id": "CLA",
@@ -914,8 +992,9 @@
 		"stateShort": "NH",
 		"stateLong": "New Hampshire",
 		"routes": ["Vermonter"],
-		"lat": "43.3692",
-		"lon": "-72.3778"
+		"lat": 43.3692,
+		"lon": -72.3778,
+		"nearbyCities": []
 	},
 	{
 		"id": "CBR",
@@ -925,8 +1004,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "32.3497",
-		"lon": "-97.3822"
+		"lat": 32.3497,
+		"lon": -97.3822,
+		"nearbyCities": ["Abilene"]
 	},
 	{
 		"id": "CSN",
@@ -936,8 +1016,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Crescent"],
-		"lat": "34.6911",
-		"lon": "-82.8325"
+		"lat": 34.6911,
+		"lon": -82.8325,
+		"nearbyCities": []
 	},
 	{
 		"id": "CLE",
@@ -947,8 +1028,9 @@
 		"stateShort": "OH",
 		"stateLong": "Ohio",
 		"routes": ["Capitol-Limited", "Lake-Shore-Limited"],
-		"lat": "41.5056",
-		"lon": "-81.6964"
+		"lat": 41.5056,
+		"lon": -81.6964,
+		"nearbyCities": []
 	},
 	{
 		"id": "CLF",
@@ -958,8 +1040,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Cardinal"],
-		"lat": "37.8147",
-		"lon": "-79.8275"
+		"lat": 37.8147,
+		"lon": -79.8275,
+		"nearbyCities": []
 	},
 	{
 		"id": "COT",
@@ -969,8 +1052,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "39.9858",
-		"lon": "-75.8208"
+		"lat": 39.9858,
+		"lon": -75.8208,
+		"nearbyCities": []
 	},
 	{
 		"id": "COX",
@@ -980,8 +1064,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["California-Zephyr"],
-		"lat": "39.0994",
-		"lon": "-120.9531"
+		"lat": 39.0994,
+		"lon": -120.9531,
+		"nearbyCities": []
 	},
 	{
 		"id": "CLB",
@@ -991,8 +1076,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Silver-Star"],
-		"lat": "33.9942",
-		"lon": "-81.0403"
+		"lat": 33.9942,
+		"lon": -81.0403,
+		"nearbyCities": []
 	},
 	{
 		"id": "CBS",
@@ -1002,8 +1088,9 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Empire-Builder"],
-		"lat": "43.3408",
-		"lon": "-89.0125"
+		"lat": 43.3408,
+		"lon": -89.0125,
+		"nearbyCities": []
 	},
 	{
 		"id": "COV",
@@ -1013,8 +1100,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Capitol-Limited"],
-		"lat": "40.02",
-		"lon": "-79.5928"
+		"lat": 40.02,
+		"lon": -79.5928,
+		"nearbyCities": []
 	},
 	{
 		"id": "COI",
@@ -1024,8 +1112,9 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Cardinal"],
-		"lat": "39.6461",
-		"lon": "-85.1333"
+		"lat": 39.6461,
+		"lon": -85.1333,
+		"nearbyCities": []
 	},
 	{
 		"id": "COC",
@@ -1035,8 +1124,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "36.0983",
-		"lon": "-119.5572"
+		"lat": 36.0983,
+		"lon": -119.5572,
+		"nearbyCities": []
 	},
 	{
 		"id": "CWH",
@@ -1046,8 +1136,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "40.0728",
-		"lon": "-74.9519"
+		"lat": 40.0728,
+		"lon": -74.9519,
+		"nearbyCities": []
 	},
 	{
 		"id": "CRF",
@@ -1057,8 +1148,9 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Cardinal"],
-		"lat": "40.0447",
-		"lon": "-86.8992"
+		"lat": 40.0447,
+		"lon": -86.8992,
+		"nearbyCities": []
 	},
 	{
 		"id": "CRN",
@@ -1068,12 +1160,13 @@
 		"stateShort": "IA",
 		"stateLong": "Iowa",
 		"routes": ["California-Zephyr"],
-		"lat": "41.0569",
-		"lon": "-94.3614"
+		"lat": 41.0569,
+		"lon": -94.3614,
+		"nearbyCities": []
 	},
 	{
 		"id": "CRT",
-		"name": "Croton–Harmon",
+		"name": "Croton\u2014Harmon",
 		"code": "CRT",
 		"city": "Croton-on-Hudson",
 		"stateShort": "NY",
@@ -1086,8 +1179,9 @@
 			"Lake-Shore-Limited",
 			"Maple-Leaf"
 		],
-		"lat": "41.1897",
-		"lon": "-73.8828"
+		"lat": 41.1897,
+		"lon": -73.8828,
+		"nearbyCities": []
 	},
 	{
 		"id": "CLP",
@@ -1097,8 +1191,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Cardinal", "Crescent", "Northeast-Regional"],
-		"lat": "38.4722",
-		"lon": "-77.9933"
+		"lat": 38.4722,
+		"lon": -77.9933,
+		"nearbyCities": []
 	},
 	{
 		"id": "CUM",
@@ -1108,8 +1203,9 @@
 		"stateShort": "MD",
 		"stateLong": "Maryland",
 		"routes": ["Capitol-Limited"],
-		"lat": "39.6506",
-		"lon": "-78.7578"
+		"lat": 39.6506,
+		"lon": -78.7578,
+		"nearbyCities": []
 	},
 	{
 		"id": "CUT",
@@ -1119,8 +1215,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.6383",
-		"lon": "-112.3317"
+		"lat": 48.6383,
+		"lon": -112.3317,
+		"nearbyCities": []
 	},
 	{
 		"id": "DAL",
@@ -1130,8 +1227,20 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "32.7761",
-		"lon": "-96.8075"
+		"lat": 32.7761,
+		"lon": -96.8075,
+		"nearbyCities": [
+			"Irving",
+			"Garland",
+			"Frisco",
+			"McKinney",
+			"Grand Prairie",
+			"Mesquite",
+			"Carrollton",
+			"Lewisville",
+			"Richardson",
+			"Allen"
+		]
 	},
 	{
 		"id": "DAN",
@@ -1141,8 +1250,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Crescent"],
-		"lat": "36.5839",
-		"lon": "-79.3839"
+		"lat": 36.5839,
+		"lon": -79.3839,
+		"nearbyCities": []
 	},
 	{
 		"id": "DAV",
@@ -1152,8 +1262,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["California-Zephyr", "Capitol-Corridor", "Coast-Starlight"],
-		"lat": "38.5436",
-		"lon": "-121.7367"
+		"lat": 38.5436,
+		"lon": -121.7367,
+		"nearbyCities": []
 	},
 	{
 		"id": "DER",
@@ -1163,8 +1274,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.3069",
-		"lon": "-83.2347"
+		"lat": 42.3069,
+		"lon": -83.2347,
+		"nearbyCities": []
 	},
 	{
 		"id": "DFB",
@@ -1174,8 +1286,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "26.3169",
-		"lon": "-80.1222"
+		"lat": 26.3169,
+		"lon": -80.1222,
+		"nearbyCities": ["Coral Springs", "Pompano Beach"]
 	},
 	{
 		"id": "DRT",
@@ -1185,8 +1298,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "29.3628",
-		"lon": "-100.9014"
+		"lat": 29.3628,
+		"lon": -100.9014,
+		"nearbyCities": []
 	},
 	{
 		"id": "DLD",
@@ -1196,8 +1310,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "29.0172",
-		"lon": "-81.3525"
+		"lat": 29.0172,
+		"lon": -81.3525,
+		"nearbyCities": []
 	},
 	{
 		"id": "DLB",
@@ -1207,8 +1322,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "26.4542",
-		"lon": "-80.0908"
+		"lat": 26.4542,
+		"lon": -80.0908,
+		"nearbyCities": []
 	},
 	{
 		"id": "DEM",
@@ -1218,8 +1334,9 @@
 		"stateShort": "NM",
 		"stateLong": "New Mexico",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "32.2717",
-		"lon": "-107.7542"
+		"lat": 32.2717,
+		"lon": -107.7542,
+		"nearbyCities": []
 	},
 	{
 		"id": "DNK",
@@ -1229,8 +1346,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Silver-Star"],
-		"lat": "33.3261",
-		"lon": "-81.1436"
+		"lat": 33.3261,
+		"lon": -81.1436,
+		"nearbyCities": ["Augusta"]
 	},
 	{
 		"id": "DEN",
@@ -1240,8 +1358,20 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["California-Zephyr", "Winter-Park-Express"],
-		"lat": "39.7531",
-		"lon": "-105"
+		"lat": 39.7531,
+		"lon": -105.0,
+		"nearbyCities": [
+			"Colorado Springs",
+			"Aurora",
+			"Fort Collins",
+			"Lakewood",
+			"Thornton",
+			"Arvada",
+			"Westminster",
+			"Greeley",
+			"Centennial",
+			"Boulder"
+		]
 	},
 	{
 		"id": "DET",
@@ -1251,8 +1381,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.3678",
-		"lon": "-83.0725"
+		"lat": 42.3678,
+		"lon": -83.0725,
+		"nearbyCities": []
 	},
 	{
 		"id": "DLK",
@@ -1262,8 +1393,9 @@
 		"stateShort": "MN",
 		"stateLong": "Minnesota",
 		"routes": ["Empire-Builder"],
-		"lat": "46.8197",
-		"lon": "-95.8458"
+		"lat": 46.8197,
+		"lon": -95.8458,
+		"nearbyCities": []
 	},
 	{
 		"id": "DVL",
@@ -1273,8 +1405,9 @@
 		"stateShort": "ND",
 		"stateLong": "North Dakota",
 		"routes": ["Empire-Builder"],
-		"lat": "48.1103",
-		"lon": "-98.8614"
+		"lat": 48.1103,
+		"lon": -98.8614,
+		"nearbyCities": []
 	},
 	{
 		"id": "DIL",
@@ -1284,8 +1417,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Palmetto"],
-		"lat": "34.4175",
-		"lon": "-79.3722"
+		"lat": 34.4175,
+		"lon": -79.3722,
+		"nearbyCities": []
 	},
 	{
 		"id": "DDG",
@@ -1295,8 +1429,9 @@
 		"stateShort": "KS",
 		"stateLong": "Kansas",
 		"routes": ["Southwest-Chief"],
-		"lat": "37.7525",
-		"lon": "-100.0164"
+		"lat": 37.7525,
+		"lon": -100.0164,
+		"nearbyCities": []
 	},
 	{
 		"id": "DOV",
@@ -1306,8 +1441,9 @@
 		"stateShort": "NH",
 		"stateLong": "New Hampshire",
 		"routes": ["Downeaster"],
-		"lat": "43.1983",
-		"lon": "-70.8772"
+		"lat": 43.1983,
+		"lon": -70.8772,
+		"nearbyCities": []
 	},
 	{
 		"id": "DOA",
@@ -1317,8 +1453,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water", "Wolverine"],
-		"lat": "41.9808",
-		"lon": "-86.1089"
+		"lat": 41.9808,
+		"lon": -86.1089,
+		"nearbyCities": []
 	},
 	{
 		"id": "DOW",
@@ -1328,8 +1465,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "40.0025",
-		"lon": "-75.7103"
+		"lat": 40.0025,
+		"lon": -75.7103,
+		"nearbyCities": []
 	},
 	{
 		"id": "DQN",
@@ -1339,8 +1477,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illini", "Saluki"],
-		"lat": "38.0122",
-		"lon": "-89.2403"
+		"lat": 38.0122,
+		"lon": -89.2403,
+		"nearbyCities": []
 	},
 	{
 		"id": "DUN",
@@ -1350,8 +1489,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight"],
-		"lat": "41.2111",
-		"lon": "-122.2706"
+		"lat": 41.2111,
+		"lon": -122.2706,
+		"nearbyCities": []
 	},
 	{
 		"id": "DRD",
@@ -1361,8 +1501,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water"],
-		"lat": "42.9092",
-		"lon": "-83.9825"
+		"lat": 42.9092,
+		"lon": -83.9825,
+		"nearbyCities": []
 	},
 	{
 		"id": "DNC",
@@ -1372,19 +1513,21 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Piedmont"],
-		"lat": "35.9981",
-		"lon": "-78.9061"
+		"lat": 35.9981,
+		"lon": -78.9061,
+		"nearbyCities": []
 	},
 	{
 		"id": "DHM",
-		"name": "Durham–UNH",
+		"name": "Durham\u2014UNH",
 		"code": "DHM",
 		"city": "Durham",
 		"stateShort": "NH",
 		"stateLong": "New Hampshire",
 		"routes": ["Downeaster"],
-		"lat": "43.1394",
-		"lon": "-70.9411"
+		"lat": 43.1394,
+		"lon": -70.9411,
+		"nearbyCities": []
 	},
 	{
 		"id": "DWT",
@@ -1394,8 +1537,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service"],
-		"lat": "41.0903",
-		"lon": "-88.4297"
+		"lat": 41.0903,
+		"lon": -88.4297,
+		"nearbyCities": []
 	},
 	{
 		"id": "DYE",
@@ -1405,8 +1549,9 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Cardinal"],
-		"lat": "41.5153",
-		"lon": "-87.5181"
+		"lat": 41.5153,
+		"lon": -87.5181,
+		"nearbyCities": []
 	},
 	{
 		"id": "GPK",
@@ -1416,8 +1561,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.4439",
-		"lon": "-113.2186"
+		"lat": 48.4439,
+		"lon": -113.2186,
+		"nearbyCities": []
 	},
 	{
 		"id": "LNS",
@@ -1427,8 +1573,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water"],
-		"lat": "42.7192",
-		"lon": "-84.495"
+		"lat": 42.7192,
+		"lon": -84.495,
+		"nearbyCities": ["Lansing"]
 	},
 	{
 		"id": "EDM",
@@ -1438,8 +1585,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Empire-Builder"],
-		"lat": "47.8111",
-		"lon": "-122.3842"
+		"lat": 47.8111,
+		"lon": -122.3842,
+		"nearbyCities": []
 	},
 	{
 		"id": "EFG",
@@ -1449,8 +1597,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
-		"lat": "39.1169",
-		"lon": "-88.5472"
+		"lat": 39.1169,
+		"lon": -88.5472,
+		"nearbyCities": ["Evansville"]
 	},
 	{
 		"id": "ELP",
@@ -1460,8 +1609,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "31.7572",
-		"lon": "-106.4958"
+		"lat": 31.7572,
+		"lon": -106.4958,
+		"nearbyCities": ["Las Cruces"]
 	},
 	{
 		"id": "ELT",
@@ -1471,8 +1621,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service", "Pennsylvanian"],
-		"lat": "40.1469",
-		"lon": "-76.6122"
+		"lat": 40.1469,
+		"lon": -76.6122,
+		"nearbyCities": []
 	},
 	{
 		"id": "EKH",
@@ -1482,8 +1633,9 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Capitol-Limited", "Lake-Shore-Limited"],
-		"lat": "41.6806",
-		"lon": "-85.9717"
+		"lat": 41.6806,
+		"lon": -85.9717,
+		"nearbyCities": []
 	},
 	{
 		"id": "ELK",
@@ -1493,8 +1645,9 @@
 		"stateShort": "NV",
 		"stateLong": "Nevada",
 		"routes": ["California-Zephyr"],
-		"lat": "40.8364",
-		"lon": "-115.7503"
+		"lat": 40.8364,
+		"lon": -115.7503,
+		"nearbyCities": ["Boise", "Nampa"]
 	},
 	{
 		"id": "ELY",
@@ -1504,8 +1657,9 @@
 		"stateShort": "OH",
 		"stateLong": "Ohio",
 		"routes": ["Capitol-Limited", "Lake-Shore-Limited"],
-		"lat": "41.37",
-		"lon": "-82.0967"
+		"lat": 41.37,
+		"lon": -82.0967,
+		"nearbyCities": []
 	},
 	{
 		"id": "EMY",
@@ -1520,8 +1674,9 @@
 			"Coast-Starlight",
 			"San-Joaquins"
 		],
-		"lat": "37.8406",
-		"lon": "-122.2925"
+		"lat": 37.8406,
+		"lon": -122.2925,
+		"nearbyCities": []
 	},
 	{
 		"id": "EPH",
@@ -1531,8 +1686,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Empire-Builder"],
-		"lat": "47.3208",
-		"lon": "-119.5494"
+		"lat": 47.3208,
+		"lon": -119.5494,
+		"nearbyCities": []
 	},
 	{
 		"id": "ERI",
@@ -1542,8 +1698,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Lake-Shore-Limited"],
-		"lat": "42.1208",
-		"lon": "-80.0819"
+		"lat": 42.1208,
+		"lon": -80.0819,
+		"nearbyCities": []
 	},
 	{
 		"id": "ESM",
@@ -1553,8 +1710,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.2753",
-		"lon": "-113.6103"
+		"lat": 48.2753,
+		"lon": -113.6103,
+		"nearbyCities": []
 	},
 	{
 		"id": "ESX",
@@ -1564,19 +1722,21 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "44.4925",
-		"lon": "-73.1103"
+		"lat": 44.4925,
+		"lon": -73.1103,
+		"nearbyCities": []
 	},
 	{
 		"id": "EUG",
-		"name": "Eugene–Springfield",
+		"name": "Eugene\u2014Springfield",
 		"code": "EUG",
 		"city": "Eugene",
 		"stateShort": "OR",
 		"stateLong": "Oregon",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight"],
-		"lat": "44.0553",
-		"lon": "-123.0922"
+		"lat": 44.0553,
+		"lon": -123.0922,
+		"nearbyCities": []
 	},
 	{
 		"id": "EVR",
@@ -1586,8 +1746,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Empire-Builder"],
-		"lat": "47.9753",
-		"lon": "-122.1975"
+		"lat": 47.9753,
+		"lon": -122.1975,
+		"nearbyCities": []
 	},
 	{
 		"id": "EXR",
@@ -1597,8 +1758,9 @@
 		"stateShort": "NH",
 		"stateLong": "New Hampshire",
 		"routes": ["Downeaster"],
-		"lat": "42.9811",
-		"lon": "-70.9586"
+		"lat": 42.9811,
+		"lon": -70.9586,
+		"nearbyCities": []
 	},
 	{
 		"id": "EXT",
@@ -1608,19 +1770,21 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service", "Pennsylvanian"],
-		"lat": "40.0194",
-		"lon": "-75.6217"
+		"lat": 40.0194,
+		"lon": -75.6217,
+		"nearbyCities": []
 	},
 	{
 		"id": "FFV",
-		"name": "Fairfield–Vacaville",
+		"name": "Fairfield\u2014Vacaville",
 		"code": "FFV",
 		"city": "Fairfield",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "38.2856",
-		"lon": "-121.9681"
+		"lat": 38.2856,
+		"lon": -121.9681,
+		"nearbyCities": ["Vacaville"]
 	},
 	{
 		"id": "FAR",
@@ -1630,8 +1794,9 @@
 		"stateShort": "ND",
 		"stateLong": "North Dakota",
 		"routes": ["Empire-Builder"],
-		"lat": "46.8811",
-		"lon": "-96.7861"
+		"lat": 46.8811,
+		"lon": -96.7861,
+		"nearbyCities": []
 	},
 	{
 		"id": "FAY",
@@ -1641,19 +1806,21 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Palmetto", "Silver-Meteor"],
-		"lat": "35.055",
-		"lon": "-78.8847"
+		"lat": 35.055,
+		"lon": -78.8847,
+		"nearbyCities": []
 	},
 	{
 		"id": "VRN",
-		"name": "Ferrisburgh–Vergennes",
+		"name": "Ferrisburgh\u2014Vergennes",
 		"code": "VRN",
 		"city": "Ferrisburgh",
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Ethan-Allen-Express"],
-		"lat": "44.1808",
-		"lon": "-73.2489"
+		"lat": 44.1808,
+		"lon": -73.2489,
+		"nearbyCities": []
 	},
 	{
 		"id": "FLG",
@@ -1663,8 +1830,9 @@
 		"stateShort": "AZ",
 		"stateLong": "Arizona",
 		"routes": ["Southwest-Chief"],
-		"lat": "35.1972",
-		"lon": "-111.6494"
+		"lat": 35.1972,
+		"lon": -111.6494,
+		"nearbyCities": []
 	},
 	{
 		"id": "FLN",
@@ -1674,8 +1842,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water"],
-		"lat": "43.0156",
-		"lon": "-83.6514"
+		"lat": 43.0156,
+		"lon": -83.6514,
+		"nearbyCities": []
 	},
 	{
 		"id": "FLO",
@@ -1685,8 +1854,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Palmetto", "Silver-Meteor"],
-		"lat": "34.1992",
-		"lon": "-79.7575"
+		"lat": 34.1992,
+		"lon": -79.7575,
+		"nearbyCities": []
 	},
 	{
 		"id": "FED",
@@ -1696,8 +1866,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack", "Ethan-Allen-Express"],
-		"lat": "43.2697",
-		"lon": "-73.5804"
+		"lat": 43.2697,
+		"lon": -73.5804,
+		"nearbyCities": []
 	},
 	{
 		"id": "FTL",
@@ -1707,8 +1878,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "26.1195",
-		"lon": "-80.1699"
+		"lat": 26.1195,
+		"lon": -80.1699,
+		"nearbyCities": ["Davie"]
 	},
 	{
 		"id": "FMD",
@@ -1718,8 +1890,9 @@
 		"stateShort": "IA",
 		"stateLong": "Iowa",
 		"routes": ["Southwest-Chief"],
-		"lat": "40.6295",
-		"lon": "-91.3136"
+		"lat": 40.6295,
+		"lon": -91.3136,
+		"nearbyCities": []
 	},
 	{
 		"id": "FMG",
@@ -1729,8 +1902,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["California-Zephyr"],
-		"lat": "40.2469",
-		"lon": "-103.8028"
+		"lat": 40.2469,
+		"lon": -103.8028,
+		"nearbyCities": []
 	},
 	{
 		"id": "FTW",
@@ -1740,8 +1914,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Heartland-Flyer", "Texas-Eagle"],
-		"lat": "32.7528",
-		"lon": "-97.3264"
+		"lat": 32.7528,
+		"lon": -97.3264,
+		"nearbyCities": ["Arlington"]
 	},
 	{
 		"id": "FRA",
@@ -1751,19 +1926,21 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Lake-Shore-Limited"],
-		"lat": "42.2764",
-		"lon": "-71.4183"
+		"lat": 42.2764,
+		"lon": -71.4183,
+		"nearbyCities": []
 	},
 	{
 		"id": "WIP",
-		"name": "Fraser–Winter Park",
+		"name": "Fraser\u2014Winter Park",
 		"code": "WIP",
 		"city": "Fraser",
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["California-Zephyr"],
-		"lat": "39.9475",
-		"lon": "-105.8175"
+		"lat": 39.9475,
+		"lon": -105.8175,
+		"nearbyCities": []
 	},
 	{
 		"id": "FBG",
@@ -1773,8 +1950,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Carolinian", "Northeast-Regional", "Silver-Meteor"],
-		"lat": "38.2983",
-		"lon": "-77.4569"
+		"lat": 38.2983,
+		"lon": -77.4569,
+		"nearbyCities": []
 	},
 	{
 		"id": "FRE",
@@ -1784,8 +1962,9 @@
 		"stateShort": "ME",
 		"stateLong": "Maine",
 		"routes": ["Downeaster"],
-		"lat": "43.855",
-		"lon": "-70.1031"
+		"lat": 43.855,
+		"lon": -70.1031,
+		"nearbyCities": []
 	},
 	{
 		"id": "FMT",
@@ -1795,8 +1974,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "37.5592",
-		"lon": "-122.0072"
+		"lat": 37.5592,
+		"lon": -122.0072,
+		"nearbyCities": []
 	},
 	{
 		"id": "FNO",
@@ -1806,8 +1986,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "36.7383",
-		"lon": "-119.7819"
+		"lat": 36.7383,
+		"lon": -119.7819,
+		"nearbyCities": ["Clovis"]
 	},
 	{
 		"id": "FUL",
@@ -1817,8 +1998,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner", "Southwest-Chief"],
-		"lat": "33.8686",
-		"lon": "-117.9222"
+		"lat": 33.8686,
+		"lon": -117.9222,
+		"nearbyCities": ["Long Beach"]
 	},
 	{
 		"id": "FTN",
@@ -1828,8 +2010,9 @@
 		"stateShort": "KY",
 		"stateLong": "Kentucky",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "36.5236",
-		"lon": "-88.8872"
+		"lat": 36.5236,
+		"lon": -88.8872,
+		"nearbyCities": ["Nashville", "Clarksville"]
 	},
 	{
 		"id": "GLE",
@@ -1839,8 +2022,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Heartland-Flyer"],
-		"lat": "33.625",
-		"lon": "-97.1408"
+		"lat": 33.625,
+		"lon": -97.1408,
+		"nearbyCities": ["Denton", "Wichita Falls"]
 	},
 	{
 		"id": "GNS",
@@ -1850,8 +2034,9 @@
 		"stateShort": "GA",
 		"stateLong": "Georgia",
 		"routes": ["Crescent"],
-		"lat": "34.2889",
-		"lon": "-83.8197"
+		"lat": 34.2889,
+		"lon": -83.8197,
+		"nearbyCities": ["Athens"]
 	},
 	{
 		"id": "GBB",
@@ -1866,8 +2051,9 @@
 			"Carl-Sandburg",
 			"Southwest-Chief"
 		],
-		"lat": "40.9447",
-		"lon": "-90.3639"
+		"lat": 40.9447,
+		"lon": -90.3639,
+		"nearbyCities": ["Davenport"]
 	},
 	{
 		"id": "GLP",
@@ -1877,8 +2063,9 @@
 		"stateShort": "NM",
 		"stateLong": "New Mexico",
 		"routes": ["Southwest-Chief"],
-		"lat": "35.5292",
-		"lon": "-108.7406"
+		"lat": 35.5292,
+		"lon": -108.7406,
+		"nearbyCities": []
 	},
 	{
 		"id": "GCK",
@@ -1888,8 +2075,9 @@
 		"stateShort": "KS",
 		"stateLong": "Kansas",
 		"routes": ["Southwest-Chief"],
-		"lat": "37.9642",
-		"lon": "-100.8733"
+		"lat": 37.9642,
+		"lon": -100.8733,
+		"nearbyCities": ["Amarillo"]
 	},
 	{
 		"id": "GAS",
@@ -1899,8 +2087,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Crescent"],
-		"lat": "35.2692",
-		"lon": "-81.1625"
+		"lat": 35.2692,
+		"lon": -81.1625,
+		"nearbyCities": []
 	},
 	{
 		"id": "GLM",
@@ -1910,8 +2099,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illini", "Saluki"],
-		"lat": "40.7617",
-		"lon": "-87.9956"
+		"lat": 40.7617,
+		"lon": -87.9956,
+		"nearbyCities": []
 	},
 	{
 		"id": "GGW",
@@ -1921,8 +2111,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.195",
-		"lon": "-106.6364"
+		"lat": 48.195,
+		"lon": -106.6364,
+		"nearbyCities": []
 	},
 	{
 		"id": "GDL",
@@ -1932,8 +2123,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.1236",
-		"lon": "-118.2578"
+		"lat": 34.1236,
+		"lon": -118.2578,
+		"nearbyCities": ["Pasadena"]
 	},
 	{
 		"id": "GLN",
@@ -1943,8 +2135,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Empire-Builder", "Hiawatha-Service"],
-		"lat": "42.075",
-		"lon": "-87.8058"
+		"lat": 42.075,
+		"lon": -87.8058,
+		"nearbyCities": []
 	},
 	{
 		"id": "GSC",
@@ -1954,8 +2147,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["California-Zephyr"],
-		"lat": "39.5481",
-		"lon": "-107.3231"
+		"lat": 39.5481,
+		"lon": -107.3231,
+		"nearbyCities": []
 	},
 	{
 		"id": "GTA",
@@ -1965,8 +2159,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.4378",
-		"lon": "-119.8431"
+		"lat": 34.4378,
+		"lon": -119.8431,
+		"nearbyCities": []
 	},
 	{
 		"id": "GRA",
@@ -1976,8 +2171,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["California-Zephyr"],
-		"lat": "40.0842",
-		"lon": "-105.9356"
+		"lat": 40.0842,
+		"lon": -105.9356,
+		"nearbyCities": []
 	},
 	{
 		"id": "GFK",
@@ -1987,8 +2183,9 @@
 		"stateShort": "ND",
 		"stateLong": "North Dakota",
 		"routes": ["Empire-Builder"],
-		"lat": "47.9175",
-		"lon": "-97.1108"
+		"lat": 47.9175,
+		"lon": -97.1108,
+		"nearbyCities": []
 	},
 	{
 		"id": "GJT",
@@ -1998,8 +2195,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["California-Zephyr"],
-		"lat": "39.0647",
-		"lon": "-108.5706"
+		"lat": 39.0647,
+		"lon": -108.5706,
+		"nearbyCities": []
 	},
 	{
 		"id": "GRR",
@@ -2009,8 +2207,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Pere-Marquette"],
-		"lat": "42.9556",
-		"lon": "-85.6722"
+		"lat": 42.9556,
+		"lon": -85.6722,
+		"nearbyCities": []
 	},
 	{
 		"id": "GRI",
@@ -2020,8 +2219,9 @@
 		"stateShort": "UT",
 		"stateLong": "Utah",
 		"routes": ["California-Zephyr"],
-		"lat": "38.9922",
-		"lon": "-110.1653"
+		"lat": 38.9922,
+		"lon": -110.1653,
+		"nearbyCities": []
 	},
 	{
 		"id": "GFD",
@@ -2031,8 +2231,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Valley-Flyer", "Vermonter"],
-		"lat": "42.5858",
-		"lon": "-72.6006"
+		"lat": 42.5858,
+		"lon": -72.6006,
+		"nearbyCities": []
 	},
 	{
 		"id": "GRO",
@@ -2042,8 +2243,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Crescent", "Piedmont"],
-		"lat": "36.0694",
-		"lon": "-79.7872"
+		"lat": 36.0694,
+		"lon": -79.7872,
+		"nearbyCities": []
 	},
 	{
 		"id": "GNB",
@@ -2053,8 +2255,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Pennsylvanian"],
-		"lat": "40.3044",
-		"lon": "-79.5467"
+		"lat": 40.3044,
+		"lon": -79.5467,
+		"nearbyCities": []
 	},
 	{
 		"id": "GRV",
@@ -2064,8 +2267,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Crescent"],
-		"lat": "34.8586",
-		"lon": "-82.4136"
+		"lat": 34.8586,
+		"lon": -82.4136,
+		"nearbyCities": []
 	},
 	{
 		"id": "GWD",
@@ -2075,8 +2279,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "33.5169",
-		"lon": "-90.1764"
+		"lat": 33.5169,
+		"lon": -90.1764,
+		"nearbyCities": []
 	},
 	{
 		"id": "GMS",
@@ -2086,8 +2291,9 @@
 		"stateShort": "ON",
 		"stateLong": "Ontario",
 		"routes": ["Maple-Leaf"],
-		"lat": "43.1958",
-		"lon": "-79.5578"
+		"lat": 43.1958,
+		"lon": -79.5578,
+		"nearbyCities": []
 	},
 	{
 		"id": "GVB",
@@ -2097,8 +2303,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "35.1214",
-		"lon": "-120.6292"
+		"lat": 35.1214,
+		"lon": -120.6292,
+		"nearbyCities": []
 	},
 	{
 		"id": "GUA",
@@ -2108,8 +2315,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.9628",
-		"lon": "-120.5733"
+		"lat": 34.9628,
+		"lon": -120.5733,
+		"nearbyCities": ["Santa Maria"]
 	},
 	{
 		"id": "HAM",
@@ -2119,8 +2327,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Silver-Star"],
-		"lat": "34.8838",
-		"lon": "-79.6991"
+		"lat": 34.8838,
+		"lon": -79.6991,
+		"nearbyCities": []
 	},
 	{
 		"id": "HMD",
@@ -2130,19 +2339,21 @@
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "30.5072",
-		"lon": "-90.4619"
+		"lat": 30.5072,
+		"lon": -90.4619,
+		"nearbyCities": ["Baton Rouge"]
 	},
 	{
 		"id": "HMI",
-		"name": "Hammond–Whiting",
+		"name": "Hammond\u2014Whiting",
 		"code": "HMI",
 		"city": "Hammond",
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Wolverine"],
-		"lat": "41.6911",
-		"lon": "-87.5067"
+		"lat": 41.6911,
+		"lon": -87.5067,
+		"nearbyCities": []
 	},
 	{
 		"id": "HNF",
@@ -2152,8 +2363,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "36.3261",
-		"lon": "-119.6519"
+		"lat": 36.3261,
+		"lon": -119.6519,
+		"nearbyCities": ["Visalia"]
 	},
 	{
 		"id": "HFY",
@@ -2163,8 +2375,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Capitol-Limited"],
-		"lat": "39.3244",
-		"lon": "-77.7311"
+		"lat": 39.3244,
+		"lon": -77.7311,
+		"nearbyCities": []
 	},
 	{
 		"id": "HAR",
@@ -2174,8 +2387,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service", "Pennsylvanian"],
-		"lat": "40.2619",
-		"lon": "-76.8778"
+		"lat": 40.2619,
+		"lon": -76.8778,
+		"nearbyCities": []
 	},
 	{
 		"id": "HFD",
@@ -2190,8 +2404,9 @@
 			"Valley-Flyer",
 			"Vermonter"
 		],
-		"lat": "41.7689",
-		"lon": "-72.6817"
+		"lat": 41.7689,
+		"lon": -72.6817,
+		"nearbyCities": []
 	},
 	{
 		"id": "HAS",
@@ -2201,8 +2416,9 @@
 		"stateShort": "NE",
 		"stateLong": "Nebraska",
 		"routes": ["California-Zephyr"],
-		"lat": "40.5841",
-		"lon": "-98.3875"
+		"lat": 40.5841,
+		"lon": -98.3875,
+		"nearbyCities": []
 	},
 	{
 		"id": "HBG",
@@ -2212,8 +2428,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["Crescent"],
-		"lat": "31.3272",
-		"lon": "-89.2864"
+		"lat": 31.3272,
+		"lon": -89.2864,
+		"nearbyCities": ["Mobile"]
 	},
 	{
 		"id": "HHL",
@@ -2223,8 +2440,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Downeaster"],
-		"lat": "42.7736",
-		"lon": "-71.0864"
+		"lat": 42.7736,
+		"lon": -71.0864,
+		"nearbyCities": ["Manchester"]
 	},
 	{
 		"id": "HAV",
@@ -2234,8 +2452,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.5544",
-		"lon": "-109.6783"
+		"lat": 48.5544,
+		"lon": -109.6783,
+		"nearbyCities": []
 	},
 	{
 		"id": "HAY",
@@ -2245,8 +2464,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "37.6661",
-		"lon": "-122.0992"
+		"lat": 37.6661,
+		"lon": -122.0992,
+		"nearbyCities": []
 	},
 	{
 		"id": "HAZ",
@@ -2256,8 +2476,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "31.8614",
-		"lon": "-90.3944"
+		"lat": 31.8614,
+		"lon": -90.3944,
+		"nearbyCities": []
 	},
 	{
 		"id": "HER",
@@ -2267,8 +2488,9 @@
 		"stateShort": "UT",
 		"stateLong": "Utah",
 		"routes": ["California-Zephyr"],
-		"lat": "39.6839",
-		"lon": "-110.8539"
+		"lat": 39.6839,
+		"lon": -110.8539,
+		"nearbyCities": []
 	},
 	{
 		"id": "HEM",
@@ -2278,8 +2500,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "38.7072",
-		"lon": "-91.4328"
+		"lat": 38.7072,
+		"lon": -91.4328,
+		"nearbyCities": []
 	},
 	{
 		"id": "HPT",
@@ -2289,8 +2512,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Crescent", "Piedmont"],
-		"lat": "35.9572",
-		"lon": "-80.0064"
+		"lat": 35.9572,
+		"lon": -80.0064,
+		"nearbyCities": []
 	},
 	{
 		"id": "HIN",
@@ -2300,8 +2524,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "37.6747",
-		"lon": "-80.8922"
+		"lat": 37.6747,
+		"lon": -80.8922,
+		"nearbyCities": []
 	},
 	{
 		"id": "HLD",
@@ -2311,8 +2536,9 @@
 		"stateShort": "NE",
 		"stateLong": "Nebraska",
 		"routes": ["California-Zephyr"],
-		"lat": "40.4358",
-		"lon": "-99.3706"
+		"lat": 40.4358,
+		"lon": -99.3706,
+		"nearbyCities": []
 	},
 	{
 		"id": "HOM",
@@ -2322,8 +2548,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Pere-Marquette"],
-		"lat": "42.7894",
-		"lon": "-86.098"
+		"lat": 42.7894,
+		"lon": -86.098,
+		"nearbyCities": []
 	},
 	{
 		"id": "HOL",
@@ -2333,8 +2560,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "26.0118",
-		"lon": "-80.1678"
+		"lat": 26.0118,
+		"lon": -80.1678,
+		"nearbyCities": ["Pembroke Pines", "Miami Gardens"]
 	},
 	{
 		"id": "HLK",
@@ -2344,8 +2572,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Valley-Flyer", "Vermonter"],
-		"lat": "42.2042",
-		"lon": "-72.6028"
+		"lat": 42.2042,
+		"lon": -72.6028,
+		"nearbyCities": []
 	},
 	{
 		"id": "HMW",
@@ -2355,8 +2584,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
-		"lat": "41.5625",
-		"lon": "-87.6686"
+		"lat": 41.5625,
+		"lon": -87.6686,
+		"nearbyCities": []
 	},
 	{
 		"id": "HOP",
@@ -2366,8 +2596,9 @@
 		"stateShort": "AR",
 		"stateLong": "Arkansas",
 		"routes": ["Texas-Eagle"],
-		"lat": "33.6689",
-		"lon": "-93.5922"
+		"lat": 33.6689,
+		"lon": -93.5922,
+		"nearbyCities": []
 	},
 	{
 		"id": "HOS",
@@ -2377,8 +2608,15 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Sunset-Limited"],
-		"lat": "29.7672",
-		"lon": "-95.3675"
+		"lat": 29.7672,
+		"lon": -95.3675,
+		"nearbyCities": [
+			"Pasadena",
+			"Pearland",
+			"League City",
+			"Sugar Land",
+			"Conroe"
+		]
 	},
 	{
 		"id": "HUD",
@@ -2394,8 +2632,9 @@
 			"Ethan-Allen-Express",
 			"Maple-Leaf"
 		],
-		"lat": "42.2542",
-		"lon": "-73.7978"
+		"lat": 42.2542,
+		"lon": -73.7978,
+		"nearbyCities": []
 	},
 	{
 		"id": "HGD",
@@ -2405,8 +2644,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Pennsylvanian"],
-		"lat": "40.4839",
-		"lon": "-78.0111"
+		"lat": 40.4839,
+		"lon": -78.0111,
+		"nearbyCities": []
 	},
 	{
 		"id": "HUN",
@@ -2416,8 +2656,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "38.4158",
-		"lon": "-82.4397"
+		"lat": 38.4158,
+		"lon": -82.4397,
+		"nearbyCities": []
 	},
 	{
 		"id": "HUT",
@@ -2427,8 +2668,9 @@
 		"stateShort": "KS",
 		"stateLong": "Kansas",
 		"routes": ["Southwest-Chief"],
-		"lat": "38.0558",
-		"lon": "-97.9311"
+		"lat": 38.0558,
+		"lon": -97.9311,
+		"nearbyCities": []
 	},
 	{
 		"id": "IDP",
@@ -2438,8 +2680,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "39.0867",
-		"lon": "-94.4296"
+		"lat": 39.0867,
+		"lon": -94.4296,
+		"nearbyCities": []
 	},
 	{
 		"id": "IND",
@@ -2449,8 +2692,9 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Cardinal"],
-		"lat": "39.7631",
-		"lon": "-86.1594"
+		"lat": 39.7631,
+		"lon": -86.1594,
+		"nearbyCities": ["Fishers", "Carmel"]
 	},
 	{
 		"id": "IRV",
@@ -2460,8 +2704,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "33.6567",
-		"lon": "-117.7336"
+		"lat": 33.6567,
+		"lon": -117.7336,
+		"nearbyCities": []
 	},
 	{
 		"id": "JXN",
@@ -2471,8 +2716,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.2481",
-		"lon": "-84.4003"
+		"lat": 42.2481,
+		"lon": -84.4003,
+		"nearbyCities": []
 	},
 	{
 		"id": "JAN",
@@ -2482,8 +2728,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "32.3011",
-		"lon": "-90.1911"
+		"lat": 32.3011,
+		"lon": -90.1911,
+		"nearbyCities": []
 	},
 	{
 		"id": "JAX",
@@ -2493,8 +2740,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "30.3661",
-		"lon": "-81.7233"
+		"lat": 30.3661,
+		"lon": -81.7233,
+		"nearbyCities": ["Tallahassee"]
 	},
 	{
 		"id": "JEF",
@@ -2504,8 +2752,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "38.5786",
-		"lon": "-92.17"
+		"lat": 38.5786,
+		"lon": -92.17,
+		"nearbyCities": []
 	},
 	{
 		"id": "JSP",
@@ -2515,8 +2764,9 @@
 		"stateShort": "GA",
 		"stateLong": "Georgia",
 		"routes": ["Silver-Meteor"],
-		"lat": "31.6058",
-		"lon": "-81.8822"
+		"lat": 31.6058,
+		"lon": -81.8822,
+		"nearbyCities": []
 	},
 	{
 		"id": "JST",
@@ -2526,8 +2776,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Pennsylvanian"],
-		"lat": "40.3297",
-		"lon": "-78.9222"
+		"lat": 40.3297,
+		"lon": -78.9222,
+		"nearbyCities": []
 	},
 	{
 		"id": "JOL",
@@ -2537,8 +2788,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service", "Texas-Eagle"],
-		"lat": "41.5244",
-		"lon": "-88.0789"
+		"lat": 41.5244,
+		"lon": -88.0789,
+		"nearbyCities": []
 	},
 	{
 		"id": "KAL",
@@ -2548,8 +2800,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water", "Wolverine"],
-		"lat": "42.2956",
-		"lon": "-85.5842"
+		"lat": 42.2956,
+		"lon": -85.5842,
+		"nearbyCities": []
 	},
 	{
 		"id": "KKI",
@@ -2559,8 +2812,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
-		"lat": "41.1193",
-		"lon": "-87.8656"
+		"lat": 41.1193,
+		"lon": -87.8656,
+		"nearbyCities": []
 	},
 	{
 		"id": "KAN",
@@ -2570,8 +2824,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Piedmont"],
-		"lat": "35.4961",
-		"lon": "-80.6247"
+		"lat": 35.4961,
+		"lon": -80.6247,
+		"nearbyCities": ["Concord"]
 	},
 	{
 		"id": "KCY",
@@ -2581,8 +2836,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner", "Southwest-Chief"],
-		"lat": "39.0847",
-		"lon": "-94.5853"
+		"lat": 39.0847,
+		"lon": -94.5853,
+		"nearbyCities": ["Overland Park", "Olathe"]
 	},
 	{
 		"id": "KEL",
@@ -2592,8 +2848,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight"],
-		"lat": "46.1422",
-		"lon": "-122.9131"
+		"lat": 46.1422,
+		"lon": -122.9131,
+		"nearbyCities": []
 	},
 	{
 		"id": "KEE",
@@ -2603,8 +2860,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illinois-Zephyr", "Carl-Sandburg"],
-		"lat": "41.2458",
-		"lon": "-89.9278"
+		"lat": 41.2458,
+		"lon": -89.9278,
+		"nearbyCities": ["Peoria"]
 	},
 	{
 		"id": "KNG",
@@ -2614,8 +2872,9 @@
 		"stateShort": "AZ",
 		"stateLong": "Arizona",
 		"routes": ["Southwest-Chief"],
-		"lat": "35.1883",
-		"lon": "-114.0525"
+		"lat": 35.1883,
+		"lon": -114.0525,
+		"nearbyCities": ["North Las Vegas", "St. George"]
 	},
 	{
 		"id": "KIN",
@@ -2625,8 +2884,9 @@
 		"stateShort": "RI",
 		"stateLong": "Rhode Island",
 		"routes": ["Northeast-Regional"],
-		"lat": "41.4839",
-		"lon": "-71.5608"
+		"lat": 41.4839,
+		"lon": -71.5608,
+		"nearbyCities": []
 	},
 	{
 		"id": "KTR",
@@ -2636,8 +2896,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Palmetto", "Silver-Meteor"],
-		"lat": "33.6636",
-		"lon": "-79.8292"
+		"lat": 33.6636,
+		"lon": -79.8292,
+		"nearbyCities": []
 	},
 	{
 		"id": "KWD",
@@ -2647,8 +2908,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "38.5808",
-		"lon": "-90.4067"
+		"lat": 38.5808,
+		"lon": -90.4067,
+		"nearbyCities": []
 	},
 	{
 		"id": "KIS",
@@ -2658,8 +2920,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "28.2939",
-		"lon": "-81.4042"
+		"lat": 28.2939,
+		"lon": -81.4042,
+		"nearbyCities": []
 	},
 	{
 		"id": "KFS",
@@ -2669,8 +2932,9 @@
 		"stateShort": "OR",
 		"stateLong": "Oregon",
 		"routes": ["Coast-Starlight"],
-		"lat": "42.2256",
-		"lon": "-121.7717"
+		"lat": 42.2256,
+		"lon": -121.7717,
+		"nearbyCities": []
 	},
 	{
 		"id": "LSE",
@@ -2680,8 +2944,9 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Empire-Builder"],
-		"lat": "43.8333",
-		"lon": "-91.2472"
+		"lat": 43.8333,
+		"lon": -91.2472,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAG",
@@ -2691,8 +2956,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illinois-Zephyr", "Carl-Sandburg"],
-		"lat": "41.8158",
-		"lon": "-87.8711"
+		"lat": 41.8158,
+		"lon": -87.8711,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAJ",
@@ -2702,8 +2968,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["Southwest-Chief"],
-		"lat": "37.9883",
-		"lon": "-103.5442"
+		"lat": 37.9883,
+		"lon": -103.5442,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAP",
@@ -2713,8 +2980,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Southwest-Chief"],
-		"lat": "40.0292",
-		"lon": "-92.4939"
+		"lat": 40.0292,
+		"lon": -92.4939,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAF",
@@ -2724,8 +2992,9 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Cardinal"],
-		"lat": "40.4186",
-		"lon": "-86.8956"
+		"lat": 40.4186,
+		"lon": -86.8956,
+		"nearbyCities": []
 	},
 	{
 		"id": "LFT",
@@ -2735,8 +3004,9 @@
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
 		"routes": ["Sunset-Limited"],
-		"lat": "30.2267",
-		"lon": "-92.0144"
+		"lat": 30.2267,
+		"lon": -92.0144,
+		"nearbyCities": []
 	},
 	{
 		"id": "LCH",
@@ -2746,8 +3016,9 @@
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
 		"routes": ["Sunset-Limited"],
-		"lat": "30.2382",
-		"lon": "-93.2171"
+		"lat": 30.2382,
+		"lon": -93.2171,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAK",
@@ -2757,8 +3028,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Star"],
-		"lat": "28.0456",
-		"lon": "-81.9519"
+		"lat": 28.0456,
+		"lon": -81.9519,
+		"nearbyCities": []
 	},
 	{
 		"id": "LKL",
@@ -2768,8 +3040,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Star"],
-		"lat": "28.0456",
-		"lon": "-81.9519"
+		"lat": 28.0456,
+		"lon": -81.9519,
+		"nearbyCities": []
 	},
 	{
 		"id": "LMR",
@@ -2779,8 +3052,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["Southwest-Chief"],
-		"lat": "38.0897",
-		"lon": "-102.6186"
+		"lat": 38.0897,
+		"lon": -102.6186,
+		"nearbyCities": []
 	},
 	{
 		"id": "LMY",
@@ -2790,8 +3064,9 @@
 		"stateShort": "NM",
 		"stateLong": "New Mexico",
 		"routes": ["Southwest-Chief"],
-		"lat": "35.4808",
-		"lon": "-105.88"
+		"lat": 35.4808,
+		"lon": -105.88,
+		"nearbyCities": []
 	},
 	{
 		"id": "LNC",
@@ -2801,8 +3076,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service", "Pennsylvanian"],
-		"lat": "40.0544",
-		"lon": "-76.3077"
+		"lat": 40.0544,
+		"lon": -76.3077,
+		"nearbyCities": []
 	},
 	{
 		"id": "LPE",
@@ -2812,8 +3088,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water"],
-		"lat": "43.0494",
-		"lon": "-83.3061"
+		"lat": 43.0494,
+		"lon": -83.3061,
+		"nearbyCities": []
 	},
 	{
 		"id": "LSV",
@@ -2823,8 +3100,9 @@
 		"stateShort": "NM",
 		"stateLong": "New Mexico",
 		"routes": ["Southwest-Chief"],
-		"lat": "35.5936",
-		"lon": "-105.2125"
+		"lat": 35.5936,
+		"lon": -105.2125,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAB",
@@ -2834,8 +3112,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Pennsylvanian"],
-		"lat": "40.3183",
-		"lon": "-79.3853"
+		"lat": 40.3183,
+		"lon": -79.3853,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAU",
@@ -2845,8 +3124,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["Crescent"],
-		"lat": "31.6922",
-		"lon": "-89.1281"
+		"lat": 31.6922,
+		"lon": -89.1281,
+		"nearbyCities": []
 	},
 	{
 		"id": "LRC",
@@ -2856,8 +3136,9 @@
 		"stateShort": "KS",
 		"stateLong": "Kansas",
 		"routes": ["Southwest-Chief"],
-		"lat": "38.9711",
-		"lon": "-95.2306"
+		"lat": 38.9711,
+		"lon": -95.2306,
+		"nearbyCities": []
 	},
 	{
 		"id": "LWA",
@@ -2867,8 +3148,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Empire-Builder"],
-		"lat": "47.6064",
-		"lon": "-120.6439"
+		"lat": 47.6064,
+		"lon": -120.6439,
+		"nearbyCities": []
 	},
 	{
 		"id": "LEE",
@@ -2878,8 +3160,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "38.9125",
-		"lon": "-94.3783"
+		"lat": 38.9125,
+		"lon": -94.3783,
+		"nearbyCities": []
 	},
 	{
 		"id": "LEW",
@@ -2889,8 +3172,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Pennsylvanian"],
-		"lat": "40.5883",
-		"lon": "-77.5803"
+		"lat": 40.5883,
+		"lon": -77.5803,
+		"nearbyCities": []
 	},
 	{
 		"id": "LEX",
@@ -2900,8 +3184,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Piedmont"],
-		"lat": "35.8203",
-		"lon": "-80.2525"
+		"lat": 35.8203,
+		"lon": -80.2525,
+		"nearbyCities": ["Winston-Salem"]
 	},
 	{
 		"id": "LIB",
@@ -2911,8 +3196,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.395",
-		"lon": "-115.5489"
+		"lat": 48.395,
+		"lon": -115.5489,
+		"nearbyCities": []
 	},
 	{
 		"id": "LCN",
@@ -2922,8 +3208,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service", "Texas-Eagle"],
-		"lat": "40.1475",
-		"lon": "-89.3636"
+		"lat": 40.1475,
+		"lon": -89.3636,
+		"nearbyCities": []
 	},
 	{
 		"id": "LNK",
@@ -2933,8 +3220,9 @@
 		"stateShort": "NE",
 		"stateLong": "Nebraska",
 		"routes": ["California-Zephyr"],
-		"lat": "40.8158",
-		"lon": "-96.7139"
+		"lat": 40.8158,
+		"lon": -96.7139,
+		"nearbyCities": []
 	},
 	{
 		"id": "LRK",
@@ -2944,8 +3232,9 @@
 		"stateShort": "AR",
 		"stateLong": "Arkansas",
 		"routes": ["Texas-Eagle"],
-		"lat": "34.7506",
-		"lon": "-92.2869"
+		"lat": 34.7506,
+		"lon": -92.2869,
+		"nearbyCities": []
 	},
 	{
 		"id": "LOD",
@@ -2955,19 +3244,21 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "38.1333",
-		"lon": "-121.2719"
+		"lat": 38.1333,
+		"lon": -121.2719,
+		"nearbyCities": []
 	},
 	{
 		"id": "LPS",
-		"name": "Lompoc–Surf",
+		"name": "Lompoc\u2014Surf",
 		"code": "LPS",
 		"city": "Surf",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.6831",
-		"lon": "-120.605"
+		"lat": 34.6831,
+		"lon": -120.605,
+		"nearbyCities": []
 	},
 	{
 		"id": "LVW",
@@ -2977,8 +3268,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "32.4942",
-		"lon": "-94.7278"
+		"lat": 32.4942,
+		"lon": -94.7278,
+		"nearbyCities": []
 	},
 	{
 		"id": "LDB",
@@ -2988,8 +3280,9 @@
 		"stateShort": "NM",
 		"stateLong": "New Mexico",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "32.35",
-		"lon": "-108.7069"
+		"lat": 32.35,
+		"lon": -108.7069,
+		"nearbyCities": []
 	},
 	{
 		"id": "LOR",
@@ -2999,8 +3292,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Auto-Train"],
-		"lat": "38.7083",
-		"lon": "-77.2208"
+		"lat": 38.7083,
+		"lon": -77.2208,
+		"nearbyCities": []
 	},
 	{
 		"id": "LAX",
@@ -3016,19 +3310,21 @@
 			"Sunset-Limited",
 			"Texas-Eagle"
 		],
-		"lat": "34.0553",
-		"lon": "-118.2353"
+		"lat": 34.0553,
+		"lon": -118.2353,
+		"nearbyCities": ["Torrance", "Downey", "El Monte", "Inglewood"]
 	},
 	{
 		"id": "LYH",
-		"name": "Lynchburg–Kemper Street",
+		"name": "Lynchburg\u2014Kemper Street",
 		"code": "LYH",
 		"city": "Lynchburg",
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Crescent", "Northeast-Regional"],
-		"lat": "37.4064",
-		"lon": "-79.1572"
+		"lat": 37.4064,
+		"lon": -79.1572,
+		"nearbyCities": []
 	},
 	{
 		"id": "MAC",
@@ -3038,8 +3334,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illinois-Zephyr", "Carl-Sandburg"],
-		"lat": "40.4611",
-		"lon": "-90.6725"
+		"lat": 40.4611,
+		"lon": -90.6725,
+		"nearbyCities": []
 	},
 	{
 		"id": "MDR",
@@ -3049,8 +3346,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "37.0225",
-		"lon": "-120.075"
+		"lat": 37.0225,
+		"lon": -120.075,
+		"nearbyCities": []
 	},
 	{
 		"id": "MAL",
@@ -3060,8 +3358,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.3606",
-		"lon": "-107.8719"
+		"lat": 48.3606,
+		"lon": -107.8719,
+		"nearbyCities": ["Billings"]
 	},
 	{
 		"id": "MVN",
@@ -3071,8 +3370,9 @@
 		"stateShort": "AR",
 		"stateLong": "Arkansas",
 		"routes": ["Texas-Eagle"],
-		"lat": "34.3656",
-		"lon": "-92.8136"
+		"lat": 34.3656,
+		"lon": -92.8136,
+		"nearbyCities": []
 	},
 	{
 		"id": "MSS",
@@ -3082,8 +3382,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Cardinal", "Crescent", "Northeast-Regional"],
-		"lat": "38.75",
-		"lon": "-77.4728"
+		"lat": 38.75,
+		"lon": -77.4728,
+		"nearbyCities": []
 	},
 	{
 		"id": "MRC",
@@ -3093,8 +3394,20 @@
 		"stateShort": "AZ",
 		"stateLong": "Arizona",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "33.0564",
-		"lon": "-112.0475"
+		"lat": 33.0564,
+		"lon": -112.0475,
+		"nearbyCities": [
+			"Phoenix",
+			"Mesa",
+			"Chandler",
+			"Gilbert",
+			"Scottsdale",
+			"Peoria",
+			"Tempe",
+			"Surprise",
+			"Buckeye",
+			"Goodyear"
+		]
 	},
 	{
 		"id": "MKS",
@@ -3104,8 +3417,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "34.2583",
-		"lon": "-90.2722"
+		"lat": 34.2583,
+		"lon": -90.2722,
+		"nearbyCities": []
 	},
 	{
 		"id": "MHL",
@@ -3115,8 +3429,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "32.5519",
-		"lon": "-94.3675"
+		"lat": 32.5519,
+		"lon": -94.3675,
+		"nearbyCities": ["Shreveport"]
 	},
 	{
 		"id": "MTZ",
@@ -3131,8 +3446,9 @@
 			"Coast-Starlight",
 			"San-Joaquins"
 		],
-		"lat": "38.0192",
-		"lon": "-122.1389"
+		"lat": 38.0192,
+		"lon": -122.1389,
+		"nearbyCities": ["Vallejo", "Concord"]
 	},
 	{
 		"id": "MRB",
@@ -3142,8 +3458,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Capitol-Limited"],
-		"lat": "39.4586",
-		"lon": "-77.9607"
+		"lat": 39.4586,
+		"lon": -77.9607,
+		"nearbyCities": []
 	},
 	{
 		"id": "MAT",
@@ -3153,8 +3470,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
-		"lat": "39.4828",
-		"lon": "-88.3761"
+		"lat": 39.4828,
+		"lon": -88.3761,
+		"nearbyCities": []
 	},
 	{
 		"id": "MAY",
@@ -3164,8 +3482,9 @@
 		"stateShort": "KY",
 		"stateLong": "Kentucky",
 		"routes": ["Cardinal"],
-		"lat": "38.6522",
-		"lon": "-83.7711"
+		"lat": 38.6522,
+		"lon": -83.7711,
+		"nearbyCities": []
 	},
 	{
 		"id": "MCB",
@@ -3175,8 +3494,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "31.2444",
-		"lon": "-90.4511"
+		"lat": 31.2444,
+		"lon": -90.4511,
+		"nearbyCities": []
 	},
 	{
 		"id": "MCK",
@@ -3186,8 +3506,9 @@
 		"stateShort": "NE",
 		"stateLong": "Nebraska",
 		"routes": ["California-Zephyr"],
-		"lat": "40.1975",
-		"lon": "-100.6256"
+		"lat": 40.1975,
+		"lon": -100.6256,
+		"nearbyCities": []
 	},
 	{
 		"id": "MCG",
@@ -3197,8 +3518,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "31.4433",
-		"lon": "-97.4047"
+		"lat": 31.4433,
+		"lon": -97.4047,
+		"nearbyCities": ["Waco"]
 	},
 	{
 		"id": "MEM",
@@ -3208,8 +3530,9 @@
 		"stateShort": "TN",
 		"stateLong": "Tennessee",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "35.1322",
-		"lon": "-90.0594"
+		"lat": 35.1322,
+		"lon": -90.0594,
+		"nearbyCities": []
 	},
 	{
 		"id": "MDT",
@@ -3219,8 +3542,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illinois-Zephyr", "Carl-Sandburg", "Southwest-Chief"],
-		"lat": "41.5497",
-		"lon": "-89.1172"
+		"lat": 41.5497,
+		"lon": -89.1172,
+		"nearbyCities": ["Rockford"]
 	},
 	{
 		"id": "MCD",
@@ -3230,8 +3554,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "37.3072",
-		"lon": "-120.4767"
+		"lat": 37.3072,
+		"lon": -120.4767,
+		"nearbyCities": []
 	},
 	{
 		"id": "MDN",
@@ -3246,8 +3571,9 @@
 			"Valley-Flyer",
 			"Vermonter"
 		],
-		"lat": "41.5394",
-		"lon": "-72.8008"
+		"lat": 41.5394,
+		"lon": -72.8008,
+		"nearbyCities": []
 	},
 	{
 		"id": "MEI",
@@ -3257,8 +3583,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["Crescent"],
-		"lat": "32.3639",
-		"lon": "-88.6964"
+		"lat": 32.3639,
+		"lon": -88.6964,
+		"nearbyCities": []
 	},
 	{
 		"id": "MET",
@@ -3275,8 +3602,9 @@
 			"Palmetto",
 			"Vermonter"
 		],
-		"lat": "40.5681",
-		"lon": "-74.3297"
+		"lat": 40.5681,
+		"lon": -74.3297,
+		"nearbyCities": ["Edison"]
 	},
 	{
 		"id": "MIA",
@@ -3286,8 +3614,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "25.8497",
-		"lon": "-80.2581"
+		"lat": 25.8497,
+		"lon": -80.2581,
+		"nearbyCities": ["Hialeah", "Miramar"]
 	},
 	{
 		"id": "MBY",
@@ -3297,8 +3626,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Ethan-Allen-Express"],
-		"lat": "44.0178",
-		"lon": "-73.1697"
+		"lat": 44.0178,
+		"lon": -73.1697,
+		"nearbyCities": []
 	},
 	{
 		"id": "MID",
@@ -3308,8 +3638,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "40.1961",
-		"lon": "-76.7389"
+		"lat": 40.1961,
+		"lon": -76.7389,
+		"nearbyCities": []
 	},
 	{
 		"id": "MKE",
@@ -3319,8 +3650,9 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Empire-Builder", "Hiawatha-Service"],
-		"lat": "43.0342",
-		"lon": "-87.9172"
+		"lat": 43.0342,
+		"lon": -87.9172,
+		"nearbyCities": ["Green Bay"]
 	},
 	{
 		"id": "MKA",
@@ -3330,8 +3662,9 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Hiawatha-Service"],
-		"lat": "42.9406",
-		"lon": "-87.9247"
+		"lat": 42.9406,
+		"lon": -87.9247,
+		"nearbyCities": []
 	},
 	{
 		"id": "MIN",
@@ -3341,8 +3674,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "32.6619",
-		"lon": "-95.4892"
+		"lat": 32.6619,
+		"lon": -95.4892,
+		"nearbyCities": ["Tyler"]
 	},
 	{
 		"id": "MOT",
@@ -3352,8 +3686,9 @@
 		"stateShort": "ND",
 		"stateLong": "North Dakota",
 		"routes": ["Empire-Builder"],
-		"lat": "48.2361",
-		"lon": "-101.2986"
+		"lat": 48.2361,
+		"lon": -101.2986,
+		"nearbyCities": []
 	},
 	{
 		"id": "MOD",
@@ -3363,8 +3698,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "37.6692",
-		"lon": "-120.915"
+		"lat": 37.6692,
+		"lon": -120.915,
+		"nearbyCities": []
 	},
 	{
 		"id": "MNG",
@@ -3374,8 +3710,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "38.1808",
-		"lon": "-81.3239"
+		"lat": 38.1808,
+		"lon": -81.3239,
+		"nearbyCities": []
 	},
 	{
 		"id": "MPR",
@@ -3385,8 +3722,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "44.2556",
-		"lon": "-72.6064"
+		"lat": 44.2556,
+		"lon": -72.6064,
+		"nearbyCities": []
 	},
 	{
 		"id": "MTR",
@@ -3396,8 +3734,9 @@
 		"stateShort": "QC",
 		"stateLong": "Quebec",
 		"routes": ["Adirondack"],
-		"lat": "45.4997",
-		"lon": "-73.5667"
+		"lat": 45.4997,
+		"lon": -73.5667,
+		"nearbyCities": []
 	},
 	{
 		"id": "MPK",
@@ -3407,8 +3746,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.2853",
-		"lon": "-118.8769"
+		"lat": 34.2853,
+		"lon": -118.8769,
+		"nearbyCities": ["Thousand Oaks"]
 	},
 	{
 		"id": "MJY",
@@ -3418,8 +3758,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "40.1088",
-		"lon": "-76.5028"
+		"lat": 40.1088,
+		"lon": -76.5028,
+		"nearbyCities": []
 	},
 	{
 		"id": "MTP",
@@ -3429,8 +3770,9 @@
 		"stateShort": "IA",
 		"stateLong": "Iowa",
 		"routes": ["California-Zephyr"],
-		"lat": "40.9714",
-		"lon": "-91.5506"
+		"lat": 40.9714,
+		"lon": -91.5506,
+		"nearbyCities": ["Cedar Rapids"]
 	},
 	{
 		"id": "MVW",
@@ -3440,8 +3782,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades"],
-		"lat": "48.4183",
-		"lon": "-122.3347"
+		"lat": 48.4183,
+		"lon": -122.3347,
+		"nearbyCities": []
 	},
 	{
 		"id": "MYS",
@@ -3451,8 +3794,9 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Northeast-Regional"],
-		"lat": "41.3508",
-		"lon": "-71.9633"
+		"lat": 41.3508,
+		"lon": -71.9633,
+		"nearbyCities": []
 	},
 	{
 		"id": "NPV",
@@ -3467,8 +3811,9 @@
 			"Carl-Sandburg",
 			"Southwest-Chief"
 		],
-		"lat": "41.7797",
-		"lon": "-88.1456"
+		"lat": 41.7797,
+		"lon": -88.1456,
+		"nearbyCities": ["Aurora", "Elgin"]
 	},
 	{
 		"id": "NDL",
@@ -3478,8 +3823,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Southwest-Chief"],
-		"lat": "34.8408",
-		"lon": "-114.6056"
+		"lat": 34.8408,
+		"lon": -114.6056,
+		"nearbyCities": ["Henderson"]
 	},
 	{
 		"id": "NBK",
@@ -3489,8 +3835,9 @@
 		"stateShort": "NJ",
 		"stateLong": "New Jersey",
 		"routes": ["Keystone-Service", "Northeast-Regional"],
-		"lat": "40.4964",
-		"lon": "-74.4464"
+		"lat": 40.4964,
+		"lon": -74.4464,
+		"nearbyCities": ["Lakewood"]
 	},
 	{
 		"id": "NBU",
@@ -3500,8 +3847,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water", "Wolverine"],
-		"lat": "41.7964",
-		"lon": "-86.7461"
+		"lat": 41.7964,
+		"lon": -86.7461,
+		"nearbyCities": []
 	},
 	{
 		"id": "NCR",
@@ -3511,8 +3859,9 @@
 		"stateShort": "MD",
 		"stateLong": "Maryland",
 		"routes": ["Northeast-Regional", "Palmetto", "Vermonter"],
-		"lat": "38.9481",
-		"lon": "-76.8719"
+		"lat": 38.9481,
+		"lon": -76.8719,
+		"nearbyCities": []
 	},
 	{
 		"id": "NHV",
@@ -3528,8 +3877,9 @@
 			"Valley-Flyer",
 			"Vermonter"
 		],
-		"lat": "41.2975",
-		"lon": "-72.9267"
+		"lat": 41.2975,
+		"lon": -72.9267,
+		"nearbyCities": []
 	},
 	{
 		"id": "STS",
@@ -3539,8 +3889,9 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
-		"lat": "41.3058",
-		"lon": "-72.9217"
+		"lat": 41.3058,
+		"lon": -72.9217,
+		"nearbyCities": []
 	},
 	{
 		"id": "NIB",
@@ -3550,8 +3901,9 @@
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
 		"routes": ["Sunset-Limited"],
-		"lat": "30.0086",
-		"lon": "-91.8239"
+		"lat": 30.0086,
+		"lon": -91.8239,
+		"nearbyCities": []
 	},
 	{
 		"id": "NLC",
@@ -3561,8 +3913,9 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Northeast-Regional"],
-		"lat": "41.3542",
-		"lon": "-72.0931"
+		"lat": 41.3542,
+		"lon": -72.0931,
+		"nearbyCities": []
 	},
 	{
 		"id": "NOL",
@@ -3572,8 +3925,9 @@
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
 		"routes": ["City-of-New-Orleans", "Crescent", "Sunset-Limited"],
-		"lat": "29.9461",
-		"lon": "-90.0786"
+		"lat": 29.9461,
+		"lon": -90.0786,
+		"nearbyCities": []
 	},
 	{
 		"id": "NRO",
@@ -3583,8 +3937,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Northeast-Regional"],
-		"lat": "40.9123",
-		"lon": "-73.7849"
+		"lat": 40.9123,
+		"lon": -73.7849,
+		"nearbyCities": []
 	},
 	{
 		"id": "NYP",
@@ -3612,8 +3967,9 @@
 			"Silver-Star",
 			"Vermonter"
 		],
-		"lat": "40.7506",
-		"lon": "-73.9939"
+		"lat": 40.7506,
+		"lon": -73.9939,
+		"nearbyCities": ["Jersey City"]
 	},
 	{
 		"id": "NYF",
@@ -3623,8 +3979,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Maple-Leaf"],
-		"lat": "43.0717",
-		"lon": "-76.2295"
+		"lat": 43.0717,
+		"lon": -76.2295,
+		"nearbyCities": []
 	},
 	{
 		"id": "NRK",
@@ -3634,8 +3991,9 @@
 		"stateShort": "DE",
 		"stateLong": "Delaware",
 		"routes": ["Northeast-Regional"],
-		"lat": "39.6703",
-		"lon": "-75.7531"
+		"lat": 39.6703,
+		"lon": -75.7531,
+		"nearbyCities": []
 	},
 	{
 		"id": "EWR",
@@ -3645,8 +4003,9 @@
 		"stateShort": "NJ",
 		"stateLong": "New Jersey",
 		"routes": ["Keystone-Service", "Northeast-Regional"],
-		"lat": "40.7044",
-		"lon": "-74.1906"
+		"lat": 40.7044,
+		"lon": -74.1906,
+		"nearbyCities": ["Elizabeth"]
 	},
 	{
 		"id": "NWK",
@@ -3668,19 +4027,21 @@
 			"Silver-Star",
 			"Vermonter"
 		],
-		"lat": "40.7347",
-		"lon": "-74.1642"
+		"lat": 40.7347,
+		"lon": -74.1642,
+		"nearbyCities": ["Paterson"]
 	},
 	{
 		"id": "NBN",
-		"name": "Newbern–Dyersburg",
+		"name": "Newbern\u2014Dyersburg",
 		"code": "NBN",
 		"city": "Newbern",
 		"stateShort": "TN",
 		"stateLong": "Tennessee",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "36.1125",
-		"lon": "-89.2625"
+		"lat": 36.1125,
+		"lon": -89.2625,
+		"nearbyCities": []
 	},
 	{
 		"id": "NPN",
@@ -3690,8 +4051,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "37.0228",
-		"lon": "-76.4519"
+		"lat": 37.0228,
+		"lon": -76.4519,
+		"nearbyCities": ["Hampton"]
 	},
 	{
 		"id": "NEW",
@@ -3701,8 +4063,9 @@
 		"stateShort": "KS",
 		"stateLong": "Kansas",
 		"routes": ["Southwest-Chief"],
-		"lat": "38.0472",
-		"lon": "-97.3444"
+		"lat": 38.0472,
+		"lon": -97.3444,
+		"nearbyCities": ["Wichita"]
 	},
 	{
 		"id": "NFL",
@@ -3712,8 +4075,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Maple-Leaf"],
-		"lat": "43.1097",
-		"lon": "-79.0553"
+		"lat": 43.1097,
+		"lon": -79.0553,
+		"nearbyCities": []
 	},
 	{
 		"id": "NFS",
@@ -3723,8 +4087,9 @@
 		"stateShort": "ON",
 		"stateLong": "Ontario",
 		"routes": ["Maple-Leaf"],
-		"lat": "43.1089",
-		"lon": "-79.0633"
+		"lat": 43.1089,
+		"lon": -79.0633,
+		"nearbyCities": []
 	},
 	{
 		"id": "NLS",
@@ -3734,8 +4099,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water", "Wolverine"],
-		"lat": "41.8372",
-		"lon": "-86.2522"
+		"lat": 41.8372,
+		"lon": -86.2522,
+		"nearbyCities": []
 	},
 	{
 		"id": "NFK",
@@ -3745,8 +4111,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "36.8433",
-		"lon": "-76.2758"
+		"lat": 36.8433,
+		"lon": -76.2758,
+		"nearbyCities": ["Virginia Beach", "Chesapeake"]
 	},
 	{
 		"id": "NOR",
@@ -3756,8 +4123,9 @@
 		"stateShort": "OK",
 		"stateLong": "Oklahoma",
 		"routes": ["Heartland-Flyer"],
-		"lat": "35.2199",
-		"lon": "-97.4431"
+		"lat": 35.2199,
+		"lon": -97.4431,
+		"nearbyCities": []
 	},
 	{
 		"id": "NSF",
@@ -3767,8 +4135,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Piedmont"],
-		"lat": "35.7942",
-		"lon": "-78.7061"
+		"lat": 35.7942,
+		"lon": -78.7061,
+		"nearbyCities": []
 	},
 	{
 		"id": "NHT",
@@ -3778,8 +4147,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Valley-Flyer", "Vermonter"],
-		"lat": "42.319",
-		"lon": "-72.6268"
+		"lat": 42.319,
+		"lon": -72.6268,
+		"nearbyCities": []
 	},
 	{
 		"id": "NRG",
@@ -3789,8 +4159,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.2294",
-		"lon": "-118.5447"
+		"lat": 34.2294,
+		"lon": -118.5447,
+		"nearbyCities": ["Santa Clarita"]
 	},
 	{
 		"id": "OAC",
@@ -3800,19 +4171,21 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "37.7525",
-		"lon": "-122.1981"
+		"lat": 37.7525,
+		"lon": -122.1981,
+		"nearbyCities": ["San Mateo"]
 	},
 	{
 		"id": "OKJ",
-		"name": "Oakland–Jack London Square",
+		"name": "Oakland\u2014Jack London Square",
 		"code": "OKJ",
 		"city": "Oakland",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor", "Coast-Starlight", "San-Joaquins"],
-		"lat": "37.7936",
-		"lon": "-122.2714"
+		"lat": 37.7936,
+		"lon": -122.2714,
+		"nearbyCities": ["Daly City"]
 	},
 	{
 		"id": "OKL",
@@ -3822,8 +4195,9 @@
 		"stateShort": "ON",
 		"stateLong": "Ontario",
 		"routes": ["Maple-Leaf"],
-		"lat": "43.455",
-		"lon": "-79.6825"
+		"lat": 43.455,
+		"lon": -79.6825,
+		"nearbyCities": []
 	},
 	{
 		"id": "OSD",
@@ -3833,8 +4207,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "33.1919",
-		"lon": "-117.3794"
+		"lat": 33.1919,
+		"lon": -117.3794,
+		"nearbyCities": ["Carlsbad", "Murrieta", "Temecula"]
 	},
 	{
 		"id": "OKE",
@@ -3844,8 +4219,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Star"],
-		"lat": "27.2517",
-		"lon": "-80.83"
+		"lat": 27.2517,
+		"lon": -80.83,
+		"nearbyCities": ["Port St. Lucie", "Palm Bay"]
 	},
 	{
 		"id": "OKC",
@@ -3855,8 +4231,9 @@
 		"stateShort": "OK",
 		"stateLong": "Oklahoma",
 		"routes": ["Heartland-Flyer"],
-		"lat": "35.4653",
-		"lon": "-97.5128"
+		"lat": 35.4653,
+		"lon": -97.5128,
+		"nearbyCities": ["Tulsa", "Broken Arrow"]
 	},
 	{
 		"id": "ORB",
@@ -3866,8 +4243,9 @@
 		"stateShort": "ME",
 		"stateLong": "Maine",
 		"routes": ["Downeaster"],
-		"lat": "43.5144",
-		"lon": "-70.3761"
+		"lat": 43.5144,
+		"lon": -70.3761,
+		"nearbyCities": []
 	},
 	{
 		"id": "OSB",
@@ -3877,19 +4255,21 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Northeast-Regional"],
-		"lat": "41.3003",
-		"lon": "-72.3769"
+		"lat": 41.3003,
+		"lon": -72.3769,
+		"nearbyCities": []
 	},
 	{
 		"id": "OLW",
-		"name": "Olympia–Lacey",
+		"name": "Olympia\u2014Lacey",
 		"code": "OLW",
 		"city": "Lacey",
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight"],
-		"lat": "46.9914",
-		"lon": "-122.7942"
+		"lat": 46.9914,
+		"lon": -122.7942,
+		"nearbyCities": []
 	},
 	{
 		"id": "OMA",
@@ -3899,8 +4279,9 @@
 		"stateShort": "NE",
 		"stateLong": "Nebraska",
 		"routes": ["California-Zephyr"],
-		"lat": "41.2497",
-		"lon": "-95.9272"
+		"lat": 41.2497,
+		"lon": -95.9272,
+		"nearbyCities": ["Sioux Falls"]
 	},
 	{
 		"id": "ONA",
@@ -3910,8 +4291,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "34.0617",
-		"lon": "-117.6497"
+		"lat": 34.0617,
+		"lon": -117.6497,
+		"nearbyCities": ["Rancho Cucamonga", "Corona"]
 	},
 	{
 		"id": "ORC",
@@ -3921,8 +4303,9 @@
 		"stateShort": "OR",
 		"stateLong": "Oregon",
 		"routes": ["Amtrak-Cascades"],
-		"lat": "45.3661",
-		"lon": "-122.5961"
+		"lat": 45.3661,
+		"lon": -122.5961,
+		"nearbyCities": ["Gresham"]
 	},
 	{
 		"id": "ORL",
@@ -3932,8 +4315,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "28.5258",
-		"lon": "-81.3814"
+		"lat": 28.5258,
+		"lon": -81.3814,
+		"nearbyCities": []
 	},
 	{
 		"id": "OSC",
@@ -3943,8 +4327,9 @@
 		"stateShort": "IA",
 		"stateLong": "Iowa",
 		"routes": ["California-Zephyr"],
-		"lat": "41.0372",
-		"lon": "-93.765"
+		"lat": 41.0372,
+		"lon": -93.765,
+		"nearbyCities": ["Des Moines"]
 	},
 	{
 		"id": "OTM",
@@ -3954,8 +4339,9 @@
 		"stateShort": "IA",
 		"stateLong": "Iowa",
 		"routes": ["California-Zephyr"],
-		"lat": "41.0186",
-		"lon": "-92.415"
+		"lat": 41.0186,
+		"lon": -92.415,
+		"nearbyCities": []
 	},
 	{
 		"id": "OXN",
@@ -3965,8 +4351,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight", "Pacific-Surfliner"],
-		"lat": "34.1994",
-		"lon": "-119.1761"
+		"lat": 34.1994,
+		"lon": -119.1761,
+		"nearbyCities": []
 	},
 	{
 		"id": "PAK",
@@ -3976,8 +4363,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "29.65",
-		"lon": "-81.6406"
+		"lat": 29.65,
+		"lon": -81.6406,
+		"nearbyCities": []
 	},
 	{
 		"id": "PSN",
@@ -3987,8 +4375,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "33.8978",
-		"lon": "-116.5481"
+		"lat": 33.8978,
+		"lon": -116.5481,
+		"nearbyCities": []
 	},
 	{
 		"id": "PAO",
@@ -3998,8 +4387,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service", "Pennsylvanian"],
-		"lat": "40.0431",
-		"lon": "-75.4836"
+		"lat": 40.0431,
+		"lon": -75.4836,
+		"nearbyCities": ["Allentown"]
 	},
 	{
 		"id": "PAR",
@@ -4009,8 +4399,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "39.9592",
-		"lon": "-75.9222"
+		"lat": 39.9592,
+		"lon": -75.9222,
+		"nearbyCities": []
 	},
 	{
 		"id": "PSC",
@@ -4020,8 +4411,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Empire-Builder"],
-		"lat": "46.2369",
-		"lon": "-119.0875"
+		"lat": 46.2369,
+		"lon": -119.0875,
+		"nearbyCities": []
 	},
 	{
 		"id": "PRB",
@@ -4031,8 +4423,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight"],
-		"lat": "35.6228",
-		"lon": "-120.6878"
+		"lat": 35.6228,
+		"lon": -120.6878,
+		"nearbyCities": []
 	},
 	{
 		"id": "PTB",
@@ -4048,8 +4441,9 @@
 			"Silver-Meteor",
 			"Silver-Star"
 		],
-		"lat": "37.2419",
-		"lon": "-77.4286"
+		"lat": 37.2419,
+		"lon": -77.4286,
+		"nearbyCities": []
 	},
 	{
 		"id": "PVL",
@@ -4059,8 +4453,9 @@
 		"stateShort": "OK",
 		"stateLong": "Oklahoma",
 		"routes": ["Heartland-Flyer"],
-		"lat": "34.7417",
-		"lon": "-97.2183"
+		"lat": 34.7417,
+		"lon": -97.2183,
+		"nearbyCities": []
 	},
 	{
 		"id": "PHL",
@@ -4082,8 +4477,9 @@
 			"Silver-Star",
 			"Vermonter"
 		],
-		"lat": "39.9558",
-		"lon": "-75.1819"
+		"lat": 39.9558,
+		"lon": -75.1819,
+		"nearbyCities": []
 	},
 	{
 		"id": "PHN",
@@ -4093,8 +4489,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Keystone-Service"],
-		"lat": "39.9975",
-		"lon": "-75.1544"
+		"lat": 39.9975,
+		"lon": -75.1544,
+		"nearbyCities": []
 	},
 	{
 		"id": "PIC",
@@ -4104,8 +4501,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["Crescent"],
-		"lat": "30.5244",
-		"lon": "-89.6803"
+		"lat": 30.5244,
+		"lon": -89.6803,
+		"nearbyCities": []
 	},
 	{
 		"id": "PGH",
@@ -4115,8 +4513,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Capitol-Limited", "Pennsylvanian"],
-		"lat": "40.4447",
-		"lon": "-79.9921"
+		"lat": 40.4447,
+		"lon": -79.9921,
+		"nearbyCities": []
 	},
 	{
 		"id": "PIT",
@@ -4126,8 +4525,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Berkshire-Flyer", "Lake-Shore-Limited"],
-		"lat": "42.4514",
-		"lon": "-73.2539"
+		"lat": 42.4514,
+		"lon": -73.2539,
+		"nearbyCities": []
 	},
 	{
 		"id": "PLO",
@@ -4137,8 +4537,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illinois-Zephyr", "Carl-Sandburg"],
-		"lat": "41.6622",
-		"lon": "-88.5408"
+		"lat": 41.6622,
+		"lon": -88.5408,
+		"nearbyCities": []
 	},
 	{
 		"id": "PLB",
@@ -4148,8 +4549,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack"],
-		"lat": "44.6975",
-		"lon": "-73.4453"
+		"lat": 44.6975,
+		"lon": -73.4453,
+		"nearbyCities": []
 	},
 	{
 		"id": "POS",
@@ -4159,8 +4561,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "34.0592",
-		"lon": "-117.7511"
+		"lat": 34.0592,
+		"lon": -117.7511,
+		"nearbyCities": ["West Covina"]
 	},
 	{
 		"id": "PON",
@@ -4170,8 +4573,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service", "Texas-Eagle"],
-		"lat": "40.8786",
-		"lon": "-88.6369"
+		"lat": 40.8786,
+		"lon": -88.6369,
+		"nearbyCities": []
 	},
 	{
 		"id": "PNT",
@@ -4181,8 +4585,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.6325",
-		"lon": "-83.2922"
+		"lat": 42.6325,
+		"lon": -83.2922,
+		"nearbyCities": []
 	},
 	{
 		"id": "PBF",
@@ -4192,8 +4597,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Texas-Eagle"],
-		"lat": "36.7536",
-		"lon": "-90.3933"
+		"lat": 36.7536,
+		"lon": -90.3933,
+		"nearbyCities": []
 	},
 	{
 		"id": "POH",
@@ -4203,8 +4609,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack"],
-		"lat": "44.0425",
-		"lon": "-73.4586"
+		"lat": 44.0425,
+		"lon": -73.4586,
+		"nearbyCities": []
 	},
 	{
 		"id": "PTH",
@@ -4214,8 +4621,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Blue-Water"],
-		"lat": "42.9606",
-		"lon": "-82.4439"
+		"lat": 42.9606,
+		"lon": -82.4439,
+		"nearbyCities": []
 	},
 	{
 		"id": "PRK",
@@ -4225,8 +4633,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack"],
-		"lat": "44.5239",
-		"lon": "-73.4036"
+		"lat": 44.5239,
+		"lon": -73.4036,
+		"nearbyCities": []
 	},
 	{
 		"id": "POG",
@@ -4236,8 +4645,9 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Empire-Builder"],
-		"lat": "43.5472",
-		"lon": "-89.4678"
+		"lat": 43.5472,
+		"lon": -89.4678,
+		"nearbyCities": ["Madison"]
 	},
 	{
 		"id": "POR",
@@ -4247,8 +4657,9 @@
 		"stateShort": "ME",
 		"stateLong": "Maine",
 		"routes": ["Downeaster"],
-		"lat": "43.6536",
-		"lon": "-70.2911"
+		"lat": 43.6536,
+		"lon": -70.2911,
+		"nearbyCities": []
 	},
 	{
 		"id": "PDX",
@@ -4258,8 +4669,9 @@
 		"stateShort": "OR",
 		"stateLong": "Oregon",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight", "Empire-Builder"],
-		"lat": "45.5289",
-		"lon": "-122.6767"
+		"lat": 45.5289,
+		"lon": -122.6767,
+		"nearbyCities": ["Hillsboro"]
 	},
 	{
 		"id": "POU",
@@ -4276,8 +4688,9 @@
 			"Lake-Shore-Limited",
 			"Maple-Leaf"
 		],
-		"lat": "41.7072",
-		"lon": "-73.9383"
+		"lat": 41.7072,
+		"lon": -73.9383,
+		"nearbyCities": []
 	},
 	{
 		"id": "PRC",
@@ -4287,8 +4700,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "37.8567",
-		"lon": "-81.0606"
+		"lat": 37.8567,
+		"lon": -81.0606,
+		"nearbyCities": []
 	},
 	{
 		"id": "PCT",
@@ -4303,8 +4717,9 @@
 			"Carl-Sandburg",
 			"Southwest-Chief"
 		],
-		"lat": "41.3853",
-		"lon": "-89.4669"
+		"lat": 41.3853,
+		"lon": -89.4669,
+		"nearbyCities": []
 	},
 	{
 		"id": "PJC",
@@ -4314,8 +4729,9 @@
 		"stateShort": "NJ",
 		"stateLong": "New Jersey",
 		"routes": ["Keystone-Service", "Northeast-Regional"],
-		"lat": "40.3167",
-		"lon": "-74.6233"
+		"lat": 40.3167,
+		"lon": -74.6233,
+		"nearbyCities": []
 	},
 	{
 		"id": "PVD",
@@ -4325,8 +4741,9 @@
 		"stateShort": "RI",
 		"stateLong": "Rhode Island",
 		"routes": ["Acela", "Northeast-Regional"],
-		"lat": "41.8292",
-		"lon": "-71.4133"
+		"lat": 41.8292,
+		"lon": -71.4133,
+		"nearbyCities": ["New Bedford"]
 	},
 	{
 		"id": "PRO",
@@ -4336,8 +4753,9 @@
 		"stateShort": "UT",
 		"stateLong": "Utah",
 		"routes": ["California-Zephyr"],
-		"lat": "40.2258",
-		"lon": "-111.6639"
+		"lat": 40.2258,
+		"lon": -111.6639,
+		"nearbyCities": []
 	},
 	{
 		"id": "PUR",
@@ -4347,8 +4765,9 @@
 		"stateShort": "OK",
 		"stateLong": "Oklahoma",
 		"routes": ["Heartland-Flyer"],
-		"lat": "35.0119",
-		"lon": "-97.3572"
+		"lat": 35.0119,
+		"lon": -97.3572,
+		"nearbyCities": []
 	},
 	{
 		"id": "QAN",
@@ -4358,8 +4777,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Carolinian", "Northeast-Regional"],
-		"lat": "38.5217",
-		"lon": "-77.2931"
+		"lat": 38.5217,
+		"lon": -77.2931,
+		"nearbyCities": []
 	},
 	{
 		"id": "QCY",
@@ -4369,8 +4789,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illinois-Zephyr", "Carl-Sandburg"],
-		"lat": "39.9569",
-		"lon": "-91.3686"
+		"lat": 39.9569,
+		"lon": -91.3686,
+		"nearbyCities": []
 	},
 	{
 		"id": "RGH",
@@ -4380,8 +4801,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Piedmont", "Silver-Star"],
-		"lat": "35.7772",
-		"lon": "-78.6472"
+		"lat": 35.7772,
+		"lon": -78.6472,
+		"nearbyCities": []
 	},
 	{
 		"id": "RPH",
@@ -4391,8 +4813,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "43.9228",
-		"lon": "-72.6658"
+		"lat": 43.9228,
+		"lon": -72.6658,
+		"nearbyCities": []
 	},
 	{
 		"id": "RTL",
@@ -4402,8 +4825,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Illini", "Saluki"],
-		"lat": "40.3119",
-		"lon": "-88.1589"
+		"lat": 40.3119,
+		"lon": -88.1589,
+		"nearbyCities": []
 	},
 	{
 		"id": "RAT",
@@ -4413,8 +4837,9 @@
 		"stateShort": "NM",
 		"stateLong": "New Mexico",
 		"routes": ["Southwest-Chief"],
-		"lat": "36.9011",
-		"lon": "-104.4378"
+		"lat": 36.9011,
+		"lon": -104.4378,
+		"nearbyCities": []
 	},
 	{
 		"id": "RDW",
@@ -4424,8 +4849,9 @@
 		"stateShort": "MN",
 		"stateLong": "Minnesota",
 		"routes": ["Empire-Builder"],
-		"lat": "44.5664",
-		"lon": "-92.5372"
+		"lat": 44.5664,
+		"lon": -92.5372,
+		"nearbyCities": []
 	},
 	{
 		"id": "RDD",
@@ -4435,8 +4861,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight"],
-		"lat": "40.5836",
-		"lon": "-122.3933"
+		"lat": 40.5836,
+		"lon": -122.3933,
+		"nearbyCities": []
 	},
 	{
 		"id": "RNO",
@@ -4446,8 +4873,9 @@
 		"stateShort": "NV",
 		"stateLong": "Nevada",
 		"routes": ["California-Zephyr"],
-		"lat": "39.5286",
-		"lon": "-119.8117"
+		"lat": 39.5286,
+		"lon": -119.8117,
+		"nearbyCities": ["Sparks"]
 	},
 	{
 		"id": "REN",
@@ -4457,12 +4885,13 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Cardinal"],
-		"lat": "40.9433",
-		"lon": "-87.155"
+		"lat": 40.9433,
+		"lon": -87.155,
+		"nearbyCities": []
 	},
 	{
 		"id": "RHI",
-		"name": "Rhinecliff–Kingston",
+		"name": "Rhinecliff\u2014Kingston",
 		"code": "RHI",
 		"city": "Rhinecliff",
 		"stateShort": "NY",
@@ -4475,8 +4904,9 @@
 			"Lake-Shore-Limited",
 			"Maple-Leaf"
 		],
-		"lat": "41.9214",
-		"lon": "-73.9514"
+		"lat": 41.9214,
+		"lon": -73.9514,
+		"nearbyCities": []
 	},
 	{
 		"id": "RIC",
@@ -4486,8 +4916,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["California-Zephyr", "Capitol-Corridor", "San-Joaquins"],
-		"lat": "37.9367",
-		"lon": "-122.3531"
+		"lat": 37.9367,
+		"lon": -122.3531,
+		"nearbyCities": ["San Francisco", "Santa Rosa"]
 	},
 	{
 		"id": "RVM",
@@ -4497,8 +4928,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "37.5347",
-		"lon": "-77.4292"
+		"lat": 37.5347,
+		"lon": -77.4292,
+		"nearbyCities": []
 	},
 	{
 		"id": "RVR",
@@ -4514,8 +4946,9 @@
 			"Silver-Meteor",
 			"Silver-Star"
 		],
-		"lat": "37.6178",
-		"lon": "-77.4969"
+		"lat": 37.6178,
+		"lon": -77.4969,
+		"nearbyCities": []
 	},
 	{
 		"id": "RIV",
@@ -4525,8 +4958,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Southwest-Chief"],
-		"lat": "33.9758",
-		"lon": "-117.37"
+		"lat": 33.9758,
+		"lon": -117.37,
+		"nearbyCities": ["Moreno Valley", "Menifee", "Jurupa Valley"]
 	},
 	{
 		"id": "RNK",
@@ -4536,8 +4970,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "37.2733",
-		"lon": "-79.9423"
+		"lat": 37.2733,
+		"lon": -79.9423,
+		"nearbyCities": []
 	},
 	{
 		"id": "ROC",
@@ -4547,8 +4982,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Lake-Shore-Limited", "Maple-Leaf"],
-		"lat": "43.1636",
-		"lon": "-77.6083"
+		"lat": 43.1636,
+		"lon": -77.6083,
+		"nearbyCities": []
 	},
 	{
 		"id": "RLN",
@@ -4558,8 +4994,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "38.7911",
-		"lon": "-121.2375"
+		"lat": 38.7911,
+		"lon": -121.2375,
+		"nearbyCities": []
 	},
 	{
 		"id": "RMT",
@@ -4569,8 +5006,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Palmetto", "Silver-Meteor", "Silver-Star"],
-		"lat": "35.9381",
-		"lon": "-77.7978"
+		"lat": 35.9381,
+		"lon": -77.7978,
+		"nearbyCities": []
 	},
 	{
 		"id": "RKV",
@@ -4580,8 +5018,9 @@
 		"stateShort": "MD",
 		"stateLong": "Maryland",
 		"routes": ["Capitol-Limited"],
-		"lat": "39.0842",
-		"lon": "-77.1461"
+		"lat": 39.0842,
+		"lon": -77.1461,
+		"nearbyCities": []
 	},
 	{
 		"id": "ROM",
@@ -4591,8 +5030,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Maple-Leaf"],
-		"lat": "43.1994",
-		"lon": "-75.45"
+		"lat": 43.1994,
+		"lon": -75.45,
+		"nearbyCities": []
 	},
 	{
 		"id": "RSV",
@@ -4602,8 +5042,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["California-Zephyr", "Capitol-Corridor"],
-		"lat": "38.75",
-		"lon": "-121.2861"
+		"lat": 38.75,
+		"lon": -121.2861,
+		"nearbyCities": []
 	},
 	{
 		"id": "RSP",
@@ -4613,19 +5054,21 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack"],
-		"lat": "44.9947",
-		"lon": "-73.3711"
+		"lat": 44.9947,
+		"lon": -73.3711,
+		"nearbyCities": []
 	},
 	{
 		"id": "RTE",
-		"name": "Route 128–University Park",
+		"name": "Route 128\u2014University Park",
 		"code": "RTE",
 		"city": "Westwood",
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Acela", "Northeast-Regional"],
-		"lat": "42.2103",
-		"lon": "-71.1472"
+		"lat": 42.2103,
+		"lon": -71.1472,
+		"nearbyCities": ["Brockton"]
 	},
 	{
 		"id": "ROY",
@@ -4635,8 +5078,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.4892",
-		"lon": "-83.1475"
+		"lat": 42.4892,
+		"lon": -83.1475,
+		"nearbyCities": ["Warren", "Sterling Heights"]
 	},
 	{
 		"id": "RUG",
@@ -4646,8 +5090,9 @@
 		"stateShort": "ND",
 		"stateLong": "North Dakota",
 		"routes": ["Empire-Builder"],
-		"lat": "48.3697",
-		"lon": "-99.9978"
+		"lat": 48.3697,
+		"lon": -99.9978,
+		"nearbyCities": []
 	},
 	{
 		"id": "RUD",
@@ -4657,19 +5102,21 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Ethan-Allen-Express"],
-		"lat": "43.6058",
-		"lon": "-72.9817"
+		"lat": 43.6058,
+		"lon": -72.9817,
+		"nearbyCities": []
 	},
 	{
 		"id": "SAO",
-		"name": "Saco–Biddeford",
+		"name": "Saco\u2014Biddeford",
 		"code": "SAO",
 		"city": "Saco",
 		"stateShort": "ME",
 		"stateLong": "Maine",
 		"routes": ["Downeaster"],
-		"lat": "43.4961",
-		"lon": "-70.4492"
+		"lat": 43.4961,
+		"lon": -70.4492,
+		"nearbyCities": []
 	},
 	{
 		"id": "SAC",
@@ -4684,8 +5131,9 @@
 			"Coast-Starlight",
 			"San-Joaquins"
 		],
-		"lat": "38.5847",
-		"lon": "-121.5006"
+		"lat": 38.5847,
+		"lon": -121.5006,
+		"nearbyCities": ["Elk Grove"]
 	},
 	{
 		"id": "SLM",
@@ -4695,8 +5143,9 @@
 		"stateShort": "OR",
 		"stateLong": "Oregon",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight"],
-		"lat": "44.9322",
-		"lon": "-123.0281"
+		"lat": 44.9322,
+		"lon": -123.0281,
+		"nearbyCities": []
 	},
 	{
 		"id": "SNS",
@@ -4706,8 +5155,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight"],
-		"lat": "36.6792",
-		"lon": "-121.6567"
+		"lat": 36.6792,
+		"lon": -121.6567,
+		"nearbyCities": []
 	},
 	{
 		"id": "SAL",
@@ -4717,8 +5167,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Crescent", "Piedmont"],
-		"lat": "35.6672",
-		"lon": "-80.4661"
+		"lat": 35.6672,
+		"lon": -80.4661,
+		"nearbyCities": []
 	},
 	{
 		"id": "SLC",
@@ -4728,8 +5179,9 @@
 		"stateShort": "UT",
 		"stateLong": "Utah",
 		"routes": ["California-Zephyr"],
-		"lat": "40.7628",
-		"lon": "-111.9083"
+		"lat": 40.7628,
+		"lon": -111.9083,
+		"nearbyCities": ["West Valley City", "West Jordan"]
 	},
 	{
 		"id": "SAS",
@@ -4739,8 +5191,15 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "29.42",
-		"lon": "-98.4778"
+		"lat": 29.42,
+		"lon": -98.4778,
+		"nearbyCities": [
+			"Corpus Christi",
+			"Laredo",
+			"Brownsville",
+			"McAllen",
+			"Edinburg"
+		]
 	},
 	{
 		"id": "SNB",
@@ -4750,8 +5209,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Southwest-Chief"],
-		"lat": "34.1042",
-		"lon": "-117.3097"
+		"lat": 34.1042,
+		"lon": -117.3097,
+		"nearbyCities": ["Fontana", "Rialto"]
 	},
 	{
 		"id": "SNP",
@@ -4761,8 +5221,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "33.4192",
-		"lon": "-117.6194"
+		"lat": 33.4192,
+		"lon": -117.6194,
+		"nearbyCities": []
 	},
 	{
 		"id": "OLT",
@@ -4772,8 +5233,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "32.7553",
-		"lon": "-117.1994"
+		"lat": 32.7553,
+		"lon": -117.1994,
+		"nearbyCities": []
 	},
 	{
 		"id": "SAN",
@@ -4783,8 +5245,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "32.7167",
-		"lon": "-117.1694"
+		"lat": 32.7167,
+		"lon": -117.1694,
+		"nearbyCities": ["Chula Vista", "El Cajon"]
 	},
 	{
 		"id": "SJC",
@@ -4794,8 +5257,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor", "Coast-Starlight"],
-		"lat": "37.33",
-		"lon": "-121.9031"
+		"lat": 37.33,
+		"lon": -121.9031,
+		"nearbyCities": []
 	},
 	{
 		"id": "SNC",
@@ -4805,8 +5269,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "33.5022",
-		"lon": "-117.6642"
+		"lat": 33.5022,
+		"lon": -117.6642,
+		"nearbyCities": []
 	},
 	{
 		"id": "SLO",
@@ -4816,8 +5281,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight", "Pacific-Surfliner"],
-		"lat": "35.2764",
-		"lon": "-120.6547"
+		"lat": 35.2764,
+		"lon": -120.6547,
+		"nearbyCities": []
 	},
 	{
 		"id": "SMC",
@@ -4827,8 +5293,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "29.8769",
-		"lon": "-97.9406"
+		"lat": 29.8769,
+		"lon": -97.9406,
+		"nearbyCities": ["New Braunfels"]
 	},
 	{
 		"id": "SND",
@@ -4838,8 +5305,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "30.14",
-		"lon": "-102.3992"
+		"lat": 30.14,
+		"lon": -102.3992,
+		"nearbyCities": ["Lubbock", "Midland", "Odessa"]
 	},
 	{
 		"id": "SPT",
@@ -4849,8 +5317,9 @@
 		"stateShort": "ID",
 		"stateLong": "Idaho",
 		"routes": ["Empire-Builder"],
-		"lat": "48.2764",
-		"lon": "-116.5481"
+		"lat": 48.2764,
+		"lon": -116.5481,
+		"nearbyCities": []
 	},
 	{
 		"id": "SKY",
@@ -4860,8 +5329,9 @@
 		"stateShort": "OH",
 		"stateLong": "Ohio",
 		"routes": ["Capitol-Limited", "Lake-Shore-Limited"],
-		"lat": "41.4406",
-		"lon": "-82.7186"
+		"lat": 41.4406,
+		"lon": -82.7186,
+		"nearbyCities": []
 	},
 	{
 		"id": "SFA",
@@ -4871,8 +5341,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Auto-Train"],
-		"lat": "28.8072",
-		"lon": "-81.2889"
+		"lat": 28.8072,
+		"lon": -81.2889,
+		"nearbyCities": []
 	},
 	{
 		"id": "SNA",
@@ -4882,8 +5353,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "33.7517",
-		"lon": "-117.8564"
+		"lat": 33.7517,
+		"lon": -117.8564,
+		"nearbyCities": ["Huntington Beach", "Costa Mesa"]
 	},
 	{
 		"id": "SBA",
@@ -4893,30 +5365,33 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight", "Pacific-Surfliner"],
-		"lat": "34.4136",
-		"lon": "-119.6925"
+		"lat": 34.4136,
+		"lon": -119.6925,
+		"nearbyCities": []
 	},
 	{
 		"id": "GAC",
-		"name": "Santa Clara–Great America",
+		"name": "Santa Clara\u2014Great America",
 		"code": "GAC",
 		"city": "Santa Clara",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "37.4067",
-		"lon": "-121.9669"
+		"lat": 37.4067,
+		"lon": -121.9669,
+		"nearbyCities": ["Sunnyvale"]
 	},
 	{
 		"id": "SCC",
-		"name": "Santa Clara–Transit Center",
+		"name": "Santa Clara\u2014Transit Center",
 		"code": "SCC",
 		"city": "Santa Clara",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "37.3531",
-		"lon": "-121.9364"
+		"lat": 37.3531,
+		"lon": -121.9364,
+		"nearbyCities": []
 	},
 	{
 		"id": "SAR",
@@ -4926,8 +5401,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack", "Ethan-Allen-Express"],
-		"lat": "43.0828",
-		"lon": "-73.8103"
+		"lat": 43.0828,
+		"lon": -73.8103,
+		"nearbyCities": []
 	},
 	{
 		"id": "SAV",
@@ -4937,8 +5413,9 @@
 		"stateShort": "GA",
 		"stateLong": "Georgia",
 		"routes": ["Palmetto", "Silver-Meteor", "Silver-Star"],
-		"lat": "32.0836",
-		"lon": "-81.1486"
+		"lat": 32.0836,
+		"lon": -81.1486,
+		"nearbyCities": []
 	},
 	{
 		"id": "SDY",
@@ -4954,8 +5431,9 @@
 			"Lake-Shore-Limited",
 			"Maple-Leaf"
 		],
-		"lat": "42.8147",
-		"lon": "-73.9428"
+		"lat": 42.8147,
+		"lon": -73.9428,
+		"nearbyCities": []
 	},
 	{
 		"id": "SCH",
@@ -4965,8 +5443,9 @@
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
 		"routes": ["Sunset-Limited"],
-		"lat": "29.7467",
-		"lon": "-90.8156"
+		"lat": 29.7467,
+		"lon": -90.8156,
+		"nearbyCities": []
 	},
 	{
 		"id": "SEA",
@@ -4976,8 +5455,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight", "Empire-Builder"],
-		"lat": "47.5983",
-		"lon": "-122.3297"
+		"lat": 47.5983,
+		"lon": -122.3297,
+		"nearbyCities": []
 	},
 	{
 		"id": "SBG",
@@ -4987,8 +5467,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "27.4961",
-		"lon": "-81.4347"
+		"lat": 27.4961,
+		"lon": -81.4347,
+		"nearbyCities": ["Cape Coral"]
 	},
 	{
 		"id": "SED",
@@ -4998,8 +5479,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "38.7117",
-		"lon": "-93.2283"
+		"lat": 38.7117,
+		"lon": -93.2283,
+		"nearbyCities": []
 	},
 	{
 		"id": "SSM",
@@ -5009,8 +5491,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Palmetto"],
-		"lat": "35.5328",
-		"lon": "-78.28"
+		"lat": 35.5328,
+		"lon": -78.28,
+		"nearbyCities": []
 	},
 	{
 		"id": "SBY",
@@ -5020,8 +5503,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.5069",
-		"lon": "-111.8572"
+		"lat": 48.5069,
+		"lon": -111.8572,
+		"nearbyCities": []
 	},
 	{
 		"id": "SIM",
@@ -5031,8 +5515,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight", "Pacific-Surfliner"],
-		"lat": "34.2703",
-		"lon": "-118.6953"
+		"lat": 34.2703,
+		"lon": -118.6953,
+		"nearbyCities": []
 	},
 	{
 		"id": "SDL",
@@ -5042,8 +5527,9 @@
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
 		"routes": ["Crescent"],
-		"lat": "30.2783",
-		"lon": "-89.7828"
+		"lat": 30.2783,
+		"lon": -89.7828,
+		"nearbyCities": []
 	},
 	{
 		"id": "SOL",
@@ -5053,8 +5539,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "32.9928",
-		"lon": "-117.2714"
+		"lat": 32.9928,
+		"lon": -117.2714,
+		"nearbyCities": ["Escondido"]
 	},
 	{
 		"id": "SOB",
@@ -5064,19 +5551,21 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Capitol-Limited", "Lake-Shore-Limited"],
-		"lat": "41.6783",
-		"lon": "-86.2875"
+		"lat": 41.6783,
+		"lon": -86.2875,
+		"nearbyCities": []
 	},
 	{
 		"id": "SPM",
-		"name": "South Portsmouth–South Shore",
+		"name": "South Portsmouth\u2014South Shore",
 		"code": "SPM",
 		"city": "South Shore",
 		"stateShort": "KY",
 		"stateLong": "Kentucky",
 		"routes": ["Cardinal"],
-		"lat": "38.7211",
-		"lon": "-82.9636"
+		"lat": 38.7211,
+		"lon": -82.9636,
+		"nearbyCities": []
 	},
 	{
 		"id": "SOP",
@@ -5086,8 +5575,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Silver-Star"],
-		"lat": "35.1756",
-		"lon": "-79.3903"
+		"lat": 35.1756,
+		"lon": -79.3903,
+		"nearbyCities": []
 	},
 	{
 		"id": "SPB",
@@ -5097,8 +5587,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Crescent"],
-		"lat": "34.9536",
-		"lon": "-81.9375"
+		"lat": 34.9536,
+		"lon": -81.9375,
+		"nearbyCities": []
 	},
 	{
 		"id": "SPK",
@@ -5108,8 +5599,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Empire-Builder"],
-		"lat": "47.6564",
-		"lon": "-117.4153"
+		"lat": 47.6564,
+		"lon": -117.4153,
+		"nearbyCities": ["Spokane Valley"]
 	},
 	{
 		"id": "SPI",
@@ -5119,8 +5611,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service", "Texas-Eagle"],
-		"lat": "39.8022",
-		"lon": "-89.6514"
+		"lat": 39.8022,
+		"lon": -89.6514,
+		"nearbyCities": []
 	},
 	{
 		"id": "SPG",
@@ -5136,8 +5629,9 @@
 			"Valley-Flyer",
 			"Vermonter"
 		],
-		"lat": "42.1061",
-		"lon": "-72.5931"
+		"lat": 42.1061,
+		"lon": -72.5931,
+		"nearbyCities": []
 	},
 	{
 		"id": "SAB",
@@ -5147,8 +5641,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "44.8122",
-		"lon": "-73.0861"
+		"lat": 44.8122,
+		"lon": -73.0861,
+		"nearbyCities": []
 	},
 	{
 		"id": "SCA",
@@ -5158,8 +5653,9 @@
 		"stateShort": "ON",
 		"stateLong": "Ontario",
 		"routes": ["Maple-Leaf"],
-		"lat": "43.1478",
-		"lon": "-79.2564"
+		"lat": 43.1478,
+		"lon": -79.2564,
+		"nearbyCities": []
 	},
 	{
 		"id": "SCD",
@@ -5169,19 +5665,21 @@
 		"stateShort": "MN",
 		"stateLong": "Minnesota",
 		"routes": ["Empire-Builder"],
-		"lat": "45.5678",
-		"lon": "-94.1489"
+		"lat": 45.5678,
+		"lon": -94.1489,
+		"nearbyCities": []
 	},
 	{
 		"id": "SJM",
-		"name": "St. Joseph–Benton Harbor",
+		"name": "St. Joseph\u2014Benton Harbor",
 		"code": "SJM",
 		"city": "St. Joseph",
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Pere-Marquette"],
-		"lat": "42.1068",
-		"lon": "-86.4867"
+		"lat": 42.1068,
+		"lon": -86.4867,
+		"nearbyCities": []
 	},
 	{
 		"id": "SLQ",
@@ -5191,8 +5689,9 @@
 		"stateShort": "QC",
 		"stateLong": "Quebec",
 		"routes": ["Adirondack"],
-		"lat": "45.4992",
-		"lon": "-73.5072"
+		"lat": 45.4992,
+		"lon": -73.5072,
+		"nearbyCities": []
 	},
 	{
 		"id": "STL",
@@ -5202,19 +5701,21 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Lincoln-Service", "Missouri-River-Runner", "Texas-Eagle"],
-		"lat": "38.6242",
-		"lon": "-90.2036"
+		"lat": 38.6242,
+		"lon": -90.2036,
+		"nearbyCities": []
 	},
 	{
 		"id": "MSP",
-		"name": "St. Paul–Minneapolis Union",
+		"name": "St. Paul\u2014Minneapolis Union",
 		"code": "MSP",
 		"city": "St. Paul",
 		"stateShort": "MN",
 		"stateLong": "Minnesota",
 		"routes": ["Empire-Builder"],
-		"lat": "44.9478",
-		"lon": "-93.0861"
+		"lat": 44.9478,
+		"lon": -93.0861,
+		"nearbyCities": ["Minneapolis", "Saint Paul"]
 	},
 	{
 		"id": "STM",
@@ -5224,8 +5725,9 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Acela", "Northeast-Regional", "Vermonter"],
-		"lat": "41.0469",
-		"lon": "-73.5414"
+		"lat": 41.0469,
+		"lon": -73.5414,
+		"nearbyCities": []
 	},
 	{
 		"id": "STN",
@@ -5235,8 +5737,9 @@
 		"stateShort": "ND",
 		"stateLong": "North Dakota",
 		"routes": ["Empire-Builder"],
-		"lat": "48.32",
-		"lon": "-102.3894"
+		"lat": 48.32,
+		"lon": -102.3894,
+		"nearbyCities": []
 	},
 	{
 		"id": "STW",
@@ -5246,8 +5749,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades"],
-		"lat": "48.2428",
-		"lon": "-122.3503"
+		"lat": 48.2428,
+		"lon": -122.3503,
+		"nearbyCities": []
 	},
 	{
 		"id": "SPL",
@@ -5257,8 +5761,9 @@
 		"stateShort": "MN",
 		"stateLong": "Minnesota",
 		"routes": ["Empire-Builder"],
-		"lat": "46.3544",
-		"lon": "-94.7953"
+		"lat": 46.3544,
+		"lon": -94.7953,
+		"nearbyCities": []
 	},
 	{
 		"id": "STA",
@@ -5268,8 +5773,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Cardinal"],
-		"lat": "38.1475",
-		"lon": "-79.072"
+		"lat": 38.1475,
+		"lon": -79.072,
+		"nearbyCities": []
 	},
 	{
 		"id": "SKT",
@@ -5279,8 +5785,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "37.9569",
-		"lon": "-121.2789"
+		"lat": 37.9569,
+		"lon": -121.2789,
+		"nearbyCities": []
 	},
 	{
 		"id": "SKN",
@@ -5290,8 +5797,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "37.9453",
-		"lon": "-121.2856"
+		"lat": 37.9453,
+		"lon": -121.2856,
+		"nearbyCities": []
 	},
 	{
 		"id": "SVT",
@@ -5301,19 +5809,21 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Hiawatha-Service"],
-		"lat": "42.7183",
-		"lon": "-87.9061"
+		"lat": 42.7183,
+		"lon": -87.9061,
+		"nearbyCities": []
 	},
 	{
 		"id": "SUI",
-		"name": "Suisun–Fairfield",
+		"name": "Suisun\u2014Fairfield",
 		"code": "SUI",
 		"city": "Suisun City",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Capitol-Corridor"],
-		"lat": "38.2433",
-		"lon": "-122.0414"
+		"lat": 38.2433,
+		"lon": -122.0414,
+		"nearbyCities": []
 	},
 	{
 		"id": "SMT",
@@ -5323,8 +5833,9 @@
 		"stateShort": "IL",
 		"stateLong": "Illinois",
 		"routes": ["Lincoln-Service"],
-		"lat": "41.7761",
-		"lon": "-87.8167"
+		"lat": 41.7761,
+		"lon": -87.8167,
+		"nearbyCities": []
 	},
 	{
 		"id": "SYR",
@@ -5334,8 +5845,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Lake-Shore-Limited", "Maple-Leaf"],
-		"lat": "43.0767",
-		"lon": "-76.1692"
+		"lat": 43.0767,
+		"lon": -76.1692,
+		"nearbyCities": []
 	},
 	{
 		"id": "TAC",
@@ -5345,8 +5857,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight"],
-		"lat": "47.2397",
-		"lon": "-122.4278"
+		"lat": 47.2397,
+		"lon": -122.4278,
+		"nearbyCities": []
 	},
 	{
 		"id": "TPA",
@@ -5356,8 +5869,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Star"],
-		"lat": "27.9522",
-		"lon": "-82.4511"
+		"lat": 27.9522,
+		"lon": -82.4511,
+		"nearbyCities": ["St. Petersburg", "Clearwater"]
 	},
 	{
 		"id": "TAY",
@@ -5367,8 +5881,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "30.5678",
-		"lon": "-97.4081"
+		"lat": 30.5678,
+		"lon": -97.4081,
+		"nearbyCities": ["Round Rock", "College Station"]
 	},
 	{
 		"id": "TPL",
@@ -5378,8 +5893,9 @@
 		"stateShort": "TX",
 		"stateLong": "Texas",
 		"routes": ["Texas-Eagle"],
-		"lat": "31.0958",
-		"lon": "-97.3453"
+		"lat": 31.0958,
+		"lon": -97.3453,
+		"nearbyCities": ["Killeen"]
 	},
 	{
 		"id": "TXA",
@@ -5389,8 +5905,9 @@
 		"stateShort": "AR",
 		"stateLong": "Arkansas",
 		"routes": ["Texas-Eagle"],
-		"lat": "33.42",
-		"lon": "-94.0425"
+		"lat": 33.42,
+		"lon": -94.0425,
+		"nearbyCities": []
 	},
 	{
 		"id": "THN",
@@ -5400,8 +5917,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "37.9572",
-		"lon": "-81.0789"
+		"lat": 37.9572,
+		"lon": -81.0789,
+		"nearbyCities": []
 	},
 	{
 		"id": "FTC",
@@ -5411,8 +5929,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack"],
-		"lat": "43.8539",
-		"lon": "-73.3897"
+		"lat": 43.8539,
+		"lon": -73.3897,
+		"nearbyCities": []
 	},
 	{
 		"id": "TCA",
@@ -5422,8 +5941,9 @@
 		"stateShort": "GA",
 		"stateLong": "Georgia",
 		"routes": ["Crescent"],
-		"lat": "34.5786",
-		"lon": "-83.3317"
+		"lat": 34.5786,
+		"lon": -83.3317,
+		"nearbyCities": ["Knoxville"]
 	},
 	{
 		"id": "TOL",
@@ -5433,8 +5953,9 @@
 		"stateShort": "OH",
 		"stateLong": "Ohio",
 		"routes": ["Capitol-Limited", "Lake-Shore-Limited"],
-		"lat": "41.6378",
-		"lon": "-83.5417"
+		"lat": 41.6378,
+		"lon": -83.5417,
+		"nearbyCities": []
 	},
 	{
 		"id": "TOH",
@@ -5444,8 +5965,9 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Empire-Builder"],
-		"lat": "43.9861",
-		"lon": "-90.5056"
+		"lat": 43.9861,
+		"lon": -90.5056,
+		"nearbyCities": []
 	},
 	{
 		"id": "TOP",
@@ -5455,8 +5977,9 @@
 		"stateShort": "KS",
 		"stateLong": "Kansas",
 		"routes": ["Southwest-Chief"],
-		"lat": "39.0514",
-		"lon": "-95.6647"
+		"lat": 39.0514,
+		"lon": -95.6647,
+		"nearbyCities": []
 	},
 	{
 		"id": "TWO",
@@ -5466,8 +5989,9 @@
 		"stateShort": "ON",
 		"stateLong": "Ontario",
 		"routes": ["Maple-Leaf"],
-		"lat": "43.6453",
-		"lon": "-79.3806"
+		"lat": 43.6453,
+		"lon": -79.3806,
+		"nearbyCities": []
 	},
 	{
 		"id": "TRE",
@@ -5488,8 +6012,9 @@
 			"Silver-Star",
 			"Vermonter"
 		],
-		"lat": "40.2189",
-		"lon": "-74.7542"
+		"lat": 40.2189,
+		"lon": -74.7542,
+		"nearbyCities": []
 	},
 	{
 		"id": "TRI",
@@ -5499,8 +6024,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["Southwest-Chief"],
-		"lat": "37.1733",
-		"lon": "-104.5081"
+		"lat": 37.1733,
+		"lon": -104.5081,
+		"nearbyCities": ["Pueblo"]
 	},
 	{
 		"id": "TRM",
@@ -5510,8 +6036,9 @@
 		"stateShort": "MI",
 		"stateLong": "Michigan",
 		"routes": ["Wolverine"],
-		"lat": "42.5425",
-		"lon": "-83.1911"
+		"lat": 42.5425,
+		"lon": -83.1911,
+		"nearbyCities": []
 	},
 	{
 		"id": "TRU",
@@ -5521,8 +6048,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["California-Zephyr"],
-		"lat": "39.3275",
-		"lon": "-120.1856"
+		"lat": 39.3275,
+		"lon": -120.1856,
+		"nearbyCities": []
 	},
 	{
 		"id": "TUS",
@@ -5532,8 +6060,9 @@
 		"stateShort": "AZ",
 		"stateLong": "Arizona",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "32.2231",
-		"lon": "-110.9667"
+		"lat": 32.2231,
+		"lon": -110.9667,
+		"nearbyCities": []
 	},
 	{
 		"id": "TUK",
@@ -5543,19 +6072,21 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades"],
-		"lat": "47.4606",
-		"lon": "-122.2406"
+		"lat": 47.4606,
+		"lon": -122.2406,
+		"nearbyCities": ["Bellevue", "Kent", "Renton"]
 	},
 	{
 		"id": "TRK",
-		"name": "Turlock–Denair",
+		"name": "Turlock\u2014Denair",
 		"code": "TRK",
 		"city": "Denair",
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "37.5272",
-		"lon": "-120.7981"
+		"lat": 37.5272,
+		"lon": -120.7981,
+		"nearbyCities": []
 	},
 	{
 		"id": "TCL",
@@ -5565,8 +6096,9 @@
 		"stateShort": "AL",
 		"stateLong": "Alabama",
 		"routes": ["Crescent"],
-		"lat": "33.1933",
-		"lon": "-87.56"
+		"lat": 33.1933,
+		"lon": -87.56,
+		"nearbyCities": []
 	},
 	{
 		"id": "TYR",
@@ -5576,8 +6108,9 @@
 		"stateShort": "PA",
 		"stateLong": "Pennsylvania",
 		"routes": ["Pennsylvanian"],
-		"lat": "40.6689",
-		"lon": "-78.2389"
+		"lat": 40.6689,
+		"lon": -78.2389,
+		"nearbyCities": []
 	},
 	{
 		"id": "UCA",
@@ -5587,8 +6120,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Empire-Service", "Lake-Shore-Limited", "Maple-Leaf"],
-		"lat": "43.1042",
-		"lon": "-75.2281"
+		"lat": 43.1042,
+		"lon": -75.2281,
+		"nearbyCities": []
 	},
 	{
 		"id": "VNC",
@@ -5598,8 +6132,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Coast-Starlight", "Pacific-Surfliner"],
-		"lat": "34.2114",
-		"lon": "-118.4483"
+		"lat": 34.2114,
+		"lon": -118.4483,
+		"nearbyCities": []
 	},
 	{
 		"id": "VAC",
@@ -5609,8 +6144,9 @@
 		"stateShort": "BC",
 		"stateLong": "British Columbia",
 		"routes": ["Amtrak-Cascades"],
-		"lat": "49.2736",
-		"lon": "-123.0981"
+		"lat": 49.2736,
+		"lon": -123.0981,
+		"nearbyCities": []
 	},
 	{
 		"id": "VAN",
@@ -5620,8 +6156,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Amtrak-Cascades", "Coast-Starlight", "Empire-Builder"],
-		"lat": "45.6289",
-		"lon": "-122.6864"
+		"lat": 45.6289,
+		"lon": -122.6864,
+		"nearbyCities": []
 	},
 	{
 		"id": "VEC",
@@ -5631,8 +6168,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Pacific-Surfliner"],
-		"lat": "34.2769",
-		"lon": "-119.3"
+		"lat": 34.2769,
+		"lon": -119.3,
+		"nearbyCities": []
 	},
 	{
 		"id": "VRV",
@@ -5642,8 +6180,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["Southwest-Chief"],
-		"lat": "34.5375",
-		"lon": "-117.2933"
+		"lat": 34.5375,
+		"lon": -117.2933,
+		"nearbyCities": ["Hesperia"]
 	},
 	{
 		"id": "WFD",
@@ -5653,8 +6192,9 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
-		"lat": "41.4569",
-		"lon": "-72.8249"
+		"lat": 41.4569,
+		"lon": -72.8249,
+		"nearbyCities": []
 	},
 	{
 		"id": "WNR",
@@ -5664,8 +6204,9 @@
 		"stateShort": "AR",
 		"stateLong": "Arkansas",
 		"routes": ["Texas-Eagle"],
-		"lat": "36.0675",
-		"lon": "-90.9567"
+		"lat": 36.0675,
+		"lon": -90.9567,
+		"nearbyCities": []
 	},
 	{
 		"id": "WAR",
@@ -5675,8 +6216,9 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "38.7628",
-		"lon": "-93.7408"
+		"lat": 38.7628,
+		"lon": -93.7408,
+		"nearbyCities": []
 	},
 	{
 		"id": "WAC",
@@ -5686,8 +6228,9 @@
 		"stateShort": "CA",
 		"stateLong": "California",
 		"routes": ["San-Joaquins"],
-		"lat": "35.5942",
-		"lon": "-119.3319"
+		"lat": 35.5942,
+		"lon": -119.3319,
+		"nearbyCities": []
 	},
 	{
 		"id": "WAS",
@@ -5708,8 +6251,9 @@
 			"Silver-Star",
 			"Vermonter"
 		],
-		"lat": "38.8972",
-		"lon": "-77.0064"
+		"lat": 38.8972,
+		"lon": -77.0064,
+		"nearbyCities": []
 	},
 	{
 		"id": "WAH",
@@ -5719,19 +6263,21 @@
 		"stateShort": "MO",
 		"stateLong": "Missouri",
 		"routes": ["Missouri-River-Runner"],
-		"lat": "38.5617",
-		"lon": "-91.0125"
+		"lat": 38.5617,
+		"lon": -91.0125,
+		"nearbyCities": []
 	},
 	{
 		"id": "WAB",
-		"name": "Waterbury–Stowe",
+		"name": "Waterbury\u2014Stowe",
 		"code": "WAB",
 		"city": "Waterbury",
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "44.335",
-		"lon": "-72.7517"
+		"lat": 44.335,
+		"lon": -72.7517,
+		"nearbyCities": []
 	},
 	{
 		"id": "WTI",
@@ -5741,8 +6287,9 @@
 		"stateShort": "IN",
 		"stateLong": "Indiana",
 		"routes": ["Capitol-Limited", "Lake-Shore-Limited"],
-		"lat": "41.4317",
-		"lon": "-85.025"
+		"lat": 41.4317,
+		"lon": -85.025,
+		"nearbyCities": ["Fort Wayne"]
 	},
 	{
 		"id": "WEM",
@@ -5752,8 +6299,9 @@
 		"stateShort": "ME",
 		"stateLong": "Maine",
 		"routes": ["Downeaster"],
-		"lat": "43.3208",
-		"lon": "-70.6122"
+		"lat": 43.3208,
+		"lon": -70.6122,
+		"nearbyCities": []
 	},
 	{
 		"id": "WEN",
@@ -5763,8 +6311,9 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Empire-Builder"],
-		"lat": "47.4208",
-		"lon": "-120.3075"
+		"lat": 47.4208,
+		"lon": -120.3075,
+		"nearbyCities": []
 	},
 	{
 		"id": "WGL",
@@ -5774,8 +6323,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.4986",
-		"lon": "-113.9717"
+		"lat": 48.4986,
+		"lon": -113.9717,
+		"nearbyCities": []
 	},
 	{
 		"id": "WPB",
@@ -5785,8 +6335,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "26.7123",
-		"lon": "-80.0623"
+		"lat": 26.7123,
+		"lon": -80.0623,
+		"nearbyCities": []
 	},
 	{
 		"id": "WLY",
@@ -5796,8 +6347,9 @@
 		"stateShort": "RI",
 		"stateLong": "Rhode Island",
 		"routes": ["Northeast-Regional"],
-		"lat": "41.3811",
-		"lon": "-71.83"
+		"lat": 41.3811,
+		"lon": -71.83,
+		"nearbyCities": []
 	},
 	{
 		"id": "WSP",
@@ -5807,8 +6359,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack"],
-		"lat": "44.1872",
-		"lon": "-73.4519"
+		"lat": 44.1872,
+		"lon": -73.4519,
+		"nearbyCities": []
 	},
 	{
 		"id": "WRJ",
@@ -5818,8 +6371,9 @@
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "43.6483",
-		"lon": "-72.3178"
+		"lat": 43.6483,
+		"lon": -72.3178,
+		"nearbyCities": []
 	},
 	{
 		"id": "WSS",
@@ -5829,8 +6383,9 @@
 		"stateShort": "WV",
 		"stateLong": "West Virginia",
 		"routes": ["Cardinal"],
-		"lat": "37.7853",
-		"lon": "-80.3056"
+		"lat": 37.7853,
+		"lon": -80.3056,
+		"nearbyCities": []
 	},
 	{
 		"id": "WFH",
@@ -5840,8 +6395,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.4136",
-		"lon": "-114.3356"
+		"lat": 48.4136,
+		"lon": -114.3356,
+		"nearbyCities": []
 	},
 	{
 		"id": "WHL",
@@ -5851,8 +6407,9 @@
 		"stateShort": "NY",
 		"stateLong": "New York",
 		"routes": ["Adirondack"],
-		"lat": "43.5558",
-		"lon": "-73.4033"
+		"lat": 43.5558,
+		"lon": -73.4033,
+		"nearbyCities": []
 	},
 	{
 		"id": "WBG",
@@ -5862,8 +6419,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "37.2756",
-		"lon": "-76.7078"
+		"lat": 37.2756,
+		"lon": -76.7078,
+		"nearbyCities": []
 	},
 	{
 		"id": "WTN",
@@ -5873,8 +6431,9 @@
 		"stateShort": "ND",
 		"stateLong": "North Dakota",
 		"routes": ["Empire-Builder"],
-		"lat": "48.1428",
-		"lon": "-103.6211"
+		"lat": 48.1428,
+		"lon": -103.6211,
+		"nearbyCities": []
 	},
 	{
 		"id": "WIL",
@@ -5894,8 +6453,9 @@
 			"Silver-Star",
 			"Vermonter"
 		],
-		"lat": "39.7367",
-		"lon": "-75.5511"
+		"lat": 39.7367,
+		"lon": -75.5511,
+		"nearbyCities": []
 	},
 	{
 		"id": "WLN",
@@ -5905,8 +6465,9 @@
 		"stateShort": "NC",
 		"stateLong": "North Carolina",
 		"routes": ["Carolinian", "Palmetto"],
-		"lat": "35.7239",
-		"lon": "-77.9083"
+		"lat": 35.7239,
+		"lon": -77.9083,
+		"nearbyCities": []
 	},
 	{
 		"id": "WND",
@@ -5916,19 +6477,21 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
-		"lat": "41.8521",
-		"lon": "-72.6422"
+		"lat": 41.8521,
+		"lon": -72.6422,
+		"nearbyCities": []
 	},
 	{
 		"id": "WNM",
-		"name": "Windsor–Mt. Ascutney",
+		"name": "Windsor\u2014Mt. Ascutney",
 		"code": "WNM",
 		"city": "Windsor",
 		"stateShort": "VT",
 		"stateLong": "Vermont",
 		"routes": ["Vermonter"],
-		"lat": "43.48",
-		"lon": "-72.385"
+		"lat": 43.48,
+		"lon": -72.385,
+		"nearbyCities": []
 	},
 	{
 		"id": "WNL",
@@ -5943,8 +6506,9 @@
 			"Valley-Flyer",
 			"Vermonter"
 		],
-		"lat": "41.9139",
-		"lon": "-72.6261"
+		"lat": 41.9139,
+		"lon": -72.6261,
+		"nearbyCities": []
 	},
 	{
 		"id": "WNN",
@@ -5954,8 +6518,9 @@
 		"stateShort": "NV",
 		"stateLong": "Nevada",
 		"routes": ["California-Zephyr"],
-		"lat": "40.9694",
-		"lon": "-117.7314"
+		"lat": 40.9694,
+		"lon": -117.7314,
+		"nearbyCities": []
 	},
 	{
 		"id": "WIN",
@@ -5965,8 +6530,9 @@
 		"stateShort": "MN",
 		"stateLong": "Minnesota",
 		"routes": ["Empire-Builder"],
-		"lat": "44.0443",
-		"lon": "-91.6401"
+		"lat": 44.0443,
+		"lon": -91.6401,
+		"nearbyCities": []
 	},
 	{
 		"id": "WLO",
@@ -5976,8 +6542,9 @@
 		"stateShort": "AZ",
 		"stateLong": "Arizona",
 		"routes": ["Southwest-Chief"],
-		"lat": "35.0208",
-		"lon": "-110.6947"
+		"lat": 35.0208,
+		"lon": -110.6947,
+		"nearbyCities": []
 	},
 	{
 		"id": "WTH",
@@ -5987,8 +6554,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "28.0039",
-		"lon": "-81.735"
+		"lat": 28.0039,
+		"lon": -81.735,
+		"nearbyCities": []
 	},
 	{
 		"id": "WPR",
@@ -5998,8 +6566,9 @@
 		"stateShort": "CO",
 		"stateLong": "Colorado",
 		"routes": ["Winter-Park-Express"],
-		"lat": "39.8869",
-		"lon": "-105.7625"
+		"lat": 39.8869,
+		"lon": -105.7625,
+		"nearbyCities": []
 	},
 	{
 		"id": "WPK",
@@ -6009,8 +6578,9 @@
 		"stateShort": "FL",
 		"stateLong": "Florida",
 		"routes": ["Silver-Meteor", "Silver-Star"],
-		"lat": "28.5978",
-		"lon": "-81.3519"
+		"lat": 28.5978,
+		"lon": -81.3519,
+		"nearbyCities": []
 	},
 	{
 		"id": "WDL",
@@ -6020,8 +6590,9 @@
 		"stateShort": "WI",
 		"stateLong": "Wisconsin",
 		"routes": ["Empire-Builder"],
-		"lat": "43.6267",
-		"lon": "-89.7775"
+		"lat": 43.6267,
+		"lon": -89.7775,
+		"nearbyCities": []
 	},
 	{
 		"id": "WIH",
@@ -6031,19 +6602,21 @@
 		"stateShort": "WA",
 		"stateLong": "Washington",
 		"routes": ["Empire-Builder"],
-		"lat": "45.6575",
-		"lon": "-120.9664"
+		"lat": 45.6575,
+		"lon": -120.9664,
+		"nearbyCities": []
 	},
 	{
 		"id": "WOB",
-		"name": "Woburn–Anderson",
+		"name": "Woburn\u2014Anderson",
 		"code": "WOB",
 		"city": "Woburn",
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Downeaster"],
-		"lat": "42.5175",
-		"lon": "-71.1439"
+		"lat": 42.5175,
+		"lon": -71.1439,
+		"nearbyCities": ["Lowell"]
 	},
 	{
 		"id": "WPT",
@@ -6053,8 +6626,9 @@
 		"stateShort": "MT",
 		"stateLong": "Montana",
 		"routes": ["Empire-Builder"],
-		"lat": "48.0914",
-		"lon": "-105.6431"
+		"lat": 48.0914,
+		"lon": -105.6431,
+		"nearbyCities": []
 	},
 	{
 		"id": "WDB",
@@ -6064,8 +6638,9 @@
 		"stateShort": "VA",
 		"stateLong": "Virginia",
 		"routes": ["Northeast-Regional"],
-		"lat": "38.6592",
-		"lon": "-77.2481"
+		"lat": 38.6592,
+		"lon": -77.2481,
+		"nearbyCities": []
 	},
 	{
 		"id": "WOR",
@@ -6075,8 +6650,9 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": ["Lake-Shore-Limited"],
-		"lat": "42.2611",
-		"lon": "-71.795"
+		"lat": 42.2611,
+		"lon": -71.795,
+		"nearbyCities": []
 	},
 	{
 		"id": "YAZ",
@@ -6086,8 +6662,9 @@
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
 		"routes": ["City-of-New-Orleans"],
-		"lat": "32.8483",
-		"lon": "-90.4153"
+		"lat": 32.8483,
+		"lon": -90.4153,
+		"nearbyCities": []
 	},
 	{
 		"id": "YEM",
@@ -6097,8 +6674,9 @@
 		"stateShort": "SC",
 		"stateLong": "South Carolina",
 		"routes": ["Palmetto", "Silver-Meteor"],
-		"lat": "32.6881",
-		"lon": "-80.8469"
+		"lat": 32.6881,
+		"lon": -80.8469,
+		"nearbyCities": []
 	},
 	{
 		"id": "YNY",
@@ -6114,8 +6692,9 @@
 			"Ethan-Allen-Express",
 			"Maple-Leaf"
 		],
-		"lat": "40.9356",
-		"lon": "-73.9022"
+		"lat": 40.9356,
+		"lon": -73.9022,
+		"nearbyCities": []
 	},
 	{
 		"id": "YUM",
@@ -6125,7 +6704,8 @@
 		"stateShort": "AZ",
 		"stateLong": "Arizona",
 		"routes": ["Sunset-Limited", "Texas-Eagle"],
-		"lat": "32.7231",
-		"lon": "-114.6161"
+		"lat": 32.7231,
+		"lon": -114.6161,
+		"nearbyCities": []
 	}
 ]

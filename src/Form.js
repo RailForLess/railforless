@@ -158,15 +158,26 @@ export default function Form({
 	const [bedrooms, setBedrooms] = useState(false);
 	const [familyRooms, setFamilyRooms] = useState(false);
 
-	const stationsLabels = (station) =>
+	const filterStations = (options, state) =>
+		options.filter((option) => {
+			const input = state.inputValue.toLowerCase();
+			return (
+				state.getOptionLabel(option).toLowerCase().includes(input) ||
+				option.stateLong.toLowerCase().includes(input) ||
+				option.city.toLowerCase().includes(input) ||
+				option.nearbyCities.some((city) => city.toLowerCase().includes(input))
+			);
+		});
+
+	const getStationLabels = (station) =>
 		stationFormat === "name-and-code"
 			? `${station.name} (${station.code})`
 			: stationFormat === "name-only"
 			? station.name
 			: station.code;
 
-	function getStationIcon(option, station) {
-		return option.id === station.id ? (
+	const getStationIcon = (option, station) =>
+		option.id === station.id ? (
 			<ErrorIcon fontSize="small" />
 		) : option.routes
 				.concat(station.routes)
@@ -180,7 +191,6 @@ export default function Form({
 		) : (
 			<DirectionsRailwayIcon fontSize="small" />
 		);
-	}
 
 	const [swapped, setSwapped] = useState(false);
 
@@ -716,8 +726,8 @@ export default function Form({
 			<div className="input-row" id="middle-row">
 				<Autocomplete
 					disableClearable
-					getOptionLabel={stationsLabels}
-					loading={true}
+					filterOptions={filterStations}
+					getOptionLabel={getStationLabels}
 					loadingText="Getting stations..."
 					noOptionsText="No stations found"
 					onChange={(e, v) => {
@@ -729,7 +739,7 @@ export default function Form({
 						<TextField
 							{...params}
 							label="Departing"
-							placeholder="name or code"
+							placeholder="name/code/state"
 						/>
 					)}
 					renderOption={(props, option) => (
@@ -742,7 +752,7 @@ export default function Form({
 							{...props}
 						>
 							{destination && getStationIcon(option, destination)}
-							{stationsLabels(option)}
+							{getStationLabels(option)}
 						</Box>
 					)}
 					groupBy={(station) => station.group}
@@ -759,8 +769,8 @@ export default function Form({
 				<Autocomplete
 					disableClearable
 					disabled={!origin}
-					getOptionLabel={stationsLabels}
-					loading={true}
+					filterOptions={filterStations}
+					getOptionLabel={getStationLabels}
 					loadingText="Getting stations..."
 					noOptionsText="No stations found"
 					onChange={(e, v) => {
@@ -772,7 +782,7 @@ export default function Form({
 						<TextField
 							{...params}
 							label="Arriving"
-							placeholder="name or code"
+							placeholder="name/code/state"
 						/>
 					)}
 					renderOption={(props, option) => (
@@ -785,7 +795,7 @@ export default function Form({
 							{...props}
 						>
 							{origin && getStationIcon(option, origin)}
-							{stationsLabels(option)}
+							{getStationLabels(option)}
 						</Box>
 					)}
 					groupBy={(station) => station.group}

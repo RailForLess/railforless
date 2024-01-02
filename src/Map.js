@@ -287,12 +287,13 @@ export default function Map({
 						const mutualRoutes = JSON.parse(
 							originElement.attr("routes")
 						).filter((route) => station.routes.includes(route));
-						if (mutualRoutes.length === 1) {
-							const newRoute = [
-								"Palmetto",
-								"Silver-Meteor",
-								"Silver-Star",
-							].includes(mutualRoutes[0])
+						const silverService = ["Palmetto", "Silver-Meteor", "Silver-Star"];
+						if (
+							mutualRoutes.length === 1 ||
+							(mutualRoutes.length <= 3 &&
+								mutualRoutes.every((route) => silverService.includes(route)))
+						) {
+							const newRoute = silverService.includes(mutualRoutes[0])
 								? "Silver-Service_Palmetto"
 								: mutualRoutes[0];
 							setRoute(newRoute);

@@ -175,7 +175,8 @@ export default function Form({
 		}
 		const filteredOptions = options.filter(
 			(option) =>
-				state.getOptionLabel(option).toLowerCase().includes(input) ||
+				option.name.toLowerCase().includes(input) ||
+				option.code.toLowerCase().includes(input) ||
 				option.stateLong.toLowerCase().includes(input) ||
 				option.city.toLowerCase().includes(input)
 		);

@@ -33,6 +33,37 @@ form .MuiAutocomplete-input {
 	text-overflow: clip !important;
 }
 
+.error-link {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.error-text {
+	position: absolute;
+	bottom: 1rem;
+	color: orange;
+	display: flex;
+	opacity: 0.75;
+}
+
+.error-text > * {
+	font-size: 0.8rem;
+}
+
+.error-text div {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.error-text-1 {
+	animation: shake 0.35s;
+	animation-iteration-count: 1;
+}
+.error-text-3 {
+	color: lightgreen;
+}
+
 .MuiDateCalendar-root {
 	width: auto !important;
 }
@@ -252,24 +283,6 @@ form .MuiAutocomplete-input {
 	padding: 1rem;
 }
 
-#error-text {
-	position: absolute;
-	bottom: 1rem;
-	color: orange;
-	display: flex;
-	opacity: 0.75;
-}
-
-#error-text > * {
-	font-size: 0.8rem;
-}
-
-#error-text div {
-	align-items: center;
-	display: flex;
-	gap: 0.5rem;
-}
-
 #flex-date-container {
 	display: flex;
 	padding: 1rem 1rem 0 1rem;
@@ -308,11 +321,6 @@ form .MuiAutocomplete-input {
 	flex-direction: column;
 }
 
-#warning-learn-more {
-	cursor: pointer;
-	text-decoration: underline;
-}
-
 @media all and (max-width: 480px) {
 	#date-range-popover-row {
 		flex-wrap: wrap;
@@ -337,5 +345,23 @@ form .MuiAutocomplete-input {
 
 	.select > svg:last-child {
 		margin-right: 0;
+	}
+}
+
+@keyframes shake {
+	0% {
+		transform: translateX(0);
+	}
+	25% {
+		transform: translateX(0.25rem);
+	}
+	50% {
+		transform: translateX(-0.25rem);
+	}
+	75% {
+		transform: translateX(0.25rem);
+	}
+	100% {
+		transform: translateX(0);
 	}
 }

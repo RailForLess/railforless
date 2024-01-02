@@ -1,3 +1,7 @@
+#background {
+	animation: sunrise 3s;
+}
+
 #blades path {
 	animation: rotate 10s infinite linear;
 	transform-box: fill-box;
@@ -5,11 +9,11 @@
 }
 
 #blades path:first-child {
-	animation: rotate 12s infinite linear !important;
+	animation: rotate 11s infinite linear !important;
 }
 
-#blades-path:last-child {
-	animation: rotate 14s infinite linear !important;
+#blades path:last-child {
+	animation: rotate 12s infinite linear !important;
 }
 
 @keyframes rotate {
@@ -18,5 +22,14 @@
 	}
 	to {
 		transform: rotate(360deg);
+	}
+}
+
+@keyframes sunrise {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }

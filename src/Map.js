@@ -211,6 +211,17 @@ export default function Map({
 		text.attr("font-size", text.attr("font-size") / 2);
 	}
 
+	function getRouteBounds(originElement, destinationElement) {
+		const x0 = Number(originElement.selectChild("circle").attr("cx"));
+		const y0 = Number(originElement.selectChild("circle").attr("cy"));
+		const x1 = Number(destinationElement.selectChild("circle").attr("cx"));
+		const y1 = Number(destinationElement.selectChild("circle").attr("cy"));
+		return [
+			[x0, y0],
+			[x1, y1],
+		];
+	}
+
 	if (!loaded && stationsJSON.length > 0) {
 		setLoaded(true);
 
@@ -277,23 +288,33 @@ export default function Map({
 							originElement.attr("routes")
 						).filter((route) => station.routes.includes(route));
 						if (mutualRoutes.length === 1) {
-							setRoute(mutualRoutes[0]);
+							const newRoute = [
+								"Palmetto",
+								"Silver-Meteor",
+								"Silver-Star",
+							].includes(mutualRoutes[0])
+								? "Silver-Service_Palmetto"
+								: mutualRoutes[0];
+							setRoute(newRoute);
 							const prevRoute = d3.select(".route[route='true']");
 							if (!prevRoute.empty()) {
 								prevRoute.attr("route", "false");
 								routeMouseout({ id: prevRoute.attr("id") });
 							}
-							d3.select(`#${mutualRoutes[0]}`)
+							d3.select(`#${newRoute}`)
 								.attr("selected", "true")
 								.attr("route", "true");
 						}
-						x0 = Number(originElement.selectChild("circle").attr("cx"));
-						y0 = Number(originElement.selectChild("circle").attr("cy"));
-						x1 = Number(element.selectChild("circle").attr("cx"));
-						y1 = Number(element.selectChild("circle").attr("cy"));
+						[[x0, y0], [x1, y1]] = getRouteBounds(originElement, element);
 					} else {
 						element.attr("selected", "true").attr("origin", "true").raise();
 						setOrigin(station);
+						if (!destinationElement.empty()) {
+							[[x0, y0], [x1, y1]] = getRouteBounds(
+								element,
+								destinationElement
+							);
+						}
 					}
 				}
 				e.stopPropagation();

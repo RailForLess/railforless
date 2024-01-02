@@ -4,8 +4,9 @@ import "./Form.css";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import BedIcon from "@mui/icons-material/Bed";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import CheckIcon from "@mui/icons-material/Check";
+import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import ErrorIcon from "@mui/icons-material/Error";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
@@ -153,12 +154,33 @@ export default function Form({
 			});
 	}, []);
 
+	const [sleeper, setSleeper] = useState(false);
+	const [bedrooms, setBedrooms] = useState(false);
+	const [familyRooms, setFamilyRooms] = useState(false);
+
 	const stationsLabels = (station) =>
 		stationFormat === "name-and-code"
 			? `${station.name} (${station.code})`
 			: stationFormat === "name-only"
 			? station.name
 			: station.code;
+
+	function getStationIcon(option, station) {
+		return option.id === station.id ? (
+			<ErrorIcon fontSize="small" />
+		) : option.routes
+				.concat(station.routes)
+				.some((route) => sleeperRoutes.includes(route)) &&
+		  !option.routes.some((route) => station.routes.includes(route)) ? (
+			<RailwayAlertIcon fontSize="small" />
+		) : option.routes
+				.filter((route) => station.routes.includes(route))
+				.some((route) => sleeperRoutes.includes(route)) ? (
+			<BedIcon fontSize="small" />
+		) : (
+			<DirectionsRailwayIcon fontSize="small" />
+		);
+	}
 
 	const [swapped, setSwapped] = useState(false);
 
@@ -410,15 +432,69 @@ export default function Form({
 		dateRangeEndEdit,
 	]);
 
-	const errorBool = origin && destination && origin.id === destination.id;
-	const warningBool =
+	const sleeperRoutes = [
+		"Auto-Train",
+		"California-Zephyr",
+		"Capitol-Limited",
+		"Cardinal",
+		"Coast-Starlight",
+		"Crescent",
+		"Empire-Builder",
+		"Lake-Shore-Limited",
+		"Silver-Meteor",
+		"Silver-Star",
+		"Southwest-Chief",
+		"Sunset-Limited",
+		"Texas-Eagle",
+	];
+
+	let errorType = 0;
+	let errorText = "";
+	if (origin && destination && origin.id === destination.id) {
+		errorText = "Origin and destination must be different";
+		errorType = 1;
+	} else if (!origin && !destination) {
+		errorText = "Please select an origin and destination station";
+		errorType = 1;
+	} else if (origin && !destination) {
+		errorText = "Please select a destination station";
+		errorType = 1;
+	} else if (!origin && destination) {
+		errorText = "Please select an origin station";
+		errorType = 1;
+	} else if (
 		origin &&
 		destination &&
-		!origin.routes.some((route) => destination.routes.includes(route));
-	const errorText = errorBool
-		? "Origin and destination must be different"
-		: "Some accommodation prices unavailable";
+		origin.routes
+			.concat(destination.routes)
+			.some((route) => sleeperRoutes.includes(route)) &&
+		!origin.routes.some((route) => destination.routes.includes(route))
+	) {
+		errorText = "Some accommodation prices unavailable";
+		errorType = 2;
+	} else if (sleeper) {
+		errorText = "Sleeper accommodations available";
+		errorType = 3;
+	}
 	const [warningOpen, setWarningOpen] = useState(false);
+	const [showSearchErrors, setShowSearchErrors] = useState(false);
+
+	useEffect(() => {
+		const newSleeper =
+			origin &&
+			destination &&
+			origin.routes
+				.filter((route) => destination.routes.includes(route))
+				.some((route) => sleeperRoutes.includes(route));
+		setSleeper(newSleeper);
+		if (!newSleeper) {
+			setBedrooms(false);
+			setFamilyRooms(false);
+		}
+		setShowSearchErrors(false);
+	}, [origin, destination]);
+
+	const [sleeperOpen, setSleeperOpen] = useState(false);
 
 	return (
 		<form>
@@ -573,6 +649,7 @@ export default function Form({
 				</div>
 				<IconButton
 					disableRipple
+					id="settings-button"
 					onClick={(e) => setSettingsAnchor(e.currentTarget)}
 				>
 					<SettingsIcon />
@@ -593,6 +670,22 @@ export default function Form({
 					}}
 				>
 					<div id="settings-popover">
+						<div className="settings-row">
+							<span>Bedrooms</span>
+							<Switch
+								checked={bedrooms}
+								disabled={!sleeper}
+								onChange={() => setBedrooms(!bedrooms)}
+							/>
+						</div>
+						<div className="settings-row">
+							<span>Family Rooms</span>
+							<Switch
+								checked={familyRooms}
+								disabled={!sleeper}
+								onChange={() => setFamilyRooms(!familyRooms)}
+							/>
+						</div>
 						<div className="settings-row">
 							<span>Geolocation</span>
 							<Switch checked={geolocateBool} onChange={handleGeolocate} />
@@ -648,16 +741,7 @@ export default function Form({
 							}}
 							{...props}
 						>
-							{destination &&
-								(option.code === destination.code ? (
-									<ErrorIcon fontSize="small" />
-								) : option.routes.some((route) =>
-										destination.routes.includes(route)
-								  ) ? (
-									<CheckIcon fontSize="small" />
-								) : (
-									<RailwayAlertIcon fontSize="small" />
-								))}
+							{destination && getStationIcon(option, destination)}
 							{stationsLabels(option)}
 						</Box>
 					)}
@@ -700,16 +784,7 @@ export default function Form({
 							}}
 							{...props}
 						>
-							{origin &&
-								(option.code === origin.code ? (
-									<ErrorIcon fontSize="small" />
-								) : option.routes.some((route) =>
-										origin.routes.includes(route)
-								  ) ? (
-									<CheckIcon fontSize="small" />
-								) : (
-									<RailwayAlertIcon fontSize="small" />
-								))}
+							{origin && getStationIcon(option, origin)}
 							{stationsLabels(option)}
 						</Box>
 					)}
@@ -942,53 +1017,98 @@ export default function Form({
 					</div>
 				</Menu>
 			</div>
-			{(errorBool || warningBool) && (
-				<div id="error-text">
+			{(errorType > 1 || (showSearchErrors && errorType === 1)) && (
+				<div className={`error-text error-text-${errorType}`}>
 					<div>
-						{errorBool ? (
+						{errorType === 1 ? (
 							<ErrorIcon fontSize="small" />
-						) : (
+						) : errorType === 2 ? (
 							<RailwayAlertIcon fontSize="small" />
+						) : (
+							<BedIcon fontSize="small" />
 						)}
-						<span>{errorText}</span>
-						{!errorBool && (
+						{errorType === 3 ? (
 							<span
-								id="warning-learn-more"
-								onClick={() => setWarningOpen(true)}
+								className="error-link"
+								onClick={() =>
+									document.querySelector("#settings-button").click()
+								}
 							>
+								{errorText}
+							</span>
+						) : (
+							<span>{errorText}</span>
+						)}
+						{errorType === 2 && (
+							<span className="error-link" onClick={() => setWarningOpen(true)}>
 								Learn more
 							</span>
 						)}
-						<Dialog onClose={() => setWarningOpen(false)} open={warningOpen}>
-							<DialogTitle>Limited Accommodation Pricing</DialogTitle>
-							<DialogContent>
-								<DialogContentText>
-									{`Your trip between ${origin.city} and ${destination.city} requires one or more transfers, and so we cannot provide Bedroom and Family Room accommodation pricing. Consider a direct route if you need these accommodations.`}
-								</DialogContentText>
-							</DialogContent>
-							<DialogActions>
-								<Button onClick={() => setWarningOpen(false)}>OK</Button>
-							</DialogActions>
-						</Dialog>
+						{errorType === 2 && (
+							<Dialog onClose={() => setWarningOpen(false)} open={warningOpen}>
+								<DialogTitle>Limited Accommodation Pricing</DialogTitle>
+								<DialogContent>
+									<DialogContentText>
+										{`Your trip between ${origin.city} and ${destination.city} requires one or more transfers, and so we cannot provide Bedroom and Family Room accommodation pricing. Consider a direct route if you need these accommodations.`}
+									</DialogContentText>
+								</DialogContent>
+								<DialogActions>
+									<Button onClick={() => setWarningOpen(false)}>OK</Button>
+								</DialogActions>
+							</Dialog>
+						)}
 					</div>
 				</div>
 			)}
 			<div style={{ height: 0 }}>
 				<Fab
 					color="primary"
-					disabled={errorBool}
+					onClick={() => {
+						if (errorType === 1) {
+							setShowSearchErrors(false);
+							setTimeout(() => {
+								setShowSearchErrors(true);
+							}, 0);
+						} else if (sleeper && !bedrooms && !familyRooms) {
+							setSleeperOpen(true);
+						}
+					}}
 					variant="extended"
 					size="medium"
 					sx={{
-						bottom: `-${warningBool ? "2.5" : "1.75"}rem`,
-						opacity: errorBool ? 0 : 1,
-						transition: "0.5s bottom, 0.5s opacity",
+						bottom: `-${
+							errorType > 1 || (showSearchErrors && errorType === 1)
+								? "2.5"
+								: "1.75"
+						}rem`,
+						transition: "0.5s bottom",
 						":hover": { bgcolor: "primary.hover" },
 					}}
 				>
 					<TravelExploreIcon className="button" sx={{ mr: 1 }} />
 					Search
 				</Fab>
+				{errorType !== 1 && (
+					<Dialog onClose={() => setSleeperOpen(false)} open={sleeperOpen}>
+						<DialogTitle>Sleeper Accommodation Pricing</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								{`Sleeper accommodations are available on your trip between ${origin.city} and ${destination.city}. Do you need Bedroom and/or Family Room prices?`}
+							</DialogContentText>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={() => setSleeperOpen(false)}>No</Button>
+							<Button
+								onClick={() => {
+									setSleeperOpen(false);
+									document.querySelector("#settings-button").click();
+								}}
+							>
+								Yes
+							</Button>
+						</DialogActions>
+					</Dialog>
+				)}
 			</div>
 		</form>
 	);

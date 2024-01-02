@@ -40,7 +40,7 @@
 		],
 		"lat": 42.6414,
 		"lon": -73.7411,
-		"nearbyCities": []
+		"nearbyCities": ["Albany"]
 	},
 	{
 		"id": "ALI",
@@ -312,7 +312,13 @@
 		"routes": ["Crescent"],
 		"lat": 33.7994,
 		"lon": -84.3928,
-		"nearbyCities": ["Chattanooga", "Macon", "South Fulton", "Sandy Springs"]
+		"nearbyCities": [
+			"Columbus",
+			"Chattanooga",
+			"Macon",
+			"South Fulton",
+			"Sandy Springs"
+		]
 	},
 	{
 		"id": "ARN",
@@ -502,7 +508,7 @@
 		"routes": ["Crescent"],
 		"lat": 33.5122,
 		"lon": -86.8072,
-		"nearbyCities": ["Huntsville"]
+		"nearbyCities": ["Huntsville", "Montgomery"]
 	},
 	{
 		"id": "BNL",
@@ -550,7 +556,7 @@
 		"routes": ["Acela", "Lake-Shore-Limited", "Northeast-Regional"],
 		"lat": 42.3519,
 		"lon": -71.0553,
-		"nearbyCities": []
+		"nearbyCities": ["Quincy"]
 	},
 	{
 		"id": "BRA",
@@ -658,7 +664,7 @@
 		"routes": ["Coast-Starlight", "Pacific-Surfliner"],
 		"lat": 34.1928,
 		"lon": -118.3522,
-		"nearbyCities": []
+		"nearbyCities": ["Lancaster"]
 	},
 	{
 		"id": "BBK",
@@ -868,7 +874,7 @@
 		"routes": ["Palmetto", "Silver-Meteor"],
 		"lat": 32.8747,
 		"lon": -79.9981,
-		"nearbyCities": []
+		"nearbyCities": ["Charleston"]
 	},
 	{
 		"id": "CHW",
@@ -1230,6 +1236,7 @@
 		"lat": 32.7761,
 		"lon": -96.8075,
 		"nearbyCities": [
+			"Plano",
 			"Irving",
 			"Garland",
 			"Frisco",
@@ -1647,7 +1654,7 @@
 		"routes": ["California-Zephyr"],
 		"lat": 40.8364,
 		"lon": -115.7503,
-		"nearbyCities": ["Boise", "Nampa"]
+		"nearbyCities": ["Boise", "Meridian", "Nampa"]
 	},
 	{
 		"id": "ELY",
@@ -1808,7 +1815,7 @@
 		"routes": ["Palmetto", "Silver-Meteor"],
 		"lat": 35.055,
 		"lon": -78.8847,
-		"nearbyCities": []
+		"nearbyCities": ["Wilmington"]
 	},
 	{
 		"id": "VRN",
@@ -2754,7 +2761,7 @@
 		"routes": ["Missouri-River-Runner"],
 		"lat": 38.5786,
 		"lon": -92.17,
-		"nearbyCities": []
+		"nearbyCities": ["Columbia"]
 	},
 	{
 		"id": "JSP",
@@ -3401,6 +3408,7 @@
 			"Mesa",
 			"Chandler",
 			"Gilbert",
+			"Glendale",
 			"Scottsdale",
 			"Peoria",
 			"Tempe",
@@ -3484,7 +3492,7 @@
 		"routes": ["Cardinal"],
 		"lat": 38.6522,
 		"lon": -83.7711,
-		"nearbyCities": []
+		"nearbyCities": ["Lexington"]
 	},
 	{
 		"id": "MCB",
@@ -3604,7 +3612,7 @@
 		],
 		"lat": 40.5681,
 		"lon": -74.3297,
-		"nearbyCities": ["Edison"]
+		"nearbyCities": ["Edison", "Woodbridge"]
 	},
 	{
 		"id": "MIA",
@@ -3825,7 +3833,7 @@
 		"routes": ["Southwest-Chief"],
 		"lat": 34.8408,
 		"lon": -114.6056,
-		"nearbyCities": ["Henderson"]
+		"nearbyCities": ["Las Vegas", "Henderson"]
 	},
 	{
 		"id": "NBK",
@@ -4365,7 +4373,7 @@
 		"routes": ["Silver-Meteor", "Silver-Star"],
 		"lat": 29.65,
 		"lon": -81.6406,
-		"nearbyCities": []
+		"nearbyCities": ["Gainesville"]
 	},
 	{
 		"id": "PSN",
@@ -4851,7 +4859,7 @@
 		"routes": ["Empire-Builder"],
 		"lat": 44.5664,
 		"lon": -92.5372,
-		"nearbyCities": []
+		"nearbyCities": ["Rochester"]
 	},
 	{
 		"id": "RDD",
@@ -5481,7 +5489,7 @@
 		"routes": ["Missouri-River-Runner"],
 		"lat": 38.7117,
 		"lon": -93.2283,
-		"nearbyCities": []
+		"nearbyCities": ["Springfield"]
 	},
 	{
 		"id": "SSM",
@@ -5565,7 +5573,7 @@
 		"routes": ["Cardinal"],
 		"lat": 38.7211,
 		"lon": -82.9636,
-		"nearbyCities": []
+		"nearbyCities": ["Columbus"]
 	},
 	{
 		"id": "SOP",
@@ -6194,7 +6202,7 @@
 		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
 		"lat": 41.4569,
 		"lon": -72.8249,
-		"nearbyCities": []
+		"nearbyCities": ["Waterbury"]
 	},
 	{
 		"id": "WNR",

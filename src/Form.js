@@ -158,16 +158,45 @@ export default function Form({
 	const [bedrooms, setBedrooms] = useState(false);
 	const [familyRooms, setFamilyRooms] = useState(false);
 
-	const filterStations = (options, state) =>
-		options.filter((option) => {
-			const input = state.inputValue.toLowerCase();
-			return (
+	const filterStations = (options, state) => {
+		const nearbyCitiesStations = [];
+		const input = state.inputValue.toLowerCase();
+		if (input) {
+			for (const option of options) {
+				for (const nearbyCity of option.nearbyCities.filter((city) =>
+					city.toLowerCase().includes(input)
+				)) {
+					nearbyCitiesStations.push({
+						...option,
+						group: nearbyCity,
+					});
+				}
+			}
+		}
+		const filteredOptions = options.filter(
+			(option) =>
 				state.getOptionLabel(option).toLowerCase().includes(input) ||
 				option.stateLong.toLowerCase().includes(input) ||
-				option.city.toLowerCase().includes(input) ||
-				option.nearbyCities.some((city) => city.toLowerCase().includes(input))
-			);
-		});
+				option.city.toLowerCase().includes(input)
+		);
+		const nearbyStations = filteredOptions.filter(
+			(option) => option.group === "Nearby"
+		);
+		return nearbyStations
+			.concat(
+				[
+					...new Map(
+						nearbyCitiesStations.map((station) => [
+							JSON.stringify([station.id, station.group]),
+							station,
+						])
+					).values(),
+				]
+					.sort((a, b) => a.name.localeCompare(b.name))
+					.sort((a, b) => a.group.localeCompare(b.group))
+			)
+			.concat(filteredOptions.filter((option) => option.group !== "Nearby"));
+	};
 
 	const getStationLabels = (station) =>
 		stationFormat === "name-and-code"
@@ -728,6 +757,7 @@ export default function Form({
 					disableClearable
 					filterOptions={filterStations}
 					getOptionLabel={getStationLabels}
+					isOptionEqualToValue={(option, value) => option.id === value.id}
 					loadingText="Getting stations..."
 					noOptionsText="No stations found"
 					onChange={(e, v) => {
@@ -739,7 +769,7 @@ export default function Form({
 						<TextField
 							{...params}
 							label="Departing"
-							placeholder="name/code/state"
+							placeholder="name/code/state/city"
 						/>
 					)}
 					renderOption={(props, option) => (
@@ -771,6 +801,7 @@ export default function Form({
 					disabled={!origin}
 					filterOptions={filterStations}
 					getOptionLabel={getStationLabels}
+					isOptionEqualToValue={(option, value) => option.id === value.id}
 					loadingText="Getting stations..."
 					noOptionsText="No stations found"
 					onChange={(e, v) => {
@@ -782,7 +813,7 @@ export default function Form({
 						<TextField
 							{...params}
 							label="Arriving"
-							placeholder="name/code/state"
+							placeholder="name/code/state/city"
 						/>
 					)}
 					renderOption={(props, option) => (

@@ -87,9 +87,7 @@ export default function Form({
 	const settingsOpen = Boolean(settingsAnchor);
 	const [geolocateBool, setGeolocateBool] = useState(
 		localStorage.getItem("geolocate")
-			? localStorage.getItem("geolocate") === "true"
-				? true
-				: false
+			? JSON.parse(localStorage.getItem("geolocate"))
 			: true
 	);
 
@@ -101,6 +99,18 @@ export default function Form({
 		} else {
 			setStations(stations.slice(5));
 		}
+	}
+
+	const [nearbyCitiesBool, setNearbyCitiesBool] = useState(
+		localStorage.getItem("nearby-cities")
+			? JSON.parse(localStorage.getItem("nearby-cities"))
+			: true
+	);
+
+	function handleNearbyCities() {
+		setNearbyCitiesBool(!nearbyCitiesBool);
+		console.log(`setting to ${!nearbyCitiesBool}`);
+		localStorage.setItem("nearby-cities", JSON.stringify(!nearbyCitiesBool));
 	}
 
 	const [stationFormat, setStationFormat] = useState(
@@ -161,7 +171,7 @@ export default function Form({
 	const filterStations = (options, state) => {
 		const nearbyCitiesStations = [];
 		const input = state.inputValue.toLowerCase();
-		if (input) {
+		if (input && nearbyCitiesBool) {
 			for (const option of options) {
 				for (const nearbyCity of option.nearbyCities.filter((city) =>
 					city.toLowerCase().includes(input)
@@ -286,9 +296,11 @@ export default function Form({
 			.add(11, "M")
 			.subtract(2, "d")
 			.get("M");
-		let curMonth = dayjs().startOf("d").get("M");
+		let curMonth = dayjs().startOf("d").subtract(1, "M").get("M");
 		const months = [];
 		do {
+			curMonth++;
+			curMonth %= 12;
 			months.push({
 				name: monthNames[curMonth],
 				year:
@@ -297,9 +309,7 @@ export default function Form({
 						: dayjs().startOf("d").get("y"),
 				value: curMonth,
 			});
-			curMonth++;
-			curMonth %= 12;
-		} while ((curMonth - 1) % 12 !== maxMonth);
+		} while (curMonth % 12 !== maxMonth);
 		return months;
 	}
 
@@ -729,6 +739,13 @@ export default function Form({
 						<div className="settings-row">
 							<span>Geolocation</span>
 							<Switch checked={geolocateBool} onChange={handleGeolocate} />
+						</div>
+						<div className="settings-row">
+							<span>Nearby cities</span>
+							<Switch
+								checked={nearbyCitiesBool}
+								onChange={handleNearbyCities}
+							/>
 						</div>
 						<div className="settings-row">
 							<span>Station format</span>

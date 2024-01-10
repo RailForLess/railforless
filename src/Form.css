@@ -127,10 +127,6 @@ form > div:last-child {
 	justify-content: space-around;
 }
 
-#primary-input > * {
-	height: 100%;
-}
-
 #primary-input button {
 	border-color: rgba(255, 255, 255, 0.23);
 	transition: transform 0.25s;
@@ -164,11 +160,19 @@ form > div:last-child {
 	border-width: 1px;
 }
 
+#primary-input .select:first-child {
+	padding: 15px;
+}
+
 #search-info {
 	font-size: 0.9rem;
 	gap: 0.5rem;
 	justify-content: flex-start;
-	padding: 6px;
+	padding: 6px 0;
+}
+
+#search-info span {
+	white-space: nowrap;
 }
 
 @media all and (max-width: 480px) {

@@ -14,25 +14,20 @@ export default function Map({
 	setRoute,
 }) {
 	const [loaded, setLoaded] = useState(false);
-	const [zoomed, setZoomed] = useState(false);
+	const silverService = ["Palmetto", "Silver-Meteor", "Silver-Star"];
 
-	function zoomToStation() {
-		if (!zoomed && origin) {
-			setTimeout(() => {
-				setZoomed(true);
-			}, 0);
-			setTimeout(() => {
-				d3.select(`#${origin.id}`).dispatch("click");
-			}, 500);
-		}
-	}
-
-	zoomToStation();
+	const getRouteID = (route) =>
+		silverService.includes(route) ? "Silver-Service_Palmetto" : route;
 
 	useEffect(() => {
-		if (!zoomed || (origin && destination && origin.id === destination.id)) {
-			return;
-		}
+		setTimeout(() => {
+			if (route && route !== "Any-route") {
+				d3.select(`#${getRouteID(route)}`).dispatch("click");
+			}
+		}, 400);
+	}, []);
+
+	useEffect(() => {
 		const prevOriginElement = d3.select(".station[origin='true']");
 		const prevDestinationElement = d3.select(".station[destination='true']");
 		if (origin) {
@@ -62,13 +57,11 @@ export default function Map({
 	let mapContainer, width, height, scaleExtent, zoom;
 
 	function disableStation(routeString, station) {
-		if (!routeString) {
+		if (routeString === "Any-route") {
 			return false;
 		}
 		if (routeString === "Silver-Service_Palmetto") {
-			return !["Palmetto", "Silver-Meteor", "Silver-Star"].some((train) =>
-				station.routes.includes(train)
-			);
+			return !silverService.some((route) => station.routes.includes(route));
 		} else {
 			return !station.routes.includes(routeString);
 		}
@@ -84,6 +77,9 @@ export default function Map({
 			.scaleExtent([1, scaleExtent])
 			.on("zoom", ({ transform }) => {
 				const zoomOutButton = document.querySelector("#zoom-out-button");
+				if (!zoomOutButton) {
+					return;
+				}
 				zoomOutButton.style.cursor = transform.k === 1 ? "default" : "pointer";
 				zoomOutButton.style.opacity = transform.k === 1 ? 0 : 1;
 				zoomOutButton.style.pointerEvents = transform.k === 1 ? "none" : "auto";
@@ -113,8 +109,8 @@ export default function Map({
 					.transition()
 					.duration(duration)
 					.attr("stroke-width", transform.k === 1 ? 0.5 : 2 / transform.k);
-				const routeElement = d3.select(".route[route='true'");
-				let routeString = "";
+				const routeElement = d3.select(".route[route='true']");
+				let routeString = "Any-route";
 				if (!routeElement.empty()) {
 					routeString = routeElement.attr("id");
 				}
@@ -236,7 +232,7 @@ export default function Map({
 				const element = d3.select(this);
 				if (element.attr("class") === "route") {
 					if (element.attr("route") === "true") {
-						setRoute("");
+						setRoute("Any-route");
 						element.attr("route", "false");
 						routeMouseout({ id: element.attr("id") });
 						d3.select("#map-svg").call(
@@ -268,7 +264,7 @@ export default function Map({
 						!prevRoute.empty() &&
 						!station.routes.includes(prevRoute.attr("id"))
 					) {
-						setRoute("");
+						setRoute("Any-route");
 						prevRoute.attr("route", "false");
 						routeMouseout({ id: prevRoute.attr("id") });
 					}
@@ -287,22 +283,16 @@ export default function Map({
 						const mutualRoutes = JSON.parse(
 							originElement.attr("routes")
 						).filter((route) => station.routes.includes(route));
-						const silverService = ["Palmetto", "Silver-Meteor", "Silver-Star"];
-						if (
-							mutualRoutes.length === 1 ||
-							(mutualRoutes.length <= 3 &&
-								mutualRoutes.every((route) => silverService.includes(route)))
-						) {
-							const newRoute = silverService.includes(mutualRoutes[0])
-								? "Silver-Service_Palmetto"
-								: mutualRoutes[0];
-							setRoute(newRoute);
+						if (mutualRoutes.length === 1) {
+							console.log(mutualRoutes[0]);
+							setRoute(mutualRoutes[0]);
 							const prevRoute = d3.select(".route[route='true']");
 							if (!prevRoute.empty()) {
 								prevRoute.attr("route", "false");
 								routeMouseout({ id: prevRoute.attr("id") });
 							}
-							d3.select(`#${newRoute}`)
+							console.log(getRouteID(mutualRoutes[0]));
+							d3.select(`#${getRouteID(mutualRoutes[0])}`)
 								.attr("selected", "true")
 								.attr("route", "true");
 						}
@@ -452,8 +442,6 @@ export default function Map({
 					.attr("font-weight", "bold")
 					.attr("pointer-events", "none")
 					.text((d) => d.id);
-
-				zoomToStation();
 			});
 		});
 	}
@@ -471,8 +459,8 @@ export default function Map({
 			station.attr("destination", "false");
 			stationMouseout({ id: station.attr("id") });
 		}
-		if (route) {
-			setRoute("");
+		if (route && route !== "Any-route") {
+			setRoute("Any-route");
 			const prevRoute = d3.select(".route[route='true']");
 			prevRoute.attr("route", "false");
 			routeMouseout({ id: prevRoute.attr("id") });
@@ -483,7 +471,7 @@ export default function Map({
 	return (
 		<div id="map-container">
 			<svg id="map-svg"></svg>
-			{route && (
+			{route && route !== "Any-route" && (
 				<div id="route-box">{route.replace(/-/g, " ").replace(/_/g, "/")}</div>
 			)}
 			<ZoomOutMapIcon id="zoom-out-button" onClick={reset} />

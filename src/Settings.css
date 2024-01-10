@@ -1,0 +1,13 @@
+.settings-row {
+	align-items: center;
+	cursor: default !important;
+	display: flex;
+	justify-content: left;
+	gap: 1rem;
+	padding: 0 1rem;
+}
+
+#settings-popover {
+	display: flex;
+	flex-direction: column;
+}

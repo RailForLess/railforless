@@ -1,0 +1,83 @@
+form > div:first-child .selected svg[data-testid="ArrowDropDownIcon"] {
+	transform: rotate(180deg);
+}
+
+.number-button-disabled {
+	background-color: #4c4d50;
+	pointer-events: none;
+	transition: all 0.15s linear;
+}
+
+.number-button-disabled svg {
+	color: #606064;
+	transition: all 0.15s linear;
+}
+
+.number-button-enabled {
+	background-color: #394457;
+	cursor: pointer;
+	transition: all 0.15s linear;
+}
+
+.number-button-enabled:hover {
+	background-color: #3e495e;
+}
+
+.number-button-enabled svg {
+	color: #dbdde1;
+	transition: all 0.15s linear;
+}
+
+.number-row {
+	cursor: default !important;
+	display: flex;
+	gap: 2rem;
+	justify-content: space-between !important;
+}
+
+.number-row:hover {
+	background-color: transparent !important;
+}
+
+.number-row button {
+	align-items: center;
+	border: none;
+	border-radius: 0.25rem;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	padding: 0.35rem;
+}
+
+.number-row button svg {
+	height: 1.25rem;
+	width: 1.25rem;
+}
+
+.number-row > div:first-child {
+	display: flex;
+	flex-direction: column;
+}
+
+.number-row > div:first-child span {
+	width: min-content;
+}
+
+.number-row > div:first-child span:last-child {
+	font-size: 0.75rem;
+}
+
+.number-row > div:last-child {
+	align-items: center;
+	display: flex;
+	gap: 1rem;
+}
+
+.number-row > div:last-child span {
+	width: 1rem;
+}
+
+.number-row div span {
+	background-color: transparent !important;
+	color: #c3c3c4 !important;
+}

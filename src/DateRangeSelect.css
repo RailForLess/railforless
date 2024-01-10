@@ -1,0 +1,83 @@
+form svg[data-testid="CalendarMonthIcon"] {
+	color: white !important;
+}
+
+.MuiDateCalendar-root {
+	width: auto !important;
+}
+
+.MuiDayCalendar-weekContainer .Mui-selected {
+	color: white !important;
+}
+
+.MuiDayCalendar-weekDayLabel {
+	margin: 0 !important;
+}
+
+.MuiPickersDay-root {
+	border: none !important;
+	margin: 0 !important;
+	transition: none !important;
+}
+.textfield-disabled input {
+	-webkit-text-fill-color: #c3c3c4 !important;
+}
+
+#date-range-container {
+	flex: 1;
+	min-width: 16rem;
+}
+
+#date-range-container > * {
+	width: 100%;
+}
+
+#date-range-container > div > div {
+	display: flex;
+	gap: 1rem;
+}
+
+#date-range-container input {
+	text-align: center;
+}
+
+#date-range-popover li {
+	background-color: transparent !important;
+	color: #c3c3c4 !important;
+}
+
+#date-range-popover .MuiPickersLayout-root {
+	background-color: transparent;
+}
+
+#date-range-popover .MuiTabs-root {
+	padding: 0 1rem;
+}
+
+#date-range-popover .MuiTextField-root {
+	width: 100%;
+}
+
+#date-range-popover-row {
+	cursor: default !important;
+	display: flex;
+}
+
+#duration-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	padding: 1rem;
+}
+
+#flex-date-container {
+	display: flex;
+	padding: 1rem 1rem 0 1rem;
+	width: 100%;
+}
+
+@media all and (max-width: 480px) {
+	#date-range-popover-row {
+		flex-wrap: wrap;
+	}
+}

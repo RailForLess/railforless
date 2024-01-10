@@ -9,7 +9,9 @@ export default function Home() {
 	const [origin, setOrigin] = useState(null);
 	const [destination, setDestination] = useState(null);
 	const [updateMap, setUpdateMap] = useState(false);
-	const [route, setRoute] = useState("");
+	const [route, setRoute] = useState("Any-route");
+
+	const [searching, setSearching] = useState(false);
 
 	function setHeroContainerHeight() {
 		const width = window.innerWidth;
@@ -36,17 +38,25 @@ export default function Home() {
 					setDestination={setDestination}
 					updateMap={updateMap}
 					setUpdateMap={setUpdateMap}
-				/>
-				<Map
-					stationsJSON={stations}
-					origin={origin}
-					setOrigin={setOrigin}
-					destination={destination}
-					setDestination={setDestination}
-					updateMap={updateMap}
+					searching={searching}
+					setSearching={setSearching}
 					route={route}
 					setRoute={setRoute}
 				/>
+				{!searching ? (
+					<Map
+						stationsJSON={stations}
+						origin={origin}
+						setOrigin={setOrigin}
+						destination={destination}
+						setDestination={setDestination}
+						updateMap={updateMap}
+						route={route}
+						setRoute={setRoute}
+					/>
+				) : (
+					<div></div>
+				)}
 			</div>
 		</div>
 	);

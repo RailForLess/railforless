@@ -1,14 +1,15 @@
 #map-container {
+	display: flex;
 	filter: drop-shadow(0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.7));
 	flex: 1;
+	flex-direction: column;
 	position: relative;
 	width: 100%;
 }
 
 #map-svg {
 	border-radius: 1.5rem;
-	height: 100%;
-	left: 0;
+	flex: 1;
 	padding: 1rem 0;
 	width: 100%;
 }

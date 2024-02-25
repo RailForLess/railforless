@@ -1,6 +1,20 @@
 h1 {
 	font-size: 3.5rem;
 	font-weight: 500;
+	position: relative;
+}
+
+h1 span {
+	background: red;
+	border-radius: 0.75rem;
+	bottom: 0.5rem;
+	font-size: 0.75rem;
+	height: 1.5rem;
+	padding: 0.25rem;
+	position: absolute;
+	right: -1rem;
+	text-align: center;
+	width: 1.5rem;
 }
 
 h2,
@@ -16,8 +30,10 @@ h3 {
 #hero-container {
 	align-items: center;
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 	justify-content: flex-start;
+	margin-bottom: -1.5rem;
 	overflow-x: visible;
 	position: relative;
 	top: -1.5rem;

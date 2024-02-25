@@ -39,7 +39,6 @@ export default function TravelerTypeSelect({ value, setValue, searching }) {
 				disableRipple
 				endIcon={<ArrowDropDownIcon />}
 				onClick={(e) => {
-					console.log("clicked!");
 					setSelected(true);
 					setAnchor(e.currentTarget);
 				}}

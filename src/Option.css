@@ -1,0 +1,155 @@
+.dot {
+	margin: 0 0.5rem;
+}
+
+.dot-end {
+	border: 2px solid #5f6368;
+	border-radius: 12px;
+	height: 12px;
+	width: 12px;
+}
+
+.dot-line {
+	border-right: 4px dotted #5f6368;
+	flex: 1;
+	margin: 4px;
+	width: 4px;
+}
+
+.layover-container > div {
+	align-items: center;
+	display: flex;
+	gap: 1rem;
+}
+
+.leg-container {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2rem;
+	justify-content: space-between;
+	margin: 0.5rem;
+}
+
+.leg-info-container {
+	display: flex;
+	gap: 1rem;
+	width: 21rem;
+}
+
+.leg-info-container > div:first-child {
+	display: flex;
+	flex-direction: column;
+	margin: 0.5rem 0;
+}
+
+.leg-info-container > div:last-child {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	justify-content: space-between;
+}
+
+.leg-info-container > div:last-child > div {
+	display: flex;
+	gap: 0.5rem;
+}
+
+.leg-info-container > div:last-child > span {
+	color: #9aa0a6;
+}
+
+.leg-accommodation-container {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	max-width: 15rem;
+}
+
+.leg-accommodation-container > div {
+	align-items: center;
+	border: 2px solid #5f6368;
+	border-radius: 1rem;
+	display: flex;
+	flex-direction: column;
+	height: 80%;
+	justify-content: center;
+	padding: 1rem;
+}
+
+.leg-accommodation-container div div {
+	align-items: center;
+	color: #9aa0a6;
+	display: flex;
+	font-size: 0.9rem;
+	gap: 0.5rem;
+}
+
+.leg-accommodation-container div span {
+	text-align: center;
+}
+
+.leg-amenities-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 10rem;
+}
+
+.leg-amenities-container div {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.leg-amenities-container span {
+	color: #9aa0a6;
+}
+
+.MuiAlert-root {
+	padding: 0.25rem 1rem;
+}
+
+.trip-container > div:first-child {
+	background-color: rgba(255, 255, 255, 0.05);
+	border-radius: 0.5rem;
+	display: flex;
+	justify-content: space-between;
+	margin: 0.5rem 0;
+	padding: 0.75rem;
+}
+
+.trip-container hr {
+	border-color: #9aa0a6 !important;
+}
+
+.MuiAccordionDetails-root {
+	display: flex;
+	flex-direction: column;
+	padding: 0 1rem 1rem 1rem !important;
+}
+
+.MuiAccordionSummary-root {
+	padding: 0 1.75rem !important;
+}
+
+.option-summary {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	justify-content: space-between;
+	margin-right: 1rem !important;
+	row-gap: 0.5rem;
+	width: 100%;
+}
+
+@media all and (max-width: 480px) {
+	.leg-container {
+		gap: 1rem;
+	}
+
+	.option-summary {
+		justify-content: space-around;
+	}
+}

@@ -1,55 +1,18 @@
-form {
-	background-color: rgb(54, 55, 58);
-	border-radius: 0.5rem;
-	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
-	display: flex;
-	flex-direction: column;
-	padding: 0.5rem 1rem 3rem;
-	position: relative;
-	width: 100%;
-}
-
-form svg[data-testid="ArrowDropDownIcon"] {
-	transition: transform 0.35s;
-}
-
-form > div:first-child {
-	margin-bottom: 0.5rem;
-}
-
-form > div:last-child {
-	text-align: center;
-}
-
-.error-link {
-	cursor: pointer;
-	text-decoration: underline;
+.error-1 {
+	animation: shake 0.35s;
+	animation-iteration-count: 1;
 }
 
 .error-text {
+	align-items: center;
+	display: flex;
+	font-size: 0.8rem;
+	gap: 0.5rem;
 	position: absolute;
 	bottom: 1rem;
 	color: orange;
 	display: flex;
 	opacity: 0.75;
-}
-
-.error-text > * {
-	font-size: 0.8rem;
-}
-
-.error-text div {
-	align-items: center;
-	display: flex;
-	gap: 0.5rem;
-}
-
-.error-text-1 {
-	animation: shake 0.35s;
-	animation-iteration-count: 1;
-}
-.error-text-3 {
-	color: lightgreen;
 }
 
 .input-row {
@@ -87,7 +50,8 @@ form > div:last-child {
 	justify-content: space-between;
 }
 
-.secondary-input .select {
+.secondary-input .select,
+#duration-container .select {
 	color: #c3c3c4 !important;
 	font-size: 0.9rem !important;
 }
@@ -119,6 +83,29 @@ form > div:last-child {
 
 .selected {
 	background-color: #4c5667 !important;
+}
+
+#form {
+	background-color: rgb(54, 55, 58);
+	border-radius: 0.5rem;
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+	display: flex;
+	flex-direction: column;
+	padding: 0.5rem 1rem 3rem;
+	position: relative;
+	width: 100%;
+}
+
+#form svg[data-testid="ArrowDropDownIcon"] {
+	transition: transform 0.35s;
+}
+
+#form > div:first-child {
+	margin-bottom: 0.5rem;
+}
+
+#form > div:last-child {
+	text-align: center;
 }
 
 #primary-input {
@@ -165,10 +152,10 @@ form > div:last-child {
 }
 
 #search-info {
+	align-items: center;
 	font-size: 0.9rem;
 	gap: 0.5rem;
 	justify-content: flex-start;
-	padding: 6px 0;
 }
 
 #search-info span {
@@ -176,7 +163,7 @@ form > div:last-child {
 }
 
 @media all and (max-width: 480px) {
-	#error-text {
+	.error-text {
 		justify-content: center;
 		left: 0;
 		width: 100%;

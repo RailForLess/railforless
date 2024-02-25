@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-export default function FareClassSelect({ value, setValue, searching }) {
+export default function FareClassSelect({
+	value,
+	setValue,
+	values,
+	searching,
+}) {
 	const [selected, setSelected] = useState(false);
+
+	useEffect(() => {
+		if (!values.includes(value)) {
+			setValue("Any class");
+		}
+	}, [values]);
 
 	return (
 		<Select
@@ -15,18 +26,11 @@ export default function FareClassSelect({ value, setValue, searching }) {
 			value={value}
 			variant={!searching ? "standard" : "outlined"}
 		>
-			<MenuItem key="coach" value="coach">
-				Coach
-			</MenuItem>
-			<MenuItem key="business" value="business">
-				Business
-			</MenuItem>
-			<MenuItem key="first" value="first">
-				First
-			</MenuItem>
-			<MenuItem key="sleeper" value="sleeper">
-				Sleeper
-			</MenuItem>
+			{values.map((fareClass) => (
+				<MenuItem key={fareClass} value={fareClass}>
+					{fareClass.replace(/-/g, " ")}
+				</MenuItem>
+			))}
 		</Select>
 	);
 }

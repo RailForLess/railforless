@@ -1,0 +1,77 @@
+[class*="MuiResponsiveChart-container"] {
+	height: 10rem !important;
+}
+
+.MuiTablePagination-root {
+	display: flex;
+	justify-content: center;
+}
+
+#fares-container {
+	height: 100%;
+	padding: 0 1rem 2rem 1rem;
+	width: 100%;
+}
+
+#fares-container > div:last-child {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+#fares-filters {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+#fares-filters > div:first-child {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+#fares-filters > div:last-child {
+	color: #9aa0a6;
+}
+
+#no-options-container {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex: 1;
+}
+
+#no-options-container div {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+#no-options-container svg {
+	font-size: 5rem;
+}
+
+#skeleton-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+
+#skeleton-container > span {
+	border-radius: 0.5rem;
+	height: 3rem;
+}
+
+@media all and (max-width: 480px) {
+	.MuiTablePagination-actions,
+	.MuiTablePagination-input {
+		margin: 0 !important;
+	}
+
+	#fares-filters {
+		justify-content: center;
+	}
+}

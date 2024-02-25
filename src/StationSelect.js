@@ -1,4 +1,3 @@
-import BedIcon from "@mui/icons-material/Bed";
 import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import ErrorIcon from "@mui/icons-material/Error";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
@@ -16,7 +15,6 @@ export default function StationSelect({
 	setUpdateMap,
 	stations,
 	nearbyCitiesBool,
-	sleeperRoutes,
 	stationFormat,
 }) {
 	const filterStations = (options, state) => {
@@ -63,17 +61,10 @@ export default function StationSelect({
 	const getStationIcon = (option, station) =>
 		option.id === station.id ? (
 			<ErrorIcon fontSize="small" />
-		) : option.routes
-				.concat(station.routes)
-				.some((route) => sleeperRoutes.includes(route)) &&
-		  !option.routes.some((route) => station.routes.includes(route)) ? (
-			<RailwayAlertIcon fontSize="small" />
-		) : option.routes
-				.filter((route) => station.routes.includes(route))
-				.some((route) => sleeperRoutes.includes(route)) ? (
-			<BedIcon fontSize="small" />
-		) : (
+		) : option.routes.some((route) => station.routes.includes(route)) ? (
 			<DirectionsRailwayIcon fontSize="small" />
+		) : (
+			<RailwayAlertIcon fontSize="small" />
 		);
 
 	const getStationLabels = (station) =>

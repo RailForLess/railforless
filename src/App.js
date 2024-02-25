@@ -33,7 +33,7 @@ export default function App() {
 		<ThemeProvider theme={darkTheme}>
 			<CssBaseline />
 			<LocalizationProvider dateAdapter={AdapterDayjs}>
-				<div className="fade-in" style={{ height: "100%" }}>
+				<div className="fade-in">
 					{!updateBarClose && (
 						<UpdateBar setUpdateBarClose={setUpdateBarClose} />
 					)}

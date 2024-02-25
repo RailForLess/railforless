@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import { useEffect, useState } from "react";
 import "./DateRangeSelect.css";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Button from "@mui/material/Button";
@@ -10,14 +11,22 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+dayjs.extend(utc);
 
 export default function DateRangeSelect({
+	tripType,
 	tab,
 	setTab,
+	anyDuration,
+	setAnyDuration,
 	weeks,
 	setWeeks,
+	weeksSelected,
+	setWeeksSelected,
 	days,
 	setDays,
+	daysSelected,
+	setDaysSelected,
 	weekdays,
 	setWeekdays,
 	weekends,
@@ -30,7 +39,8 @@ export default function DateRangeSelect({
 	setDateRangeEnd,
 	maxDateRangeEnd,
 	setMaxDateRangeEnd,
-	tripType,
+	searching,
+	fares,
 }) {
 	const [anchor, setAnchor] = useState(null);
 	const [width, setWidth] = useState(0);
@@ -41,16 +51,32 @@ export default function DateRangeSelect({
 		setTabEdit(i);
 	}
 
+	useEffect(() => {
+		setDateRangeStartSearch(dateRangeStartEdit);
+		setDateRangeEndSearch(dateRangeEndEdit);
+		if (fares.length > 0) {
+			setMonthEdit(dateRangeStart.get("M"));
+			setMonth(dateRangeStart.get("M"));
+		}
+	}, []);
+
+	const [anyDurationEdit, setAnyDurationEdit] = useState(anyDuration);
 	const [weeksEdit, setWeeksEdit] = useState(weeks);
-	const [weeksSelected, setWeeksSelected] = useState(true);
 	const [weeksSelectedEdit, setWeeksSelectedEdit] = useState(weeksSelected);
 	const [daysEdit, setDaysEdit] = useState(days);
-	const [daysSelected, setDaysSelected] = useState(false);
 	const [daysSelectedEdit, setDaysSelectedEdit] = useState(daysSelected);
 	const [weekdaysEdit, setWeekdaysEdit] = useState(weekdays);
 	const [weekendsEdit, setWeekendsEdit] = useState(weekends);
 
+	const [dateRangeStartSearch, setDateRangeStartSearch] = useState(
+		dayjs.utc().startOf("d").add(1, "d")
+	);
+	const [dateRangeEndSearch, setDateRangeEndSearch] = useState(
+		dayjs.utc().startOf("d").endOf("M")
+	);
+
 	function clearDuration() {
+		setAnyDurationEdit(false);
 		setWeeksSelectedEdit(false);
 		setDaysSelectedEdit(false);
 		setWeekdaysEdit(false);
@@ -75,12 +101,14 @@ export default function DateRangeSelect({
 	];
 
 	function getMonths() {
-		const maxMonth = dayjs()
-			.startOf("d")
-			.add(11, "M")
-			.subtract(2, "d")
-			.get("M");
-		let curMonth = dayjs().startOf("d").subtract(1, "M").get("M");
+		const maxMonth =
+			!searching && fares.length === 0
+				? dayjs.utc().startOf("d").add(11, "M").subtract(2, "d").get("M")
+				: dateRangeEndSearch.get("M");
+		let curMonth =
+			!searching && fares.length === 0
+				? dayjs.utc().startOf("d").add(1, "d").subtract(1, "M").get("M")
+				: dateRangeStartSearch.subtract(1, "M").get("M");
 		const months = [];
 		do {
 			curMonth++;
@@ -88,9 +116,9 @@ export default function DateRangeSelect({
 			months.push({
 				name: monthNames[curMonth],
 				year:
-					curMonth < dayjs().startOf("d").get("M")
-						? dayjs().startOf("d").get("y") + 1
-						: dayjs().startOf("d").get("y"),
+					curMonth < dayjs.utc().startOf("d").add(1, "d").get("M")
+						? dayjs.utc().startOf("d").add(1, "d").get("y") + 1
+						: dayjs.utc().startOf("d").add(1, "d").get("y"),
 				value: curMonth,
 			});
 		} while (curMonth % 12 !== maxMonth);
@@ -100,21 +128,41 @@ export default function DateRangeSelect({
 	const [dateRangeStartEdit, setDateRangeStartEdit] = useState(dateRangeStart);
 	const [dateRangeEndEdit, setDateRangeEndEdit] = useState(dateRangeEnd);
 
-	useEffect(() => {
-		const year = dayjs().startOf("d").get("y");
-		const monthDate = dayjs()
-			.set("M", monthEdit)
-			.set("y", monthEdit < dayjs().startOf("d").get("M") ? year + 1 : year)
+	function handleMonthEdit(newMonthEdit) {
+		setMonthEdit(newMonthEdit);
+		const year = dayjs.utc().startOf("d").add(1, "d").get("y");
+		const monthDate = dayjs
+			.utc()
+			.set("M", newMonthEdit)
+			.set(
+				"y",
+				newMonthEdit < dayjs.utc().startOf("d").add(1, "d").get("M")
+					? year + 1
+					: year
+			)
 			.startOf("M");
 		handleDateRangeStartEdit(
-			dayjs().startOf("d").diff(monthDate) > 0
-				? dayjs().startOf("d")
-				: monthDate
+			(!searching && fares.length === 0
+				? dayjs.utc().startOf("d").add(1, "d")
+				: dateRangeStartSearch
+			).diff(monthDate) > 0
+				? dayjs.utc().startOf("d").add(1, "d")
+				: !searching && fares.length === 0
+				? monthDate
+				: dateRangeStartSearch
 		);
 		const endMonth = monthDate.endOf("M");
-		const maxDate = dayjs().startOf("d").add(11, "M").subtract(2, "d");
-		setDateRangeEndEdit(endMonth.diff(maxDate) > 0 ? maxDate : endMonth);
-	}, [monthEdit]);
+		const maxDate = dayjs.utc().startOf("d").add(11, "M").subtract(2, "d");
+		setDateRangeEndEdit(
+			endMonth.diff(
+				!searching && fares.length === 0 ? maxDate : dateRangeEndSearch
+			) > 0
+				? !searching && fares.length === 0
+					? maxDate
+					: dateRangeEndSearch
+				: endMonth
+		);
+	}
 
 	useEffect(() => {
 		const maxDays = dateRangeEndEdit.diff(dateRangeStartEdit, "d") + 1;
@@ -134,6 +182,10 @@ export default function DateRangeSelect({
 		} else if (!containsDay(false) && weekendsEdit) {
 			setWeekendsEdit(false);
 			setWeekdaysEdit(true);
+		}
+		if (!searching && fares.length === 0) {
+			setDateRangeStartSearch(dateRangeStartEdit);
+			setDateRangeEndSearch(dateRangeEndEdit);
 		}
 	}, [dateRangeStartEdit, dateRangeEndEdit]);
 
@@ -159,11 +211,17 @@ export default function DateRangeSelect({
 
 	function handleDateRangeStartEdit(newDateRangeStartEdit) {
 		let newDateRangeEndEdit = dateRangeEndEdit;
-		const maxDate = dayjs().startOf("d").add(11, "M").subtract(2, "d");
+		const maxDate = dayjs.utc().startOf("d").add(11, "M").subtract(2, "d");
 		setDateRangeStartEdit(newDateRangeStartEdit);
 		if (newDateRangeStartEdit.isBefore(dateRangeStartEdit)) {
-			if (dateRangeEndEdit.diff(newDateRangeStartEdit, "d") > 30) {
-				newDateRangeEndEdit = newDateRangeStartEdit.add(30, "d");
+			if (
+				dateRangeEndEdit.diff(newDateRangeStartEdit, "d") >
+				(tripType === "round-trip" ? 44 : 89)
+			) {
+				newDateRangeEndEdit = newDateRangeStartEdit.add(
+					tripType === "round-trip" ? 44 : 89,
+					"d"
+				);
 			}
 		} else if (newDateRangeStartEdit.isAfter(dateRangeEndEdit)) {
 			newDateRangeEndEdit = newDateRangeStartEdit.add(
@@ -175,7 +233,10 @@ export default function DateRangeSelect({
 			}
 		}
 		setDateRangeEndEdit(newDateRangeEndEdit);
-		const newMaxDateRangeEndEdit = newDateRangeStartEdit.add(30, "d");
+		const newMaxDateRangeEndEdit = newDateRangeStartEdit.add(
+			tripType === "round-trip" ? 44 : 89,
+			"d"
+		);
 		setMaxDateRangeEndEdit(
 			newMaxDateRangeEndEdit.isAfter(maxDate) ? maxDate : newMaxDateRangeEndEdit
 		);
@@ -196,9 +257,9 @@ export default function DateRangeSelect({
 	function getDateRangeString() {
 		return `${
 			tripType === "round-trip" && weeksSelected
-				? `${weeks} week${weeks > 1 ? "s" : ""} in `
+				? `${weeks} week${weeks > 1 ? "s" : ""} trip in `
 				: tripType === "round-trip" && daysSelected
-				? `${days} day${days > 1 ? "s" : ""} in `
+				? `${days} day trip in `
 				: weekdays
 				? "Weekdays in "
 				: weekends
@@ -207,9 +268,7 @@ export default function DateRangeSelect({
 		}${
 			tab
 				? monthNames[month]
-				: `${dateRangeStart.get("M") + 1}/${dateRangeStart.get("D")}-${
-						dateRangeEnd.get("M") + 1
-				  }/${dateRangeEnd.get("D")}`
+				: `${dateRangeStart.format("M/D")}-${dateRangeEnd.format("M/D")}`
 		}`;
 	}
 
@@ -255,6 +314,14 @@ export default function DateRangeSelect({
 
 	useEffect(updateCalendar, [tabEdit, dateRangeStartEdit, dateRangeEndEdit]);
 
+	useEffect(() => {
+		setMaxDateRangeEndEdit(maxDateRangeEnd);
+	}, [maxDateRangeEnd]);
+
+	useEffect(() => {
+		setDateRangeEndEdit(dateRangeEnd);
+	}, [dateRangeEnd]);
+
 	return (
 		<div id="date-range-container">
 			<div onClick={(e) => handleDateRangeOpen(e)}>
@@ -299,6 +366,18 @@ export default function DateRangeSelect({
 						<Tab disableRipple label="Flexible dates" />
 					</Tabs>
 					<div id="duration-container">
+						<Button
+							className={`select ${!anyDurationEdit ? "not-" : ""}selected`}
+							disableRipple
+							onClick={() => {
+								if (!anyDurationEdit) {
+									clearDuration();
+									setAnyDurationEdit(!anyDurationEdit);
+								}
+							}}
+						>
+							Any duration
+						</Button>
 						{tripType === "round-trip" &&
 							dateRangeEndEdit.diff(dateRangeStartEdit, "d") + 1 >= 7 && (
 								<Select
@@ -388,8 +467,16 @@ export default function DateRangeSelect({
 					{tabEdit === 0 && (
 						<div id="date-range-popover-row">
 							<StaticDatePicker
-								disablePast
-								maxDate={dayjs().startOf("d").add(11, "M").subtract(2, "d")}
+								maxDate={
+									!searching && fares.length === 0
+										? dayjs.utc().startOf("d").add(11, "M").subtract(2, "d")
+										: dateRangeEndSearch
+								}
+								minDate={
+									!searching && fares.length === 0
+										? dayjs.utc().startOf("d").add(1, "d")
+										: dateRangeStartSearch
+								}
 								onChange={(newDateRangeStart) =>
 									handleDateRangeStartEdit(newDateRangeStart)
 								}
@@ -399,7 +486,11 @@ export default function DateRangeSelect({
 							></StaticDatePicker>
 							<StaticDatePicker
 								disablePast
-								maxDate={maxDateRangeEndEdit}
+								maxDate={
+									!searching && fares.length === 0
+										? maxDateRangeEndEdit
+										: dateRangeEndSearch
+								}
 								minDate={dateRangeStartEdit}
 								onChange={(newDateRangeEnd) =>
 									setDateRangeEndEdit(newDateRangeEnd)
@@ -420,7 +511,7 @@ export default function DateRangeSelect({
 										maxHeight: "20rem",
 									},
 								}}
-								onChange={(e) => setMonthEdit(e.target.value)}
+								onChange={(e) => handleMonthEdit(e.target.value)}
 								value={monthEdit}
 								variant="standard"
 							>
@@ -438,6 +529,7 @@ export default function DateRangeSelect({
 							onClick={() => {
 								setAnchor(null);
 								setTabEdit(tab);
+								setAnyDurationEdit(anyDuration);
 								setWeeksEdit(weeks);
 								setWeeksSelectedEdit(weeksSelected);
 								setDaysEdit(days);
@@ -457,6 +549,7 @@ export default function DateRangeSelect({
 							disableRipple
 							onClick={() => {
 								setTab(tabEdit);
+								setAnyDuration(anyDurationEdit);
 								setWeeks(weeksEdit);
 								setWeeksSelected(weeksSelectedEdit);
 								setDays(daysEdit);

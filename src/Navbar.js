@@ -5,7 +5,9 @@ export default function Navbar() {
 	return (
 		<header>
 			<nav>
-				<a href="/about">About</a>
+				<a href={`/${!document.URL.includes("about") ? "about" : ""}`}>
+					{!document.URL.includes("about") ? "About" : "Home"}
+				</a>
 				<a
 					href="https://www.buymeacoffee.com/seaneddy"
 					rel="noopener noreferrer"

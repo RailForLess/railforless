@@ -1,0 +1,59 @@
+#acela {
+	animation: acela 3s ease-in 1s infinite;
+	bottom: 0;
+	left: -100%;
+	position: absolute;
+	width: 100%;
+}
+
+#progress-bar {
+	margin-top: 1rem;
+	width: 100%;
+}
+
+#progress-container {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
+
+#progress-container > div {
+	align-items: center;
+	display: flex;
+	height: calc(100% - (0.0247664699 * 100vw));
+	justify-content: center;
+}
+
+#progress-container > div > div {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	min-width: 20rem;
+}
+
+#progress-container span div > * {
+	width: min-content;
+}
+
+#progress-container svg {
+	font-size: 5rem;
+}
+
+#progress-text {
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+@keyframes acela {
+	0% {
+		left: -100%;
+	}
+	33% {
+		left: -100%;
+	}
+	100% {
+		left: 100%;
+	}
+}

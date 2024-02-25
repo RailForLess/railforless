@@ -5,6 +5,22 @@
 	padding: 0;
 }
 
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: gray;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent !important;
+}
+
+a {
+	color: white;
+}
+
 .fade-in {
 	animation: fade-in 1s;
 }
@@ -14,8 +30,16 @@
 }
 
 #root {
-	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	overflow: hidden;
+}
+
+#root > div {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 }
 
 @font-face {
@@ -34,8 +58,8 @@
 	}
 }
 
-@media all and (max-width: 800px) {
+@media all and (max-width: 480px) {
 	#root {
-		height: 120vh;
+		min-height: 120vh;
 	}
 }

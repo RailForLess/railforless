@@ -12,7 +12,6 @@ export default function Settings({
 	setBedrooms,
 	familyRooms,
 	setFamilyRooms,
-	sleeper,
 	geolocateBool,
 	setGeolocateBool,
 	geolocate,
@@ -74,7 +73,6 @@ export default function Settings({
 						<span>Bedrooms</span>
 						<Switch
 							checked={bedrooms}
-							disabled={!sleeper}
 							onChange={() => setBedrooms(!bedrooms)}
 						/>
 					</div>
@@ -82,7 +80,6 @@ export default function Settings({
 						<span>Family Rooms</span>
 						<Switch
 							checked={familyRooms}
-							disabled={!sleeper}
 							onChange={() => setFamilyRooms(!familyRooms)}
 						/>
 					</div>

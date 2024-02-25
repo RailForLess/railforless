@@ -284,14 +284,12 @@ export default function Map({
 							originElement.attr("routes")
 						).filter((route) => station.routes.includes(route));
 						if (mutualRoutes.length === 1) {
-							console.log(mutualRoutes[0]);
 							setRoute(mutualRoutes[0]);
 							const prevRoute = d3.select(".route[route='true']");
 							if (!prevRoute.empty()) {
 								prevRoute.attr("route", "false");
 								routeMouseout({ id: prevRoute.attr("id") });
 							}
-							console.log(getRouteID(mutualRoutes[0]));
 							d3.select(`#${getRouteID(mutualRoutes[0])}`)
 								.attr("selected", "true")
 								.attr("route", "true");
@@ -472,7 +470,7 @@ export default function Map({
 		<div id="map-container">
 			<svg id="map-svg"></svg>
 			{route && route !== "Any-route" && (
-				<div id="route-box">{route.replace(/-/g, " ").replace(/_/g, "/")}</div>
+				<div id="route-box">{route.replace("-", " ").replace("_", "/")}</div>
 			)}
 			<ZoomOutMapIcon id="zoom-out-button" onClick={reset} />
 		</div>

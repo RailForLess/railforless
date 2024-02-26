@@ -1,3 +1,4 @@
+import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
@@ -5,9 +6,9 @@ export default function Navbar() {
 	return (
 		<header>
 			<nav>
-				<a href={`/${!document.URL.includes("about") ? "about" : ""}`}>
-					{!document.URL.includes("about") ? "About" : "Home"}
-				</a>
+				<Link to={useLocation().pathname === "/" ? "/about" : "/"}>
+					{useLocation().pathname === "/" ? "About" : "Home"}
+				</Link>
 				<a
 					href="https://www.buymeacoffee.com/seaneddy"
 					rel="noopener noreferrer"

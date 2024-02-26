@@ -47,7 +47,7 @@ export default function Progress({
 				<div>
 					{!searchError ? (
 						<AnimatedNumbers
-							animateToNumber={progressPercent.toFixed(2) * 100}
+							animateToNumber={Math.round(progressPercent * 100)}
 							fontStyle={{ fontSize: "7rem" }}
 							transitions={() => ({
 								type: "spring",
@@ -64,7 +64,7 @@ export default function Progress({
 							variant={
 								progressText.includes("...") ? "indeterminate" : "determinate"
 							}
-							value={progressPercent.toFixed(2) * 100}
+							value={Math.round(progressPercent * 100)}
 						/>
 					)}
 				</div>

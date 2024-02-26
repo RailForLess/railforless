@@ -218,6 +218,7 @@ export default function Fares({
 					.map((legAccommodation) => ({
 						...legAccommodation,
 						fare: getFare(legAccommodation, leg.route),
+						unitFare: legAccommodation.fare.total,
 					}));
 				if (leg.legAccommodations.length > 0) {
 					leg.legAccommodation = leg.legAccommodations.reduce((a, b) =>

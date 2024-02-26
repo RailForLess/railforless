@@ -382,31 +382,11 @@ export default function Form({
 			setProgressPercent(0);
 			setProgressText("Getting things ready...");
 			const channel = client.channels.get(channelName);
-			console.log("Found channel: " + channel.name);
 			channel.subscribe((message) => {
-				console.log(message);
 				if (message.name === "status" || message.name === "warning") {
-					if (message.data.message === "Initialized Browser") {
-						setProgressText("Entering request to Amtrak");
-						setProgressPercent(bedrooms || familyRooms ? 0.1 : 0.2);
-					} else if (message.data.message === "Submitted form") {
-						setProgressText("Request submitted to Amtrak");
-						setProgressPercent(bedrooms || familyRooms ? 0.2 : 0.4);
-					} else if (message.name === "warning") {
-						setProgressText("Retrying request");
-						setProgressPercent(0);
-					} else if (message.data.message === "Scraper finished") {
-						setProgressText("Received response from Amtrak");
-						setProgressPercent(bedrooms || familyRooms ? 0.3 : 0.6);
-					} else if (message.data.message.includes("API")) {
-						setProgressText("Contacting Amtrak API");
-						setProgressPercent(bedrooms || familyRooms ? 0.4 : 0.8);
-					} else if (message.data.message.includes("Tasks completed")) {
-						setProgressText(
-							`Fetching accommodations ${message.data.message.slice(17)}`
-						);
-						setProgressPercent(0.5);
-					}
+					console.log(message.data);
+					setProgressText(message.data.message);
+					setProgressPercent(message.data.percentComplete);
 				} else if (message.name === "result") {
 					resultBytes = new Uint8Array([
 						...resultBytes,

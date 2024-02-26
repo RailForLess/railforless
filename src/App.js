@@ -1,6 +1,5 @@
 import { useState } from "react";
 import UpdateBar from "./UpdateBar";
-import Navbar from "./Navbar";
 import AppRouter from "./AppRouter";
 import Footer from "./Footer";
 import "./App.css";
@@ -37,7 +36,6 @@ export default function App() {
 					{!updateBarClose && (
 						<UpdateBar setUpdateBarClose={setUpdateBarClose} />
 					)}
-					<Navbar />
 					<AppRouter updateBarClose={updateBarClose} />
 					<Footer />
 				</div>

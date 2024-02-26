@@ -282,7 +282,9 @@ export default function Option({
 																? "indianred"
 																: "#9aa0a6",
 													}}
-												>{`${leg.legAccommodation.availableInventory} left`}</span>
+												>{`${
+													leg.legAccommodation.availableInventory
+												} left at $${leg.legAccommodation.unitFare.toLocaleString()}`}</span>
 												{leg.legAccommodation.fareFamily !== "NA" && (
 													<span>{`(${getFareFamily(
 														leg.legAccommodation.fareFamily

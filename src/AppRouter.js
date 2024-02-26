@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
 import Home from "./Home";
+import Navbar from "./Navbar";
 import "./AppRouter.css";
 
 export default function AppRouter({ updateBarClose }) {
@@ -11,6 +12,7 @@ export default function AppRouter({ updateBarClose }) {
 	return (
 		<main>
 			<BrowserRouter>
+				<Navbar />
 				<Routes>
 					<Route
 						path="/"

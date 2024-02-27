@@ -1,5 +1,4 @@
 import "./About.css";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function About() {
 	return (
@@ -73,7 +72,7 @@ export default function About() {
 				<div id="meet-the-devs-container">
 					<div>
 						<figure>
-							<img alt="Photo of Sean Eddy" src="/images/sean-headshot.jpg" />
+							<img alt="Sean Eddy" src="/images/sean-headshot.jpg" />
 							<figcaption>Sean Eddy</figcaption>
 							<figcaption>UI/UX Designer</figcaption>
 						</figure>
@@ -82,7 +81,7 @@ export default function About() {
 							Science. He enjoys exploring the Sonoran Desert on his bike,
 							trying Tucson's Mexican restaurants, and designing Lego models.
 							Learn more about him and his projects at{" "}
-							<a href="https://seaneddy.com" target="_blank">
+							<a href="https://seaneddy.com" rel="noreferrer" target="_blank">
 								seaneddy.com
 							</a>
 							.
@@ -90,10 +89,7 @@ export default function About() {
 					</div>
 					<div>
 						<figure>
-							<img
-								alt="Photo of Riley Nielsen"
-								src="/images/riley-headshot.jpg"
-							/>
+							<img alt="Riley Nielsen" src="/images/riley-headshot.jpg" />
 							<figcaption>Riley Nielsen</figcaption>
 							<figcaption>Backend Engineer</figcaption>
 						</figure>

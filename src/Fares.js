@@ -475,6 +475,7 @@ export default function Fares({
 		>
 			{chartXData.length > 1 && (
 				<LineChart
+					height={160}
 					series={[
 						{
 							area: true,

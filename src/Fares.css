@@ -1,7 +1,3 @@
-[class*="MuiResponsiveChart-container"] {
-	height: 10rem !important;
-}
-
 .MuiTablePagination-root {
 	display: flex;
 	justify-content: center;

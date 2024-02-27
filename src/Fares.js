@@ -331,6 +331,7 @@ export default function Fares({
 		for (let i = 0; i < options.length; i++) {
 			let curDate = options[i].departureDateTime;
 			let curFare = options[i].fare;
+			console.log(`curDate: ${curDate}`);
 			if (curDate.format("M/D") !== prevDate.format("M/D")) {
 				if (
 					curDate.diff(prevDate, "d") > 1 &&
@@ -360,6 +361,8 @@ export default function Fares({
 		}
 		newChartX.push(prevDate.toDate());
 		newChartY.push(minFare);
+		console.log(`newChartX: ${newChartX}`, newChartX.length);
+		console.log(`newChartY: ${newChartY}`, newChartY.length);
 		setChartXData(newChartX);
 		setChartYData(newChartY);
 	}

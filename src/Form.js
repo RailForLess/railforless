@@ -390,7 +390,6 @@ export default function Form({
 			const channel = client.channels.get(channelName);
 			channel.subscribe((message) => {
 				if (message.name === "status" || message.name === "warning") {
-					console.log(message.data);
 					setProgressText(message.data.message);
 					setProgressPercent(message.data.percentComplete);
 				} else if (message.name === "result") {

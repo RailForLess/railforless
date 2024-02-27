@@ -134,44 +134,30 @@ export default function Option({
 			sx={{ marginTop: option.marginTop && sort === "price" ? "1rem" : "" }}
 		>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-				{!expanded ? (
-					<div className="option-summary">
-						<span>{getRouteSummary(option)}</span>
-						<div className="vertical-bar"></div>
-						<span>{`${option.departureDateTime.format(
-							"M/D"
-						)}-${option.arrivalDateTime.format("M/D")}`}</span>
-						<div className="vertical-bar"></div>
-						<span>{getDuration(option.elapsedSeconds)}</span>
-						<div className="vertical-bar"></div>
+				<div className="option-summary">
+					<span>{getRouteSummary(option)}</span>
+					<div className="vertical-bar"></div>
+					<span>{`${option.departureDateTime.format(
+						"M/D"
+					)}-${option.arrivalDateTime.format("M/D")}`}</span>
+					<div className="vertical-bar"></div>
+					<span>{getDuration(option.elapsedSeconds)}</span>
+					<div className="vertical-bar"></div>
+					{!expanded ? (
 						<span>{getClassSummary(option)}</span>
-						<div className="vertical-bar"></div>
-						<span
-							style={{ color: option.minPrice ? "#81c995" : "white" }}
-						>{`$${option.fare.toLocaleString()}`}</span>
-					</div>
-				) : (
-					<div className="option-summary">
-						<span>{getRouteSummary(option)}</span>
-						<div className="vertical-bar"></div>
-						<span>{`${option.departureDateTime.format(
-							"M/D"
-						)}-${option.arrivalDateTime.format("M/D")}`}</span>
-						<div className="vertical-bar"></div>
-						{getDuration(option.elapsedSeconds)}
-						<div className="vertical-bar"></div>
+					) : (
 						<AmtrakForm
 							i={i}
 							option={option}
 							travelerTypes={travelerTypes}
 							tripType={tripType}
 						/>
-						<div className="vertical-bar"></div>
-						<span
-							style={{ color: option.minPrice ? "#81c995" : "white" }}
-						>{`$${option.fare.toLocaleString()}`}</span>
-					</div>
-				)}
+					)}
+					<div className="vertical-bar"></div>
+					<span
+						style={{ color: option.minPrice ? "#81c995" : "white" }}
+					>{`$${option.fare.toLocaleString()}`}</span>
+				</div>
 			</AccordionSummary>
 			<AccordionDetails>
 				{option.travelLegs.map((trip, j) => (
@@ -294,8 +280,8 @@ export default function Option({
 										</div>
 									</div>
 									<div className="leg-amenities-container">
-										{leg.amenities.sort().map((amenity) => (
-											<div>
+										{leg.amenities.sort().map((amenity, i) => (
+											<div key={`amenity-${i}`}>
 												{getAmenityIcon(amenity)}
 												<span>{amenity}</span>
 											</div>

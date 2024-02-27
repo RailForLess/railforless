@@ -531,12 +531,14 @@ export default function Fares({
 							page={page}
 						/>
 					)}
-					<div>{`${sortedOptions.length.toLocaleString()} options`}</div>
+					<div>{`${sortedOptions.length.toLocaleString()} option${
+						sortedOptions.length > 1 ? "s" : ""
+					}`}</div>
 				</div>
 				{loading ? (
 					<div id="skeleton-container">
-						{[...Array(rowsPerPage).keys()].map(() => (
-							<Skeleton variant="rectangular" />
+						{[...Array(rowsPerPage).keys()].map((i) => (
+							<Skeleton key={`skeleton-${i}`} variant="rectangular" />
 						))}
 					</div>
 				) : (

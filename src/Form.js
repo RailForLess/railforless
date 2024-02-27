@@ -278,7 +278,9 @@ export default function Form({
 			setSearching(false);
 			setSearchError(false);
 		} else if (searching) {
-			clientState.close();
+			if (clientState) {
+				clientState.close();
+			}
 			setSearching(false);
 			setTimeout(() => {
 				setUpdateMap(!updateMap);
@@ -334,7 +336,7 @@ export default function Form({
 		});
 	}
 
-	const [clientState, setClientState] = useState();
+	const [clientState, setClientState] = useState(null);
 
 	async function search() {
 		setProgressPercent(0);
@@ -361,11 +363,15 @@ export default function Form({
 			{ headers: { "captcha-token": await getCaptchaToken() } }
 		);
 
-		const tokenRequest = await response.json();
-
 		if (response.status !== 200) {
+			setProgressText(
+				`API connection failed with HTTP status ${response.status}`
+			);
+			setSearchError(true);
 			return;
 		}
+
+		const tokenRequest = await response.json();
 
 		const channelName = tokenRequest.channel;
 

@@ -95,7 +95,7 @@ export default function Option({
 					for (const station of [travelLeg.origin, travelLeg.destination]) {
 						if (!newAvgDelays[`${travelLeg.trainId}${station.code}`]) {
 							let res = await fetch(
-								`https://juckins.net/amtrak_status/archive/html/api.php?num=${
+								`https://juckins.net/amtrak_status/archive/html/api/api.php?num=${
 									travelLeg.trainId
 								}&station=${station.code}&date_start=${dayjs()
 									.subtract(30, "d")

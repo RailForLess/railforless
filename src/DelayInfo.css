@@ -1,3 +1,10 @@
+.delay-icon-container {
+	animation: 1s delay-info-fade-in;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
 .delay-info-container {
 	padding: 0.75rem;
 }
@@ -5,4 +12,13 @@
 .delay-info-container div:last-child {
 	color: #9aa0a6;
 	font-size: 0.75em;
+}
+
+@keyframes delay-info-fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

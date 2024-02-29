@@ -118,19 +118,20 @@ export default function Fares({
 						travelLeg,
 					] of accommodation.legAccommodations.entries()) {
 						for (const legAccommodation of travelLeg) {
-							if (
-								["Roomette", "Bedroom", "Family Room"].includes(
-									legAccommodation.name
-								)
-							) {
-								fareClasses.add(legAccommodation.name);
+							if (i > 0 || legAccommodation.fare.total !== 0) {
+								if (
+									["Roomette", "Bedroom", "Family Room"].includes(
+										legAccommodation.name
+									)
+								) {
+									fareClasses.add(legAccommodation.name);
+								}
+								option.travelLegs[i].legAccommodations.push({
+									class: accommodation.class,
+									fareFamily: accommodation.fareFamily,
+									...legAccommodation,
+								});
 							}
-							option.travelLegs[i].legAccommodations.push({
-								class: accommodation.class,
-								fareFamily: accommodation.fareFamily,
-								fare: accommodation.fare,
-								...legAccommodation,
-							});
 						}
 					}
 				}
@@ -145,7 +146,7 @@ export default function Fares({
 					);
 					travelLeg.destination = destinationStation ? destinationStation : CBN;
 					if (travelLeg.route !== "NA") {
-						routes.add(travelLeg.route.replace(" ", "-"));
+						routes.add(travelLeg.route.replace(" ", "-").replace("_", "/"));
 					}
 				}
 				option.origin = option.travelLegs[0].origin;

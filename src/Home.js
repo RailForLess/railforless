@@ -45,15 +45,17 @@ export default function Home({
 	const [daysSelected, setDaysSelected] = useState(false);
 	const [weekdays, setWeekdays] = useState(false);
 	const [weekends, setWeekends] = useState(false);
-	const [month, setMonth] = useState(dayjs.utc().startOf("d").get("M"));
+	const [month, setMonth] = useState(
+		dayjs.utc().startOf("d").add(1, "M").get("M")
+	);
 	const [dateRangeStart, setDateRangeStart] = useState(
-		dayjs.utc().startOf("d").add(1, "d")
+		dayjs.utc().startOf("d").add(1, "M").startOf("M")
 	);
 	const [dateRangeEnd, setDateRangeEnd] = useState(
-		dayjs.utc().startOf("d").endOf("M")
+		dayjs.utc().startOf("d").add(1, "M").endOf("M")
 	);
 	const [maxDateRangeEnd, setMaxDateRangeEnd] = useState(
-		dayjs.utc().startOf("d").add(44, "d")
+		dayjs.utc().startOf("d").add(1, "M").startOf("M").add(44, "d")
 	);
 
 	const [updateMap, setUpdateMap] = useState(false);

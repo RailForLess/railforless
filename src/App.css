@@ -18,7 +18,9 @@
 }
 
 a {
-	color: white;
+	all: unset;
+	cursor: pointer;
+	text-decoration: underline;
 }
 
 .fade-in {

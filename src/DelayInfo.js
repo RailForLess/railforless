@@ -16,7 +16,7 @@ export default function DelayInfo({ isDept, leg }) {
 			: "indianred";
 
 	return (
-		<div>
+		<div className="delay-icon-container">
 			<DepartureBoardIcon
 				onMouseEnter={(e) => setAnchor(e.currentTarget)}
 				onMouseLeave={() => setAnchor(null)}

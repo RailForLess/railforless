@@ -89,11 +89,10 @@ export default function Option({
 	async function handleExpand() {
 		setExpanded(!expanded);
 		if (!expanded) {
-			const newAvgDelays = structuredClone(avgDelays);
 			for (const trip of option.travelLegs) {
 				for (const travelLeg of trip.travelLegs) {
 					for (const station of [travelLeg.origin, travelLeg.destination]) {
-						if (!newAvgDelays[`${travelLeg.trainId}${station.code}`]) {
+						if (!avgDelays[`${travelLeg.trainId}${station.code}`]) {
 							let res = await fetch(
 								`https://juckins.net/amtrak_status/archive/html/api/api.php?num=${
 									travelLeg.trainId
@@ -118,14 +117,58 @@ export default function Option({
 										data.filter((date) => date.d_ar != null).length
 								),
 							};
-							newAvgDelays[`${travelLeg.trainId}${station.code}`] = data;
+							setAvgDelays((avgDelays) => ({
+								...avgDelays,
+								[`${travelLeg.trainId}${station.code}`]: data,
+							}));
 						}
 					}
 				}
 			}
-			setAvgDelays(newAvgDelays);
 		}
 	}
+
+	const routeLinks = {
+		Acela: "acela",
+		Adirondack: "adirondack",
+		"Auto Train": "auto",
+		"Blue Water": "michigan-services",
+		"California Zephyr": "california-zephyr",
+		"Capitol Limited": "capitol-limited",
+		Cardinal: "cardinal",
+		Cascades: "cascades",
+		"Lincoln Service": "lincoln-service-missouri-river-runner",
+		"Coast Starlight": "coast-starlight",
+		"Empire Builder": "empire-builder",
+		"Empire Service": "empire-service",
+		"Ethan Allen-Express": "ethan-allen-express",
+		"Heartland Flyer": "heartland-flyer",
+		Hiawatha: "hiawatha",
+		Saluki: "illinois-services",
+		"Illinois Zephyr": "illinois-services",
+		"Keystone Service": "keystone-service",
+		"Lake Shore Limited": "lake-shore-limited",
+		"Maple Leaf": "maple-leaf",
+		"Hartford Line": "amtrak-hartford-line",
+		"Pacific Surfliner": "pacific-surfliner",
+		Pennsylvanian: "pennsylvanian",
+		"Northeast Regional": "northeast-regional",
+		"San Joaquins": "san-joaquins",
+		"Silver Service/Palmetto": "silver-service-palmetto",
+		"Southwest Chief": "southwest-chief",
+		"Sunset Limited": "sunset-limited",
+		Downeaster: "downeaster",
+		"City of New Orleans": "city-of-new-orleans",
+		Crescent: "crescent",
+		"Missouri River Runner": "lincoln-service-missouri-river-runner",
+		"Texas Eagle": "texas-eagle",
+		"Pere Marquette": "michigan-services",
+		Wolverine: "michigan-services",
+		"Capitol Corridor": "capitol-corridor",
+		Vermonter: "vermonter",
+		Carolinian: "carolinian-piedmont",
+		Piedmont: "carolinian-piedmont",
+	};
 
 	return (
 		<Accordion
@@ -137,9 +180,11 @@ export default function Option({
 				<div className="option-summary">
 					<span>{getRouteSummary(option)}</span>
 					<div className="vertical-bar"></div>
-					<span>{`${option.departureDateTime.format(
-						"M/D"
-					)}-${option.arrivalDateTime.format("M/D")}`}</span>
+					<span>{`${option.departureDateTime.format("M/D")}${
+						tripType === "round-trip"
+							? `-${option.arrivalDateTime.format("M/D")}`
+							: ""
+					}`}</span>
 					<div className="vertical-bar"></div>
 					<span>{getDuration(option.elapsedSeconds)}</span>
 					<div className="vertical-bar"></div>
@@ -216,7 +261,18 @@ export default function Option({
 											<span>{`Travel time: ${getDuration(
 												leg.elapsedSeconds
 											)}`}</span>
-											<span>{`${leg.trainId} ${leg.route}`}</span>
+											<div style={{ color: "#9aa0a6" }}>
+												<span>{leg.trainId}</span>
+												<a
+													href={`https://www.amtrak.com/routes/${
+														routeLinks[leg.route]
+													}-train.html`}
+													rel="noreferrer"
+													target="_blank"
+												>
+													{leg.route}
+												</a>
+											</div>
 											<div>
 												{avgDelays[`${leg.trainId}${leg.destination.code}`] &&
 													!isNaN(
@@ -270,7 +326,10 @@ export default function Option({
 													}}
 												>{`${
 													leg.legAccommodation.availableInventory
-												} left at $${leg.legAccommodation.unitFare.toLocaleString()}`}</span>
+												} left at $${(k
+													? trip.travelLegs[0]
+													: leg
+												).legAccommodation.unitFare.toLocaleString()}`}</span>
 												{leg.legAccommodation.fareFamily !== "NA" && (
 													<span>{`(${getFareFamily(
 														leg.legAccommodation.fareFamily
@@ -292,7 +351,7 @@ export default function Option({
 									<div className="layover-container">
 										<hr></hr>
 										<div>
-											<div style={{ margin: "1rem 0" }}>
+											<div style={{ padding: "1rem 0" }}>
 												<span>{`${getDuration(
 													trip.travelLegs[k + 1].departureDateTime.diff(
 														leg.arrivalDateTime,

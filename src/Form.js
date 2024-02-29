@@ -385,8 +385,6 @@ export default function Form({
 		let resultBytes = new Uint8Array([]);
 
 		client.connection.on("connected", function () {
-			setProgressPercent(0);
-			setProgressText("Getting things ready...");
 			const channel = client.channels.get(channelName);
 			channel.subscribe((message) => {
 				if (message.name === "status" || message.name === "warning") {

@@ -27,7 +27,7 @@
 	flex-wrap: wrap;
 	gap: 2rem;
 	justify-content: space-between;
-	margin: 0.5rem;
+	padding: 1rem 0.5rem;
 }
 
 .leg-info-container {
@@ -49,9 +49,15 @@
 	justify-content: space-between;
 }
 
-.leg-info-container > div:last-child > div {
+.leg-info-container > div:last-child > div:first-child,
+.leg-info-container > div:last-child > div:last-child {
 	display: flex;
 	gap: 0.5rem;
+}
+
+.leg-info-container > div:last-child > div:nth-last-child(2) {
+	display: flex;
+	gap: 0.25rem;
 }
 
 .leg-info-container > div:last-child > span {
@@ -115,18 +121,19 @@
 	border-radius: 0.5rem;
 	display: flex;
 	justify-content: space-between;
-	margin: 0.5rem 0;
 	padding: 0.75rem;
 }
 
 .trip-container hr {
-	border-color: #9aa0a6 !important;
+	border: none;
+	background-color: #9aa0a6;
+	height: 0.05rem;
 }
 
 .MuiAccordionDetails-root {
 	display: flex;
 	flex-direction: column;
-	padding: 0 1rem 1rem 1rem !important;
+	padding: 0 1rem !important;
 }
 
 .MuiAccordionSummary-root {

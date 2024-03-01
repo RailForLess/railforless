@@ -23,7 +23,7 @@ export default function RouteSelect({ value, setValue, values }) {
 		>
 			{values.map((route) => (
 				<MenuItem key={route} value={route}>
-					{route.replace("-", " ").replace("_", "/")}
+					{route.replaceAll("-", " ").replace("_", "/")}
 				</MenuItem>
 			))}
 		</Select>

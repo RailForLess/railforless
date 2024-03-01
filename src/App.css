@@ -31,6 +31,10 @@ a {
 	visibility: hidden;
 }
 
+#bmc-wbtn {
+	z-index: 0 !important;
+}
+
 #root {
 	display: flex;
 	flex-direction: column;

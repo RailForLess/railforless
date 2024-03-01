@@ -29,6 +29,7 @@ export default function Fares({
 	dateRangeStart,
 	dateRangeEnd,
 	fares,
+	routeLinks,
 }) {
 	const numTravelers = Object.values(travelerTypes).reduce((a, b) => a + b, 0);
 
@@ -99,7 +100,6 @@ export default function Fares({
 
 		const newAllOptions = [];
 		const fareClasses = new Set(["Any class"]);
-		const routes = new Set();
 		for (const date of structuredClone(fares)) {
 			for (const option of date.options) {
 				for (const travelLeg of option.travelLegs) {
@@ -145,9 +145,6 @@ export default function Fares({
 						(station) => station.id === travelLeg.destination
 					);
 					travelLeg.destination = destinationStation ? destinationStation : CBN;
-					if (travelLeg.route !== "NA") {
-						routes.add(travelLeg.route.replace(" ", "-").replace("_", "/"));
-					}
 				}
 				option.origin = option.travelLegs[0].origin;
 				option.destination =
@@ -167,7 +164,6 @@ export default function Fares({
 				"Family Room",
 			].filter((fareClass) => fareClasses.has(fareClass))
 		);
-		setMutualRoutes(["Any-route"].concat(Array.from(routes).sort()));
 		setAllOptions(newAllOptions);
 		updateOptionsInDateRange(newAllOptions);
 	}
@@ -192,16 +188,24 @@ export default function Fares({
 
 	function updateAvailableOptionsInDateRange(options) {
 		const newAvailableOptionsInDateRange = [];
+		const isSleeper = ["Roomette", "Bedroom", "Family Room"].includes(
+			fareClass
+		);
+		const formattedRoute = route.replaceAll("-", " ").replace("_", "/");
 		for (const option of structuredClone(options)) {
+			if (
+				route !== "Any-route" &&
+				!option.travelLegs.some((leg) =>
+					(formattedRoute === "Silver-Service/Palmetto"
+						? ["Silver Service", "Palmetto"]
+						: [formattedRoute]
+					).includes(leg.route)
+				)
+			) {
+				continue;
+			}
 			let isValid = true;
 			for (const leg of option.travelLegs) {
-				if (
-					route !== "Any-route" &&
-					leg.route !== route.replace(/-/g, " ").replace(/_/g, "/")
-				) {
-					isValid = false;
-					break;
-				}
 				leg.legAccommodations = leg.legAccommodations
 					.map((legAccommodation) => ({
 						...legAccommodation,
@@ -212,9 +216,7 @@ export default function Fares({
 							legAccommodation.availableInventory >=
 								legAccommodation.neededInventory &&
 							(fareClass === "Any class" ||
-								(["Roomette", "Bedroom", "Family Room"].includes(fareClass)
-									? legAccommodation.name === fareClass
-									: legAccommodation.class === fareClass))
+								legAccommodation.class === (isSleeper ? "Sleeper" : fareClass))
 					)
 					.map((legAccommodation) => ({
 						...legAccommodation,
@@ -222,9 +224,17 @@ export default function Fares({
 						unitFare: legAccommodation.fare.total,
 					}));
 				if (leg.legAccommodations.length > 0) {
-					leg.legAccommodation = leg.legAccommodations.reduce((a, b) =>
+					const match = leg.legAccommodations.find(
+						(legAccommodation) => legAccommodation.name === fareClass
+					);
+					const cheapest = leg.legAccommodations.reduce((a, b) =>
 						a.fare <= b.fare ? a : b
 					);
+					leg.legAccommodation = isSleeper
+						? match
+							? match
+							: cheapest
+						: cheapest;
 					delete leg.legAccommodations;
 					leg.fare = leg.legAccommodation.fare;
 				} else {
@@ -232,7 +242,14 @@ export default function Fares({
 					break;
 				}
 			}
-			if (isValid) {
+			if (
+				isValid &&
+				(isSleeper
+					? option.travelLegs.some(
+							(leg) => leg.legAccommodation.name === fareClass
+					  )
+					: true)
+			) {
 				option.fare = option.travelLegs.reduce((a, b) => a + b.fare, 0);
 				newAvailableOptionsInDateRange.push(option);
 			}
@@ -307,6 +324,45 @@ export default function Fares({
 				],
 			}));
 		}
+		setMutualRoutes(
+			["Any-route"].concat(
+				[
+					...new Set(
+						tripType === "round-trip"
+							? newRoundtripOptions
+									.reduce(
+										(common, roundtrip) =>
+											common.filter((route) =>
+												roundtrip.travelLegs
+													.reduce(
+														(routes, trip) =>
+															routes.concat(
+																trip.travelLegs.map((leg) =>
+																	leg.route.replaceAll(" ", "-")
+																)
+															),
+														[]
+													)
+													.includes(route)
+											),
+										newRoundtripOptions[0].travelLegs[0].travelLegs.map((leg) =>
+											leg.route.replaceAll(" ", "-")
+										)
+									)
+									.flat(2)
+							: newRoundtripOptions
+									.map((roundtrip) =>
+										roundtrip.travelLegs.map((trip) =>
+											trip.travelLegs.map((leg) =>
+												leg.route.replaceAll(" ", "-")
+											)
+										)
+									)
+									.flat(2)
+					),
+				].sort()
+			)
+		);
 		updateChart(newRoundtripOptions);
 		sortOptions(newRoundtripOptions);
 	}
@@ -472,32 +528,47 @@ export default function Fares({
 			}}
 		>
 			{chartXData.length > 1 && (
-				<LineChart
-					height={160}
-					series={[
-						{
-							area: true,
-							data: chartYData,
-							showMark: false,
-							valueFormatter: chartYFormatter,
-						},
-					]}
-					xAxis={[
-						{
-							data: chartXData,
-							scaleType: "time",
-							tickNumber: chartXData.length,
-							valueFormatter: chartXFormatter,
-						},
-					]}
-					yAxis={[
-						{
-							max: chartYData.reduce((a, b) => (a > b ? a : b)),
-							min: chartYData.reduce((a, b) => (a < b ? a : b)) * (3 / 4),
-							valueFormatter: chartYFormatter,
-						},
-					]}
-				/>
+				<div id="chart-container">
+					<LineChart
+						height={160}
+						series={[
+							{
+								area: true,
+								data: chartYData,
+								showMark: false,
+								valueFormatter: chartYFormatter,
+							},
+						]}
+						xAxis={[
+							{
+								data: chartXData,
+								scaleType: "time",
+								tickNumber: chartXData.length,
+								valueFormatter: chartXFormatter,
+							},
+						]}
+						yAxis={[
+							{
+								max: chartYData.reduce((a, b) => (a > b ? a : b)),
+								min: chartYData.reduce((a, b) => (a < b ? a : b)) * (3 / 4),
+								valueFormatter: chartYFormatter,
+							},
+						]}
+					>
+						<linearGradient
+							id="chart-gradient"
+							x1="0%"
+							y1="0%"
+							x2="0%"
+							y2="100%"
+						>
+							<stop offset="0%" stopColor="#4693FF" stopOpacity="1"></stop>
+							<stop offset="40%" stopColor="#4693FF" stopOpacity="1"></stop>
+							<stop offset="60%" stopColor="#4693FF" stopOpacity="0"></stop>
+						</linearGradient>
+					</LineChart>
+					<div></div>
+				</div>
 			)}
 			<div>
 				<div id="fares-filters">
@@ -544,7 +615,7 @@ export default function Fares({
 						))}
 					</div>
 				) : (
-					<div>
+					<div className="fade-in-translate">
 						{sortedOptions
 							.slice(rowsPerPage * page, rowsPerPage * (page + 1))
 							.map((option, i) => (
@@ -557,6 +628,7 @@ export default function Fares({
 									sort={sort}
 									travelerTypes={travelerTypes}
 									tripType={tripType}
+									routeLinks={routeLinks}
 								/>
 							))}
 					</div>

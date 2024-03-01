@@ -26,6 +26,7 @@ export default function Option({
 	sort,
 	travelerTypes,
 	tripType,
+	routeLinks,
 }) {
 	function getRouteSummary(option) {
 		const routeSummary = [
@@ -128,48 +129,6 @@ export default function Option({
 		}
 	}
 
-	const routeLinks = {
-		Acela: "acela",
-		Adirondack: "adirondack",
-		"Auto Train": "auto",
-		"Blue Water": "michigan-services",
-		"California Zephyr": "california-zephyr",
-		"Capitol Limited": "capitol-limited",
-		Cardinal: "cardinal",
-		Cascades: "cascades",
-		"Lincoln Service": "lincoln-service-missouri-river-runner",
-		"Coast Starlight": "coast-starlight",
-		"Empire Builder": "empire-builder",
-		"Empire Service": "empire-service",
-		"Ethan Allen-Express": "ethan-allen-express",
-		"Heartland Flyer": "heartland-flyer",
-		Hiawatha: "hiawatha",
-		Saluki: "illinois-services",
-		"Illinois Zephyr": "illinois-services",
-		"Keystone Service": "keystone-service",
-		"Lake Shore Limited": "lake-shore-limited",
-		"Maple Leaf": "maple-leaf",
-		"Hartford Line": "amtrak-hartford-line",
-		"Pacific Surfliner": "pacific-surfliner",
-		Pennsylvanian: "pennsylvanian",
-		"Northeast Regional": "northeast-regional",
-		"San Joaquins": "san-joaquins",
-		"Silver Service/Palmetto": "silver-service-palmetto",
-		"Southwest Chief": "southwest-chief",
-		"Sunset Limited": "sunset-limited",
-		Downeaster: "downeaster",
-		"City of New Orleans": "city-of-new-orleans",
-		Crescent: "crescent",
-		"Missouri River Runner": "lincoln-service-missouri-river-runner",
-		"Texas Eagle": "texas-eagle",
-		"Pere Marquette": "michigan-services",
-		Wolverine: "michigan-services",
-		"Capitol Corridor": "capitol-corridor",
-		Vermonter: "vermonter",
-		Carolinian: "carolinian-piedmont",
-		Piedmont: "carolinian-piedmont",
-	};
-
 	return (
 		<Accordion
 			expanded={expanded}
@@ -180,11 +139,13 @@ export default function Option({
 				<div className="option-summary">
 					<span>{getRouteSummary(option)}</span>
 					<div className="vertical-bar"></div>
-					<span>{`${option.departureDateTime.format("M/D")}${
-						tripType === "round-trip"
-							? `-${option.arrivalDateTime.format("M/D")}`
-							: ""
-					}`}</span>
+					<span>
+						{tripType === "round-trip"
+							? `${option.departureDateTime.format(
+									"M/D"
+							  )}-${option.arrivalDateTime.format("M/D")}`
+							: option.departureDateTime.format("ddd, MMM D")}
+					</span>
 					<div className="vertical-bar"></div>
 					<span>{getDuration(option.elapsedSeconds)}</span>
 					<div className="vertical-bar"></div>

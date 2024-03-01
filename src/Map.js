@@ -12,6 +12,7 @@ export default function Map({
 	updateMap,
 	route,
 	setRoute,
+	routeLinks,
 }) {
 	const [loaded, setLoaded] = useState(false);
 	const silverService = ["Palmetto", "Silver-Meteor", "Silver-Star"];
@@ -470,7 +471,16 @@ export default function Map({
 		<div id="map-container">
 			<svg id="map-svg"></svg>
 			{route && route !== "Any-route" && (
-				<div id="route-box">{route.replace("-", " ").replace("_", "/")}</div>
+				<a
+					href={`https://www.amtrak.com/routes/${
+						routeLinks[route.replaceAll("-", " ").replace("_", "/")]
+					}-train.html`}
+					id="route-box"
+					rel="noreferrer"
+					target="_blank"
+				>
+					{route.replaceAll("-", " ").replace("_", "/")}
+				</a>
 			)}
 			<ZoomOutMapIcon id="zoom-out-button" onClick={reset} />
 		</div>

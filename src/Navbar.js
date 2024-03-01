@@ -16,7 +16,7 @@ export default function Navbar() {
 				>
 					Donate
 				</a>
-				<a href="mailto:sean@railforless.us">Contact</a>
+				<a href="mailto:contact@railforless.us">Contact</a>
 				<a
 					href="https://github.com/tikkisean/rail-for-less"
 					rel="noopener noreferrer"

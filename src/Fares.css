@@ -1,6 +1,34 @@
+.MuiAreaElement-root {
+	fill: url(#chart-gradient) !important;
+	fill-opacity: 0.1;
+}
+
+.MuiLineElement-root {
+	stroke: rgb(70, 147, 255) !important;
+}
+
 .MuiTablePagination-root {
 	display: flex;
 	justify-content: center;
+}
+
+#chart-container {
+	height: 10rem;
+	overflow: hidden;
+	position: relative;
+}
+
+#chart-container > div {
+	position: absolute;
+}
+
+#chart-container > div:last-child {
+	animation: 3s chart-slide-in;
+	background: rgb(32, 33, 36);
+	bottom: 0;
+	height: 90%;
+	left: 96%;
+	width: 100%;
 }
 
 #fares-container {
@@ -61,10 +89,27 @@
 	height: 3rem;
 }
 
+@keyframes chart-slide-in {
+	from {
+		left: 0;
+	}
+	to {
+		left: 96%;
+	}
+}
+
 @media all and (max-width: 480px) {
+	.MuiTablePagination-actions > button {
+		padding: 0.25rem !important;
+	}
+
 	.MuiTablePagination-actions,
 	.MuiTablePagination-input {
 		margin: 0 !important;
+	}
+
+	.MuiToolbar-root {
+		padding: 0 !important;
 	}
 
 	#fares-filters {

@@ -384,7 +384,7 @@ export default function Form({
 
 		let resultBytes = new Uint8Array([]);
 
-		client.connection.on("connected", function () {
+		client.connection.on("connected", () => {
 			const channel = client.channels.get(channelName);
 			channel.subscribe((message) => {
 				if (message.name === "status" || message.name === "warning") {
@@ -561,7 +561,7 @@ export default function Form({
 						values={fareClasses}
 						searching={searching || fares.length > 1}
 					/>
-					{mutualRoutes.length > 1 && (
+					{mutualRoutes.length > 2 && (
 						<RouteSelect
 							value={route}
 							setValue={setRoute}

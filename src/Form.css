@@ -154,6 +154,7 @@
 #search-info {
 	align-items: center;
 	font-size: 0.9rem;
+	flex-wrap: wrap;
 	gap: 0.5rem;
 	justify-content: flex-start;
 }
@@ -169,12 +170,18 @@
 		width: 100%;
 	}
 
-	#primary-input .MuiAutocomplete-root {
-		min-width: auto;
+	.secondary-input .MuiButton-root {
+		padding: 6px 0;
 	}
-}
 
-@media all and (max-width: 420px) {
+	.secondary-input .MuiButton-root .MuiButton-endIcon {
+		margin-left: 0;
+	}
+
+	.secondary-input .MuiSelect-select {
+		padding-right: 1rem !important;
+	}
+
 	.select {
 		padding-left: 0.25rem !important;
 		padding-right: 0.25rem !important;
@@ -182,6 +189,19 @@
 
 	.select > svg:last-child {
 		margin-right: 0;
+	}
+
+	#primary-input .MuiAutocomplete-root {
+		min-width: auto;
+	}
+
+	#search-info {
+		justify-content: center;
+		width: 100%;
+	}
+
+	#settings-button {
+		padding: 0;
 	}
 }
 

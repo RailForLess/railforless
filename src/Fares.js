@@ -97,9 +97,9 @@ export default function Fares({
 			code: "CBN",
 			routes: ["Maple-Leaf"],
 		};
-
 		const newAllOptions = [];
 		const fareClasses = new Set(["Any class"]);
+		const routes = new Set();
 		for (const date of structuredClone(fares)) {
 			for (const option of date.options) {
 				for (const travelLeg of option.travelLegs) {
@@ -145,6 +145,7 @@ export default function Fares({
 						(station) => station.id === travelLeg.destination
 					);
 					travelLeg.destination = destinationStation ? destinationStation : CBN;
+					routes.add(travelLeg.route.replaceAll(" ", "-"));
 				}
 				option.origin = option.travelLegs[0].origin;
 				option.destination =
@@ -152,6 +153,7 @@ export default function Fares({
 				newAllOptions.push(option);
 			}
 		}
+		setMutualRoutes(["Any-route"].concat([...routes].sort()));
 		setFareClasses(
 			[
 				"Any class",
@@ -193,17 +195,6 @@ export default function Fares({
 		);
 		const formattedRoute = route.replaceAll("-", " ").replace("_", "/");
 		for (const option of structuredClone(options)) {
-			if (
-				route !== "Any-route" &&
-				!option.travelLegs.some((leg) =>
-					(formattedRoute === "Silver-Service/Palmetto"
-						? ["Silver Service", "Palmetto"]
-						: [formattedRoute]
-					).includes(leg.route)
-				)
-			) {
-				continue;
-			}
 			let isValid = true;
 			for (const leg of option.travelLegs) {
 				leg.legAccommodations = leg.legAccommodations
@@ -290,7 +281,15 @@ export default function Fares({
 								  ) +
 										1 ===
 								  numDays
-								: true))
+								: true)) &&
+						(route === "Any-route" ||
+							[deptOption]
+								.concat(returnOption)
+								.map((trip) =>
+									trip.travelLegs.map((leg) => leg.route.replaceAll(" ", "-"))
+								)
+								.flat(1)
+								.includes(route))
 					) {
 						newRoundtripOptions.push({
 							departureDateTime: deptOption.departureDateTime,
@@ -306,63 +305,32 @@ export default function Fares({
 				}
 			}
 		} else {
-			newRoundtripOptions = options.map((option) => ({
-				...option,
-				departureDateTime: dayjs(option.departureDateTime),
-				arrivalDateTime: dayjs(option.arrivalDateTime),
-				travelLegs: [
-					{
-						...option,
-						departureDateTime: dayjs(option.departureDateTime),
-						arrivalDateTime: dayjs(option.arrivalDateTime),
-						travelLegs: option.travelLegs.map((leg) => ({
-							...leg,
-							departureDateTime: dayjs(leg.departureDateTime),
-							arrivalDateTime: dayjs(leg.arrivalDateTime),
-						})),
-					},
-				],
-			}));
+			newRoundtripOptions = options
+				.filter(
+					(option) =>
+						route === "Any-route" ||
+						option.travelLegs.some(
+							(leg) => leg.route.replaceAll(" ", "-") === route
+						)
+				)
+				.map((option) => ({
+					...option,
+					departureDateTime: dayjs(option.departureDateTime),
+					arrivalDateTime: dayjs(option.arrivalDateTime),
+					travelLegs: [
+						{
+							...option,
+							departureDateTime: dayjs(option.departureDateTime),
+							arrivalDateTime: dayjs(option.arrivalDateTime),
+							travelLegs: option.travelLegs.map((leg) => ({
+								...leg,
+								departureDateTime: dayjs(leg.departureDateTime),
+								arrivalDateTime: dayjs(leg.arrivalDateTime),
+							})),
+						},
+					],
+				}));
 		}
-		setMutualRoutes(
-			["Any-route"].concat(
-				[
-					...new Set(
-						tripType === "round-trip"
-							? newRoundtripOptions
-									.reduce(
-										(common, roundtrip) =>
-											common.filter((route) =>
-												roundtrip.travelLegs
-													.reduce(
-														(routes, trip) =>
-															routes.concat(
-																trip.travelLegs.map((leg) =>
-																	leg.route.replaceAll(" ", "-")
-																)
-															),
-														[]
-													)
-													.includes(route)
-											),
-										newRoundtripOptions[0].travelLegs[0].travelLegs.map((leg) =>
-											leg.route.replaceAll(" ", "-")
-										)
-									)
-									.flat(2)
-							: newRoundtripOptions
-									.map((roundtrip) =>
-										roundtrip.travelLegs.map((trip) =>
-											trip.travelLegs.map((leg) =>
-												leg.route.replaceAll(" ", "-")
-											)
-										)
-									)
-									.flat(2)
-					),
-				].sort()
-			)
-		);
 		updateChart(newRoundtripOptions);
 		sortOptions(newRoundtripOptions);
 	}

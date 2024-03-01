@@ -144,6 +144,7 @@ export default function Form({
 		);
 	}
 	const [wakeError, setWakeError] = useState(false);
+	const [devDialog, setDevDialog] = useState(false);
 	const [browserDialog, setBrowserDialog] = useState(false);
 
 	function startup() {
@@ -171,7 +172,9 @@ export default function Form({
 	}
 
 	useEffect(() => {
-		if (
+		if (process.env.REACT_APP_API_SUBDOMAIN === "dev-api") {
+			setDevDialog(true);
+		} else if (
 			navigator.userAgent.includes("Firefox") &&
 			!localStorage.getItem("browserWarning")
 		) {
@@ -651,6 +654,31 @@ export default function Form({
 						</DialogActions>
 					</Dialog>
 				)}
+				<Dialog open={devDialog}>
+					<DialogTitle>Are you sure you're at the right place?</DialogTitle>
+					<DialogContent>
+						<DialogContentText>
+							This is the development site, here you'll find the latest features
+							under development. Most users should use the main site at{" "}
+							<a href="https://railforless.us">railforless.us</a>.
+						</DialogContentText>
+					</DialogContent>
+					<DialogActions>
+						<Button
+							onClick={() => (window.location.href = "https://railforless.us")}
+						>
+							Take me to railforless.us
+						</Button>
+						<Button
+							onClick={() => {
+								setDevDialog(false);
+								startup();
+							}}
+						>
+							Continue to dev site
+						</Button>
+					</DialogActions>
+				</Dialog>
 				<Dialog onClose={setBrowserWarning} open={browserDialog}>
 					<DialogTitle>Browser Compatibility Warning</DialogTitle>
 					<DialogContent>

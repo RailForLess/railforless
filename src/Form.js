@@ -294,31 +294,8 @@ export default function Form({
 			} else if (!bedrooms && !familyRooms) {
 				setSleeperOpen(true);
 			} else {
-				checkIP();
+				search();
 			}
-		}
-	}
-
-	const [ipOpen, setIpOpen] = useState(false);
-
-	async function checkIP() {
-		let ip_res = await fetch("https://freeipapi.com/api/json");
-		if (ip_res.status !== 200) {
-			setIpOpen(true);
-		}
-		ip_res = await ip_res.json();
-		let validate_res = await fetch("https://railforless.us/api/validate-IP", {
-			method: "POST",
-			body: JSON.stringify(ip_res),
-		});
-		if (validate_res.status !== 200) {
-			setIpOpen(true);
-		}
-		validate_res = await validate_res.json();
-		if (validate_res.isValid) {
-			search();
-		} else {
-			setIpOpen(true);
 		}
 	}
 
@@ -658,7 +635,7 @@ export default function Form({
 							<Button
 								onClick={() => {
 									setSleeperOpen(false);
-									checkIP();
+									search();
 								}}
 							>
 								No
@@ -685,17 +662,6 @@ export default function Form({
 					</DialogContent>
 					<DialogActions>
 						<Button onClick={setBrowserWarning}>OK</Button>
-					</DialogActions>
-				</Dialog>
-				<Dialog onClose={() => setIpOpen(false)} open={ipOpen}>
-					<DialogContent>
-						<DialogContentText>
-							Sorry, we are restricting access to this feature until testing is
-							complete. Check back soon for updates!
-						</DialogContentText>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={() => setIpOpen(false)}>OK</Button>
 					</DialogActions>
 				</Dialog>
 				<Snackbar open={wakeError}>

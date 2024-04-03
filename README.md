@@ -14,7 +14,7 @@ The current state of RailForLess.us is the result of a collaboration between Sea
 
 # Meet the developers
 
-![Headshot of Sean Eddy](https://github.com/tikkisean/rail-for-less/blob/main/public/images/sean-headshot.jpg)
+<img alt="Headshot of Sean Eddy" height="300" src="https://github.com/tikkisean/rail-for-less/blob/main/public/images/sean-headshot.jpg" width="300">
 
 ## Sean Eddy
 
@@ -22,7 +22,9 @@ The current state of RailForLess.us is the result of a collaboration between Sea
 
 Sean is a senior at the University of Arizona studying Computer Science. He enjoys exploring the Sonoran Desert on his bike, trying Tucson's Mexican restaurants, and designing Lego models. Learn more about him and his projects at [seaneddy.com](https://seaneddy.com/).
 
-![Headshot of Riley Nielsen](https://github.com/tikkisean/rail-for-less/blob/main/public/images/riley-headshot.jpg)
+---
+
+<img alt="Headshot of Riley Nielsen" height="300" src="https://github.com/tikkisean/rail-for-less/blob/main/public/images/riley-headshot.jpg" width="300">
 
 ## Riley Nielsen
 

@@ -1,22 +1,27 @@
-#update-bar {
-	background: red;
-	font-size: 1.25rem;
-	font-weight: 500;
-	padding: 0.25rem;
-	width: 100vw;
-}
-
-#update-bar-container {
-	position: relative;
-}
-
-#update-bar-container span {
+#update-bar span {
 	cursor: pointer;
+	font-size: 1rem;
 	text-decoration: underline;
 }
 
-#update-bar-container svg {
-	bottom: 0.5rem;
-	position: absolute;
+#update-bar-container {
+	background: red;
+	display: flex;
+	font-size: 1.25rem;
+	font-weight: 500;
+	padding: 0.25rem;
+	justify-content: center;
+	position: relative;
+}
+
+#update-bar-container .MuiIconButton-root {
+	bottom: 0.125rem;
+	position: absolute !important;
 	right: 1rem;
+}
+
+@media all and (max-width: 480px) {
+	#update-bar-container .MuiIconButton-root {
+		right: 0;
+	}
 }

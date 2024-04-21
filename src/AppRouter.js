@@ -5,7 +5,7 @@ import Home from "./Home";
 import Navbar from "./Navbar";
 import "./AppRouter.css";
 
-export default function AppRouter({ updateBarClose }) {
+export default function AppRouter() {
 	const [searching, setSearching] = useState(false);
 	const [searchError, setSearchError] = useState(false);
 

@@ -1,5 +1,9 @@
 import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import { useEffect, useState } from "react";
+import "./Fares.css";
+import Filters from "./Filters";
 import Option from "./Option";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,25 +11,19 @@ import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import TablePagination from "@mui/material/TablePagination";
 import { LineChart } from "@mui/x-charts/LineChart";
-import "./Fares.css";
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 export default function Fares({
 	tripType,
+	tab,
 	travelerTypes,
 	fareClass,
 	setFareClasses,
-	route,
-	setMutualRoutes,
 	stations,
 	origin,
 	destination,
-	anyDuration,
-	weeks,
-	weeksSelected,
-	days,
-	daysSelected,
-	weekdays,
-	weekends,
+	tripDuration,
 	dateRangeStart,
 	dateRangeEnd,
 	fares,
@@ -91,6 +89,36 @@ export default function Fares({
 
 	const [avgDelays, setAvgDelays] = useState({});
 
+	const [routes, setRoutes] = useState({});
+	const [maxLayovers, setMaxLayovers] = useState(3);
+	const [maxPrice, setMaxPrice] = useState(5000);
+	const [outboundDeptTime, setOutboundDeptTime] = useState([0, 24]);
+	const [outboundArrivalTime, setOutboundArrivalTime] = useState([0, 24]);
+	const [returnDeptTime, setReturnDeptTime] = useState([0, 24]);
+	const [returnArrivalTime, setReturnArrivalTime] = useState([0, 24]);
+	const [days, setDays] = useState({
+		1: true,
+		2: true,
+		3: true,
+		4: true,
+		5: true,
+		6: true,
+		0: true,
+	});
+	const [maxDuration, setMaxDuration] = useState(100);
+	const [amenities, setAmenities] = useState({
+		Cafe: false,
+		"Checked Baggage": false,
+		"Free WiFi": false,
+		"Flexible Dining": false,
+		"Quiet Car": false,
+		"Seat Display": false,
+		"Seat Selection": false,
+		"Traditional Dining": false,
+		"Wheelchair Ramp": false,
+	});
+	const [addItems, setAddItems] = useState({ Bicycle: false, Pet: false });
+
 	async function updateAllOptions() {
 		const CBN = {
 			name: "Canadian Border",
@@ -99,7 +127,7 @@ export default function Fares({
 		};
 		const newAllOptions = [];
 		const fareClasses = new Set(["Any class"]);
-		const routes = new Set();
+		const newRoutes = new Set();
 		for (const date of structuredClone(fares)) {
 			for (const option of date.options) {
 				for (const travelLeg of option.travelLegs) {
@@ -145,7 +173,7 @@ export default function Fares({
 						(station) => station.id === travelLeg.destination
 					);
 					travelLeg.destination = destinationStation ? destinationStation : CBN;
-					routes.add(travelLeg.route.replaceAll(" ", "-"));
+					newRoutes.add(travelLeg.route);
 				}
 				option.origin = option.travelLegs[0].origin;
 				option.destination =
@@ -153,7 +181,9 @@ export default function Fares({
 				newAllOptions.push(option);
 			}
 		}
-		setMutualRoutes(["Any-route"].concat([...routes].sort()));
+		setRoutes(
+			[...newRoutes].sort().reduce((a, b) => ({ ...a, [b]: true }), {})
+		);
 		setFareClasses(
 			[
 				"Any class",
@@ -172,14 +202,21 @@ export default function Fares({
 
 	function updateOptionsInDateRange(options) {
 		const newOptionsInDateRange = [];
+		const dateRangeStartLocal = dayjs(
+			`${dateRangeStart.format("M-D-YYYY")}`,
+			"M-D-YYYY"
+		);
+		const dateRangeEndLocal = dayjs(
+			`${dateRangeEnd.format("M-D-YYYY")}`,
+			"M-D-YYYY"
+		);
 		for (const option of options) {
-			const isWeekday = [1, 2, 3, 4, 5].includes(
-				dayjs(option.departureDateTime).get("d")
-			);
 			if (
-				dayjs(option.departureDateTime) >= dateRangeStart &&
-				dayjs(option.departureDateTime) <= dateRangeEnd &&
-				(weekdays ? isWeekday : weekends ? !isWeekday : true)
+				dayjs(option.departureDateTime).isSameOrAfter(
+					dateRangeStartLocal,
+					"d"
+				) &&
+				dayjs(option.departureDateTime).isSameOrBefore(dateRangeEndLocal, "d")
 			) {
 				newOptionsInDateRange.push(structuredClone(option));
 			}
@@ -193,7 +230,6 @@ export default function Fares({
 		const isSleeper = ["Roomette", "Bedroom", "Family Room"].includes(
 			fareClass
 		);
-		const formattedRoute = route.replaceAll("-", " ").replace("_", "/");
 		for (const option of structuredClone(options)) {
 			let isValid = true;
 			for (const leg of option.travelLegs) {
@@ -250,9 +286,36 @@ export default function Fares({
 	}
 
 	function updateRoundtripOptions(options) {
+		const includedRoutes = Object.keys(routes).filter((route) => routes[route]);
+		const includedDays = Object.keys(days)
+			.filter((day) => days[day])
+			.map((day) => Number(day));
+		const includedAmenities = Object.keys(amenities).filter(
+			(amenity) => amenities[amenity]
+		);
+		const includedAddItems = Object.keys(addItems).filter(
+			(addItem) => addItems[addItem]
+		);
+		const numTravelers = Object.values(travelerTypes).reduce(
+			(a, b) => a + b,
+			0
+		);
+		const dateRangeStartLocal = dayjs(
+			`${dateRangeStart.format("M-D-YYYY")}`,
+			"M-D-YYYY"
+		);
+		const dateRangeEndLocal = dayjs(
+			`${dateRangeEnd.format("M-D-YYYY")}`,
+			"M-D-YYYY"
+		);
 		let newRoundtripOptions = [];
 		if (tripType === "round-trip") {
-			const numDays = weeksSelected ? weeks * 7 : daysSelected ? days : 0;
+			const numDays =
+				tripDuration.type === "week"
+					? tripDuration.val * 7
+					: tripDuration.type === "day"
+					? tripDuration.val
+					: 0;
 			options = options.map((option) => ({
 				...option,
 				departureDateTime: dayjs(option.departureDateTime),
@@ -273,23 +336,74 @@ export default function Fares({
 				for (const returnOption of returnOptions) {
 					if (
 						deptOption.arrivalDateTime <= returnOption.departureDateTime &&
-						(anyDuration ||
-							(numDays > 0
-								? returnOption.departureDateTime.diff(
-										deptOption.departureDateTime,
-										"d"
-								  ) +
-										1 ===
-								  numDays
-								: true)) &&
-						(route === "Any-route" ||
-							[deptOption]
-								.concat(returnOption)
-								.map((trip) =>
-									trip.travelLegs.map((leg) => leg.route.replaceAll(" ", "-"))
-								)
-								.flat(1)
-								.includes(route))
+						(tab === 0
+							? !tripDuration.val ||
+							  (numDays > 0
+									? returnOption.departureDateTime.diff(
+											deptOption.departureDateTime,
+											"d"
+									  ) +
+											1 ===
+									  numDays
+									: true)
+							: deptOption.departureDateTime.isSame(dateRangeStartLocal, "d") &&
+							  returnOption.departureDateTime.isSame(
+									dateRangeEndLocal,
+									"d"
+							  )) &&
+						deptOption.travelLegs.every((leg) =>
+							includedRoutes.includes(leg.route)
+						) &&
+						returnOption.travelLegs.every((leg) =>
+							includedRoutes.includes(leg.route)
+						) &&
+						deptOption.travelLegs.length - 1 <= maxLayovers &&
+						returnOption.travelLegs.length - 1 <= maxLayovers &&
+						(deptOption.fare + returnOption.fare) / numTravelers <= maxPrice &&
+						Number(deptOption.departureDateTime.format("H")) >=
+							outboundDeptTime[0] &&
+						Number(deptOption.departureDateTime.format("H")) <=
+							outboundDeptTime[1] &&
+						Number(deptOption.arrivalDateTime.format("H")) >=
+							outboundArrivalTime[0] &&
+						Number(deptOption.arrivalDateTime.format("H")) <=
+							outboundArrivalTime[1] &&
+						Number(returnOption.departureDateTime.format("H")) >=
+							returnDeptTime[0] &&
+						Number(returnOption.departureDateTime.format("H")) <=
+							returnDeptTime[1] &&
+						Number(returnOption.arrivalDateTime.format("H")) >=
+							returnArrivalTime[0] &&
+						Number(returnOption.arrivalDateTime.format("H")) <=
+							returnArrivalTime[1] &&
+						includedDays.includes(deptOption.departureDateTime.get("d")) &&
+						includedDays.includes(returnOption.departureDateTime.get("d")) &&
+						(deptOption.elapsedSeconds + returnOption.elapsedSeconds) / 3600 <
+							maxDuration &&
+						includedAmenities.every((amenity) =>
+							deptOption.travelLegs.some(
+								(leg) => leg.amenities && leg.amenities.includes(amenity)
+							)
+						) &&
+						includedAmenities.every((amenity) =>
+							returnOption.travelLegs.some(
+								(leg) => leg.amenities && leg.amenities.includes(amenity)
+							)
+						) &&
+						includedAddItems.every(
+							(includedAddItem) =>
+								deptOption.addItems &&
+								deptOption.addItems
+									.map((addItem) => addItem.type)
+									.includes(includedAddItem)
+						) &&
+						includedAddItems.every(
+							(includedAddItem) =>
+								returnOption.addItems &&
+								returnOption.addItems
+									.map((addItem) => addItem.type)
+									.includes(includedAddItem)
+						)
 					) {
 						newRoundtripOptions.push({
 							departureDateTime: deptOption.departureDateTime,
@@ -305,23 +419,49 @@ export default function Fares({
 				}
 			}
 		} else {
+			options = options.map((option) => ({
+				...option,
+				departureDateTime: dayjs(option.departureDateTime),
+				arrivalDateTime: dayjs(option.arrivalDateTime),
+			}));
 			newRoundtripOptions = options
 				.filter(
 					(option) =>
-						route === "Any-route" ||
-						option.travelLegs.some(
-							(leg) => leg.route.replaceAll(" ", "-") === route
+						(tab === 0 ||
+							option.departureDateTime.isSame(dateRangeStartLocal, "d")) &&
+						option.travelLegs.every((leg) =>
+							includedRoutes.includes(leg.route)
+						) &&
+						option.travelLegs.length - 1 <= maxLayovers &&
+						option.fare / numTravelers <= maxPrice &&
+						Number(option.departureDateTime.format("H")) >=
+							outboundDeptTime[0] &&
+						Number(option.departureDateTime.format("H")) <=
+							outboundDeptTime[1] &&
+						Number(option.arrivalDateTime.format("H")) >=
+							outboundArrivalTime[0] &&
+						Number(option.arrivalDateTime.format("H")) <=
+							outboundArrivalTime[1] &&
+						includedDays.includes(option.departureDateTime.get("d")) &&
+						option.elapsedSeconds / 3600 < maxDuration &&
+						includedAmenities.every((amenity) =>
+							option.travelLegs.some(
+								(leg) => leg.amenities && leg.amenities.includes(amenity)
+							)
+						) &&
+						includedAddItems.every(
+							(includedAddItem) =>
+								option.addItems &&
+								option.addItems
+									.map((addItem) => addItem.type)
+									.includes(includedAddItem)
 						)
 				)
 				.map((option) => ({
 					...option,
-					departureDateTime: dayjs(option.departureDateTime),
-					arrivalDateTime: dayjs(option.arrivalDateTime),
 					travelLegs: [
 						{
 							...option,
-							departureDateTime: dayjs(option.departureDateTime),
-							arrivalDateTime: dayjs(option.arrivalDateTime),
 							travelLegs: option.travelLegs.map((leg) => ({
 								...leg,
 								departureDateTime: dayjs(leg.departureDateTime),
@@ -450,9 +590,34 @@ export default function Fares({
 		}
 		setLoading(true);
 		setTimeout(() => {
+			updateOptionsInDateRange(allOptions);
+		}, 100);
+	}, [dateRangeStart, dateRangeEnd]);
+
+	useEffect(() => {
+		if (!isInitialized()) {
+			return;
+		}
+		setLoading(true);
+		setTimeout(() => {
 			updateAvailableOptionsInDateRange(optionsInDateRange);
 		}, 100);
-	}, [travelerTypes, fareClass, route]);
+	}, [
+		travelerTypes,
+		fareClass,
+		tab,
+		routes,
+		maxLayovers,
+		maxPrice,
+		outboundDeptTime,
+		outboundArrivalTime,
+		returnDeptTime,
+		returnArrivalTime,
+		days,
+		maxDuration,
+		amenities,
+		addItems,
+	]);
 
 	useEffect(() => {
 		if (!isInitialized()) {
@@ -462,17 +627,7 @@ export default function Fares({
 		setTimeout(() => {
 			updateRoundtripOptions(availableOptionsInDateRange);
 		}, 100);
-	}, [weeks, weeksSelected, days, daysSelected]);
-
-	useEffect(() => {
-		if (!isInitialized()) {
-			return;
-		}
-		setLoading(true);
-		setTimeout(() => {
-			updateOptionsInDateRange(allOptions);
-		}, 100);
-	}, [dateRangeStart, dateRangeEnd, weekdays, weekends]);
+	}, [tripDuration]);
 
 	useEffect(() => {
 		if (!isInitialized()) {
@@ -487,15 +642,9 @@ export default function Fares({
 	const chartXFormatter = (date) => dayjs(date).format("M/D");
 	const chartYFormatter = (fare) => (fare ? `$${fare.toLocaleString()}` : null);
 
-	return sortedOptions.length > 0 || loading ? (
-		<div
-			id="fares-container"
-			style={{
-				flex: sortedOptions.length > 0 ? 0 : 1,
-				marginTop: chartXData.length === 1 || loading ? "2rem" : 0,
-			}}
-		>
-			{chartXData.length > 1 && (
+	return (
+		<div id="fares-container">
+			{sortedOptions.length > 0 && chartXData.length > 1 && (
 				<div id="chart-container">
 					<LineChart
 						height={160}
@@ -538,77 +687,100 @@ export default function Fares({
 					<div></div>
 				</div>
 			)}
-			<div>
-				<div id="fares-filters">
-					<div>
-						<span>Sort by</span>
-						<Select
-							onChange={(e) => setSort(e.target.value)}
-							disableUnderline
-							value={sort}
-							variant="standard"
-						>
-							<MenuItem key="price" value="price">
-								Price
-							</MenuItem>
-							<MenuItem key="duration" value="duration">
-								Duration
-							</MenuItem>
-							<MenuItem key="departure" value="departure">
-								Departure
-							</MenuItem>
-							<MenuItem key="arrival" value="arrival">
-								Arrival
-							</MenuItem>
-						</Select>
-					</div>
-					{sortedOptions.length > 10 && (
-						<TablePagination
-							component="div"
-							count={sortedOptions.length}
-							onRowsPerPageChange={(e) => setRowsPerPage(e.target.value)}
-							onPageChange={(e, newPage) => setPage(newPage)}
-							rowsPerPage={rowsPerPage}
-							page={page}
-						/>
-					)}
-					<div>{`${sortedOptions.length.toLocaleString()} option${
-						sortedOptions.length > 1 ? "s" : ""
-					}`}</div>
+			<div id="fares-filters">
+				<div>
+					<span>Sort by</span>
+					<Select
+						onChange={(e) => setSort(e.target.value)}
+						disableUnderline
+						value={sort}
+						variant="standard"
+					>
+						<MenuItem key="price" value="price">
+							Price
+						</MenuItem>
+						<MenuItem key="duration" value="duration">
+							Duration
+						</MenuItem>
+						<MenuItem key="departure" value="departure">
+							Departure
+						</MenuItem>
+						<MenuItem key="arrival" value="arrival">
+							Arrival
+						</MenuItem>
+					</Select>
 				</div>
-				{loading ? (
-					<div id="skeleton-container">
-						{[...Array(rowsPerPage).keys()].map((i) => (
-							<Skeleton key={`skeleton-${i}`} variant="rectangular" />
-						))}
-					</div>
-				) : (
-					<div className="fade-in-translate">
-						{sortedOptions
-							.slice(rowsPerPage * page, rowsPerPage * (page + 1))
-							.map((option, i) => (
-								<Option
-									avgDelays={avgDelays}
-									setAvgDelays={setAvgDelays}
-									i={i}
-									key={`option-${i}`}
-									option={option}
-									sort={sort}
-									travelerTypes={travelerTypes}
-									tripType={tripType}
-									routeLinks={routeLinks}
-								/>
-							))}
-					</div>
+				{sortedOptions.length > 10 && (
+					<TablePagination
+						component="div"
+						count={sortedOptions.length}
+						onRowsPerPageChange={(e) => setRowsPerPage(e.target.value)}
+						onPageChange={(e, newPage) => setPage(newPage)}
+						rowsPerPage={rowsPerPage}
+						page={page}
+					/>
 				)}
+				<div>{`${sortedOptions.length.toLocaleString()} option${
+					sortedOptions.length !== 1 ? "s" : ""
+				}`}</div>
 			</div>
-		</div>
-	) : (
-		<div id="no-options-container">
-			<div>
-				<RailwayAlertIcon />
-				<span>No options match your search</span>
-			</div>
+			<Filters
+				routes={routes}
+				setRoutes={setRoutes}
+				maxLayovers={maxLayovers}
+				setMaxLayovers={setMaxLayovers}
+				maxPrice={maxPrice}
+				setMaxPrice={setMaxPrice}
+				outboundDeptTime={outboundDeptTime}
+				setOutboundDeptTime={setOutboundDeptTime}
+				outboundArrivalTime={outboundArrivalTime}
+				setOutboundArrivalTime={setOutboundArrivalTime}
+				returnDeptTime={returnDeptTime}
+				setReturnDeptTime={setReturnDeptTime}
+				returnArrivalTime={returnArrivalTime}
+				setReturnArrivalTime={setReturnArrivalTime}
+				tripType={tripType}
+				days={days}
+				setDays={setDays}
+				maxDuration={maxDuration}
+				setMaxDuration={setMaxDuration}
+				amenities={amenities}
+				setAmenities={setAmenities}
+				addItems={addItems}
+				setAddItems={setAddItems}
+			/>
+			{loading ? (
+				<div id="skeleton-container">
+					{[...Array(rowsPerPage).keys()].map((i) => (
+						<Skeleton key={`skeleton-${i}`} variant="rectangular" />
+					))}
+				</div>
+			) : sortedOptions.length === 0 ? (
+				<div id="no-options-container">
+					<div>
+						<RailwayAlertIcon />
+						<span>No options match your search</span>
+					</div>
+				</div>
+			) : (
+				<div className="fade-in-translate">
+					{sortedOptions
+						.slice(rowsPerPage * page, rowsPerPage * (page + 1))
+						.map((option, i) => (
+							<Option
+								avgDelays={avgDelays}
+								setAvgDelays={setAvgDelays}
+								i={i}
+								key={`option-${i}`}
+								option={option}
+								sort={sort}
+								travelerTypes={travelerTypes}
+								tripType={tripType}
+								routeLinks={routeLinks}
+							/>
+						))}
+				</div>
+			)}
 		</div>
 	);
 }

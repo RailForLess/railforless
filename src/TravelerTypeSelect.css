@@ -1,7 +1,3 @@
-form > div:first-child .selected svg[data-testid="ArrowDropDownIcon"] {
-	transform: rotate(180deg);
-}
-
 .number-button-disabled {
 	background-color: #4c4d50;
 	pointer-events: none;

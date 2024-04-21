@@ -36,31 +36,20 @@ export default function Home({
 	const [stations, setStations] = useState([]);
 	const [origin, setOrigin] = useState(null);
 	const [destination, setDestination] = useState(null);
-
-	const [tab, setTab] = useState(1);
-	const [anyDuration, setAnyDuration] = useState(true);
-	const [weeks, setWeeks] = useState(1);
-	const [weeksSelected, setWeeksSelected] = useState(false);
-	const [days, setDays] = useState(5);
-	const [daysSelected, setDaysSelected] = useState(false);
-	const [weekdays, setWeekdays] = useState(false);
-	const [weekends, setWeekends] = useState(false);
-	const [month, setMonth] = useState(
-		dayjs.utc().startOf("d").add(1, "M").get("M")
-	);
+	const [tripDuration, setTripDuration] = useState({ type: null, val: null });
+	const [tab, setTab] = useState(0);
 	const [dateRangeStart, setDateRangeStart] = useState(
 		dayjs.utc().startOf("d").add(1, "M").startOf("M")
 	);
 	const [dateRangeEnd, setDateRangeEnd] = useState(
 		dayjs.utc().startOf("d").add(1, "M").endOf("M")
 	);
-	const [maxDateRangeEnd, setMaxDateRangeEnd] = useState(
-		dayjs.utc().startOf("d").add(1, "M").startOf("M").add(44, "d")
-	);
+	const [dateRangeStartSearch, setDateRangeStartSearch] =
+		useState(dateRangeStart);
+	const [dateRangeEndSearch, setDateRangeEndSearch] = useState(dateRangeEnd);
 
 	const [updateMap, setUpdateMap] = useState(false);
 	const [route, setRoute] = useState("Any-route");
-	const [mutualRoutes, setMutualRoutes] = useState([]);
 	const [progressPercent, setProgressPercent] = useState(0);
 	const [progressText, setProgressText] = useState("");
 	const [fares, setFares] = useState([]);
@@ -112,7 +101,8 @@ export default function Home({
 	useEffect(() => {
 		if (
 			localStorage.getItem("fares") &&
-			JSON.parse(localStorage.getItem("fares")).length > 0
+			JSON.parse(localStorage.getItem("fares")).length > 0 &&
+			localStorage.getItem("tripDuration")
 		) {
 			document.getElementById("root").style.height = "auto";
 			setTripType(JSON.parse(localStorage.getItem("tripType")));
@@ -120,23 +110,19 @@ export default function Home({
 			setOrigin(JSON.parse(localStorage.getItem("origin")));
 			setDestination(JSON.parse(localStorage.getItem("destination")));
 			setTab(JSON.parse(localStorage.getItem("tab")));
-			setMonth(JSON.parse(localStorage.getItem("month")));
-			setWeeks(JSON.parse(localStorage.getItem("weeks")));
-			setWeeksSelected(JSON.parse(localStorage.getItem("weeksSelected")));
-			setDays(JSON.parse(localStorage.getItem("days")));
-			setDaysSelected(JSON.parse(localStorage.getItem("daysSelected")));
-			setWeekdays(JSON.parse(localStorage.getItem("weekdays")));
-			setWeekends(JSON.parse(localStorage.getItem("weekends")));
+			setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
 			setDateRangeStart(
 				dayjs(JSON.parse(localStorage.getItem("dateRangeStart"))).utc()
 			);
 			setDateRangeEnd(
 				dayjs(JSON.parse(localStorage.getItem("dateRangeEnd"))).utc()
 			);
-			setMaxDateRangeEnd(
-				dayjs(JSON.parse(localStorage.getItem("maxDateRangeEnd"))).utc()
+			setDateRangeStartSearch(
+				dayjs(JSON.parse(localStorage.getItem("dateRangeStartSearch"))).utc()
 			);
-			setRoute(JSON.parse(localStorage.getItem("route")));
+			setDateRangeEndSearch(
+				dayjs(JSON.parse(localStorage.getItem("dateRangeEndSearch"))).utc()
+			);
 			setFares(JSON.parse(JSON.parse(localStorage.getItem("fares"))));
 		}
 		setLoaded(true);
@@ -169,36 +155,19 @@ export default function Home({
 						setDestination={setDestination}
 						tab={tab}
 						setTab={setTab}
-						anyDuration={anyDuration}
-						setAnyDuration={setAnyDuration}
-						weeks={weeks}
-						setWeeks={setWeeks}
-						weeksSelected={weeksSelected}
-						setWeeksSelected={setWeeksSelected}
-						days={days}
-						setDays={setDays}
-						daysSelected={daysSelected}
-						setDaysSelected={setDaysSelected}
-						weekdays={weekdays}
-						setWeekdays={setWeekdays}
-						weekends={weekends}
-						setWeekends={setWeekends}
-						month={month}
-						setMonth={setMonth}
+						tripDuration={tripDuration}
+						setTripDuration={setTripDuration}
 						dateRangeStart={dateRangeStart}
 						setDateRangeStart={setDateRangeStart}
 						dateRangeEnd={dateRangeEnd}
 						setDateRangeEnd={setDateRangeEnd}
-						maxDateRangeEnd={maxDateRangeEnd}
-						setMaxDateRangeEnd={setMaxDateRangeEnd}
-						updateMap={updateMap}
+						dateRangeStartSearch={dateRangeStartSearch}
+						setDateRangeStartSearch={setDateRangeStartSearch}
+						dateRangeEndSearch={dateRangeEndSearch}
+						setDateRangeEndSearch={setDateRangeEndSearch}
 						setUpdateMap={setUpdateMap}
 						searching={searching}
 						setSearching={setSearching}
-						route={route}
-						setRoute={setRoute}
-						mutualRoutes={mutualRoutes}
-						setMutualRoutes={setMutualRoutes}
 						setProgressPercent={setProgressPercent}
 						setProgressText={setProgressText}
 						searchError={searchError}
@@ -209,23 +178,16 @@ export default function Home({
 					{fares.length > 0 && stations.length > 0 ? (
 						<Fares
 							tripType={tripType}
+							tab={tab}
 							travelerTypes={travelerTypes}
 							fareClass={fareClass}
 							setFareClasses={setFareClasses}
-							route={route}
-							setMutualRoutes={setMutualRoutes}
 							stations={stations}
 							origin={origin}
 							destination={destination}
-							anyDuration={anyDuration}
-							weeks={weeks}
-							weeksSelected={weeksSelected}
-							days={days}
-							daysSelected={daysSelected}
-							weekdays={weekdays}
-							weekends={weekends}
-							dateRangeStart={dateRangeStart}
-							dateRangeEnd={dateRangeEnd}
+							tripDuration={tripDuration}
+							dateRangeStart={dateRangeStartSearch}
+							dateRangeEnd={dateRangeEndSearch}
 							fares={fares}
 							routeLinks={routeLinks}
 						/>

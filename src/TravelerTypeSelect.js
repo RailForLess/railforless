@@ -9,8 +9,6 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 
 export default function TravelerTypeSelect({ value, setValue, searching }) {
-	const [edit, setEdit] = useState(value);
-	const [selected, setSelected] = useState(false);
 	const addInfo = {
 		numAdults: "16+",
 		numSeniors: "55+",
@@ -21,27 +19,18 @@ export default function TravelerTypeSelect({ value, setValue, searching }) {
 	const [numTravelers, setNumTravelers] = useState(1);
 
 	useEffect(() => {
-		setNumTravelers(Object.values(edit).reduce((a, b) => a + b, 0));
-	}, [edit]);
-
-	function handleEdit(travelerType, increment) {
-		const newEdit = { ...edit };
-		newEdit[travelerType] += increment ? 1 : -1;
-		setEdit(newEdit);
-	}
+		setNumTravelers(Object.values(value).reduce((a, b) => a + b, 0));
+	}, [value]);
 
 	const [anchor, setAnchor] = useState(null);
 
 	return (
 		<div>
 			<Button
-				className={`select ${!selected ? "not-" : ""}selected`}
+				className={`select ${!anchor ? "not-" : ""}selected`}
 				disableRipple
 				endIcon={<ArrowDropDownIcon />}
-				onClick={(e) => {
-					setSelected(true);
-					setAnchor(e.currentTarget);
-				}}
+				onClick={(e) => setAnchor(e.currentTarget)}
 				variant={!searching ? "" : "outlined"}
 			>
 				<PersonOutlineIcon sx={{ mr: 1 }} />
@@ -53,18 +42,14 @@ export default function TravelerTypeSelect({ value, setValue, searching }) {
 					vertical: "bottom",
 					horizontal: "left",
 				}}
-				onClose={() => {
-					setSelected(false);
-					setValue(edit);
-					setAnchor(null);
-				}}
+				onClose={() => setAnchor(null)}
 				open={Boolean(anchor)}
 				transformOrigin={{
 					vertical: "top",
 					horizontal: "left",
 				}}
 			>
-				{Object.keys(edit).map((travelerType) => (
+				{Object.keys(value).map((travelerType) => (
 					<MenuItem
 						className="number-row"
 						disableRipple
@@ -78,24 +63,34 @@ export default function TravelerTypeSelect({ value, setValue, searching }) {
 						</div>
 						<div>
 							<button
-								onClick={() => handleEdit(travelerType, false)}
+								onClick={() =>
+									setValue({
+										...value,
+										[travelerType]: value[travelerType] - 1,
+									})
+								}
 								className={`number-button-${
 									travelerType === "numAdults" || travelerType === "numSeniors"
-										? edit.numAdults + edit.numSeniors === 1
+										? value.numAdults + value.numSeniors === 1
 											? "disabled"
-											: edit[travelerType] === 0
+											: value[travelerType] === 0
 											? "disabled"
 											: "enabled"
-										: edit[travelerType] === 0
+										: value[travelerType] === 0
 										? "disabled"
 										: "enabled"
 								}`}
 							>
 								<RemoveIcon />
 							</button>
-							<span>{edit[travelerType]}</span>
+							<span>{value[travelerType]}</span>
 							<button
-								onClick={() => handleEdit(travelerType, true)}
+								onClick={() =>
+									setValue({
+										...value,
+										[travelerType]: value[travelerType] + 1,
+									})
+								}
 								className={`number-button-${
 									numTravelers === 8 ? "disabled" : "enabled"
 								}`}
@@ -106,24 +101,7 @@ export default function TravelerTypeSelect({ value, setValue, searching }) {
 					</MenuItem>
 				))}
 				<div className="options">
-					<Button
-						disableRipple
-						onClick={() => {
-							setSelected(false);
-							setAnchor(null);
-							setEdit(value);
-						}}
-					>
-						Cancel
-					</Button>
-					<Button
-						disableRipple
-						onClick={() => {
-							setSelected(false);
-							setValue(edit);
-							setAnchor(null);
-						}}
-					>
+					<Button disableRipple onClick={() => setAnchor(null)}>
 						Done
 					</Button>
 				</div>

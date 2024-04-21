@@ -1,17 +1,10 @@
-.error-1 {
+.error-critical {
 	animation: shake 0.35s;
 	animation-iteration-count: 1;
 }
 
 .error-text {
-	align-items: center;
-	display: flex;
-	font-size: 0.8rem;
-	gap: 0.5rem;
-	position: absolute;
-	bottom: 1rem;
 	color: orange;
-	display: flex;
 	opacity: 0.75;
 }
 
@@ -51,7 +44,7 @@
 }
 
 .secondary-input .select,
-#duration-container .select {
+#trip-duration-container .select {
 	color: #c3c3c4 !important;
 	font-size: 0.9rem !important;
 }
@@ -59,8 +52,7 @@
 .select {
 	border-radius: 0.25rem;
 	color: #c3c3c4 !important;
-	padding-left: 0.75rem;
-	padding-right: 0.75rem;
+	padding: 0 0.75rem;
 }
 
 .select[disabled=""] {
@@ -96,16 +88,22 @@
 	width: 100%;
 }
 
-#form svg[data-testid="ArrowDropDownIcon"] {
-	transition: transform 0.35s;
-}
-
 #form > div:first-child {
 	margin-bottom: 0.5rem;
 }
 
 #form > div:last-child {
 	text-align: center;
+}
+
+#form .error-text {
+	align-items: center;
+	display: flex;
+	font-size: 0.8rem;
+	gap: 0.5rem;
+	position: absolute;
+	bottom: 1rem;
+	display: flex;
 }
 
 #primary-input {

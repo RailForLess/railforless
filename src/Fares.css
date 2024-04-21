@@ -32,15 +32,16 @@
 }
 
 #fares-container {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
 	height: 100%;
-	padding: 0 1rem 2rem 1rem;
+	padding: 1rem;
 	width: 100%;
 }
 
 #fares-container > div:last-child {
-	display: flex;
-	flex-direction: column;
-	gap: 1rem;
+	margin-top: 1rem;
 }
 
 #fares-filters {
@@ -65,6 +66,7 @@
 	display: flex;
 	justify-content: center;
 	flex: 1;
+	height: 100%;
 }
 
 #no-options-container div {
@@ -114,5 +116,6 @@
 
 	#fares-filters {
 		justify-content: center;
+		margin: 1rem 0;
 	}
 }

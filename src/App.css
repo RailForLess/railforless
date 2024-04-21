@@ -6,11 +6,13 @@
 }
 
 ::-webkit-scrollbar {
+	height: 8px;
 	width: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
 	background: gray;
+	border-radius: 0.25rem;
 }
 
 ::-webkit-scrollbar-track {
@@ -23,12 +25,20 @@ a {
 	text-decoration: underline;
 }
 
+svg[data-testid="ArrowDropDownIcon"] {
+	transition: transform 0.35s;
+}
+
 .fade-in {
 	animation: fade-in 1s;
 }
 
 .grecaptcha-badge {
 	visibility: hidden;
+}
+
+.selected svg[data-testid="ArrowDropDownIcon"] {
+	transform: rotate(180deg);
 }
 
 #bmc-wbtn {

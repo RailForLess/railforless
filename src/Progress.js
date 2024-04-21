@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import AnimatedNumbers from "react-animated-numbers";
 import "./Progress.css";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 
 export default function Progress({
@@ -66,6 +68,16 @@ export default function Progress({
 							}
 							value={Math.round(progressPercent * 100)}
 						/>
+					)}
+					{progressText.includes("reCAPTCHA") && (
+						<Button
+							endIcon={<RefreshIcon />}
+							onClick={() => window.location.reload()}
+							sx={{ marginTop: "1rem" }}
+							variant="contained"
+						>
+							Reload page
+						</Button>
 					)}
 				</div>
 			</div>

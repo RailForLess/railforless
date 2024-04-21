@@ -11,7 +11,6 @@ export default function StationSelect({
 	setOrigin,
 	destination,
 	setDestination,
-	updateMap,
 	setUpdateMap,
 	stations,
 	nearbyCitiesBool,
@@ -85,7 +84,7 @@ export default function StationSelect({
 			noOptionsText="No stations found"
 			onChange={(e, v) => {
 				departing ? setOrigin(v) : setDestination(v);
-				setUpdateMap(!updateMap);
+				setUpdateMap((updateMap) => !updateMap);
 			}}
 			options={stations}
 			renderInput={(params) => (

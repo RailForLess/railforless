@@ -3,9 +3,8 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import pako from "pako";
-import DateRangeSelect from "./DateRangeSelect";
+import DateRangePopover from "./DateRangePopover";
 import FareClassSelect from "./FareClassSelect";
-import RouteSelect from "./RouteSelect";
 import Settings from "./Settings";
 import StationSelect from "./StationSelect";
 import TravelerTypeSelect from "./TravelerTypeSelect";
@@ -49,36 +48,19 @@ export default function Form({
 	setDestination,
 	tab,
 	setTab,
-	anyDuration,
-	setAnyDuration,
-	weeks,
-	setWeeks,
-	weeksSelected,
-	setWeeksSelected,
-	days,
-	setDays,
-	daysSelected,
-	setDaysSelected,
-	weekdays,
-	setWeekdays,
-	weekends,
-	setWeekends,
-	month,
-	setMonth,
+	tripDuration,
+	setTripDuration,
 	dateRangeStart,
 	setDateRangeStart,
 	dateRangeEnd,
 	setDateRangeEnd,
-	maxDateRangeEnd,
-	setMaxDateRangeEnd,
-	updateMap,
+	dateRangeStartSearch,
+	setDateRangeStartSearch,
+	dateRangeEndSearch,
+	setDateRangeEndSearch,
 	setUpdateMap,
 	searching,
 	setSearching,
-	route,
-	setRoute,
-	mutualRoutes,
-	setMutualRoutes,
 	setProgressPercent,
 	setProgressText,
 	searchError,
@@ -134,7 +116,7 @@ export default function Form({
 		}
 		setStations(sortedStationsData);
 		setOrigin(sortedStationsData[0]);
-		setUpdateMap(!updateMap);
+		setUpdateMap((updateMap) => !updateMap);
 	}
 
 	let wakeRes;
@@ -198,28 +180,8 @@ export default function Form({
 		setSwapped(!swapped);
 		setDestination(origin);
 		setOrigin(destination);
-		setUpdateMap(!updateMap);
+		setUpdateMap((updateMap) => !updateMap);
 	}
-
-	useEffect(() => {
-		const maxDate = dayjs.utc().startOf("d").add(11, "M").subtract(2, "d");
-		if (tripType === "round-trip") {
-			setMaxDateRangeEnd(
-				maxDate.isBefore(dateRangeStart.add(44, "d"))
-					? maxDate
-					: dateRangeStart.add(44, "d")
-			);
-			if (dateRangeEnd.diff(dateRangeStart, "d") > 44) {
-				setDateRangeEnd(dateRangeStart.add(44, "d"));
-			}
-		} else {
-			setMaxDateRangeEnd(
-				maxDate.isBefore(dateRangeStart.add(89, "d"))
-					? maxDate
-					: dateRangeStart.add(89, "d")
-			);
-		}
-	}, [tripType]);
 
 	let errorType = 0;
 	let errorText = "";
@@ -247,15 +209,6 @@ export default function Form({
 
 	useEffect(() => {
 		setShowSearchErrors(false);
-		if (origin && destination) {
-			const newMutualRoutes = origin.routes.filter((route) =>
-				destination.routes.includes(route)
-			);
-			if (newMutualRoutes.length > 1) {
-				newMutualRoutes.unshift("Any-route");
-			}
-			setMutualRoutes(newMutualRoutes);
-		}
 	}, [origin, destination]);
 
 	const [sleeperOpen, setSleeperOpen] = useState(false);
@@ -276,7 +229,7 @@ export default function Form({
 				"Family Room",
 			]);
 			setTimeout(() => {
-				setUpdateMap(!updateMap);
+				setUpdateMap((updateMap) => !updateMap);
 			}, 500);
 			setSearching(false);
 			setSearchError(false);
@@ -286,7 +239,7 @@ export default function Form({
 			}
 			setSearching(false);
 			setTimeout(() => {
-				setUpdateMap(!updateMap);
+				setUpdateMap((updateMap) => !updateMap);
 			}, 500);
 		} else {
 			if (errorType === 1) {
@@ -345,7 +298,9 @@ export default function Form({
 
 		if (response.status !== 200) {
 			setProgressText(
-				`API connection failed with HTTP status ${response.status}`
+				response.status === 401
+					? "reCAPTCHA validation failed"
+					: `API connection failed with HTTP status ${response.status}`
 			);
 			setSearchError(true);
 			return;
@@ -385,29 +340,26 @@ export default function Form({
 					const fares = pako.inflate(resultBytes, { to: "string" });
 					setFares(JSON.parse(fares));
 					document.getElementById("root").style.height = "auto";
-					localStorage.setItem("fares", JSON.stringify(fares));
 					localStorage.setItem("tripType", JSON.stringify(tripType));
 					localStorage.setItem("travelerTypes", JSON.stringify(travelerTypes));
 					localStorage.setItem("origin", JSON.stringify(origin));
 					localStorage.setItem("destination", JSON.stringify(destination));
 					localStorage.setItem("tab", JSON.stringify(tab));
-					localStorage.setItem("weeks", JSON.stringify(weeks));
-					localStorage.setItem("weeksSelected", JSON.stringify(weeksSelected));
-					localStorage.setItem("days", JSON.stringify(days));
-					localStorage.setItem("daysSelected", JSON.stringify(daysSelected));
-					localStorage.setItem("weekdays", JSON.stringify(weekdays));
-					localStorage.setItem("weekends", JSON.stringify(weekends));
-					localStorage.setItem("month", JSON.stringify(month));
+					localStorage.setItem("tripDuration", JSON.stringify(tripDuration));
 					localStorage.setItem(
 						"dateRangeStart",
 						JSON.stringify(dateRangeStart)
 					);
 					localStorage.setItem("dateRangeEnd", JSON.stringify(dateRangeEnd));
 					localStorage.setItem(
-						"maxDateRangeEnd",
-						JSON.stringify(maxDateRangeEnd)
+						"dateRangeStartSearch",
+						JSON.stringify(dateRangeStartSearch)
 					);
-					localStorage.setItem("route", JSON.stringify(route));
+					localStorage.setItem(
+						"dateRangeEndSearch",
+						JSON.stringify(dateRangeEndSearch)
+					);
+					localStorage.setItem("fares", JSON.stringify(fares));
 					return;
 				} else {
 					setProgressText(message.data);
@@ -472,7 +424,6 @@ export default function Form({
 						setOrigin={setOrigin}
 						destination={destination}
 						setDestination={setDestination}
-						updateMap={updateMap}
 						setUpdateMap={setUpdateMap}
 						stations={stations}
 						nearbyCitiesBool={nearbyCitiesBool}
@@ -492,40 +443,27 @@ export default function Form({
 						setOrigin={setOrigin}
 						destination={destination}
 						setDestination={setDestination}
-						updateMap={updateMap}
 						setUpdateMap={setUpdateMap}
 						stations={stations}
 						nearbyCitiesBool={nearbyCitiesBool}
 						stationFormat={stationFormat}
 					/>
-					<DateRangeSelect
+					<DateRangePopover
 						tripType={tripType}
 						tab={tab}
 						setTab={setTab}
-						anyDuration={anyDuration}
-						setAnyDuration={setAnyDuration}
-						weeks={weeks}
-						setWeeks={setWeeks}
-						weeksSelected={weeksSelected}
-						setWeeksSelected={setWeeksSelected}
-						days={days}
-						setDays={setDays}
-						daysSelected={daysSelected}
-						setDaysSelected={setDaysSelected}
-						weekdays={weekdays}
-						setWeekdays={setWeekdays}
-						weekends={weekends}
-						setWeekends={setWeekends}
-						month={month}
-						setMonth={setMonth}
+						tripDuration={tripDuration}
+						setTripDuration={setTripDuration}
 						dateRangeStart={dateRangeStart}
 						setDateRangeStart={setDateRangeStart}
 						dateRangeEnd={dateRangeEnd}
 						setDateRangeEnd={setDateRangeEnd}
-						maxDateRangeEnd={maxDateRangeEnd}
-						setMaxDateRangeEnd={setMaxDateRangeEnd}
-						searching={searching}
+						minDate={dayjs.utc().startOf("d").add(1, "d")}
+						maxDate={dayjs.utc().startOf("d").add(11, "M").subtract(2, "d")}
+						setDateRangeStartSearch={setDateRangeStartSearch}
+						setDateRangeEndSearch={setDateRangeEndSearch}
 						fares={fares}
+						searching={searching}
 					/>
 				</div>
 			) : (
@@ -541,41 +479,22 @@ export default function Form({
 						values={fareClasses}
 						searching={searching || fares.length > 1}
 					/>
-					{mutualRoutes.length > 2 && (
-						<RouteSelect
-							value={route}
-							setValue={setRoute}
-							values={mutualRoutes}
-						/>
-					)}
-					<DateRangeSelect
+					<DateRangePopover
 						tripType={tripType}
 						tab={tab}
 						setTab={setTab}
-						anyDuration={anyDuration}
-						setAnyDuration={setAnyDuration}
-						weeks={weeks}
-						setWeeks={setWeeks}
-						weeksSelected={weeksSelected}
-						setWeeksSelected={setWeeksSelected}
-						days={days}
-						setDays={setDays}
-						daysSelected={daysSelected}
-						setDaysSelected={setDaysSelected}
-						weekdays={weekdays}
-						setWeekdays={setWeekdays}
-						weekends={weekends}
-						setWeekends={setWeekends}
-						month={month}
-						setMonth={setMonth}
-						dateRangeStart={dateRangeStart}
-						setDateRangeStart={setDateRangeStart}
-						dateRangeEnd={dateRangeEnd}
-						setDateRangeEnd={setDateRangeEnd}
-						maxDateRangeEnd={maxDateRangeEnd}
-						setMaxDateRangeEnd={setMaxDateRangeEnd}
-						searching={searching}
+						tripDuration={tripDuration}
+						setTripDuration={setTripDuration}
+						dateRangeStart={dateRangeStartSearch}
+						setDateRangeStart={setDateRangeStartSearch}
+						dateRangeEnd={dateRangeEndSearch}
+						setDateRangeEnd={setDateRangeEndSearch}
+						minDate={dateRangeStart}
+						maxDate={dateRangeEnd}
+						setDateRangeStartSearch={setDateRangeStartSearch}
+						setDateRangeEndSearch={setDateRangeEndSearch}
 						fares={fares}
+						searching={searching}
 					/>
 				</div>
 			)}
@@ -583,7 +502,7 @@ export default function Form({
 				fares.length === 0 &&
 				(errorType > 1 || (showSearchErrors && errorType === 1)) &&
 				(errorType === 1 ? (
-					<div className="error-text error-1">
+					<div className="error-critical error-text">
 						<ErrorIcon fontSize="small" />
 						<span>{errorText}</span>
 					</div>

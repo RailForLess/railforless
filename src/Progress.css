@@ -37,7 +37,7 @@
 	width: min-content;
 }
 
-#progress-container svg {
+#progress-container svg[data-testid="RailwayAlertIcon"] {
 	font-size: 5rem;
 }
 

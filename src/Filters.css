@@ -1,0 +1,70 @@
+.checkbox-label {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.filter-not-selected {
+	order: 2;
+}
+
+.filter-selected {
+	order: 1;
+}
+
+.filter-button {
+	white-space: nowrap;
+}
+
+.popover-filter {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+}
+
+.popover-filter > div:first-child {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+}
+
+.popover-filter > .MuiFormGroup-root > label {
+	width: 100%;
+}
+
+.routes-row {
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+}
+
+.slider-container {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1rem;
+	width: 20rem;
+}
+
+.slider-container > :first-child {
+	align-self: start;
+}
+
+.slider-container .MuiSlider-root {
+	width: 80% !important;
+}
+
+#filters {
+	display: flex;
+	overflow-x: scroll;
+	gap: 1rem;
+}
+
+#filters::-webkit-scrollbar {
+	height: 0;
+}
+
+#filters:hover::-webkit-scrollbar {
+	height: 8px;
+}

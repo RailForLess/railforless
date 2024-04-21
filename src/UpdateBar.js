@@ -1,32 +1,90 @@
+import { useState } from "react";
 import "./UpdateBar.css";
 import CloseIcon from "@mui/icons-material/Close";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import IconButton from "@mui/material/IconButton";
 
-export default function UpdateBar({ setUpdateBarClose }) {
-	function announceUpdate() {
-		/*
-		getDialog(
-			"November 7th, 2023<br><br>I'm excited to announce a complete redesign of railforless.us to address the ongoing CAPTCHA issues is well underway. With the help of another developer we are perfecting a faster, more reliable, more comprehensive method of scraping Amtrak fares. Accompanying these backend changes will be a new UI to improve functionality and better showcase the new data. We're trying our best to push this update as soon as possible. As always, direct any questions or suggestions to <a href=`mailto:sean@railforless.us`>sean@railforless.us</a>.<br><br><hr><br>October 2nd, 2023<br><br>As many of you have come to learn, the site has had a lot of trouble recently scraping data from amtrak.com. This is not a bug in my code&#8212;amtrak.com uses <a href='https://cloud.google.com/recaptcha-enterprise' rel='noopener noreferrer' target='_blank'>reCAPTCHA Enterprise</a> to prevent bots from scraping the site. This software uses machine learning to learn user interaction patterns and block suspected bot activity. A couple weeks ago, something about the algorithm changed such that most requests were blocked. Since then, I have tried everything in my power to circumvent the CAPTCHA, but in time the algorithm always adapts to the new scraping behavior. For the forseeable future, <span>I strongly recommend using the site in the early morning or late evening hours as this seems to be when the CAPTCHA is least restrictive</span>. I will continue to explore new ways to scrape fare data; I have received lots of useful suggestions. Despite these recent challenges, I have implemented a number of new features and improvements:<br><br><ul><li>Search by hour</li><li>New dialog boxes</li><li>New hero images</li><li>Form optimizations for Acela</li><li>Added estimated wait time</li><li>Doubled CPU capacity</li><li>Switched to static residential proxies</li></ul><br>As always, feel free to contact me at <a href=`mailto:sean@railforless.us`>sean@railforless.us</a> with any questions or suggestions. Happy scraping!",
-			"announce"
-		);
-		*/
-	}
-
-	const dialogRoot = document.createElement("div");
-	dialogRoot.id = "dialog-root";
-	document.body.appendChild(dialogRoot);
-
-	if (localStorage.getItem("hasSeenUpdate") !== "true") {
-		announceUpdate();
-		localStorage.setItem("hasSeenUpdate", "true");
-	}
+export default function UpdateBar() {
+	const [open, setOpen] = useState(true);
+	const [dialog, setDialog] = useState(false);
 
 	return (
-		<div id="update-bar-container">
-			<p id="update-bar">
-				The future of railforless.us{" "}
-				<span onClick={announceUpdate}>Read more</span>
-			</p>
-			<CloseIcon onClick={() => setUpdateBarClose(true)} />
+		<div>
+			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
+				<span id="update-bar">
+					April 2024 Feature Update{" "}
+					<span onClick={() => setDialog(true)}>Read more</span>
+				</span>
+				<IconButton onClick={() => setOpen(false)} size="small">
+					<CloseIcon />
+				</IconButton>
+			</div>
+			<Dialog onClose={() => setDialog(false)} open={dialog}>
+				<DialogTitle>April 2024 Feature Update</DialogTitle>
+				<IconButton
+					onClick={() => setDialog(false)}
+					sx={{ position: "absolute", right: "1rem", top: "1rem" }}
+				>
+					<CloseIcon />
+				</IconButton>
+				<DialogContent>
+					<DialogContentText>
+						Hello railfans!<br></br>
+						<br></br>Ever since we launched v2 last month we've been inundated
+						with feature requests and bug fixes, and ever since then we've been
+						working in our spare time to address these requests. This update
+						adds significant functionality to the site, mostly through 8 new
+						filters which enable comprehensive customization of the returned
+						options. We've also patched various bugs, improved UI/UX, and added
+						a few extra features along the way. Below is a list of all major
+						changes:<br></br>
+						<br></br>
+						New features:
+						<br></br>
+						<ul>
+							<li>Filter by route</li>
+							<li>Filter by layovers</li>
+							<li>Filter by price</li>
+							<li>Filter by times</li>
+							<li>Filter by days</li>
+							<li>Filter by duration</li>
+							<li>Filter by amenities</li>
+							<li>Filter by add-ons</li>
+							<li>Redesigned date picker</li>
+							<li>Local transit connections</li>
+							<li>Add-ons listed with amenities</li>
+							<li>Redesigned reCAPTCHA error</li>
+						</ul>
+						<br></br>
+						Bug fixes:<br></br>
+						<ul>
+							<li>UTC/local time conversion fixed</li>
+							<li>Bus legs now render correctly</li>
+						</ul>
+						<br></br>
+						Many of these changes were made directly in response to emails we
+						received—don't hesitate to reach out with any suggestions at{" "}
+						<a href="mailto:contact@railforless.us">contact@railforless.us</a>.
+						If you found any of these changes useful, consider{" "}
+						<a
+							href="https://www.buymeacoffee.com/seaneddy"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							donating
+						</a>{" "}
+						to help us cover operating costs and maintain the site.
+					</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={() => setDialog(false)}>OK</Button>
+				</DialogActions>
+			</Dialog>
 		</div>
 	);
 }

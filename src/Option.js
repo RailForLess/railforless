@@ -5,9 +5,13 @@ import DelayInfo from "./DelayInfo";
 import "./Option.css";
 import AccessibleIcon from "@mui/icons-material/Accessible";
 import ChairIcon from "@mui/icons-material/Chair";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocalCafeIcon from "@mui/icons-material/LocalCafe";
 import LuggageIcon from "@mui/icons-material/Luggage";
+import NoTransferIcon from "@mui/icons-material/NoTransfer";
+import PedalBikeIcon from "@mui/icons-material/PedalBike";
+import PetsIcon from "@mui/icons-material/Pets";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import TakeoutDiningIcon from "@mui/icons-material/TakeoutDining";
 import TvIcon from "@mui/icons-material/Tv";
@@ -67,14 +71,14 @@ export default function Option({
 		fareFamily === "SAL" ? "Sale" : fareFamily === "VLU" ? "Value" : "Flex";
 
 	const getAmenityIcon = (amenity) =>
-		amenity === "Checked Baggage" ? (
-			<LuggageIcon fontSize="small" />
-		) : amenity === "Cafe" ? (
+		amenity === "Cafe" ? (
 			<LocalCafeIcon fontSize="small" />
-		) : amenity === "Flexible Dining" ? (
-			<TakeoutDiningIcon fontSize="small" />
+		) : amenity === "Checked Baggage" ? (
+			<LuggageIcon fontSize="small" />
 		) : amenity === "Free WiFi" ? (
 			<WifiIcon fontSize="small" />
+		) : amenity === "Flexible Dining" ? (
+			<TakeoutDiningIcon fontSize="small" />
 		) : amenity === "Quiet Car" ? (
 			<VolumeOffIcon fontSize="small" />
 		) : amenity === "Seat Display" ? (
@@ -85,6 +89,13 @@ export default function Option({
 			<RestaurantIcon fontSize="small" />
 		) : (
 			<AccessibleIcon fontSize="small" />
+		);
+
+	const getAddItemIcon = (addItem) =>
+		addItem.type === "Bicycle" ? (
+			<PedalBikeIcon fontSize="small" />
+		) : (
+			<PetsIcon fontSize="small" />
 		);
 
 	async function handleExpand() {
@@ -184,89 +195,138 @@ export default function Option({
 											<div className="dot-end"></div>
 											<div className="dot-line"></div>
 											<div className="dot-end"></div>
+											<div>
+												{leg.type === "TRAIN" ? (
+													<DirectionsBusIcon />
+												) : (
+													<NoTransferIcon />
+												)}
+											</div>
 										</div>
 										<div>
-											<div>
-												{avgDelays[`${leg.trainId}${leg.origin.code}`] &&
-													!isNaN(
-														avgDelays[`${leg.trainId}${leg.origin.code}`].d_dp
-													) && (
-														<DelayInfo
-															isDept={true}
-															leg={{
-																...leg,
-																origin: {
-																	...leg.origin,
-																	avgDelay:
-																		avgDelays[
-																			`${leg.trainId}${leg.origin.code}`
-																		].d_dp,
-																},
-															}}
-														/>
-													)}
+											<div className="station-container">
 												<div>
-													<span>{leg.departureDateTime.format("h:mm A")}</span>
-													<span className="dot">·</span>
-													{leg.origin.code !== "CBN" ? (
+													{avgDelays[`${leg.trainId}${leg.origin.code}`] &&
+														!isNaN(
+															avgDelays[`${leg.trainId}${leg.origin.code}`].d_dp
+														) && (
+															<DelayInfo
+																isDept={true}
+																leg={{
+																	...leg,
+																	origin: {
+																		...leg.origin,
+																		avgDelay:
+																			avgDelays[
+																				`${leg.trainId}${leg.origin.code}`
+																			].d_dp,
+																	},
+																}}
+															/>
+														)}
+													<div>
+														<span>
+															{leg.departureDateTime.format("h:mm A")}
+														</span>
+														<span className="dot">·</span>
+														{leg.origin.code !== "CBN" ? (
+															<a
+																href={`https://www.amtrak.com/stations/${leg.origin.code}.html`}
+																rel="noreferrer"
+																target="_blank"
+															>{`${leg.origin.name} (${leg.origin.code})`}</a>
+														) : (
+															<span>{`${leg.origin.name} (${leg.origin.code})`}</span>
+														)}
+													</div>
+												</div>
+												{leg.origin.connections.length > 0 && (
+													<div>
+														{leg.origin.connections.map((connection) => (
+															<div className="connection">
+																<img
+																	alt={`${connection} logo`}
+																	src={`images/connections/${connection
+																		.toLowerCase()
+																		.replaceAll(" ", "-")
+																		.replaceAll('"', "'")}.png`}
+																/>
+																<span>{connection}</span>
+															</div>
+														))}
+													</div>
+												)}
+											</div>
+											<div>
+												<span>{getDuration(leg.elapsedSeconds)}</span>
+												<div>
+													<span>{leg.trainId}</span>
+													{leg.route !== "Connecting Bus" ? (
 														<a
-															href={`https://www.amtrak.com/stations/${leg.origin.code}.html`}
+															href={`https://www.amtrak.com/routes/${
+																routeLinks[leg.route]
+															}-train.html`}
 															rel="noreferrer"
 															target="_blank"
-														>{`${leg.origin.name} (${leg.origin.code})`}</a>
+														>
+															{leg.route}
+														</a>
 													) : (
-														<span>{`${leg.origin.name} (${leg.origin.code})`}</span>
+														<span>{leg.route}</span>
 													)}
 												</div>
 											</div>
-											<span>{`Travel time: ${getDuration(
-												leg.elapsedSeconds
-											)}`}</span>
-											<div style={{ color: "#9aa0a6" }}>
-												<span>{leg.trainId}</span>
-												<a
-													href={`https://www.amtrak.com/routes/${
-														routeLinks[leg.route]
-													}-train.html`}
-													rel="noreferrer"
-													target="_blank"
-												>
-													{leg.route}
-												</a>
-											</div>
-											<div>
-												{avgDelays[`${leg.trainId}${leg.destination.code}`] &&
-													!isNaN(
-														avgDelays[`${leg.trainId}${leg.destination.code}`]
-															.d_ar
-													) && (
-														<DelayInfo
-															isDept={false}
-															leg={{
-																...leg,
-																destination: {
-																	...leg.destination,
-																	avgDelay:
-																		avgDelays[
-																			`${leg.trainId}${leg.destination.code}`
-																		].d_ar,
-																},
-															}}
-														/>
-													)}
+											<div className="station-container">
 												<div>
-													<span>{leg.arrivalDateTime.format("h:mm A")}</span>
-													<span className="dot">·</span>
-													{leg.destination.code !== "CBN" ? (
-														<a
-															href={`https://www.amtrak.com/stations/${leg.destination.code}.html`}
-															rel="noreferrer"
-															target="_blank"
-														>{`${leg.destination.name} (${leg.destination.code})`}</a>
-													) : (
-														<span>{`${leg.destination.name} (${leg.destination.code})`}</span>
-													)}
+													{avgDelays[`${leg.trainId}${leg.destination.code}`] &&
+														!isNaN(
+															avgDelays[`${leg.trainId}${leg.destination.code}`]
+																.d_ar
+														) && (
+															<DelayInfo
+																isDept={false}
+																leg={{
+																	...leg,
+																	destination: {
+																		...leg.destination,
+																		avgDelay:
+																			avgDelays[
+																				`${leg.trainId}${leg.destination.code}`
+																			].d_ar,
+																	},
+																}}
+															/>
+														)}
+													<div>
+														<span>{leg.arrivalDateTime.format("h:mm A")}</span>
+														<span className="dot">·</span>
+														{leg.destination.code !== "CBN" ? (
+															<a
+																href={`https://www.amtrak.com/stations/${leg.destination.code}.html`}
+																rel="noreferrer"
+																target="_blank"
+															>{`${leg.destination.name} (${leg.destination.code})`}</a>
+														) : (
+															<span>{`${leg.destination.name} (${leg.destination.code})`}</span>
+														)}
+													</div>
 												</div>
+												{leg.destination.connections.length > 0 && (
+													<div>
+														{leg.destination.connections.map((connection) => (
+															<div className="connection">
+																<img
+																	alt={`${connection} logo`}
+																	src={`images/connections/${connection
+																		.toLowerCase()
+																		.replaceAll(" ", "-")
+																		.replaceAll('"', "'")}.png`}
+																/>
+																<span>{connection}</span>
+															</div>
+														))}
+													</div>
+												)}
 											</div>
 										</div>
 									</div>
@@ -299,14 +359,37 @@ export default function Option({
 											</div>
 										</div>
 									</div>
-									<div className="leg-amenities-container">
-										{leg.amenities.sort().map((amenity, i) => (
-											<div key={`amenity-${i}`}>
-												{getAmenityIcon(amenity)}
-												<span>{amenity}</span>
+									{((leg.amenities && leg.amenities.length > 0) ||
+										(trip.addItems && trip.addItems.length > 0)) && (
+										<div className="leg-amenities-container">
+											<div>
+												{leg.amenities &&
+													leg.amenities.length > 0 &&
+													leg.amenities.sort().map((amenity, i) => (
+														<div key={`amenity-${i}`}>
+															{getAmenityIcon(amenity)}
+															<span>{amenity}</span>
+														</div>
+													))}
+												{leg.amenities &&
+													leg.amenities.length > 0 &&
+													trip.addItems &&
+													trip.addItems.length > 0 && <hr></hr>}
+												{trip.addItems &&
+													trip.addItems.length > 0 &&
+													trip.addItems.sort().map((addItem, i) => (
+														<div key={`addItem-${i}`}>
+															{getAddItemIcon(addItem)}
+															<span>{`${addItem.type} (${
+																addItem.fare
+																	? `$${addItem.fare.toLocaleString()}`
+																	: "free"
+															})`}</span>
+														</div>
+													))}
 											</div>
-										))}
-									</div>
+										</div>
+									)}
 								</div>
 								{k + 1 < trip.travelLegs.length && (
 									<div className="layover-container">

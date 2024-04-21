@@ -359,7 +359,9 @@ export default function Fares({
 						) &&
 						deptOption.travelLegs.length - 1 <= maxLayovers &&
 						returnOption.travelLegs.length - 1 <= maxLayovers &&
-						(deptOption.fare + returnOption.fare) / numTravelers <= maxPrice &&
+						(maxPrice === 5000 ||
+							(deptOption.fare + returnOption.fare) / numTravelers <=
+								maxPrice) &&
 						Number(deptOption.departureDateTime.format("H")) >=
 							outboundDeptTime[0] &&
 						Number(deptOption.departureDateTime.format("H")) <=
@@ -378,8 +380,9 @@ export default function Fares({
 							returnArrivalTime[1] &&
 						includedDays.includes(deptOption.departureDateTime.get("d")) &&
 						includedDays.includes(returnOption.departureDateTime.get("d")) &&
-						(deptOption.elapsedSeconds + returnOption.elapsedSeconds) / 3600 <
-							maxDuration &&
+						(maxDuration === 100 ||
+							(deptOption.elapsedSeconds + returnOption.elapsedSeconds) / 3600 <
+								maxDuration) &&
 						includedAmenities.every((amenity) =>
 							deptOption.travelLegs.some(
 								(leg) => leg.amenities && leg.amenities.includes(amenity)
@@ -433,7 +436,7 @@ export default function Fares({
 							includedRoutes.includes(leg.route)
 						) &&
 						option.travelLegs.length - 1 <= maxLayovers &&
-						option.fare / numTravelers <= maxPrice &&
+						(maxPrice === 5000 || option.fare / numTravelers <= maxPrice) &&
 						Number(option.departureDateTime.format("H")) >=
 							outboundDeptTime[0] &&
 						Number(option.departureDateTime.format("H")) <=
@@ -443,7 +446,8 @@ export default function Fares({
 						Number(option.arrivalDateTime.format("H")) <=
 							outboundArrivalTime[1] &&
 						includedDays.includes(option.departureDateTime.get("d")) &&
-						option.elapsedSeconds / 3600 < maxDuration &&
+						(maxDuration === 100 ||
+							option.elapsedSeconds / 3600 < maxDuration) &&
 						includedAmenities.every((amenity) =>
 							option.travelLegs.some(
 								(leg) => leg.amenities && leg.amenities.includes(amenity)

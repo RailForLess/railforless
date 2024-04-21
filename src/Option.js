@@ -377,16 +377,18 @@ export default function Option({
 													trip.addItems.length > 0 && <hr></hr>}
 												{trip.addItems &&
 													trip.addItems.length > 0 &&
-													trip.addItems.sort().map((addItem, i) => (
-														<div key={`addItem-${i}`}>
-															{getAddItemIcon(addItem)}
-															<span>{`${addItem.type} (${
-																addItem.fare
-																	? `$${addItem.fare.toLocaleString()}`
-																	: "free"
-															})`}</span>
-														</div>
-													))}
+													trip.addItems
+														.sort((a, b) => a.type.localeCompare(b.type))
+														.map((addItem, i) => (
+															<div key={`addItem-${i}`}>
+																{getAddItemIcon(addItem)}
+																<span>{`${addItem.type} (${
+																	addItem.fare
+																		? `$${addItem.fare.toLocaleString()}`
+																		: "free"
+																})`}</span>
+															</div>
+														))}
 											</div>
 										</div>
 									)}

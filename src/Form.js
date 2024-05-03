@@ -293,7 +293,11 @@ export default function Form({
 			)}&bedrooms=${bedrooms}&familyRooms=${familyRooms}&roundtrip=${
 				tripType === "round-trip"
 			}`,
-			{ headers: { "captcha-token": await getCaptchaToken() } }
+			{
+				headers: process.env.REACT_APP_AUTH_STRING
+					? { "railsavers-auth": process.env.REACT_APP_AUTH_STRING }
+					: { "captcha-token": await getCaptchaToken() },
+			}
 		);
 
 		if (response.status !== 200) {

@@ -59,6 +59,7 @@ export default function Home({
 		Adirondack: "adirondack",
 		"Auto Train": "auto",
 		"Blue Water": "michigan-services",
+		Borealis: "borealis",
 		"California Zephyr": "california-zephyr",
 		"Capitol Limited": "capitol-limited",
 		Cardinal: "cardinal",

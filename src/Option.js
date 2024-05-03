@@ -15,6 +15,7 @@ import PetsIcon from "@mui/icons-material/Pets";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import TakeoutDiningIcon from "@mui/icons-material/TakeoutDining";
 import TvIcon from "@mui/icons-material/Tv";
+import SportsGolfIcon from "@mui/icons-material/SportsGolf";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import WifiIcon from "@mui/icons-material/Wifi";
 import Accordion from "@mui/material/Accordion";
@@ -94,8 +95,10 @@ export default function Option({
 	const getAddItemIcon = (addItem) =>
 		addItem.type === "Bicycle" ? (
 			<PedalBikeIcon fontSize="small" />
-		) : (
+		) : addItem.type === "Pet" ? (
 			<PetsIcon fontSize="small" />
+		) : (
+			<SportsGolfIcon fontSize="small" />
 		);
 
 	async function handleExpand() {

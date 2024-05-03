@@ -29,6 +29,10 @@ svg[data-testid="ArrowDropDownIcon"] {
 	transition: transform 0.35s;
 }
 
+ul {
+	list-style-position: inside;
+}
+
 .fade-in {
 	animation: fade-in 1s;
 }

@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 import PetsIcon from "@mui/icons-material/Pets";
+import SportsGolfIcon from "@mui/icons-material/SportsGolf";
 
 export default function AddItems({ addItems, setAddItems }) {
 	const includedAddItems = Object.keys(addItems).filter(
@@ -29,8 +30,10 @@ export default function AddItems({ addItems, setAddItems }) {
 	const getAddItemIcon = (addItem) =>
 		addItem === "Bicycle" ? (
 			<PedalBikeIcon fontSize="small" />
-		) : (
+		) : addItem === "Pet" ? (
 			<PetsIcon fontSize="small" />
+		) : (
+			<SportsGolfIcon fontSize="small" />
 		);
 
 	const [anchor, setAnchor] = useState(null);

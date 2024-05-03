@@ -17,7 +17,7 @@ export default function UpdateBar() {
 		<div>
 			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
 				<span id="update-bar">
-					April 2024 Feature Update{" "}
+					Borealis Trains Depart May 21{" "}
 					<span onClick={() => setDialog(true)}>Read more</span>
 				</span>
 				<IconButton onClick={() => setOpen(false)} size="small">
@@ -25,7 +25,7 @@ export default function UpdateBar() {
 				</IconButton>
 			</div>
 			<Dialog onClose={() => setDialog(false)} open={dialog}>
-				<DialogTitle>April 2024 Feature Update</DialogTitle>
+				<DialogTitle>Updates</DialogTitle>
 				<IconButton
 					onClick={() => setDialog(false)}
 					sx={{ position: "absolute", right: "1rem", top: "1rem" }}
@@ -34,6 +34,35 @@ export default function UpdateBar() {
 				</IconButton>
 				<DialogContent>
 					<DialogContentText>
+						<h2>Borealis Trains Depart May 21</h2>
+						<br></br>
+						Amtrak{" "}
+						<a
+							href="https://media.amtrak.com/2024/05/introducing-amtrak-borealis-trains-with-expanded-service-between-st-paul-and-chicago-via-milwaukee/"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							recently announced
+						</a>{" "}
+						the new{" "}
+						<a
+							href="https://www.amtrak.com/borealis-train"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							Borealis
+						</a>{" "}
+						train between St. Paul–Minneapolis and Chicago, and we quickly
+						updated our map and internal data structures accordingly. Hover over
+						the Empire Builder route between St. Paul–Minneapolis and Chicago to
+						see the new train and book today! The first Borealis trains depart
+						May 21, 2024.
+						<br></br>
+						<br></br>
+						<hr></hr>
+						<br></br>
+						<h2>April 2024 Feature Update</h2>
+						<br></br>
 						Hello railfans!<br></br>
 						<br></br>Ever since we launched v2 last month we've been inundated
 						with feature requests and bug fixes, and ever since then we've been

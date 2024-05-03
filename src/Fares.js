@@ -117,7 +117,11 @@ export default function Fares({
 		"Traditional Dining": false,
 		"Wheelchair Ramp": false,
 	});
-	const [addItems, setAddItems] = useState({ Bicycle: false, Pet: false });
+	const [addItems, setAddItems] = useState({
+		Bicycle: false,
+		"Golf Clubs": false,
+		Pet: false,
+	});
 
 	async function updateAllOptions() {
 		const CBN = {

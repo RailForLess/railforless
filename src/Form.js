@@ -233,6 +233,14 @@ export default function Form({
 			}, 500);
 			setSearching(false);
 			setSearchError(false);
+			setTripDuration({ type: null, val: null });
+			setTab(0);
+			setDateRangeStart(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
+			setDateRangeEnd(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
+			setDateRangeStartSearch(
+				dayjs.utc().startOf("d").add(1, "M").startOf("M")
+			);
+			setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
 		} else if (searching) {
 			if (clientState) {
 				clientState.close();

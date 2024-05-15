@@ -6,9 +6,13 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 import PetsIcon from "@mui/icons-material/Pets";
 import SportsGolfIcon from "@mui/icons-material/SportsGolf";
+import SpeedIcon from "@mui/icons-material/Speed";
+import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
 
 export default function AddItems({ addItems, setAddItems }) {
 	const includedAddItems = Object.keys(addItems).filter(
@@ -28,12 +32,20 @@ export default function AddItems({ addItems, setAddItems }) {
 	}
 
 	const getAddItemIcon = (addItem) =>
-		addItem === "Bicycle" ? (
+		addItem === "Automobile" ? (
+			<DirectionsCarIcon fontSize="small" />
+		) : addItem === "Bicycle" ? (
 			<PedalBikeIcon fontSize="small" />
+		) : addItem === "Golf Clubs" ? (
+			<SportsGolfIcon fontSize="small" />
+		) : addItem === "Motorcycle" ? (
+			<TwoWheelerIcon fontSize="small" />
+		) : addItem === "Offloading" ? (
+			<SpeedIcon fontSize="small" />
 		) : addItem === "Pet" ? (
 			<PetsIcon fontSize="small" />
 		) : (
-			<SportsGolfIcon fontSize="small" />
+			<AirportShuttleIcon fontSize="small" />
 		);
 
 	const [anchor, setAnchor] = useState(null);

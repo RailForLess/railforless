@@ -58,7 +58,7 @@ export default function Fares({
 		);
 
 	function getFare(legAccommodation, route) {
-		const result =
+		return (
 			(travelerTypes.numAdults + travelerTypes.numYouth) *
 				legAccommodation.fare.rail +
 			Math.ceil(
@@ -77,8 +77,8 @@ export default function Fares({
 								(isDiscountEligible(legAccommodation, route, false) ? 0.5 : 1))
 						: 0)
 			) +
-			legAccommodation.neededInventory * legAccommodation.fare.accommodation;
-		return result;
+			legAccommodation.neededInventory * legAccommodation.fare.accommodation
+		);
 	}
 
 	const [allOptions, setAllOptions] = useState([]);
@@ -118,9 +118,13 @@ export default function Fares({
 		"Wheelchair Ramp": false,
 	});
 	const [addItems, setAddItems] = useState({
+		Automobile: false,
 		Bicycle: false,
 		"Golf Clubs": false,
+		Motorcycle: false,
+		Offloading: false,
 		Pet: false,
+		Van: false,
 	});
 
 	async function updateAllOptions() {
@@ -137,14 +141,13 @@ export default function Fares({
 				for (const travelLeg of option.travelLegs) {
 					travelLeg.legAccommodations = [];
 				}
-				for (const accommodation of option.accommodations) {
-					if (
+				for (const accommodation of option.accommodations.filter(
+					(accommodation) =>
 						["Coach", "Business", "First", "Sleeper"].includes(
 							accommodation.class
 						)
-					) {
-						fareClasses.add(accommodation.class);
-					}
+				)) {
+					fareClasses.add(accommodation.class);
 					for (const [
 						i,
 						travelLeg,

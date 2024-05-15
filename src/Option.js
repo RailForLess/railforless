@@ -4,8 +4,10 @@ import AmtrakForm from "./AmtrakForm";
 import DelayInfo from "./DelayInfo";
 import "./Option.css";
 import AccessibleIcon from "@mui/icons-material/Accessible";
+import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import ChairIcon from "@mui/icons-material/Chair";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocalCafeIcon from "@mui/icons-material/LocalCafe";
 import LuggageIcon from "@mui/icons-material/Luggage";
@@ -15,6 +17,8 @@ import PetsIcon from "@mui/icons-material/Pets";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
 import TakeoutDiningIcon from "@mui/icons-material/TakeoutDining";
 import TvIcon from "@mui/icons-material/Tv";
+import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
+import SpeedIcon from "@mui/icons-material/Speed";
 import SportsGolfIcon from "@mui/icons-material/SportsGolf";
 import VolumeOffIcon from "@mui/icons-material/VolumeOff";
 import WifiIcon from "@mui/icons-material/Wifi";
@@ -93,12 +97,20 @@ export default function Option({
 		);
 
 	const getAddItemIcon = (addItem) =>
-		addItem.type === "Bicycle" ? (
+		addItem.type === "Automobile" ? (
+			<DirectionsCarIcon fontSize="small" />
+		) : addItem.type === "Bicycle" ? (
 			<PedalBikeIcon fontSize="small" />
+		) : addItem.type === "Golf Clubs" ? (
+			<SportsGolfIcon fontSize="small" />
+		) : addItem.type === "Motorcycle" ? (
+			<TwoWheelerIcon fontSize="small" />
+		) : addItem.type === "Offloading" ? (
+			<SpeedIcon fontSize="small" />
 		) : addItem.type === "Pet" ? (
 			<PetsIcon fontSize="small" />
 		) : (
-			<SportsGolfIcon fontSize="small" />
+			<AirportShuttleIcon fontSize="small" />
 		);
 
 	async function handleExpand() {

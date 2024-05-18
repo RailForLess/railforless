@@ -64,7 +64,7 @@ ul {
 
 @font-face {
 	font-family: "Google Sans";
-	src: url("./fonts/ProductSans-Regular.ttf");
+	src: url("./fonts/GoogleSans.ttf");
 }
 
 @keyframes fade-in {

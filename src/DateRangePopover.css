@@ -54,6 +54,14 @@ form svg[data-testid="CalendarMonthIcon"] {
 	width: 100%;
 }
 
+#date-range-warning {
+	align-items: center;
+	color: #c3c3c4 !important;
+	display: flex;
+	gap: 1rem;
+	padding: 0 1rem;
+}
+
 #date-picker-container {
 	align-items: center;
 	display: flex;

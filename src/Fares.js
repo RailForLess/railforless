@@ -20,6 +20,7 @@ export default function Fares({
 	travelerTypes,
 	fareClass,
 	setFareClasses,
+	strict,
 	stations,
 	origin,
 	destination,
@@ -250,7 +251,14 @@ export default function Fares({
 							legAccommodation.availableInventory >=
 								legAccommodation.neededInventory &&
 							(fareClass === "Any class" ||
-								legAccommodation.class === (isSleeper ? "Sleeper" : fareClass))
+								(legAccommodation.class ===
+									(isSleeper ? "Sleeper" : fareClass) &&
+									(!strict ||
+										(fareClass === "Sleeper" &&
+											["Roomette", "Bedroom", "Family Room"].includes(
+												legAccommodation.name
+											)) ||
+										legAccommodation.name.includes(fareClass))))
 					)
 					.map((legAccommodation) => ({
 						...legAccommodation,
@@ -616,6 +624,7 @@ export default function Fares({
 	}, [
 		travelerTypes,
 		fareClass,
+		strict,
 		tab,
 		routes,
 		maxLayovers,

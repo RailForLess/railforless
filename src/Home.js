@@ -32,6 +32,7 @@ export default function Home({
 		"Bedroom",
 		"Family Room",
 	]);
+	const [strict, setStrict] = useState(false);
 
 	const [stations, setStations] = useState([]);
 	const [origin, setOrigin] = useState(null);
@@ -129,6 +130,33 @@ export default function Home({
 		setLoaded(true);
 	}, []);
 
+	function newSearch() {
+		setFares([]);
+		document.getElementById("root").style.height = "100vh";
+		localStorage.setItem("fares", "[]");
+		setFareClasses([
+			"Any class",
+			"Coach",
+			"Business",
+			"First",
+			"Sleeper",
+			"Roomette",
+			"Bedroom",
+			"Family Room",
+		]);
+		setTimeout(() => {
+			setUpdateMap((updateMap) => !updateMap);
+		}, 500);
+		setSearching(false);
+		setSearchError(false);
+		setTripDuration({ type: null, val: null });
+		setTab(0);
+		setDateRangeStart(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
+		setDateRangeEnd(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
+		setDateRangeStartSearch(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
+		setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
+	}
+
 	return (
 		loaded && (
 			<div className="main-container">
@@ -147,7 +175,8 @@ export default function Home({
 						fareClass={fareClass}
 						setFareClass={setFareClass}
 						fareClasses={fareClasses}
-						setFareClasses={setFareClasses}
+						strict={strict}
+						setStrict={setStrict}
 						stations={stations}
 						setStations={setStations}
 						origin={origin}
@@ -175,6 +204,7 @@ export default function Home({
 						setSearchError={setSearchError}
 						fares={fares}
 						setFares={setFares}
+						newSearch={newSearch}
 					/>
 					{fares.length > 0 && stations.length > 0 ? (
 						<Fares
@@ -183,6 +213,7 @@ export default function Home({
 							travelerTypes={travelerTypes}
 							fareClass={fareClass}
 							setFareClasses={setFareClasses}
+							strict={strict}
 							stations={stations}
 							origin={origin}
 							destination={destination}

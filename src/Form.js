@@ -39,7 +39,8 @@ export default function Form({
 	fareClass,
 	setFareClass,
 	fareClasses,
-	setFareClasses,
+	strict,
+	setStrict,
 	stations,
 	setStations,
 	origin,
@@ -67,6 +68,7 @@ export default function Form({
 	setSearchError,
 	fares,
 	setFares,
+	newSearch,
 }) {
 	const [geolocateBool, setGeolocateBool] = useState(
 		localStorage.getItem("geolocate")
@@ -215,32 +217,7 @@ export default function Form({
 
 	function handleSearch() {
 		if (fares.length > 0 || searchError) {
-			setFares([]);
-			document.getElementById("root").style.height = "100vh";
-			localStorage.setItem("fares", "[]");
-			setFareClasses([
-				"Any class",
-				"Coach",
-				"Business",
-				"First",
-				"Sleeper",
-				"Roomette",
-				"Bedroom",
-				"Family Room",
-			]);
-			setTimeout(() => {
-				setUpdateMap((updateMap) => !updateMap);
-			}, 500);
-			setSearching(false);
-			setSearchError(false);
-			setTripDuration({ type: null, val: null });
-			setTab(0);
-			setDateRangeStart(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
-			setDateRangeEnd(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
-			setDateRangeStartSearch(
-				dayjs.utc().startOf("d").add(1, "M").startOf("M")
-			);
-			setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
+			newSearch();
 		} else if (searching) {
 			if (clientState) {
 				clientState.close();
@@ -396,6 +373,8 @@ export default function Form({
 							value={fareClass}
 							setValue={setFareClass}
 							values={fareClasses}
+							strict={strict}
+							setStrict={setStrict}
 							searching={searching}
 						/>
 					</div>
@@ -476,6 +455,7 @@ export default function Form({
 						setDateRangeEndSearch={setDateRangeEndSearch}
 						fares={fares}
 						searching={searching}
+						newSearch={newSearch}
 					/>
 				</div>
 			) : (
@@ -489,6 +469,8 @@ export default function Form({
 						value={fareClass}
 						setValue={setFareClass}
 						values={fareClasses}
+						strict={strict}
+						setStrict={setStrict}
 						searching={searching || fares.length > 1}
 					/>
 					<DateRangePopover
@@ -507,6 +489,7 @@ export default function Form({
 						setDateRangeEndSearch={setDateRangeEndSearch}
 						fares={fares}
 						searching={searching}
+						newSearch={newSearch}
 					/>
 				</div>
 			)}
@@ -559,10 +542,10 @@ export default function Form({
 				</Fab>
 				{errorType !== 1 && (
 					<Dialog onClose={() => setSleeperOpen(false)} open={sleeperOpen}>
-						<DialogTitle>Sleeper Accommodation Pricing</DialogTitle>
+						<DialogTitle>Additional Accommodations</DialogTitle>
 						<DialogContent>
 							<DialogContentText>
-								{`Sleeper accommodations may be available on your trip between ${origin.city} and ${destination.city}. Do you need Bedroom or Family Room prices?`}
+								{`Include Bedrooms and/or Family Rooms in search? This may lengthen wait times, especially for round trip and/or multi-leg trips.`}
 							</DialogContentText>
 						</DialogContent>
 						<DialogActions>

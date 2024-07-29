@@ -17,7 +17,7 @@ export default function UpdateBar() {
 		<div>
 			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
 				<span id="update-bar">
-					Borealis Trains Depart May 21{" "}
+					July 2024 Feature Update{" "}
 					<span onClick={() => setDialog(true)}>Read more</span>
 				</span>
 				<IconButton onClick={() => setOpen(false)} size="small">
@@ -34,6 +34,21 @@ export default function UpdateBar() {
 				</IconButton>
 				<DialogContent>
 					<DialogContentText>
+						<h2>July 2024 Feature Update</h2>
+						<br></br>
+						This month we made a variety of small changes primarily in response
+						to user feedback, please continue to let us know how we can improve.
+						<br></br>
+						<br></br>
+						<ul>
+							<li>Strict class/accommodation filtering</li>
+							<li>Date range selector helper text and button</li>
+							<li>Rephrasing of additional accommodations dialog</li>
+							<li>Auto-renewing proxies for reduced downtime</li>
+						</ul>
+						<br></br>
+						<hr></hr>
+						<br></br>
 						<h2>Borealis Trains Depart May 21</h2>
 						<br></br>
 						Amtrak{" "}

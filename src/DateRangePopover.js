@@ -29,6 +29,7 @@ export default function DateRangePopover({
 	setDateRangeEndSearch,
 	fares,
 	searching,
+	newSearch,
 }) {
 	const error =
 		dateRangeStart.isAfter(dateRangeEnd) ||
@@ -238,6 +239,14 @@ export default function DateRangePopover({
 						>
 							{error ? error : getDateRangeString()}
 						</span>
+						{fares.length > 0 && !error && (
+							<div id="date-range-warning">
+								*Dates locked to current search{" "}
+								<Button onClick={newSearch} variant="outlined">
+									New search
+								</Button>
+							</div>
+						)}
 						<div id="date-picker-container">
 							<StaticDatePicker
 								className="date-range-start"

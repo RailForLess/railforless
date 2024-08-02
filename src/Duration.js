@@ -62,7 +62,9 @@ export default function Duration({ maxDuration, setMaxDuration }) {
 						</span>
 						<Slider
 							max={100}
-							onChange={(e, newMaxDuration) => setMaxDuration(newMaxDuration)}
+							onChangeCommitted={(e, newMaxDuration) =>
+								setMaxDuration(newMaxDuration)
+							}
 							value={maxDuration}
 							valueLabelDisplay="auto"
 							valueLabelFormat={(value) => `${value} hr`}

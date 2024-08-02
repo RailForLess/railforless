@@ -18,7 +18,7 @@ export default function TimeSlider({ value, setValue, label }) {
 			</div>
 			<Slider
 				max={24}
-				onChange={(e, newValue) => setValue(newValue)}
+				onChangeCommitted={(e, newValue) => setValue(newValue)}
 				value={value}
 				valueLabelDisplay="auto"
 				valueLabelFormat={(value) => dayjs(`${value}`, "H").format("h A")}

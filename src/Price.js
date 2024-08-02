@@ -64,7 +64,7 @@ export default function Price({ maxPrice, setMaxPrice }) {
 						</span>
 						<Slider
 							max={5000}
-							onChange={(e, newMaxPrice) => setMaxPrice(newMaxPrice)}
+							onChangeCommitted={(e, newMaxPrice) => setMaxPrice(newMaxPrice)}
 							step={50}
 							value={maxPrice}
 							valueLabelDisplay="auto"

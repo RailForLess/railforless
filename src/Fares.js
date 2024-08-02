@@ -816,7 +816,8 @@ export default function Fares({
 								travelerTypes={travelerTypes}
 								tripType={tripType}
 								routeLinks={routeLinks}
-								days={outboundDays}
+								outboundDays={outboundDays}
+								returnDays={returnDays}
 							/>
 						))}
 				</div>

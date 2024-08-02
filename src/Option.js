@@ -36,7 +36,8 @@ export default function Option({
 	travelerTypes,
 	tripType,
 	routeLinks,
-	days,
+	outboundDays,
+	returnDays,
 }) {
 	function getRouteSummary(option) {
 		const routeSummary = [
@@ -156,6 +157,19 @@ export default function Option({
 		}
 	}
 
+	function isClear() {
+		return (
+			Object.keys(outboundDays)
+				.filter((day) => !outboundDays[day])
+				.map((day) => Number(day)).length === 0 &&
+			Object.keys(returnDays)
+				.filter((day) => !returnDays[day])
+				.map((day) => Number(day)).length === 0
+		);
+	}
+
+	const isDisabled = isClear();
+
 	return (
 		<Accordion
 			expanded={expanded}
@@ -169,17 +183,9 @@ export default function Option({
 					<span>
 						{tripType === "round-trip"
 							? `${option.departureDateTime.format(
-									Object.keys(days)
-										.filter((day) => !days[day])
-										.map((day) => Number(day)).length === 0
-										? "M/D"
-										: "ddd, M/D"
+									isDisabled ? "M/D" : "ddd, M/D"
 							  )}-${option.arrivalDateTime.format(
-									Object.keys(days)
-										.filter((day) => !days[day])
-										.map((day) => Number(day)).length === 0
-										? "M/D"
-										: "ddd, M/D"
+									isDisabled ? "M/D" : "ddd, M/D"
 							  )}`
 							: option.departureDateTime.format("ddd, MMM D")}
 					</span>

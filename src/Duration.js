@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
@@ -7,17 +7,23 @@ import Popover from "@mui/material/Popover";
 import Slider from "@mui/material/Slider";
 
 export default function Duration({ maxDuration, setMaxDuration }) {
+	const [renderedMaxDuration, setRenderedMaxDuration] = useState(maxDuration);
+
+	useEffect(() => {
+		setRenderedMaxDuration(maxDuration);
+	}, [maxDuration]);
+
 	const [anchor, setAnchor] = useState(null);
 
 	return (
 		<div className={`filter-${maxDuration === 100 ? "not-" : ""}selected`}>
 			<Button
 				className={`filter-button select ${
-					!anchor && maxDuration === 100 ? "not-" : ""
+					!anchor && renderedMaxDuration === 100 ? "not-" : ""
 				}selected`}
 				disableRipple
 				endIcon={
-					maxDuration === 100 ? (
+					renderedMaxDuration === 100 ? (
 						<ArrowDropDownIcon
 							sx={{ transform: `rotate(${Boolean(anchor) ? 180 : 0}deg)` }}
 						/>
@@ -34,7 +40,9 @@ export default function Duration({ maxDuration, setMaxDuration }) {
 				onClick={(e) => setAnchor(e.currentTarget)}
 				variant="outlined"
 			>
-				{maxDuration === 100 ? "Duration" : `under ${maxDuration} hr`}
+				{renderedMaxDuration === 100
+					? "Duration"
+					: `under ${renderedMaxDuration} hr`}
 			</Button>
 			<Popover
 				anchorEl={anchor}
@@ -58,21 +66,26 @@ export default function Duration({ maxDuration, setMaxDuration }) {
 					</div>
 					<div className="slider-container">
 						<span>
-							{maxDuration === 100 ? "Any duration" : `under ${maxDuration} hr`}
+							{renderedMaxDuration === 100
+								? "Any duration"
+								: `under ${renderedMaxDuration} hr`}
 						</span>
 						<Slider
 							max={100}
+							onChange={(e, newMaxDuration) =>
+								setRenderedMaxDuration(newMaxDuration)
+							}
 							onChangeCommitted={(e, newMaxDuration) =>
 								setMaxDuration(newMaxDuration)
 							}
-							value={maxDuration}
+							value={renderedMaxDuration}
 							valueLabelDisplay="auto"
 							valueLabelFormat={(value) => `${value} hr`}
 						/>
 					</div>
 					<div className="options">
 						<Button
-							disabled={maxDuration === 100}
+							disabled={renderedMaxDuration === 100}
 							disableRipple
 							onClick={() => setMaxDuration(100)}
 						>

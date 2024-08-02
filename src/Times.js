@@ -45,14 +45,14 @@ export default function Times({
 	const [anchor, setAnchor] = useState(null);
 
 	return (
-		<div className={`filter-${isClear() ? "not-" : ""}selected`}>
+		<div className={`filter-${isDisabled ? "not-" : ""}selected`}>
 			<Button
 				className={`filter-button select ${
-					!anchor && isClear() ? "not-" : ""
+					!anchor && isDisabled ? "not-" : ""
 				}selected`}
 				disableRipple
 				endIcon={
-					isClear() ? (
+					isDisabled ? (
 						<ArrowDropDownIcon
 							sx={{ transform: `rotate(${Boolean(anchor) ? 180 : 0}deg)` }}
 						/>

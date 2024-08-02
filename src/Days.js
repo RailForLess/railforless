@@ -5,11 +5,37 @@ import Button from "@mui/material/Button";
 import CheckboxRow from "./CheckboxRow";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
 
-export default function Days({ days, setDays }) {
-	const excludedDays = Object.keys(days)
-		.filter((day) => !days[day])
-		.map((day) => Number(day));
+export default function Days({
+	outboundDays,
+	setOutboundDays,
+	returnDays,
+	setReturnDays,
+	tripType,
+}) {
+	function isClear() {
+		return (
+			Object.keys(outboundDays)
+				.filter((day) => !outboundDays[day])
+				.map((day) => Number(day)).length === 0 &&
+			Object.keys(returnDays)
+				.filter((day) => !returnDays[day])
+				.map((day) => Number(day)).length === 0
+		);
+	}
+
+	function clear() {
+		setOutboundDays(
+			Object.keys(outboundDays).reduce((a, b) => ({ ...a, [b]: true }), {})
+		);
+		setReturnDays(
+			Object.keys(returnDays).reduce((a, b) => ({ ...a, [b]: true }), {})
+		);
+	}
+	const isDisabled = isClear();
+
 	const dayNames = [
 		"Sunday",
 		"Monday",
@@ -19,30 +45,20 @@ export default function Days({ days, setDays }) {
 		"Friday",
 		"Saturday",
 	];
-	const string =
-		excludedDays.length > 1
-			? `Exclude: ${dayNames[excludedDays[0]]} +${excludedDays.length - 1}`
-			: excludedDays.length === 1
-			? `Exclude: ${dayNames[excludedDays[0]]}`
-			: "Days";
 
-	function clear() {
-		setDays(Object.keys(days).reduce((a, b) => ({ ...a, [b]: true }), {}));
-	}
+	const [tab, setTab] = useState(0);
 
 	const [anchor, setAnchor] = useState(null);
 
 	return (
-		<div
-			className={`filter-${excludedDays.length === 0 ? "not-" : ""}selected`}
-		>
+		<div className={`filter-${isDisabled ? "not-" : ""}selected`}>
 			<Button
 				className={`filter-button select ${
-					!anchor && excludedDays.length === 0 ? "not-" : ""
+					!anchor && isDisabled ? "not-" : ""
 				}selected`}
 				disableRipple
 				endIcon={
-					excludedDays.length === 0 ? (
+					isDisabled ? (
 						<ArrowDropDownIcon
 							sx={{ transform: `rotate(${Boolean(anchor) ? 180 : 0}deg)` }}
 						/>
@@ -59,7 +75,7 @@ export default function Days({ days, setDays }) {
 				onClick={(e) => setAnchor(e.currentTarget)}
 				variant="outlined"
 			>
-				{string}
+				Days
 			</Button>
 			<Popover
 				anchorEl={anchor}
@@ -81,20 +97,42 @@ export default function Days({ days, setDays }) {
 							<CloseIcon />
 						</IconButton>
 					</div>
-					{Object.keys(days).map((day) => (
-						<CheckboxRow
-							values={days}
-							setValues={setDays}
-							value={day}
-							label={dayNames[Number(day)]}
-						/>
-					))}
-					<div className="options">
-						<Button
-							disabled={excludedDays.length === 0}
-							disableRipple
-							onClick={clear}
+					{tripType === "round-trip" && (
+						<Tabs
+							value={tab}
+							onChange={(e, newTab) => setTab(newTab)}
+							sx={{ paddingBottom: "0.5rem" }}
 						>
+							<Tab label="Outbound" />
+							<Tab label="Return" />
+						</Tabs>
+					)}
+					{tripType === "one-way" ||
+					(tripType === "round-trip" && tab === 0) ? (
+						<div>
+							{Object.keys(outboundDays).map((day) => (
+								<CheckboxRow
+									values={outboundDays}
+									setValues={setOutboundDays}
+									value={day}
+									label={dayNames[Number(day)]}
+								/>
+							))}
+						</div>
+					) : (
+						<div>
+							{Object.keys(returnDays).map((day) => (
+								<CheckboxRow
+									values={returnDays}
+									setValues={setReturnDays}
+									value={day}
+									label={dayNames[Number(day)]}
+								/>
+							))}
+						</div>
+					)}
+					<div className="options">
+						<Button disabled={isDisabled} disableRipple onClick={clear}>
 							Clear
 						</Button>
 					</div>

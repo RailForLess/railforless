@@ -36,6 +36,7 @@ export default function Option({
 	travelerTypes,
 	tripType,
 	routeLinks,
+	days,
 }) {
 	function getRouteSummary(option) {
 		const routeSummary = [
@@ -168,8 +169,18 @@ export default function Option({
 					<span>
 						{tripType === "round-trip"
 							? `${option.departureDateTime.format(
-									"M/D"
-							  )}-${option.arrivalDateTime.format("M/D")}`
+									Object.keys(days)
+										.filter((day) => !days[day])
+										.map((day) => Number(day)).length === 0
+										? "M/D"
+										: "ddd, M/D"
+							  )}-${option.arrivalDateTime.format(
+									Object.keys(days)
+										.filter((day) => !days[day])
+										.map((day) => Number(day)).length === 0
+										? "M/D"
+										: "ddd, M/D"
+							  )}`
 							: option.departureDateTime.format("ddd, MMM D")}
 					</span>
 					<div className="vertical-bar"></div>

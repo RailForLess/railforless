@@ -97,7 +97,16 @@ export default function Fares({
 	const [outboundArrivalTime, setOutboundArrivalTime] = useState([0, 24]);
 	const [returnDeptTime, setReturnDeptTime] = useState([0, 24]);
 	const [returnArrivalTime, setReturnArrivalTime] = useState([0, 24]);
-	const [days, setDays] = useState({
+	const [outboundDays, setOutboundDays] = useState({
+		1: true,
+		2: true,
+		3: true,
+		4: true,
+		5: true,
+		6: true,
+		0: true,
+	});
+	const [returnDays, setReturnDays] = useState({
 		1: true,
 		2: true,
 		3: true,
@@ -302,8 +311,11 @@ export default function Fares({
 
 	function updateRoundtripOptions(options) {
 		const includedRoutes = Object.keys(routes).filter((route) => routes[route]);
-		const includedDays = Object.keys(days)
-			.filter((day) => days[day])
+		const outboundIncludedDays = Object.keys(outboundDays)
+			.filter((day) => outboundDays[day])
+			.map((day) => Number(day));
+		const returnIncludedDays = Object.keys(returnDays)
+			.filter((day) => returnDays[day])
 			.map((day) => Number(day));
 		const includedAmenities = Object.keys(amenities).filter(
 			(amenity) => amenities[amenity]
@@ -393,8 +405,12 @@ export default function Fares({
 							returnArrivalTime[0] &&
 						Number(returnOption.arrivalDateTime.format("H")) <=
 							returnArrivalTime[1] &&
-						includedDays.includes(deptOption.departureDateTime.get("d")) &&
-						includedDays.includes(returnOption.departureDateTime.get("d")) &&
+						outboundIncludedDays.includes(
+							deptOption.departureDateTime.get("d")
+						) &&
+						returnIncludedDays.includes(
+							returnOption.departureDateTime.get("d")
+						) &&
 						(maxDuration === 100 ||
 							(deptOption.elapsedSeconds + returnOption.elapsedSeconds) / 3600 <
 								maxDuration) &&
@@ -460,7 +476,7 @@ export default function Fares({
 							outboundArrivalTime[0] &&
 						Number(option.arrivalDateTime.format("H")) <=
 							outboundArrivalTime[1] &&
-						includedDays.includes(option.departureDateTime.get("d")) &&
+						outboundIncludedDays.includes(option.departureDateTime.get("d")) &&
 						(maxDuration === 100 ||
 							option.elapsedSeconds / 3600 < maxDuration) &&
 						includedAmenities.every((amenity) =>
@@ -633,7 +649,8 @@ export default function Fares({
 		outboundArrivalTime,
 		returnDeptTime,
 		returnArrivalTime,
-		days,
+		outboundDays,
+		returnDays,
 		maxDuration,
 		amenities,
 		addItems,
@@ -760,8 +777,10 @@ export default function Fares({
 				returnArrivalTime={returnArrivalTime}
 				setReturnArrivalTime={setReturnArrivalTime}
 				tripType={tripType}
-				days={days}
-				setDays={setDays}
+				outboundDays={outboundDays}
+				setOutboundDays={setOutboundDays}
+				returnDays={returnDays}
+				setReturnDays={setReturnDays}
 				maxDuration={maxDuration}
 				setMaxDuration={setMaxDuration}
 				amenities={amenities}
@@ -797,6 +816,7 @@ export default function Fares({
 								travelerTypes={travelerTypes}
 								tripType={tripType}
 								routeLinks={routeLinks}
+								days={outboundDays}
 							/>
 						))}
 				</div>

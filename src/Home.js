@@ -109,7 +109,7 @@ export default function Home({
 	const { id } = useParams();
 
 	async function fetchCachedSearch() {
-		if (stations.length > 0 && id) {
+		if (stations.length > 0 && id && fares.length === 0) {
 			let res = await fetch(`${process.env.REACT_APP_API_DOMAIN}/cached/${id}`);
 			if (res.status !== 200) {
 				setNotFound(true);

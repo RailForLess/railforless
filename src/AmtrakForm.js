@@ -7,7 +7,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AmtrakForm({ i, option, travelerTypes, tripType }) {
+export default function AmtrakForm({ i, option, travelerTypes, roundTrip }) {
 	const travelerTypesArray = [];
 	for (const [type, num] of Object.entries(travelerTypes)) {
 		for (const i of [...Array(num).keys()]) {
@@ -51,7 +51,7 @@ export default function AmtrakForm({ i, option, travelerTypes, tripType }) {
 			<input
 				type="hidden"
 				name="wdf_TripType"
-				value={tripType === "round-trip" ? "Return" : "OneWay"}
+				value={roundTrip ? "Return" : "OneWay"}
 			/>
 			<input type="hidden" name="wdf_origin" value={option.origin.code} />
 			<input
@@ -67,11 +67,7 @@ export default function AmtrakForm({ i, option, travelerTypes, tripType }) {
 			<input
 				type="hidden"
 				name="/sessionWorkflow/productWorkflow[@product='Rail']/tripRequirements/journeyRequirements[2]/departDate.date"
-				value={
-					tripType === "round-trip"
-						? option.arrivalDateTime.format("MM/DD/YYYY")
-						: ""
-				}
+				value={roundTrip ? option.arrivalDateTime.format("MM/DD/YYYY") : ""}
 			/>
 			{travelerTypesArray.map((travelerType, i) => (
 				<input

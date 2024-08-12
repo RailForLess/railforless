@@ -19,7 +19,7 @@ export default function Navbar() {
 				<a href="mailto:contact@railforless.us">Contact</a>
 				<a
 					href={`https://github.com/tikkisean/rail-for-less${
-						process.env.REACT_APP_API_SUBDOMAIN === "dev-api" ? "/tree/dev" : ""
+						process.env.REACT_APP_API_DOMAIN.includes("dev") ? "/tree/dev" : ""
 					}`}
 					rel="noopener noreferrer"
 					target="_blank"

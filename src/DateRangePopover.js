@@ -14,9 +14,9 @@ import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 dayjs.extend(utc);
 
 export default function DateRangePopover({
-	tripType,
-	tab,
-	setTab,
+	roundTrip,
+	flexible,
+	setFlexible,
 	tripDuration,
 	setTripDuration,
 	dateRangeStart,
@@ -34,31 +34,28 @@ export default function DateRangePopover({
 	const error =
 		dateRangeStart.isAfter(dateRangeEnd) ||
 		dateRangeEnd.isBefore(dateRangeStart)
-			? `${tab === 0 ? "Start" : "Dept"} date (${dateRangeStart.format(
+			? `${flexible ? "Start" : "Dept"} date (${dateRangeStart.format(
 					"M/D"
-			  )}) is after ${
-					tab === 0 ? "end" : "return"
-			  } date (${dateRangeEnd.format("M/D")})`
-			: dateRangeEnd.diff(dateRangeStart, "d") + 1 >
-			  (tripType === "round-trip" ? 45 : 90)
-			? `${!tab ? "Date range" : "Trip duration"} greater than ${
-					tripType === "round-trip" ? 45 : 90
+			  )}) is after ${flexible ? "end" : "return"} date (${dateRangeEnd.format(
+					"M/D"
+			  )})`
+			: dateRangeEnd.diff(dateRangeStart, "d") + 1 > (roundTrip ? 45 : 90)
+			? `${flexible ? "Date range" : "Trip duration"} greater than ${
+					roundTrip ? 45 : 90
 			  } days`
 			: "";
 
 	const [shakeError, setShakeError] = useState(true);
 
 	function getDateRangeString() {
-		return !tab
+		return flexible
 			? `${
-					tripType === "round-trip" && tripDuration.val
+					roundTrip && tripDuration.val
 						? `${tripDuration.val} ${tripDuration.type} trip in`
 						: "Anytime"
 			  } ${dateRangeStart.format("M/D")}-${dateRangeEnd.format("M/D")}`
 			: `Dept ${dateRangeStart.format("M/D")}${
-					tripType === "round-trip"
-						? `, Return ${dateRangeEnd.format("M/D")}`
-						: ""
+					roundTrip ? `, Return ${dateRangeEnd.format("M/D")}` : ""
 			  }`;
 	}
 
@@ -101,7 +98,7 @@ export default function DateRangePopover({
 
 	function handleDateRangeStart(newDateRangeStart) {
 		setDateRangeStart(newDateRangeStart);
-		if (tripType === "one-way" && !searching && fares.length === 0) {
+		if (!roundTrip && !searching && fares.length === 0) {
 			setDateRangeEnd(newDateRangeStart);
 		}
 	}
@@ -136,19 +133,16 @@ export default function DateRangePopover({
 				<div id="date-range-popover">
 					<Tabs
 						onChange={(e, i) => {
-							setTab(i);
+							setFlexible(i ? false : true);
 							removeDialogActions();
 						}}
-						value={tab}
+						value={flexible ? 0 : 1}
 					>
 						<Tab disableRipple label="Flexible dates" />
-						<Tab
-							disableRipple
-							label={`Specific date${tripType === "round-trip" ? "s" : ""}`}
-						/>
+						<Tab disableRipple label={`Specific date${roundTrip ? "s" : ""}`} />
 					</Tabs>
 					<div>
-						{tripType === "round-trip" && !tab && !error && (
+						{roundTrip && flexible && !error && (
 							<div>
 								<div id="trip-duration-container">
 									<Button
@@ -262,7 +256,7 @@ export default function DateRangePopover({
 								minDate={minDate}
 								onChange={(newDateRangeEnd) => setDateRangeEnd(newDateRangeEnd)}
 								slots={{ toolbar: () => {} }}
-								sx={{ opacity: tripType === "round-trip" || !tab ? 1 : 0 }}
+								sx={{ opacity: roundTrip || flexible ? 1 : 0 }}
 								value={dateRangeEnd}
 							></StaticDatePicker>
 						</div>

@@ -2,13 +2,14 @@ import Ably from "ably/promises";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import pako from "pako";
 import DateRangePopover from "./DateRangePopover";
 import FareClassSelect from "./FareClassSelect";
 import Settings from "./Settings";
 import StationSelect from "./StationSelect";
 import TravelerTypeSelect from "./TravelerTypeSelect";
-import TripTypeSelect from "./TripTypeSelect";
+import RoundTripSelect from "./RoundTripSelect";
 import "./Form.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
@@ -32,8 +33,8 @@ import Snackbar from "@mui/material/Snackbar";
 dayjs.extend(utc);
 
 export default function Form({
-	tripType,
-	setTripType,
+	roundTrip,
+	setRoundTrip,
 	travelerTypes,
 	setTravelerTypes,
 	fareClass,
@@ -47,8 +48,8 @@ export default function Form({
 	setOrigin,
 	destination,
 	setDestination,
-	tab,
-	setTab,
+	flexible,
+	setFlexible,
 	tripDuration,
 	setTripDuration,
 	dateRangeStart,
@@ -70,6 +71,8 @@ export default function Form({
 	setFares,
 	newSearch,
 }) {
+	const navigate = useNavigate();
+
 	const [geolocateBool, setGeolocateBool] = useState(
 		localStorage.getItem("geolocate")
 			? JSON.parse(localStorage.getItem("geolocate"))
@@ -97,6 +100,9 @@ export default function Form({
 			return;
 		}
 		res = await res.json();
+		if (window.location.pathname !== "/") {
+			return;
+		}
 		let sortedStationsData = [...stationsData]
 			.sort(
 				(a, b) =>
@@ -123,9 +129,7 @@ export default function Form({
 
 	let wakeRes;
 	async function wake() {
-		wakeRes = await fetch(
-			`https://${process.env.REACT_APP_API_SUBDOMAIN}.railsave.rs/wake`
-		);
+		wakeRes = await fetch(`${process.env.REACT_APP_API_DOMAIN}/wake`);
 	}
 	const [wakeError, setWakeError] = useState(false);
 	const [devDialog, setDevDialog] = useState(false);
@@ -151,12 +155,14 @@ export default function Form({
 					.sort((a, b) => a.stateLong.localeCompare(b.stateLong))
 					.map((station) => ({ ...station, group: station.stateLong }));
 				setStations(data);
-				setTimeout(() => geolocate(data), 500);
+				if (window.location.pathname === "/") {
+					setTimeout(() => geolocate(data), 500);
+				}
 			});
 	}
 
 	useEffect(() => {
-		if (process.env.REACT_APP_API_SUBDOMAIN === "dev-api") {
+		if (process.env.REACT_APP_API_DOMAIN.includes("dev")) {
 			setDevDialog(true);
 		} else if (
 			navigator.userAgent.includes("Firefox") &&
@@ -269,15 +275,11 @@ export default function Form({
 		} while (!date.isSame(dateRangeEnd, "D"));
 
 		const response = await fetch(
-			`https://${
-				process.env.REACT_APP_API_SUBDOMAIN
-			}.railsave.rs/token?origin=${origin.code}&destination=${
-				destination.code
-			}&${dates.join(
+			`${process.env.REACT_APP_API_DOMAIN}/token?origin=${
+				origin.code
+			}&destination=${destination.code}&${dates.join(
 				"&"
-			)}&bedrooms=${bedrooms}&familyRooms=${familyRooms}&roundtrip=${
-				tripType === "round-trip"
-			}`,
+			)}&bedrooms=${bedrooms}&familyRooms=${familyRooms}&roundTrip=${roundTrip}`,
 			{
 				headers: process.env.REACT_APP_AUTH_STRING
 					? { "railsavers-auth": process.env.REACT_APP_AUTH_STRING }
@@ -306,6 +308,7 @@ export default function Form({
 		});
 		setClientState(client);
 
+		let cacheId = 0;
 		let resultBytes = new Uint8Array([]);
 
 		client.connection.on("connected", () => {
@@ -314,6 +317,8 @@ export default function Form({
 				if (message.name === "status" || message.name === "warning") {
 					setProgressText(message.data.message);
 					setProgressPercent(message.data.percentComplete);
+				} else if (message.name === "cache-id") {
+					cacheId = message.data;
 				} else if (message.name === "result") {
 					resultBytes = new Uint8Array([
 						...resultBytes,
@@ -328,27 +333,8 @@ export default function Form({
 					setSearching(false);
 					const fares = pako.inflate(resultBytes, { to: "string" });
 					setFares(JSON.parse(fares));
+					setTimeout(() => navigate(`cached/${cacheId}`), 100);
 					document.getElementById("root").style.height = "auto";
-					localStorage.setItem("tripType", JSON.stringify(tripType));
-					localStorage.setItem("travelerTypes", JSON.stringify(travelerTypes));
-					localStorage.setItem("origin", JSON.stringify(origin));
-					localStorage.setItem("destination", JSON.stringify(destination));
-					localStorage.setItem("tab", JSON.stringify(tab));
-					localStorage.setItem("tripDuration", JSON.stringify(tripDuration));
-					localStorage.setItem(
-						"dateRangeStart",
-						JSON.stringify(dateRangeStart)
-					);
-					localStorage.setItem("dateRangeEnd", JSON.stringify(dateRangeEnd));
-					localStorage.setItem(
-						"dateRangeStartSearch",
-						JSON.stringify(dateRangeStartSearch)
-					);
-					localStorage.setItem(
-						"dateRangeEndSearch",
-						JSON.stringify(dateRangeEndSearch)
-					);
-					localStorage.setItem("fares", JSON.stringify(fares));
 					return;
 				} else {
 					setProgressText(message.data);
@@ -363,7 +349,7 @@ export default function Form({
 			<div className="input-row secondary-input">
 				{!searching && fares.length === 0 ? (
 					<div>
-						<TripTypeSelect value={tripType} setValue={setTripType} />
+						<RoundTripSelect value={roundTrip} setValue={setRoundTrip} />
 						<TravelerTypeSelect
 							value={travelerTypes}
 							setValue={setTravelerTypes}
@@ -381,11 +367,7 @@ export default function Form({
 				) : (
 					<div id="search-info">
 						<span>{`${origin.name} (${origin.code})`}</span>
-						{tripType === "round-trip" ? (
-							<SyncAltIcon />
-						) : (
-							<ArrowRightAltIcon />
-						)}
+						{roundTrip ? <SyncAltIcon /> : <ArrowRightAltIcon />}
 						<span>{`${destination.name} (${destination.code})`}</span>
 					</div>
 				)}
@@ -440,9 +422,9 @@ export default function Form({
 						stationFormat={stationFormat}
 					/>
 					<DateRangePopover
-						tripType={tripType}
-						tab={tab}
-						setTab={setTab}
+						roundTrip={roundTrip}
+						flexible={flexible}
+						setFlexible={setFlexible}
 						tripDuration={tripDuration}
 						setTripDuration={setTripDuration}
 						dateRangeStart={dateRangeStart}
@@ -474,9 +456,9 @@ export default function Form({
 						searching={searching || fares.length > 1}
 					/>
 					<DateRangePopover
-						tripType={tripType}
-						tab={tab}
-						setTab={setTab}
+						roundTrip={roundTrip}
+						flexible={flexible}
+						setFlexible={setFlexible}
 						tripDuration={tripDuration}
 						setTripDuration={setTripDuration}
 						dateRangeStart={dateRangeStartSearch}

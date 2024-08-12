@@ -23,7 +23,7 @@ export default function Filters({
 	setReturnDeptTime,
 	returnArrivalTime,
 	setReturnArrivalTime,
-	tripType,
+	roundTrip,
 	outboundDays,
 	setOutboundDays,
 	returnDays,
@@ -49,14 +49,14 @@ export default function Filters({
 				setReturnDeptTime={setReturnDeptTime}
 				returnArrivalTime={returnArrivalTime}
 				setReturnArrivalTime={setReturnArrivalTime}
-				tripType={tripType}
+				roundTrip={roundTrip}
 			/>
 			<Days
 				outboundDays={outboundDays}
 				setOutboundDays={setOutboundDays}
 				returnDays={returnDays}
 				setReturnDays={setReturnDays}
-				tripType={tripType}
+				roundTrip={roundTrip}
 			/>
 			<Duration maxDuration={maxDuration} setMaxDuration={setMaxDuration} />
 			<Amenities amenities={amenities} setAmenities={setAmenities} />

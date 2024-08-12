@@ -13,7 +13,7 @@ export default function Days({
 	setOutboundDays,
 	returnDays,
 	setReturnDays,
-	tripType,
+	roundTrip,
 }) {
 	function isClear() {
 		return (
@@ -97,7 +97,7 @@ export default function Days({
 							<CloseIcon />
 						</IconButton>
 					</div>
-					{tripType === "round-trip" && (
+					{roundTrip && (
 						<Tabs
 							value={tab}
 							onChange={(e, newTab) => setTab(newTab)}
@@ -107,11 +107,11 @@ export default function Days({
 							<Tab label="Return" />
 						</Tabs>
 					)}
-					{tripType === "one-way" ||
-					(tripType === "round-trip" && tab === 0) ? (
+					{!roundTrip || (roundTrip && tab === 0) ? (
 						<div>
 							{Object.keys(outboundDays).map((day) => (
 								<CheckboxRow
+									key={`outbound-days-${day}`}
 									values={outboundDays}
 									setValues={setOutboundDays}
 									value={day}
@@ -123,6 +123,7 @@ export default function Days({
 						<div>
 							{Object.keys(returnDays).map((day) => (
 								<CheckboxRow
+									key={`return-days-${day}`}
 									values={returnDays}
 									setValues={setReturnDays}
 									value={day}

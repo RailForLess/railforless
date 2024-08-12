@@ -4,7 +4,7 @@ import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
-export default function TripTypeSelect({ value, setValue }) {
+export default function RoundTripSelect({ value, setValue }) {
 	const [selected, setSelected] = useState(false);
 
 	return (
@@ -17,7 +17,7 @@ export default function TripTypeSelect({ value, setValue }) {
 			value={value}
 			variant="standard"
 		>
-			<MenuItem key="round-trip" value="round-trip">
+			<MenuItem key="round-trip" value={true}>
 				<div
 					style={{
 						alignItems: "center",
@@ -29,7 +29,7 @@ export default function TripTypeSelect({ value, setValue }) {
 					<div>Round trip</div>
 				</div>
 			</MenuItem>
-			<MenuItem key="one-way" value="one-way">
+			<MenuItem key="one-way" value={false}>
 				<div style={{ alignItems: "center", display: "flex", gap: "1rem" }}>
 					<ArrowRightAltIcon />
 					<div>One way</div>

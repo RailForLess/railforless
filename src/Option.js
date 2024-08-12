@@ -34,7 +34,7 @@ export default function Option({
 	option,
 	sort,
 	travelerTypes,
-	tripType,
+	roundTrip,
 	routeLinks,
 	outboundDays,
 	returnDays,
@@ -181,7 +181,7 @@ export default function Option({
 					<span>{getRouteSummary(option)}</span>
 					<div className="vertical-bar"></div>
 					<span>
-						{tripType === "round-trip"
+						{roundTrip
 							? `${option.departureDateTime.format(
 									isDisabled ? "M/D" : "ddd, M/D"
 							  )}-${option.arrivalDateTime.format(
@@ -199,7 +199,7 @@ export default function Option({
 							i={i}
 							option={option}
 							travelerTypes={travelerTypes}
-							tripType={tripType}
+							roundTrip={roundTrip}
 						/>
 					)}
 					<div className="vertical-bar"></div>
@@ -220,8 +220,8 @@ export default function Option({
 							<span>{`$${trip.fare.toLocaleString()}`}</span>
 						</div>
 						{trip.travelLegs.map((leg, k) => (
-							<div>
-								<div className="leg-container" key={`option-${i}-${j}-${k}`}>
+							<div key={`option-${i}-${j}-${k}`}>
+								<div className="leg-container">
 									<div className="leg-info-container">
 										<div>
 											<div className="dot-end"></div>
@@ -274,11 +274,14 @@ export default function Option({
 												</div>
 												{leg.origin.connections.length > 0 && (
 													<div>
-														{leg.origin.connections.map((connection) => (
-															<div className="connection">
+														{leg.origin.connections.map((connection, l) => (
+															<div
+																className="connection"
+																key={`option-${i}-${j}-${k}-${l}`}
+															>
 																<img
 																	alt={`${connection} logo`}
-																	src={`images/connections/${connection
+																	src={`/images/connections/${connection
 																		.toLowerCase()
 																		.replaceAll(" ", "-")
 																		.replaceAll('"', "'")}.png`}
@@ -345,18 +348,23 @@ export default function Option({
 												</div>
 												{leg.destination.connections.length > 0 && (
 													<div>
-														{leg.destination.connections.map((connection) => (
-															<div className="connection">
-																<img
-																	alt={`${connection} logo`}
-																	src={`images/connections/${connection
-																		.toLowerCase()
-																		.replaceAll(" ", "-")
-																		.replaceAll('"', "'")}.png`}
-																/>
-																<span>{connection}</span>
-															</div>
-														))}
+														{leg.destination.connections.map(
+															(connection, l) => (
+																<div
+																	className="connection"
+																	key={`option-${i}-${j}-${k}-${l}`}
+																>
+																	<img
+																		alt={`${connection} logo`}
+																		src={`/images/connections/${connection
+																			.toLowerCase()
+																			.replaceAll(" ", "-")
+																			.replaceAll('"', "'")}.png`}
+																	/>
+																	<span>{connection}</span>
+																</div>
+															)
+														)}
 													</div>
 												)}
 											</div>

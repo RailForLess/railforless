@@ -15,8 +15,8 @@ dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
 export default function Fares({
-	tripType,
-	tab,
+	roundTrip,
+	flexible,
 	travelerTypes,
 	fareClass,
 	setFareClasses,
@@ -336,7 +336,7 @@ export default function Fares({
 			"M-D-YYYY"
 		);
 		let newRoundtripOptions = [];
-		if (tripType === "round-trip") {
+		if (roundTrip === "round-trip") {
 			const numDays =
 				tripDuration.type === "week"
 					? tripDuration.val * 7
@@ -363,7 +363,7 @@ export default function Fares({
 				for (const returnOption of returnOptions) {
 					if (
 						deptOption.arrivalDateTime <= returnOption.departureDateTime &&
-						(tab === 0
+						(flexible
 							? !tripDuration.val ||
 							  (numDays > 0
 									? returnOption.departureDateTime.diff(
@@ -461,7 +461,7 @@ export default function Fares({
 			newRoundtripOptions = options
 				.filter(
 					(option) =>
-						(tab === 0 ||
+						(flexible ||
 							option.departureDateTime.isSame(dateRangeStartLocal, "d")) &&
 						option.travelLegs.every((leg) =>
 							includedRoutes.includes(leg.route)
@@ -641,7 +641,7 @@ export default function Fares({
 		travelerTypes,
 		fareClass,
 		strict,
-		tab,
+		flexible,
 		routes,
 		maxLayovers,
 		maxPrice,
@@ -776,7 +776,7 @@ export default function Fares({
 				setReturnDeptTime={setReturnDeptTime}
 				returnArrivalTime={returnArrivalTime}
 				setReturnArrivalTime={setReturnArrivalTime}
-				tripType={tripType}
+				roundTrip={roundTrip}
 				outboundDays={outboundDays}
 				setOutboundDays={setOutboundDays}
 				returnDays={returnDays}
@@ -814,7 +814,7 @@ export default function Fares({
 								option={option}
 								sort={sort}
 								travelerTypes={travelerTypes}
-								tripType={tripType}
+								roundTrip={roundTrip}
 								routeLinks={routeLinks}
 								outboundDays={outboundDays}
 								returnDays={returnDays}

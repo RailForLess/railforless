@@ -17,7 +17,7 @@ export default function Times({
 	setReturnDeptTime,
 	returnArrivalTime,
 	setReturnArrivalTime,
-	tripType,
+	roundTrip,
 }) {
 	function isClear() {
 		return (
@@ -91,14 +91,13 @@ export default function Times({
 							<CloseIcon />
 						</IconButton>
 					</div>
-					{tripType === "round-trip" && (
+					{roundTrip && (
 						<Tabs value={tab} onChange={(e, newTab) => setTab(newTab)}>
 							<Tab label="Outbound" />
 							<Tab label="Return" />
 						</Tabs>
 					)}
-					{tripType === "one-way" ||
-					(tripType === "round-trip" && tab === 0) ? (
+					{!roundTrip || (roundTrip && tab === 0) ? (
 						<div>
 							<TimeSlider
 								value={outboundDeptTime}

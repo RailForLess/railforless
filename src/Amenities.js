@@ -118,6 +118,7 @@ export default function Amenities({ amenities, setAmenities }) {
 									}
 								/>
 							}
+							key={`amenity-${amenity}`}
 							label={
 								<div className="checkbox-label">
 									{getAmenityIcon(amenity)}

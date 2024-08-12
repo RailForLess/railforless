@@ -112,6 +112,7 @@ export default function AddItems({ addItems, setAddItems }) {
 									}
 								/>
 							}
+							key={`add-ons-${addItem}`}
 							label={
 								<div className="checkbox-label">
 									{getAddItemIcon(addItem)}

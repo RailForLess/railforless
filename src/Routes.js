@@ -72,6 +72,7 @@ export default function Routes({ routes, setRoutes }) {
 					</div>
 					{Object.keys(routes).map((route) => (
 						<CheckboxRow
+							key={`routes-${route}`}
 							values={routes}
 							setValues={setRoutes}
 							value={route}

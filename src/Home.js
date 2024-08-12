@@ -1,8 +1,11 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Form from "./Form";
 import Hero from "./Hero";
+import Loading from "./Loading";
 import Map from "./Map";
+import NotFound from "./NotFound";
 import Progress from "./Progress";
 import Fares from "./Fares";
 import "./Home.css";
@@ -13,7 +16,10 @@ export default function Home({
 	searchError,
 	setSearchError,
 }) {
-	const [tripType, setTripType] = useState("round-trip");
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const [roundTrip, setRoundTrip] = useState(true);
 	const [travelerTypes, setTravelerTypes] = useState({
 		numAdults: 1,
 		numSeniors: 0,
@@ -38,7 +44,7 @@ export default function Home({
 	const [origin, setOrigin] = useState(null);
 	const [destination, setDestination] = useState(null);
 	const [tripDuration, setTripDuration] = useState({ type: null, val: null });
-	const [tab, setTab] = useState(0);
+	const [flexible, setFlexible] = useState(true);
 	const [dateRangeStart, setDateRangeStart] = useState(
 		dayjs.utc().startOf("d").add(1, "M").startOf("M")
 	);
@@ -98,42 +104,54 @@ export default function Home({
 		Piedmont: "carolinian-piedmont",
 	};
 
-	const [loaded, setLoaded] = useState(false);
+	const [notFound, setNotFound] = useState(false);
+
+	const { id } = useParams();
+
+	async function fetchCachedSearch() {
+		if (stations.length > 0 && id) {
+			let res = await fetch(`${process.env.REACT_APP_API_DOMAIN}/cached/${id}`);
+			if (res.status !== 200) {
+				setNotFound(true);
+				return;
+			}
+			const cached = await res.json();
+			console.log(location);
+			if (!window.location.pathname.includes("cached")) {
+				return;
+			}
+
+			document.getElementById("root").style.height = "auto";
+			setRoundTrip(cached.roundTrip);
+			//setTravelerTypes(JSON.parse(localStorage.getItem("travelerTypes")));
+			setOrigin(stations.find((station) => station.id === cached.origin));
+			setDestination(
+				stations.find((station) => station.id === cached.destination)
+			);
+			//setFlexible(JSON.parse(localStorage.getItem("flexible")));
+			//setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
+			setDateRangeStart(dayjs(cached.dates[0]).utc());
+			setDateRangeEnd(dayjs(cached.dates[cached.dates.length - 1]).utc());
+			setDateRangeStartSearch(dayjs(cached.dates[0]).utc());
+			setDateRangeEndSearch(dayjs(cached.dates[cached.dates.length - 1]).utc());
+			setFares(cached.trips);
+		}
+	}
 
 	useEffect(() => {
-		if (
-			localStorage.getItem("fares") &&
-			JSON.parse(localStorage.getItem("fares")).length > 0 &&
-			localStorage.getItem("tripDuration")
-		) {
-			document.getElementById("root").style.height = "auto";
-			setTripType(JSON.parse(localStorage.getItem("tripType")));
-			setTravelerTypes(JSON.parse(localStorage.getItem("travelerTypes")));
-			setOrigin(JSON.parse(localStorage.getItem("origin")));
-			setDestination(JSON.parse(localStorage.getItem("destination")));
-			setTab(JSON.parse(localStorage.getItem("tab")));
-			setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
-			setDateRangeStart(
-				dayjs(JSON.parse(localStorage.getItem("dateRangeStart"))).utc()
-			);
-			setDateRangeEnd(
-				dayjs(JSON.parse(localStorage.getItem("dateRangeEnd"))).utc()
-			);
-			setDateRangeStartSearch(
-				dayjs(JSON.parse(localStorage.getItem("dateRangeStartSearch"))).utc()
-			);
-			setDateRangeEndSearch(
-				dayjs(JSON.parse(localStorage.getItem("dateRangeEndSearch"))).utc()
-			);
-			setFares(JSON.parse(JSON.parse(localStorage.getItem("fares"))));
+		fetchCachedSearch();
+	}, [location, stations]);
+
+	useEffect(() => {
+		if (location.pathname === "/") {
+			setFares([]);
 		}
-		setLoaded(true);
-	}, []);
+	}, [location]);
 
 	function newSearch() {
 		setFares([]);
+		navigate("/");
 		document.getElementById("root").style.height = "100vh";
-		localStorage.setItem("fares", "[]");
 		setFareClasses([
 			"Any class",
 			"Coach",
@@ -150,102 +168,102 @@ export default function Home({
 		setSearching(false);
 		setSearchError(false);
 		setTripDuration({ type: null, val: null });
-		setTab(0);
+		setFlexible(true);
 		setDateRangeStart(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
 		setDateRangeEnd(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
 		setDateRangeStartSearch(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
 		setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
 	}
 
-	return (
-		loaded && (
-			<div className="main-container">
-				<Hero />
-				<div id="hero-container">
-					<div className="fade-in-translate" id="hero-text">
-						<h1>
-							RailForLess.us<span>v2</span>
-						</h1>
-					</div>
-					<Form
-						tripType={tripType}
-						setTripType={setTripType}
+	return !notFound ? (
+		<div className="main-container">
+			<Hero />
+			<div id="hero-container">
+				<div className="fade-in-translate" id="hero-text">
+					<h1>
+						RailForLess.us<span>v2</span>
+					</h1>
+				</div>
+				<Form
+					roundTrip={roundTrip}
+					setRoundTrip={setRoundTrip}
+					travelerTypes={travelerTypes}
+					setTravelerTypes={setTravelerTypes}
+					fareClass={fareClass}
+					setFareClass={setFareClass}
+					fareClasses={fareClasses}
+					strict={strict}
+					setStrict={setStrict}
+					stations={stations}
+					setStations={setStations}
+					origin={origin}
+					setOrigin={setOrigin}
+					destination={destination}
+					setDestination={setDestination}
+					flexible={flexible}
+					setFlexible={setFlexible}
+					tripDuration={tripDuration}
+					setTripDuration={setTripDuration}
+					dateRangeStart={dateRangeStart}
+					setDateRangeStart={setDateRangeStart}
+					dateRangeEnd={dateRangeEnd}
+					setDateRangeEnd={setDateRangeEnd}
+					dateRangeStartSearch={dateRangeStartSearch}
+					setDateRangeStartSearch={setDateRangeStartSearch}
+					dateRangeEndSearch={dateRangeEndSearch}
+					setDateRangeEndSearch={setDateRangeEndSearch}
+					setUpdateMap={setUpdateMap}
+					searching={searching}
+					setSearching={setSearching}
+					setProgressPercent={setProgressPercent}
+					setProgressText={setProgressText}
+					searchError={searchError}
+					setSearchError={setSearchError}
+					fares={fares}
+					setFares={setFares}
+					newSearch={newSearch}
+				/>
+				{fares.length > 0 && stations.length > 0 ? (
+					<Fares
+						roundTrip={roundTrip}
+						flexible={flexible}
 						travelerTypes={travelerTypes}
-						setTravelerTypes={setTravelerTypes}
 						fareClass={fareClass}
-						setFareClass={setFareClass}
-						fareClasses={fareClasses}
+						setFareClasses={setFareClasses}
 						strict={strict}
-						setStrict={setStrict}
 						stations={stations}
-						setStations={setStations}
+						origin={origin}
+						destination={destination}
+						tripDuration={tripDuration}
+						dateRangeStart={dateRangeStartSearch}
+						dateRangeEnd={dateRangeEndSearch}
+						fares={fares}
+						routeLinks={routeLinks}
+					/>
+				) : searching ? (
+					<Progress
+						progressPercent={progressPercent}
+						progressText={progressText}
+						searchError={searchError}
+					/>
+				) : id ? (
+					<Loading />
+				) : (
+					<Map
+						stationsJSON={stations}
 						origin={origin}
 						setOrigin={setOrigin}
 						destination={destination}
 						setDestination={setDestination}
-						tab={tab}
-						setTab={setTab}
-						tripDuration={tripDuration}
-						setTripDuration={setTripDuration}
-						dateRangeStart={dateRangeStart}
-						setDateRangeStart={setDateRangeStart}
-						dateRangeEnd={dateRangeEnd}
-						setDateRangeEnd={setDateRangeEnd}
-						dateRangeStartSearch={dateRangeStartSearch}
-						setDateRangeStartSearch={setDateRangeStartSearch}
-						dateRangeEndSearch={dateRangeEndSearch}
-						setDateRangeEndSearch={setDateRangeEndSearch}
-						setUpdateMap={setUpdateMap}
-						searching={searching}
-						setSearching={setSearching}
-						setProgressPercent={setProgressPercent}
-						setProgressText={setProgressText}
-						searchError={searchError}
-						setSearchError={setSearchError}
-						fares={fares}
-						setFares={setFares}
-						newSearch={newSearch}
+						updateMap={updateMap}
+						route={route}
+						setRoute={setRoute}
+						routeLinks={routeLinks}
 					/>
-					{fares.length > 0 && stations.length > 0 ? (
-						<Fares
-							tripType={tripType}
-							tab={tab}
-							travelerTypes={travelerTypes}
-							fareClass={fareClass}
-							setFareClasses={setFareClasses}
-							strict={strict}
-							stations={stations}
-							origin={origin}
-							destination={destination}
-							tripDuration={tripDuration}
-							dateRangeStart={dateRangeStartSearch}
-							dateRangeEnd={dateRangeEndSearch}
-							fares={fares}
-							routeLinks={routeLinks}
-						/>
-					) : searching ? (
-						<Progress
-							progressPercent={progressPercent}
-							progressText={progressText}
-							searchError={searchError}
-						/>
-					) : loaded ? (
-						<Map
-							stationsJSON={stations}
-							origin={origin}
-							setOrigin={setOrigin}
-							destination={destination}
-							setDestination={setDestination}
-							updateMap={updateMap}
-							route={route}
-							setRoute={setRoute}
-							routeLinks={routeLinks}
-						/>
-					) : (
-						<div></div>
-					)}
-				</div>
+				)}
 			</div>
-		)
+		</div>
+	) : (
+		<NotFound />
 	);
 }

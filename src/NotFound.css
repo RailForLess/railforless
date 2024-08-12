@@ -1,0 +1,48 @@
+#not-found-container {
+	align-items: center;
+	display: flex;
+	flex: 1;
+	gap: 1rem;
+	justify-content: center;
+	padding: 1rem;
+}
+
+#not-found-container div {
+	display: flex;
+	flex-direction: column;
+}
+
+#not-found-container img {
+	width: 10rem;
+}
+
+#not-found-container span:first-of-type {
+	font-size: 3rem;
+}
+
+#not-found-container span:last-of-type {
+	color: #c3c3c4;
+	font-size: 1.5rem;
+}
+
+@media all and (max-width: 480px) {
+	#not-found-container {
+		flex-direction: column;
+	}
+
+	#not-found-container > * {
+		text-align: center;
+	}
+
+	#not-found-container img {
+		width: 8rem;
+	}
+
+	#not-found-container span:first-of-type {
+		font-size: 2rem;
+	}
+
+	#not-found-container span:last-of-type {
+		font-size: 1.25rem;
+	}
+}

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
 import Home from "./Home";
 import Navbar from "./Navbar";
+import NotFound from "./NotFound";
 import "./AppRouter.css";
 
 export default function AppRouter() {
@@ -26,6 +27,18 @@ export default function AppRouter() {
 						}
 					/>
 					<Route path="/about" element={<About />} />
+					<Route
+						path="/cached/:id"
+						element={
+							<Home
+								searching={searching}
+								setSearching={setSearching}
+								searchError={searchError}
+								setSearchError={setSearchError}
+							/>
+						}
+					/>
+					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</BrowserRouter>
 			{searching && !searchError && (

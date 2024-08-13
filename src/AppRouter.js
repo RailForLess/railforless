@@ -28,7 +28,7 @@ export default function AppRouter() {
 					/>
 					<Route path="/about" element={<About />} />
 					<Route
-						path="/cached/:id"
+						path="/:mode/*"
 						element={
 							<Home
 								searching={searching}
@@ -38,7 +38,7 @@ export default function AppRouter() {
 							/>
 						}
 					/>
-					<Route path="*" element={<NotFound />} />
+					<Route path="*" element={<NotFound msg={"Invalid URL"} />} />
 				</Routes>
 			</BrowserRouter>
 			{searching && !searchError && (

@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "./Home.css";
 import Form from "./Form";
 import Hero from "./Hero";
 import Loading from "./Loading";
@@ -8,7 +9,7 @@ import Map from "./Map";
 import NotFound from "./NotFound";
 import Progress from "./Progress";
 import Fares from "./Fares";
-import "./Home.css";
+import Snackbar from "@mui/material/Snackbar";
 
 export default function Home({
 	searching,
@@ -16,8 +17,9 @@ export default function Home({
 	searchError,
 	setSearchError,
 }) {
-	const location = useLocation();
 	const navigate = useNavigate();
+
+	const { mode, "*": id } = useParams();
 
 	const [roundTrip, setRoundTrip] = useState(true);
 	const [travelerTypes, setTravelerTypes] = useState({
@@ -104,49 +106,13 @@ export default function Home({
 		Piedmont: "carolinian-piedmont",
 	};
 
-	const [notFound, setNotFound] = useState(false);
+	const [notFound, setNotFoundState] = useState(false);
+	const [msg, setMsg] = useState(null);
 
-	const { id } = useParams();
-
-	async function fetchCachedSearch() {
-		if (stations.length > 0 && id && fares.length === 0) {
-			let res = await fetch(`${process.env.REACT_APP_API_DOMAIN}/cached/${id}`);
-			if (res.status !== 200) {
-				setNotFound(true);
-				return;
-			}
-			const cached = await res.json();
-			console.log(location);
-			if (!window.location.pathname.includes("cached")) {
-				return;
-			}
-
-			document.getElementById("root").style.height = "auto";
-			setRoundTrip(cached.roundTrip);
-			//setTravelerTypes(JSON.parse(localStorage.getItem("travelerTypes")));
-			setOrigin(stations.find((station) => station.id === cached.origin));
-			setDestination(
-				stations.find((station) => station.id === cached.destination)
-			);
-			//setFlexible(JSON.parse(localStorage.getItem("flexible")));
-			//setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
-			setDateRangeStart(dayjs(cached.dates[0]).utc());
-			setDateRangeEnd(dayjs(cached.dates[cached.dates.length - 1]).utc());
-			setDateRangeStartSearch(dayjs(cached.dates[0]).utc());
-			setDateRangeEndSearch(dayjs(cached.dates[cached.dates.length - 1]).utc());
-			setFares(cached.trips);
-		}
+	function setNotFound(notFound, msg = null) {
+		setNotFoundState(notFound);
+		setMsg(msg);
 	}
-
-	useEffect(() => {
-		fetchCachedSearch();
-	}, [location, stations]);
-
-	useEffect(() => {
-		if (location.pathname === "/") {
-			setFares([]);
-		}
-	}, [location]);
 
 	function newSearch() {
 		setFares([]);
@@ -222,6 +188,7 @@ export default function Home({
 					fares={fares}
 					setFares={setFares}
 					newSearch={newSearch}
+					setNotFound={setNotFound}
 				/>
 				{fares.length > 0 && stations.length > 0 ? (
 					<Fares
@@ -246,7 +213,7 @@ export default function Home({
 						progressText={progressText}
 						searchError={searchError}
 					/>
-				) : id ? (
+				) : mode && mode === "cached" ? (
 					<Loading />
 				) : (
 					<Map
@@ -264,6 +231,6 @@ export default function Home({
 			</div>
 		</div>
 	) : (
-		<NotFound />
+		<NotFound msg={msg} />
 	);
 }

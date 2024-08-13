@@ -48,6 +48,7 @@
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
+	gap: 1rem;
 	justify-content: space-between;
 }
 
@@ -57,7 +58,7 @@
 	gap: 0.5rem;
 }
 
-#fares-filters > div:last-child {
+#fares-filters > div:nth-last-of-type(2) {
 	color: #9aa0a6;
 }
 

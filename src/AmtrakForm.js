@@ -77,7 +77,6 @@ export default function AmtrakForm({ i, option, travelerTypes, roundTrip }) {
 				/>
 			))}
 			<Button
-				disabled={navigator.userAgent.includes("Firefox")}
 				endIcon={<OpenInNewIcon />}
 				onClick={(e) => handleSubmit(e)}
 				type="submit"

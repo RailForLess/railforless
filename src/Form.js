@@ -1,8 +1,11 @@
 import Ably from "ably/promises";
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import utc from "dayjs/plugin/utc";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import pako from "pako";
 import DateRangePopover from "./DateRangePopover";
 import FareClassSelect from "./FareClassSelect";
@@ -31,6 +34,9 @@ import Fab from "@mui/material/Fab";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
 dayjs.extend(utc);
+dayjs.extend(customParseFormat);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 export default function Form({
 	roundTrip,
@@ -70,8 +76,191 @@ export default function Form({
 	fares,
 	setFares,
 	newSearch,
+	setNotFound,
 }) {
+	const location = useLocation();
 	const navigate = useNavigate();
+
+	const { mode, "*": id } = useParams();
+
+	function checkCacheId() {
+		if (!id) {
+			setNotFound(true, "Missing cache id");
+			return false;
+		}
+		const split = id.split("_");
+		if (split.length !== 2) {
+			setNotFound(true, "Invalid cache id format");
+			return false;
+		}
+		const stationCodes = split[0].split("-");
+		if (
+			stationCodes.length !== 2 ||
+			!stations.find((station) => station.id === stationCodes[0]) ||
+			!stations.find((station) => station.id === stationCodes[1])
+		) {
+			setNotFound(true, "Invalid station codes");
+			return false;
+		}
+		const timestamp = Number(split[1]);
+		if (
+			!timestamp ||
+			!dayjs(timestamp * 1000).isValid() ||
+			!dayjs(timestamp * 1000).isBefore(dayjs())
+		) {
+			setNotFound(true, "Invalid timestamp");
+			return false;
+		}
+		return true;
+	}
+
+	function checkSearchId() {
+		if (!id) {
+			setNotFound(true, "Missing search id");
+			return false;
+		}
+		const split = id.split("_");
+		if (split.length !== 2 && split.length !== 3) {
+			setNotFound(true, "Invalid search id format");
+			return false;
+		}
+		const stationCodes = split[0].split("-");
+		if (
+			stationCodes.length !== 2 ||
+			!stations.find((station) => station.id === stationCodes[0]) ||
+			!stations.find((station) => station.id === stationCodes[1])
+		) {
+			setNotFound(true, "Invalid station codes");
+			return false;
+		}
+		const dates = split[1].split("-");
+		if (
+			dates.length !== 2 ||
+			!dayjs(dates[0], "M/D/YY", true).isValid() ||
+			!dayjs(dates[0], "M/D/YY", true)
+				.utc()
+				.isSameOrAfter(dayjs.utc().startOf("d").add(1, "d"), "d") ||
+			!dayjs(dates[1], "M/D/YY", true).isValid() ||
+			!dayjs(dates[0], "M/D/YY", true)
+				.utc()
+				.isSameOrBefore(
+					dayjs.utc().startOf("d").add(11, "M").subtract(2, "d"),
+					"d"
+				) ||
+			!dayjs(dates[1], "M/D/YY", true)
+				.utc()
+				.isSameOrAfter(dayjs(dates[0], "M/D/YY", true).utc(), "d")
+		) {
+			setNotFound(true, "Invalid dates");
+			return false;
+		}
+		if (split.length === 3 && split[2] !== "oneWay") {
+			setNotFound(true, "Invalid trip type");
+		}
+		return true;
+	}
+
+	const [searchSnackbar, setSearchSnackbar] = useState(false);
+	const [searchSnackbarTime, setSearchSnackbarTime] = useState(5);
+	const timerRef = useRef();
+
+	function handleCancelSearch() {
+		setSearchSnackbar(false);
+		clearInterval(timerRef.current);
+	}
+
+	async function updatePage() {
+		if (mode === "cached") {
+			if (stations.length > 0 && fares.length === 0 && checkCacheId()) {
+				let res = await fetch(
+					`${process.env.REACT_APP_API_DOMAIN}/cached/${id}`
+				);
+				if (res.status !== 200) {
+					setNotFound(true, "Cached search not found");
+					return;
+				}
+				const cached = await res.json();
+				if (!window.location.pathname.includes("cached")) {
+					return;
+				}
+
+				document.getElementById("root").style.height = "auto";
+				setRoundTrip(cached.roundTrip);
+				//setTravelerTypes(JSON.parse(localStorage.getItem("travelerTypes")));
+				setOrigin(stations.find((station) => station.id === cached.origin));
+				setDestination(
+					stations.find((station) => station.id === cached.destination)
+				);
+				//setFlexible(JSON.parse(localStorage.getItem("flexible")));
+				//setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
+				setDateRangeStart(dayjs(cached.dates[0]).utc());
+				setDateRangeEnd(dayjs(cached.dates[cached.dates.length - 1]).utc());
+				setDateRangeStartSearch(dayjs(cached.dates[0]).utc());
+				setDateRangeEndSearch(
+					dayjs(cached.dates[cached.dates.length - 1]).utc()
+				);
+				setFares(cached.trips);
+			}
+		} else if (mode === "search") {
+			if (stations.length > 0 && checkSearchId()) {
+				setRoundTrip(id.split("_").length === 2);
+				//setTravelerTypes(JSON.parse(localStorage.getItem("travelerTypes")));
+				setOrigin(
+					stations.find(
+						(station) => station.id === id.split("_")[0].split("-")[0]
+					)
+				);
+				setDestination(
+					stations.find(
+						(station) => station.id === id.split("_")[0].split("-")[1]
+					)
+				);
+				//setFlexible(JSON.parse(localStorage.getItem("flexible")));
+				//setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
+				setDateRangeStart(
+					dayjs(id.split("_")[1].split("-")[0], "M/D/YY", true).utc()
+				);
+				setDateRangeEnd(
+					dayjs(id.split("_")[1].split("-")[1], "M/D/YY", true).utc()
+				);
+				setDateRangeStartSearch(
+					dayjs(id.split("_")[1].split("-")[0], "M/D/YY", true).utc()
+				);
+				setDateRangeEndSearch(
+					dayjs(id.split("_")[1].split("-")[1], "M/D/YY", true).utc()
+				);
+
+				setSearchSnackbar(true);
+			}
+		} else if (mode) {
+			setNotFound(true, "Invalid URL");
+		}
+	}
+
+	useEffect(() => {
+		if (searchSnackbar) {
+			timerRef.current = setInterval(() => {
+				setSearchSnackbarTime((prevSearchSnackbarTime) => {
+					if (prevSearchSnackbarTime === 1) {
+						clearInterval(timerRef.current);
+						setSearchSnackbar(false);
+						search();
+					}
+					return prevSearchSnackbarTime - 1;
+				});
+			}, 1000);
+		}
+	}, [searchSnackbar]);
+
+	useEffect(() => {
+		updatePage();
+	}, [location, stations]);
+
+	useEffect(() => {
+		if (location.pathname === "/") {
+			setFares([]);
+		}
+	}, [location]);
 
 	const [geolocateBool, setGeolocateBool] = useState(
 		localStorage.getItem("geolocate")
@@ -133,7 +322,6 @@ export default function Form({
 	}
 	const [wakeError, setWakeError] = useState(false);
 	const [devDialog, setDevDialog] = useState(false);
-	const [browserDialog, setBrowserDialog] = useState(false);
 
 	function startup() {
 		wake();
@@ -164,20 +352,10 @@ export default function Form({
 	useEffect(() => {
 		if (process.env.REACT_APP_API_DOMAIN.includes("dev")) {
 			setDevDialog(true);
-		} else if (
-			navigator.userAgent.includes("Firefox") &&
-			!localStorage.getItem("browserWarning")
-		) {
-			setBrowserDialog(true);
 		} else {
 			startup();
 		}
 	}, []);
-
-	function setBrowserWarning() {
-		localStorage.setItem("browserWarning", "true");
-		window.location.reload();
-	}
 
 	const [bedrooms, setBedrooms] = useState(false);
 	const [familyRooms, setFamilyRooms] = useState(false);
@@ -333,7 +511,7 @@ export default function Form({
 					setSearching(false);
 					const fares = pako.inflate(resultBytes, { to: "string" });
 					setFares(JSON.parse(fares));
-					setTimeout(() => navigate(`cached/${cacheId}`), 100);
+					setTimeout(() => navigate(`/cached/${cacheId}`), 100);
 					document.getElementById("root").style.height = "auto";
 					return;
 				} else {
@@ -575,19 +753,6 @@ export default function Form({
 						</Button>
 					</DialogActions>
 				</Dialog>
-				<Dialog onClose={setBrowserWarning} open={browserDialog}>
-					<DialogTitle>Browser Compatibility Warning</DialogTitle>
-					<DialogContent>
-						<DialogContentText>
-							It looks like you're using Firefox. There is a known bug with
-							Amtrak booking which only occurs in Firefox, consider using
-							another browser if you need this functionality.
-						</DialogContentText>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={setBrowserWarning}>OK</Button>
-					</DialogActions>
-				</Dialog>
 				<Snackbar open={wakeError}>
 					<Alert severity="error" variant="filled">
 						<AlertTitle sx={{ textAlign: "left" }}>
@@ -596,6 +761,18 @@ export default function Form({
 						Could not reach https://api.railsave.rs/wake
 					</Alert>
 				</Snackbar>
+				<Snackbar
+					action={
+						<Button onClick={handleCancelSearch} variant="contained">
+							Cancel
+						</Button>
+					}
+					message={`Searching in ${searchSnackbarTime} second${
+						searchSnackbarTime !== 1 ? "s" : ""
+					}...`}
+					onClose={() => setSearchSnackbar(false)}
+					open={searchSnackbar}
+				/>
 			</div>
 		</form>
 	);

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import "./Fares.css";
 import Filters from "./Filters";
 import Option from "./Option";
+import Share from "./Share";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -760,6 +761,13 @@ export default function Fares({
 				<div>{`${sortedOptions.length.toLocaleString()} option${
 					sortedOptions.length !== 1 ? "s" : ""
 				}`}</div>
+				<Share
+					origin={origin}
+					destination={destination}
+					dateRangeStart={dateRangeStart}
+					dateRangeEnd={dateRangeEnd}
+					roundTrip={roundTrip}
+				/>
 			</div>
 			<Filters
 				routes={routes}

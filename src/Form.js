@@ -77,6 +77,7 @@ export default function Form({
 	setFares,
 	newSearch,
 	setNotFound,
+	setDateTimeRequested,
 }) {
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -199,6 +200,7 @@ export default function Form({
 				setDateRangeEndSearch(
 					dayjs(cached.dates[cached.dates.length - 1]).utc()
 				);
+				setDateTimeRequested(dayjs.utc(cached.dateTimeRequested));
 				setFares(cached.trips);
 			}
 		} else if (mode === "search") {
@@ -514,7 +516,7 @@ export default function Form({
 					setTimeout(() => navigate(`/cached/${cacheId}`), 100);
 					document.getElementById("root").style.height = "auto";
 					return;
-				} else {
+				} else if (message.name === "error") {
 					setProgressText(message.data);
 					setSearchError(true);
 				}

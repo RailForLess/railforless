@@ -17,7 +17,7 @@ export default function UpdateBar() {
 		<div>
 			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
 				<span id="update-bar">
-					July 2024 Feature Update{" "}
+					August 2024 Feature Update{" "}
 					<span onClick={() => setDialog(true)}>Read more</span>
 				</span>
 				<IconButton onClick={() => setOpen(false)} size="small">
@@ -34,6 +34,23 @@ export default function UpdateBar() {
 				</IconButton>
 				<DialogContent>
 					<DialogContentText>
+						<h2>August 2024 Feature Update</h2>
+						<br></br>
+						Cached fares are here! Now you can share fares with others, save
+						past fares by their URL, and even share search URLs which
+						automatically fill in your search details. We have also removed
+						restrictions with amtrak.com booking—all browsers can now book
+						directly through Amtrak without restrictions. Try sharing a search
+						with the new Share menu today! As always, do not hesitate to reach
+						out at{" "}
+						<a href="mailto:contact@railforless.us">
+							contact@railforless.us
+						</a>{" "}
+						with any comments/concerns.
+						<br></br>
+						<br></br>
+						<hr></hr>
+						<br></br>
 						<h2>July 2024 Feature Update</h2>
 						<br></br>
 						This month we made a variety of small changes primarily in response

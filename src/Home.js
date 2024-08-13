@@ -9,7 +9,6 @@ import Map from "./Map";
 import NotFound from "./NotFound";
 import Progress from "./Progress";
 import Fares from "./Fares";
-import Snackbar from "@mui/material/Snackbar";
 
 export default function Home({
 	searching,
@@ -115,6 +114,7 @@ export default function Home({
 	}
 
 	function newSearch() {
+		setDateTimeRequested(null);
 		setFares([]);
 		navigate("/");
 		document.getElementById("root").style.height = "100vh";
@@ -140,6 +140,8 @@ export default function Home({
 		setDateRangeStartSearch(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
 		setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
 	}
+
+	const [dateTimeRequested, setDateTimeRequested] = useState(null);
 
 	return !notFound ? (
 		<div className="main-container">
@@ -189,6 +191,7 @@ export default function Home({
 					setFares={setFares}
 					newSearch={newSearch}
 					setNotFound={setNotFound}
+					setDateTimeRequested={setDateTimeRequested}
 				/>
 				{fares.length > 0 && stations.length > 0 ? (
 					<Fares
@@ -206,6 +209,7 @@ export default function Home({
 						dateRangeEnd={dateRangeEndSearch}
 						fares={fares}
 						routeLinks={routeLinks}
+						dateTimeRequested={dateTimeRequested}
 					/>
 				) : searching ? (
 					<Progress

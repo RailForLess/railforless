@@ -31,6 +31,10 @@
 	width: 100%;
 }
 
+#date-time-requested {
+	color: #9aa0a6;
+}
+
 #fares-container {
 	display: flex;
 	flex: 1;

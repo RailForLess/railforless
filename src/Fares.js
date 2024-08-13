@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
+import advancedFormat from "dayjs/plugin/advancedFormat";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import "./Fares.css";
 import Filters from "./Filters";
@@ -12,8 +15,11 @@ import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import TablePagination from "@mui/material/TablePagination";
 import { LineChart } from "@mui/x-charts/LineChart";
+dayjs.extend(advancedFormat);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
+dayjs.extend(timezone);
+dayjs.extend(utc);
 
 export default function Fares({
 	roundTrip,
@@ -30,6 +36,7 @@ export default function Fares({
 	dateRangeEnd,
 	fares,
 	routeLinks,
+	dateTimeRequested,
 }) {
 	const numTravelers = Object.values(travelerTypes).reduce((a, b) => a + b, 0);
 
@@ -337,7 +344,7 @@ export default function Fares({
 			"M-D-YYYY"
 		);
 		let newRoundtripOptions = [];
-		if (roundTrip === "round-trip") {
+		if (roundTrip) {
 			const numDays =
 				tripDuration.type === "week"
 					? tripDuration.val * 7
@@ -723,6 +730,15 @@ export default function Fares({
 						</linearGradient>
 					</LineChart>
 					<div></div>
+				</div>
+			)}
+			{dateTimeRequested && (
+				<div>
+					<span id="date-time-requested">{`You're viewing a cached search from ${dateTimeRequested
+						.local()
+						.format("dddd, MMMM Do YYYY")} at ${dateTimeRequested
+						.local()
+						.format("h:mm a (z)")}`}</span>
 				</div>
 			)}
 			<div id="fares-filters">

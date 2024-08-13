@@ -28,18 +28,12 @@ export default function AmtrakForm({ i, option, travelerTypes, roundTrip }) {
 	function handleSubmit(e) {
 		e.preventDefault();
 		e.stopPropagation();
-		if (travelerTypes.numYouth > 0) {
-			setWarningOpen(true);
-		} else {
-			submit();
-		}
+		submit();
 	}
 
 	function submit() {
 		document.getElementById(`amtrak-form-${i}`).submit();
 	}
-
-	const [warningOpen, setWarningOpen] = useState(false);
 
 	return (
 		<form
@@ -84,19 +78,6 @@ export default function AmtrakForm({ i, option, travelerTypes, roundTrip }) {
 			>
 				Book on amtrak.com
 			</Button>
-			<Dialog open={warningOpen}>
-				<DialogTitle>Youth Traveler Warning</DialogTitle>
-				<DialogContent>
-					<DialogContentText>
-						It looks like you're booking one or more youth tickets. These
-						tickets will not transfer when the Amtrak booking page opens, make
-						sure to add them in the Travelers menu.
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={submit}>OK</Button>
-				</DialogActions>
-			</Dialog>
 		</form>
 	);
 }

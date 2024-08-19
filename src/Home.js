@@ -93,7 +93,7 @@ export default function Home({
 		"Southwest Chief": "southwest-chief",
 		"Sunset Limited": "sunset-limited",
 		Downeaster: "downeaster",
-		"City of New Orleans": "city-of-new-orleans",
+		"City Of New Orleans": "city-of-new-orleans",
 		Crescent: "crescent",
 		"Missouri River Runner": "lincoln-service-missouri-river-runner",
 		"Texas Eagle": "texas-eagle",

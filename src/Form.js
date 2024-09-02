@@ -78,6 +78,8 @@ export default function Form({
 	newSearch,
 	setNotFound,
 	setDateTimeRequested,
+	showTurnstile,
+	setShowTurnstile,
 }) {
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -246,7 +248,7 @@ export default function Form({
 					if (prevSearchSnackbarTime === 1) {
 						clearInterval(timerRef.current);
 						setSearchSnackbar(false);
-						search();
+						setShowTurnstile(true);
 					}
 					return prevSearchSnackbarTime - 1;
 				});
@@ -421,21 +423,21 @@ export default function Form({
 			} else if (!bedrooms && !familyRooms) {
 				setSleeperOpen(true);
 			} else {
-				search();
+				setShowTurnstile(true);
 			}
 		}
 	}
 
-	function getCaptchaToken() {
+	function getTurnstileToken() {
 		return new Promise((res, rej) => {
-			window.grecaptcha.ready(() => {
-				window.grecaptcha
-					.execute("6Lfpbj4pAAAAALNTCxTBOH-OdifJBosvFNDjBHbl", {
-						action: "submit",
-					})
-					.then((token) => {
-						return res(token);
-					});
+			const turnstileId = window.turnstile.render("#turnstile", {
+				callback: (token) => {
+					setShowTurnstile(false);
+					window.turnstile.remove(turnstileId);
+					return res(token);
+				},
+				"refresh-expired": "never",
+				sitekey: "0x4AAAAAAAQXqospSaYctMbi",
 			});
 		});
 	}
@@ -463,14 +465,14 @@ export default function Form({
 			{
 				headers: process.env.REACT_APP_AUTH_STRING
 					? { "railsavers-auth": process.env.REACT_APP_AUTH_STRING }
-					: { "captcha-token": await getCaptchaToken() },
+					: { "captcha-token": await getTurnstileToken() },
 			}
 		);
 
 		if (response.status !== 200) {
 			setProgressText(
 				response.status === 401
-					? "reCAPTCHA validation failed"
+					? "Turnstile validation failed"
 					: `API connection failed with HTTP status ${response.status}`
 			);
 			setSearchError(true);
@@ -523,6 +525,12 @@ export default function Form({
 			});
 		});
 	}
+
+	useEffect(() => {
+		if (showTurnstile) {
+			search();
+		}
+	}, [showTurnstile]);
 
 	return (
 		<form id="form" style={{ marginBottom: fares.length === 0 ? "2rem" : 0 }}>
@@ -714,7 +722,7 @@ export default function Form({
 							<Button
 								onClick={() => {
 									setSleeperOpen(false);
-									search();
+									setShowTurnstile(true);
 								}}
 							>
 								No

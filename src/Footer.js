@@ -35,29 +35,6 @@ export default function Footer() {
 				</DialogActions>
 			</Dialog>
 			<div className="vertical-bar"></div>
-			<div>
-				<span>Protected by reCAPTCHA </span>
-				<span id="recaptcha-info">
-					(
-					<a
-						href="https://policies.google.com/privacy"
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						Privacy Policy
-					</a>
-					) (
-					<a
-						href="https://policies.google.com/terms"
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						TOS
-					</a>
-					)
-				</span>
-			</div>
-			<div className="vertical-bar"></div>
 			<span>
 				Site by{" "}
 				<a

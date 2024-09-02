@@ -69,7 +69,7 @@ export default function Progress({
 							value={Math.round(progressPercent * 100)}
 						/>
 					)}
-					{progressText.includes("reCAPTCHA") && (
+					{progressText.includes("Turnstile") && (
 						<Button
 							endIcon={<RefreshIcon />}
 							onClick={() => window.location.reload()}

@@ -9,6 +9,7 @@ import "./AppRouter.css";
 export default function AppRouter() {
 	const [searching, setSearching] = useState(false);
 	const [searchError, setSearchError] = useState(false);
+	const [showTurnstile, setShowTurnstile] = useState(false);
 
 	return (
 		<main>
@@ -23,6 +24,8 @@ export default function AppRouter() {
 								setSearching={setSearching}
 								searchError={searchError}
 								setSearchError={setSearchError}
+								showTurnstile={showTurnstile}
+								setShowTurnstile={setShowTurnstile}
 							/>
 						}
 					/>
@@ -35,13 +38,15 @@ export default function AppRouter() {
 								setSearching={setSearching}
 								searchError={searchError}
 								setSearchError={setSearchError}
+								showTurnstile={showTurnstile}
+								setShowTurnstile={setShowTurnstile}
 							/>
 						}
 					/>
 					<Route path="*" element={<NotFound msg={"Invalid URL"} />} />
 				</Routes>
 			</BrowserRouter>
-			{searching && !searchError && (
+			{searching && !searchError && !showTurnstile && (
 				<img alt="" id="acela" src="/images/acela.svg" />
 			)}
 		</main>

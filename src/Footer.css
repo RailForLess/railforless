@@ -39,10 +39,6 @@ footer > span:first-child {
 	color: white;
 }
 
-#recaptcha-info {
-	font-size: 0.8rem;
-}
-
 @media all and (max-width: 800px) {
 	footer {
 		flex-direction: column;

@@ -2,23 +2,26 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Home.css";
+import Fares from "./Fares";
 import Form from "./Form";
 import Hero from "./Hero";
 import Loading from "./Loading";
 import Map from "./Map";
 import NotFound from "./NotFound";
 import Progress from "./Progress";
-import Fares from "./Fares";
+import Turnstile from "./Turnstile";
 
 export default function Home({
 	searching,
 	setSearching,
 	searchError,
 	setSearchError,
+	showTurnstile,
+	setShowTurnstile,
 }) {
 	const navigate = useNavigate();
 
-	const { mode, "*": id } = useParams();
+	const { mode } = useParams();
 
 	const [roundTrip, setRoundTrip] = useState(true);
 	const [travelerTypes, setTravelerTypes] = useState({
@@ -192,6 +195,8 @@ export default function Home({
 					newSearch={newSearch}
 					setNotFound={setNotFound}
 					setDateTimeRequested={setDateTimeRequested}
+					showTurnstile={showTurnstile}
+					setShowTurnstile={setShowTurnstile}
 				/>
 				{fares.length > 0 && stations.length > 0 ? (
 					<Fares
@@ -211,6 +216,8 @@ export default function Home({
 						routeLinks={routeLinks}
 						dateTimeRequested={dateTimeRequested}
 					/>
+				) : showTurnstile ? (
+					<Turnstile />
 				) : searching ? (
 					<Progress
 						progressPercent={progressPercent}

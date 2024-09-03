@@ -136,12 +136,16 @@ export default function Home({
 		}, 500);
 		setSearching(false);
 		setSearchError(false);
-		setTripDuration({ type: null, val: null });
-		setFlexible(true);
-		setDateRangeStart(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
-		setDateRangeEnd(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
-		setDateRangeStartSearch(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
-		setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
+		if (dateRangeStart.isBefore(dayjs.utc().startOf("d").add(1, "d"))) {
+			setTripDuration({ type: null, val: null });
+			setFlexible(true);
+			setDateRangeStart(dayjs.utc().startOf("d").add(1, "M").startOf("M"));
+			setDateRangeEnd(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
+			setDateRangeStartSearch(
+				dayjs.utc().startOf("d").add(1, "M").startOf("M")
+			);
+			setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
+		}
 	}
 
 	const [dateTimeRequested, setDateTimeRequested] = useState(null);

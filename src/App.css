@@ -41,6 +41,10 @@ ul {
 	visibility: hidden;
 }
 
+.MuiAccordion-root::before {
+	background-color: transparent !important;
+}
+
 .selected svg[data-testid="ArrowDropDownIcon"] {
 	transform: rotate(180deg);
 }

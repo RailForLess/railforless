@@ -1,0 +1,40 @@
+#graph-container {
+	height: 7rem;
+	overflow: hidden;
+	position: relative;
+}
+
+#graph-container > div {
+	position: absolute;
+}
+
+#graph-container > div:last-child {
+	animation: 3s chart-slide-in;
+	background: rgb(30, 30, 30);
+	bottom: 0;
+	height: 90%;
+	left: 96%;
+	width: 100%;
+}
+
+#graph-container svg {
+	margin-top: -5rem;
+}
+
+#graph-container .MuiAreaElement-root {
+	fill: url(#chart-gradient) !important;
+	fill-opacity: 0.1;
+}
+
+#graph-container .MuiLineElement-root {
+	stroke: rgb(70, 147, 255) !important;
+}
+
+@keyframes graph-slide-in {
+	from {
+		left: 0;
+	}
+	to {
+		left: 96%;
+	}
+}

@@ -116,6 +116,7 @@
 	color: #9aa0a6;
 	display: flex;
 	font-size: 0.9rem;
+	flex-direction: column;
 	gap: 0.25rem;
 }
 
@@ -183,6 +184,10 @@
 	margin-right: 1rem !important;
 	row-gap: 0.5rem;
 	width: 100%;
+}
+
+.option-container {
+	border-radius: 1rem !important;
 }
 
 .station-container {

@@ -18,6 +18,7 @@ main {
 	flex: 1;
 	flex-direction: column;
 	overflow-y: hidden;
+	padding-bottom: 2rem;
 	width: 50%;
 }
 

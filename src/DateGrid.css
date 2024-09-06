@@ -1,0 +1,60 @@
+.date-grid-seek-container {
+	align-items: center;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 1rem;
+	display: flex;
+	gap: 0.5rem;
+	height: min-content;
+	padding: 0.25rem;
+	white-space: nowrap;
+	width: min-content;
+}
+
+#date-grid-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+#date-grid-container > .date-grid-seek-container span {
+	margin-left: 0.5rem;
+}
+
+#date-grid-container > div:last-child {
+	display: flex;
+	gap: 1rem;
+}
+
+#date-grid-container > div:last-child .date-grid-seek-container {
+	writing-mode: vertical-lr;
+}
+
+#date-grid-container > div:last-child .date-grid-seek-container span {
+	margin-top: 0.5rem;
+}
+
+#date-grid-container .MuiTableCell-body {
+	font-weight: bold;
+}
+
+#date-grid-container .MuiTableCell-head {
+	background: rgba(255, 255, 255, 0.05);
+}
+
+#date-grid-container .MuiTableCell-root {
+	border-left: 1px solid rgba(81, 81, 81, 1);
+	position: relative;
+}
+
+#date-grid-container .MuiTableCell-root div {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+#date-grid-container .MuiTable-root {
+	flex: 1;
+}

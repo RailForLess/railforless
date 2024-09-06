@@ -6,15 +6,17 @@ import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import "./Fares.css";
+import DateGrid from "./DateGrid";
 import Filters from "./Filters";
 import Option from "./Option";
+import PriceGraph from "./PriceGraph";
 import Share from "./Share";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
 import TablePagination from "@mui/material/TablePagination";
-import { LineChart } from "@mui/x-charts/LineChart";
+
 dayjs.extend(advancedFormat);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
@@ -280,7 +282,6 @@ export default function Fares({
 					.map((legAccommodation) => ({
 						...legAccommodation,
 						fare: getFare(legAccommodation, leg.route),
-						unitFare: legAccommodation.fare.total,
 					}));
 				if (leg.legAccommodations.length > 0) {
 					const match = leg.legAccommodations.find(
@@ -514,14 +515,15 @@ export default function Fares({
 					],
 				}));
 		}
-		updateChart(newRoundtripOptions);
+		updateGraph(newRoundtripOptions);
+		updateDateGrid(newRoundtripOptions);
 		sortOptions(newRoundtripOptions);
 	}
 
-	const [chartXData, setChartXData] = useState([]);
-	const [chartYData, setChartYData] = useState([]);
+	const [graphXData, setGraphXData] = useState([]);
+	const [graphYData, setGraphYData] = useState([]);
 
-	function updateChart(options) {
+	function updateGraph(options) {
 		if (options.length === 0) {
 			return;
 		}
@@ -531,32 +533,32 @@ export default function Fares({
 				departureDateTime: option.departureDateTime.startOf("d"),
 			}))
 			.sort((a, b) => a.departureDateTime - b.departureDateTime);
-		const newChartX = [];
-		const newChartY = [];
+		const newGraphX = [];
+		const newGraphY = [];
 		let prevPrevDate = null;
 		let prevDate = options[0].departureDateTime;
 		let minFare = options[0].fare;
-		for (let i = 0; i < options.length; i++) {
-			let curDate = options[i].departureDateTime;
-			let curFare = options[i].fare;
+		for (const option of options) {
+			const curDate = option.departureDateTime;
+			const curFare = option.fare;
 			if (curDate.format("M/D") !== prevDate.format("M/D")) {
 				if (
 					curDate.diff(prevDate, "d") > 1 &&
 					(prevPrevDate === null || prevDate.diff(prevPrevDate, "d") > 1)
 				) {
-					newChartX.push(prevDate.subtract(12, "h").toDate());
-					newChartY.push(minFare);
-					newChartX.push(prevDate.add(12, "h").toDate());
-					newChartY.push(minFare);
+					newGraphX.push(prevDate.subtract(12, "h").toDate());
+					newGraphY.push(minFare);
+					newGraphX.push(prevDate.add(12, "h").toDate());
+					newGraphY.push(minFare);
 				} else {
-					newChartX.push(prevDate.toDate());
-					newChartY.push(minFare);
+					newGraphX.push(prevDate.toDate());
+					newGraphY.push(minFare);
 				}
 				prevPrevDate = prevDate;
 				if (prevDate.format("M/D") !== curDate.subtract(1, "d").format("M/D")) {
 					while (prevDate.format("M/D") !== curDate.format("M/D")) {
-						newChartX.push(prevDate.toDate());
-						newChartY.push(null);
+						newGraphX.push(prevDate.toDate());
+						newGraphY.push(null);
 						prevDate = prevDate.add(1, "d");
 					}
 				}
@@ -566,10 +568,74 @@ export default function Fares({
 				minFare = curFare;
 			}
 		}
-		newChartX.push(prevDate.toDate());
-		newChartY.push(minFare);
-		setChartXData(newChartX);
-		setChartYData(newChartY);
+		newGraphX.push(prevDate.toDate());
+		newGraphY.push(minFare);
+		setGraphXData(newGraphX);
+		setGraphYData(newGraphY);
+	}
+
+	const [dateGrid, setDateGrid] = useState([]);
+
+	function updateDateGrid(options) {
+		if (options.length === 0) {
+			return;
+		}
+
+		// serialize dates for map creation
+		options = options.map((option) => ({
+			...option,
+			departureDateTime: option.departureDateTime.startOf("d").valueOf(),
+			arrivalDateTime: option.arrivalDateTime.startOf("d").valueOf(),
+		}));
+
+		// build 2D map where rows are returns and columns are departures
+		const dateGridMap = new Map();
+		let deptDates = new Set();
+		for (const option of options) {
+			const key = roundTrip && !tripDuration.val ? option.arrivalDateTime : 0;
+			const row = dateGridMap.get(key);
+			if (row) {
+				const cell = row.get(option.departureDateTime);
+				if (!cell || (cell && option.fare < cell.fare)) {
+					row.set(option.departureDateTime, option);
+				}
+			} else {
+				dateGridMap.set(key, new Map([[option.departureDateTime, option]]));
+			}
+			deptDates.add(option.departureDateTime);
+		}
+		deptDates = [...deptDates].sort();
+
+		// convert 2D map to 2D array for display
+		let newDateGrid = Array.from(dateGridMap, ([returnDate, departures]) => ({
+			date: returnDate,
+			departures: Array.from(departures, ([deptDate, option]) => ({
+				date: deptDate,
+				option,
+			})),
+		})).sort((a, b) => a.date - b.date);
+
+		// fill in gaps in the table and convert dates back to dayjs objects
+		newDateGrid = newDateGrid.map((returnTrip) => ({
+			date: dayjs(returnTrip.date),
+			departures: deptDates.map((deptDate) => {
+				const departure = returnTrip.departures.find(
+					(departure) => deptDate === departure.date
+				);
+				return {
+					date: dayjs(deptDate),
+					option: departure
+						? {
+								...departure.option,
+								departureDateTime: dayjs(departure.option.departureDateTime),
+								arrivalDateTime: dayjs(departure.option.arrivalDateTime),
+						  }
+						: null,
+				};
+			}),
+		}));
+
+		setDateGrid(newDateGrid);
 	}
 
 	const [sort, setSort] = useState("price");
@@ -600,7 +666,9 @@ export default function Fares({
 								: a.fare - b.fare
 			);
 		if (newSortedOptions.length > 0) {
-			const minPrice = newSortedOptions[0].fare;
+			const minPrice = newSortedOptions
+				.map((option) => option.fare)
+				.reduce((a, b) => (b < a ? b : a));
 			const minDuration = newSortedOptions[0].elapsedSeconds;
 			for (const [i, option] of newSortedOptions.entries()) {
 				option.minPrice =
@@ -684,55 +752,19 @@ export default function Fares({
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 
-	const chartXFormatter = (date) => dayjs(date).format("M/D");
-	const chartYFormatter = (fare) => (fare ? `$${fare.toLocaleString()}` : null);
-
 	return (
 		<div id="fares-container">
-			{sortedOptions.length > 0 && chartXData.length > 1 && (
-				<div id="chart-container">
-					<LineChart
-						height={160}
-						series={[
-							{
-								area: true,
-								data: chartYData,
-								showMark: false,
-								valueFormatter: chartYFormatter,
-							},
-						]}
-						xAxis={[
-							{
-								data: chartXData,
-								scaleType: "time",
-								tickNumber: chartXData.length,
-								valueFormatter: chartXFormatter,
-							},
-						]}
-						yAxis={[
-							{
-								max: chartYData.reduce((a, b) => (a > b ? a : b)),
-								min: chartYData.reduce((a, b) => (a < b ? a : b)) * (3 / 4),
-								valueFormatter: chartYFormatter,
-							},
-						]}
-					>
-						<linearGradient
-							id="chart-gradient"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop offset="0%" stopColor="#4693FF" stopOpacity="1"></stop>
-							<stop offset="40%" stopColor="#4693FF" stopOpacity="1"></stop>
-							<stop offset="60%" stopColor="#4693FF" stopOpacity="0"></stop>
-						</linearGradient>
-					</LineChart>
-					<div></div>
-				</div>
+			{sortedOptions.length > 0 && graphXData.length > 1 && (
+				<PriceGraph graphXData={graphXData} graphYData={graphYData} />
 			)}
-			{dateTimeRequested && (
+			{sortedOptions.length > 0 && graphXData.length > 1 && (
+				<DateGrid
+					dateGrid={dateGrid}
+					travelerTypes={travelerTypes}
+					roundTrip={roundTrip}
+				/>
+			)}
+			{dateTimeRequested && false && (
 				<div>
 					<span id="date-time-requested">{`You're viewing a cached search from ${dateTimeRequested
 						.local()
@@ -742,7 +774,7 @@ export default function Fares({
 				</div>
 			)}
 			<div id="fares-filters">
-				<div>
+				<div style={{ order: 0 }}>
 					<span>Sort by</span>
 					<Select
 						onChange={(e) => setSort(e.target.value)}
@@ -771,12 +803,10 @@ export default function Fares({
 						onRowsPerPageChange={(e) => setRowsPerPage(e.target.value)}
 						onPageChange={(e, newPage) => setPage(newPage)}
 						rowsPerPage={rowsPerPage}
+						sx={{ order: window.innerWidth > 480 ? 1 : 2 }}
 						page={page}
 					/>
 				)}
-				<div>{`${sortedOptions.length.toLocaleString()} option${
-					sortedOptions.length !== 1 ? "s" : ""
-				}`}</div>
 				<Share
 					origin={origin}
 					destination={destination}

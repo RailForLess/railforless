@@ -60,7 +60,6 @@
 	display: flex;
 	overflow-x: scroll;
 	gap: 1rem;
-	margin-top: 0.75rem;
 }
 
 #filters::-webkit-scrollbar {

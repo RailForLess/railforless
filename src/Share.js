@@ -40,7 +40,7 @@ export default function Share({
 	}
 
 	return (
-		<div>
+		<div style={{ order: window.innerWidth > 480 ? 2 : 1 }}>
 			<Button
 				endIcon={<ShareIcon />}
 				onClick={(e) => setAnchor(e.currentTarget)}

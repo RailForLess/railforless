@@ -6,8 +6,8 @@ export default function Navbar() {
 	return (
 		<header>
 			<nav>
-				<Link to={useLocation().pathname === "/" ? "/about" : "/"}>
-					{useLocation().pathname === "/" ? "About" : "Home"}
+				<Link to={useLocation().pathname === "/about" ? "/" : "/about"}>
+					{useLocation().pathname === "/about" ? "Home" : "About"}
 				</Link>
 				<a
 					href="https://www.buymeacoffee.com/seaneddy"

@@ -172,9 +172,13 @@ export default function Option({
 
 	return (
 		<Accordion
+			className="option-container"
 			expanded={expanded}
 			onChange={handleExpand}
-			sx={{ marginTop: option.marginTop && sort === "price" ? "1rem" : "" }}
+			sx={{
+				border: option.minPrice ? "1px solid green" : "none",
+				marginTop: option.marginTop && sort === "price" ? "1rem" : "",
+			}}
 		>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<div className="option-summary">
@@ -378,6 +382,11 @@ export default function Option({
 												leg.legAccommodation.neededInventory > 1 ? "s" : ""
 											}`}</span>
 											<div>
+												{leg.legAccommodation.fareFamily !== "NA" && (
+													<span>{`(${getFareFamily(
+														leg.legAccommodation.fareFamily
+													)})`}</span>
+												)}
 												<span
 													style={{
 														color:
@@ -385,17 +394,7 @@ export default function Option({
 																? "indianred"
 																: "#9aa0a6",
 													}}
-												>{`${
-													leg.legAccommodation.availableInventory
-												} left at $${(k
-													? trip.travelLegs[0]
-													: leg
-												).legAccommodation.unitFare.toLocaleString()}`}</span>
-												{leg.legAccommodation.fareFamily !== "NA" && (
-													<span>{`(${getFareFamily(
-														leg.legAccommodation.fareFamily
-													)})`}</span>
-												)}
+												>{`${leg.legAccommodation.availableInventory} left at this price`}</span>
 											</div>
 										</div>
 									</div>

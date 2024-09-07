@@ -764,7 +764,7 @@ export default function Fares({
 					roundTrip={roundTrip}
 				/>
 			)}
-			{dateTimeRequested && false && (
+			{dateTimeRequested && (
 				<div>
 					<span id="date-time-requested">{`You're viewing a cached search from ${dateTimeRequested
 						.local()

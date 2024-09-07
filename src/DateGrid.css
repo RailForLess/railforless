@@ -58,3 +58,10 @@
 #date-grid-container .MuiTable-root {
 	flex: 1;
 }
+
+@media all and (min-width: 768px) {
+	#date-grid-container .MuiTableCell-head {
+		height: 4rem;
+		padding: 0;
+	}
+}

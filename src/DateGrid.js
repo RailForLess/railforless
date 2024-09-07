@@ -23,22 +23,24 @@ export default function DateGrid({ dateGrid, travelerTypes, roundTrip }) {
 	const [col, setCol] = useState(0);
 
 	useEffect(() => {
-		setRow(Math.max(0, dateGrid.length - maxNumRows));
+		const newRow = Math.max(0, dateGrid.length - maxNumRows);
+		setRow(newRow);
 		setCol(0);
+		setDateGridDisplayed(updateDateGridDisplayed(newRow, 0));
 	}, [dateGrid]);
 
-	const updateDateGridDisplayed = () =>
-		dateGrid.slice(row, row + maxNumRows).map((row) => ({
+	const updateDateGridDisplayed = (newRow, newCol) =>
+		dateGrid.slice(newRow, newRow + maxNumRows).map((row) => ({
 			...row,
-			departures: row.departures.slice(col, col + maxNumCols),
+			departures: row.departures.slice(newCol, newCol + maxNumCols),
 		}));
 
 	const [dateGridDisplayed, setDateGridDisplayed] = useState(
-		updateDateGridDisplayed()
+		updateDateGridDisplayed(row, col)
 	);
 
 	useEffect(() => {
-		setDateGridDisplayed(updateDateGridDisplayed);
+		setDateGridDisplayed(updateDateGridDisplayed(row, col));
 	}, [row, col]);
 
 	const minFareDisplayed = Math.min(

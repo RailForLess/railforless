@@ -17,7 +17,7 @@ export default function UpdateBar() {
 		<div>
 			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
 				<span id="update-bar">
-					August 2024 Feature Update{" "}
+					Date grid, Turnstile, and more{" "}
 					<span onClick={() => setDialog(true)}>Read more</span>
 				</span>
 				<IconButton onClick={() => setOpen(false)} size="small">
@@ -34,6 +34,43 @@ export default function UpdateBar() {
 				</IconButton>
 				<DialogContent>
 					<DialogContentText>
+						<h2>Date grid, Turnstile, and more</h2>
+						<br></br>
+						This month we're excited to introduce a major new feature and
+						transition of our backend architecture. First, we have finally
+						implemented the "Date grid" feature found in Google Flights, an
+						incredibly useful tool for visualizing fares across a date range and
+						departure/return combinations. The Date grid in tandem with the
+						existing Price graph enable rich data visualization that we hope
+						will aid your future travel planning. Second, we have transitioned
+						away from CAPTCHAs and now use{" "}
+						<a
+							href="https://www.cloudflare.com/products/turnstile/"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							Cloudflare Turnstile
+						</a>{" "}
+						for protection against bots; expect a more frictionless experience
+						interacting with our API. Finally, we have made some changes to our
+						donation system in light of rising costs and waning donations. A
+						non-intrusive donation prompt will accompany fares when viewing
+						search results, showing progress towards the current month's
+						fundraising goal. Additionally, we have created a{" "}
+						<a
+							href="https://buymeacoffee.com/seaneddy/membership"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							membership tier
+						</a>{" "}
+						which enables smaller monthly contributions. Please consider
+						donating to help cover our ever-increasing operating costs and fund
+						new features.
+						<br></br>
+						<br></br>
+						<hr></hr>
+						<br></br>
 						<h2>August 2024 Feature Update</h2>
 						<br></br>
 						Cached fares are here! Now you can share fares with others, save

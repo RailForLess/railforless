@@ -7,6 +7,7 @@ import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import "./Fares.css";
 import DateGrid from "./DateGrid";
+import Donation from "./Donation";
 import Filters from "./Filters";
 import Option from "./Option";
 import PriceGraph from "./PriceGraph";
@@ -754,6 +755,7 @@ export default function Fares({
 
 	return (
 		<div id="fares-container">
+			<Donation />
 			{sortedOptions.length > 0 && graphXData.length > 1 && (
 				<PriceGraph graphXData={graphXData} graphYData={graphYData} />
 			)}

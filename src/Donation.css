@@ -1,0 +1,155 @@
+#budget-container {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+#budget-container > div {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: min-content;
+}
+
+#budget-container > div > div {
+	align-items: center;
+	display: flex;
+	gap: 1rem;
+}
+
+#budget-container .high-funding {
+	color: rgba(129, 201, 149, 0.25);
+}
+
+#budget-container .low-funding {
+	color: indianred;
+}
+
+#budget-container .med-funding {
+	color: rgb(255, 196, 0);
+}
+
+#budget-container .MuiIconButton-root {
+	margin-left: -0.75rem;
+}
+
+#donation-accordion {
+	background: rgb(54, 55, 58);
+	border-radius: 1rem;
+	box-shadow: none;
+}
+
+#donation-accordion .MuiAccordionSummary-content {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 2rem;
+	padding-right: 1rem;
+}
+
+#donation-accordion .MuiAccordionDetails-root > div {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	padding: 1rem;
+}
+
+#donation-accordion .MuiAccordionDetails-root > div > div {
+	display: flex;
+	gap: 2rem;
+}
+
+#donation-accordion .MuiAccordionDetails-root > div > div > div:first-child {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem 2rem;
+}
+
+#donation-accordion
+	.MuiAccordionDetails-root
+	> div
+	> div
+	> div:first-child
+	button {
+	height: min-content;
+}
+
+#donation-accordion .MuiAccordionDetails-root > div > div > div:last-child {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+#donation-accordion .MuiAccordionDetails-root > div > div > div:last-child div {
+	display: flex;
+	flex-direction: column;
+}
+
+#donation-accordion
+	.MuiAccordionDetails-root
+	> div
+	> div
+	> div:last-child
+	div
+	span {
+	color: #9aa0a6;
+}
+
+#donation-progress-container {
+	align-items: center;
+	display: flex;
+	flex: 1;
+	gap: 1rem;
+}
+
+#donation-progress-container > div {
+	align-items: center;
+	display: flex;
+	gap: 0.25rem;
+}
+
+#donation-progress-container > div > span {
+	white-space: nowrap;
+}
+
+#donation-progress-container .high-funding {
+	background: rgb(129, 201, 149);
+}
+
+#donation-progress-container .high-funding .MuiLinearProgress-bar {
+	background: rgba(129, 201, 149, 0.25);
+}
+
+#donation-progress-container .low-funding {
+	background: rgba(205, 92, 92, 0.25);
+}
+
+#donation-progress-container .low-funding .MuiLinearProgress-bar {
+	background: indianred;
+}
+
+#donation-progress-container .med-funding {
+	background: rgba(255, 196, 0, 0.25);
+}
+
+#donation-progress-container .med-funding .MuiLinearProgress-bar {
+	background: rgb(255, 196, 0);
+}
+
+#donation-progress-container .MuiLinearProgress-root {
+	flex: 1;
+	min-width: 3rem;
+}
+
+#donation-skeleton {
+	border-radius: 1rem;
+	height: 3rem;
+}
+
+@media all and (max-width: 480px) {
+	#donation-accordion .MuiAccordionDetails-root > div > div {
+		flex-direction: column;
+		gap: 1rem;
+	}
+}

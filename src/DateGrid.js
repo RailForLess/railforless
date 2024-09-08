@@ -104,7 +104,7 @@ export default function DateGrid({ dateGrid, travelerTypes, roundTrip }) {
 							<TableHead>
 								<TableRow>
 									{dateGridDisplayed[0].departures.map((departure, j) => (
-										<TableCell align="center">
+										<TableCell align="center" key={`date-grid-${-1}-${j}`}>
 											<div
 												onMouseEnter={() => setColHighlight(j)}
 												onMouseLeave={() => setColHighlight(null)}
@@ -137,10 +137,11 @@ export default function DateGrid({ dateGrid, travelerTypes, roundTrip }) {
 							</TableHead>
 							<TableBody>
 								{dateGridDisplayed.map((returnTrip, i) => (
-									<TableRow>
+									<TableRow key={`date-grid-${i}-${-1}`}>
 										{returnTrip.departures.map((departure, j) => (
 											<TableCell
 												align="center"
+												key={`date-grid-${i}-${j}`}
 												sx={{
 													background:
 														departure.option &&

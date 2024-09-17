@@ -14,7 +14,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Skeleton from "@mui/material/Skeleton";
 import Tooltip from "@mui/material/Tooltip";
 
-export default function Donation() {
+export default function Donation({ defaultExpanded = false }) {
 	const [donations, setDonations] = useState(null);
 
 	useEffect(() => {
@@ -28,7 +28,7 @@ export default function Donation() {
 	}, []);
 
 	return donations ? (
-		<Accordion id="donation-accordion">
+		<Accordion defaultExpanded={defaultExpanded} id="donation-accordion">
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				<h3>Help keep RailForLess.us ad-free.</h3>
 				<div id="donation-progress-container">

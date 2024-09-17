@@ -24,6 +24,10 @@
 	gap: 0.5rem;
 }
 
+#fares-container .MuiTablePagination-toolbar .MuiInputBase-root {
+	margin-right: 8px;
+}
+
 #fares-filters {
 	align-items: center;
 	display: flex;

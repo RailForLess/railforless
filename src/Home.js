@@ -79,7 +79,7 @@ export default function Home({
 		"Coast Starlight": "coast-starlight",
 		"Empire Builder": "empire-builder",
 		"Empire Service": "empire-service",
-		"Ethan Allen-Express": "ethan-allen-express",
+		"Ethan Allen Express": "ethan-allen-express",
 		"Heartland Flyer": "heartland-flyer",
 		Hiawatha: "hiawatha",
 		Saluki: "illinois-services",

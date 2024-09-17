@@ -16,7 +16,13 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 
-export default function DateGrid({ dateGrid, travelerTypes, roundTrip }) {
+export default function DateGrid({
+	dateGrid,
+	travelerTypes,
+	roundTrip,
+	fareFormatter,
+	usePoints,
+}) {
 	const maxNumRows = window.innerWidth > 768 ? 7 : 5;
 	const maxNumCols = window.innerWidth > 768 ? 7 : 3;
 	const [row, setRow] = useState(Math.max(0, dateGrid.length - maxNumRows));
@@ -188,7 +194,7 @@ export default function DateGrid({ dateGrid, travelerTypes, roundTrip }) {
 													}}
 												></div>
 												{departure.option
-													? `$${departure.option.fare.toLocaleString()}`
+													? fareFormatter(departure.option.fare)
 													: ""}
 											</TableCell>
 										))}
@@ -254,6 +260,7 @@ export default function DateGrid({ dateGrid, travelerTypes, roundTrip }) {
 						option={option}
 						travelerTypes={travelerTypes}
 						roundTrip={roundTrip}
+						usePoints={usePoints}
 					/>
 				</div>
 			</Popover>

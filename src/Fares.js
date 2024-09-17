@@ -13,9 +13,11 @@ import Option from "./Option";
 import PriceGraph from "./PriceGraph";
 import Share from "./Share";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
+import Switch from "@mui/material/Switch";
 import TablePagination from "@mui/material/TablePagination";
 
 dayjs.extend(advancedFormat);
@@ -753,17 +755,31 @@ export default function Fares({
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
 
+	const [usePoints, setUsePoints] = useState(false);
+
+	const pointsMultiplier = 37.5;
+	const fareFormatter = (fare) =>
+		usePoints
+			? Math.round(fare * pointsMultiplier).toLocaleString()
+			: `$${fare.toLocaleString()}`;
+
 	return (
 		<div id="fares-container">
 			<Donation />
 			{sortedOptions.length > 0 && graphXData.length > 1 && (
-				<PriceGraph graphXData={graphXData} graphYData={graphYData} />
+				<PriceGraph
+					graphXData={graphXData}
+					graphYData={graphYData}
+					fareFormatter={fareFormatter}
+				/>
 			)}
 			{sortedOptions.length > 0 && graphXData.length > 1 && (
 				<DateGrid
 					dateGrid={dateGrid}
 					travelerTypes={travelerTypes}
 					roundTrip={roundTrip}
+					usePoints={usePoints}
+					fareFormatter={fareFormatter}
 				/>
 			)}
 			{dateTimeRequested && (
@@ -809,6 +825,16 @@ export default function Fares({
 						page={page}
 					/>
 				)}
+				<FormControlLabel
+					control={
+						<Switch
+							checked={usePoints}
+							onChange={() => setUsePoints(!usePoints)}
+						/>
+					}
+					label="Use points"
+					sx={{ order: window.innerWidth > 480 ? 2 : 3 }}
+				/>
 				<Share
 					origin={origin}
 					destination={destination}
@@ -874,6 +900,8 @@ export default function Fares({
 								routeLinks={routeLinks}
 								outboundDays={outboundDays}
 								returnDays={returnDays}
+								usePoints={usePoints}
+								fareFormatter={fareFormatter}
 							/>
 						))}
 				</div>

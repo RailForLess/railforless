@@ -1,7 +1,13 @@
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Button from "@mui/material/Button";
 
-export default function AmtrakForm({ i, option, travelerTypes, roundTrip }) {
+export default function AmtrakForm({
+	i,
+	option,
+	travelerTypes,
+	roundTrip,
+	usePoints,
+}) {
 	const travelerTypesArray = [];
 	for (const [type, num] of Object.entries(travelerTypes)) {
 		for (const i of [...Array(num).keys()]) {
@@ -64,6 +70,11 @@ export default function AmtrakForm({ i, option, travelerTypes, roundTrip }) {
 					value={travelerType}
 				/>
 			))}
+			<input
+				type="hidden"
+				name="wdf_BookType"
+				value={usePoints ? "redeem" : ""}
+			></input>
 			<Button
 				endIcon={<OpenInNewIcon />}
 				onClick={(e) => handleSubmit(e)}

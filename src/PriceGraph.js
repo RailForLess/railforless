@@ -6,9 +6,9 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import { LineChart } from "@mui/x-charts/LineChart";
 
-export default function PriceGraph({ graphXData, graphYData }) {
+export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 	const graphXFormatter = (date) => dayjs(date).format("M/D");
-	const graphYFormatter = (fare) => (fare ? `$${fare.toLocaleString()}` : null);
+	const graphYFormatter = (fare) => (fare ? fareFormatter(fare) : null);
 
 	return (
 		<Accordion defaultExpanded>

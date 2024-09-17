@@ -38,6 +38,8 @@ export default function Option({
 	routeLinks,
 	outboundDays,
 	returnDays,
+	usePoints,
+	fareFormatter,
 }) {
 	function getRouteSummary(option) {
 		const routeSummary = [
@@ -204,12 +206,13 @@ export default function Option({
 							option={option}
 							travelerTypes={travelerTypes}
 							roundTrip={roundTrip}
+							usePoints={usePoints}
 						/>
 					)}
 					<div className="vertical-bar"></div>
-					<span
-						style={{ color: option.minPrice ? "#81c995" : "white" }}
-					>{`$${option.fare.toLocaleString()}`}</span>
+					<span style={{ color: option.minPrice ? "#81c995" : "white" }}>
+						{fareFormatter(option.fare)}
+					</span>
 				</div>
 			</AccordionSummary>
 			<AccordionDetails>
@@ -221,7 +224,7 @@ export default function Option({
 								<span className="dot">·</span>
 								<span>{trip.departureDateTime.format("ddd, MMM D")}</span>
 							</div>
-							<span>{`$${trip.fare.toLocaleString()}`}</span>
+							<span>{fareFormatter(trip.fare)}</span>
 						</div>
 						{trip.travelLegs.map((leg, k) => (
 							<div key={`option-${i}-${j}-${k}`}>
@@ -423,7 +426,7 @@ export default function Option({
 																{getAddItemIcon(addItem)}
 																<span>{`${addItem.type} (${
 																	addItem.fare
-																		? `$${addItem.fare.toLocaleString()}`
+																		? fareFormatter(addItem.fare)
 																		: "free"
 																})`}</span>
 															</div>

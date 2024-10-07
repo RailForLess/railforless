@@ -637,7 +637,10 @@ export default function Form({
 					variant="extended"
 					size="medium"
 					sx={{
-						backgroundColor: searching ? "red" : "#89B3F7",
+						backgroundColor:
+							fares.length === 0 && !searchError && searching
+								? "red"
+								: "#89B3F7",
 						bottom: `-${
 							!searching &&
 							fares.length === 0 &&
@@ -646,17 +649,26 @@ export default function Form({
 								: "1.75"
 						}rem`,
 						transition: "0.5s bottom",
-						":hover": { bgcolor: !searching ? "primary.hover" : "red" },
+						":hover": {
+							bgcolor:
+								fares.length === 0 && !searchError && searching
+									? "red"
+									: "primary.hover",
+						},
 					}}
 				>
-					{searching ? (
-						<CancelIcon sx={{ mr: 1 }} />
-					) : fares.length > 0 ? (
+					{fares.length > 0 || searchError ? (
 						<ArrowBackIcon sx={{ mr: 1 }} />
+					) : searching ? (
+						<CancelIcon sx={{ mr: 1 }} />
 					) : (
 						<TravelExploreIcon sx={{ mr: 1 }} />
 					)}
-					{searching ? "Cancel" : fares.length > 0 ? "New search" : "Search"}
+					{fares.length > 0 || searchError
+						? "New search"
+						: searching
+						? "Cancel"
+						: "Search"}
 				</Fab>
 				{errorType !== 1 && (
 					<Dialog onClose={() => setSleeperOpen(false)} open={sleeperOpen}>

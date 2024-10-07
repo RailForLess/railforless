@@ -65,49 +65,6 @@ export default function Home({
 	const [progressText, setProgressText] = useState("");
 	const [fares, setFares] = useState([]);
 
-	const routeLinks = {
-		Acela: "acela",
-		Adirondack: "adirondack",
-		"Auto Train": "auto",
-		"Blue Water": "michigan-services",
-		Borealis: "borealis",
-		"California Zephyr": "california-zephyr",
-		"Capitol Limited": "capitol-limited",
-		Cardinal: "cardinal",
-		Cascades: "cascades",
-		"Lincoln Service": "lincoln-service-missouri-river-runner",
-		"Coast Starlight": "coast-starlight",
-		"Empire Builder": "empire-builder",
-		"Empire Service": "empire-service",
-		"Ethan Allen Express": "ethan-allen-express",
-		"Heartland Flyer": "heartland-flyer",
-		Hiawatha: "hiawatha",
-		Saluki: "illinois-services",
-		"Illinois Zephyr": "illinois-services",
-		"Keystone Service": "keystone-service",
-		"Lake Shore Limited": "lake-shore-limited",
-		"Maple Leaf": "maple-leaf",
-		"Hartford Line": "amtrak-hartford-line",
-		"Pacific Surfliner": "pacific-surfliner",
-		Pennsylvanian: "pennsylvanian",
-		"Northeast Regional": "northeast-regional",
-		"San Joaquins": "san-joaquins",
-		"Silver Service/Palmetto": "silver-service-palmetto",
-		"Southwest Chief": "southwest-chief",
-		"Sunset Limited": "sunset-limited",
-		Downeaster: "downeaster",
-		"City Of New Orleans": "city-of-new-orleans",
-		Crescent: "crescent",
-		"Missouri River Runner": "lincoln-service-missouri-river-runner",
-		"Texas Eagle": "texas-eagle",
-		"Pere Marquette": "michigan-services",
-		Wolverine: "michigan-services",
-		"Capitol Corridor": "capitol-corridor",
-		Vermonter: "vermonter",
-		Carolinian: "carolinian-piedmont",
-		Piedmont: "carolinian-piedmont",
-	};
-
 	const [notFound, setNotFoundState] = useState(false);
 	const [msg, setMsg] = useState(null);
 
@@ -156,7 +113,7 @@ export default function Home({
 			<div id="hero-container">
 				<div className="fade-in-translate" id="hero-text">
 					<h1>
-						RailForLess.us<span>v2</span>
+						RailForLess.us<span>v3</span>
 					</h1>
 				</div>
 				<Form
@@ -217,7 +174,6 @@ export default function Home({
 						dateRangeStart={dateRangeStartSearch}
 						dateRangeEnd={dateRangeEndSearch}
 						fares={fares}
-						routeLinks={routeLinks}
 						dateTimeRequested={dateTimeRequested}
 					/>
 				) : showTurnstile ? (
@@ -240,7 +196,6 @@ export default function Home({
 						updateMap={updateMap}
 						route={route}
 						setRoute={setRoute}
-						routeLinks={routeLinks}
 					/>
 				)}
 			</div>

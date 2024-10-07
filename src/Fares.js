@@ -40,7 +40,6 @@ export default function Fares({
 	dateRangeStart,
 	dateRangeEnd,
 	fares,
-	routeLinks,
 	dateTimeRequested,
 }) {
 	const numTravelers = Object.values(travelerTypes).reduce((a, b) => a + b, 0);
@@ -897,7 +896,6 @@ export default function Fares({
 								sort={sort}
 								travelerTypes={travelerTypes}
 								roundTrip={roundTrip}
-								routeLinks={routeLinks}
 								outboundDays={outboundDays}
 								returnDays={returnDays}
 								usePoints={usePoints}

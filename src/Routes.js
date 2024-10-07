@@ -1,8 +1,11 @@
 import { useState } from "react";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CheckboxRow from "./CheckboxRow";
+import { routesInfo } from "./routesInfo";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CloseIcon from "@mui/icons-material/Close";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import IconButton from "@mui/material/IconButton";
 import Popover from "@mui/material/Popover";
 
@@ -70,15 +73,23 @@ export default function Routes({ routes, setRoutes }) {
 							<CloseIcon />
 						</IconButton>
 					</div>
-					{Object.keys(routes).map((route) => (
-						<CheckboxRow
-							key={`routes-${route}`}
-							values={routes}
-							setValues={setRoutes}
-							value={route}
-							label={route.replaceAll("-", " ").replace("_", "/")}
-						/>
-					))}
+					{Object.keys(routes).map((route) => {
+						const routeInfo =
+							routesInfo[route.replaceAll("-", " ").replace("_", "/")];
+						return (
+							<CheckboxRow
+								values={routes}
+								setValues={setRoutes}
+								value={route}
+								label={
+									<div className="checkbox-label">
+										{routeInfo && <span>{routeInfo.icon}</span>}
+										{route.replaceAll("-", " ").replace("_", "/")}
+									</div>
+								}
+							/>
+						);
+					})}
 					<div className="options">
 						<Button
 							disabled={excludedRoutes.length === 0}

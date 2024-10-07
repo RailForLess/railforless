@@ -30,7 +30,7 @@ export default function Navbar() {
 				</a>
 			</nav>
 			<Dialog onClose={() => setDonateDialog(false)} open={donateDialog}>
-				<DialogContent sx={{ minWidth: "600px !important" }}>
+				<DialogContent sx={{ minWidth: "20rem !important" }}>
 					<Donation defaultExpanded={true} />
 				</DialogContent>
 				<DialogActions>

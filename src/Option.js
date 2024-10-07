@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import { useState } from "react";
 import AmtrakForm from "./AmtrakForm";
 import DelayInfo from "./DelayInfo";
+import { routesInfo } from "./routesInfo";
 import "./Option.css";
 import AccessibleIcon from "@mui/icons-material/Accessible";
 import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
@@ -35,7 +36,6 @@ export default function Option({
 	sort,
 	travelerTypes,
 	roundTrip,
-	routeLinks,
 	outboundDays,
 	returnDays,
 	usePoints,
@@ -50,7 +50,11 @@ export default function Option({
 					)
 				)
 			),
-		].sort();
+		]
+			.sort()
+			.map(
+				(route) => `${routesInfo[route] ? routesInfo[route].icon : ""} ${route}`
+			);
 		return routeSummary.length > 2
 			? `${routeSummary.slice(0, 2).join(", ")} + ${routeSummary.length - 2}`
 			: routeSummary.join(", ");
@@ -303,10 +307,10 @@ export default function Option({
 												<span>{getDuration(leg.elapsedSeconds)}</span>
 												<div>
 													<span>{leg.trainId}</span>
-													{leg.route !== "Connecting Bus" ? (
+													{routesInfo[leg.route] ? (
 														<a
 															href={`https://www.amtrak.com/routes/${
-																routeLinks[leg.route]
+																routesInfo[leg.route].link
 															}-train.html`}
 															rel="noreferrer"
 															target="_blank"

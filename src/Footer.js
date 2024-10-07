@@ -8,12 +8,18 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function Footer() {
-	const [open, setOpen] = useState(false);
+	const [disclaimerOpen, setDisclaimerOpen] = useState(false);
 
 	return (
 		<footer>
-			<span onClick={() => setOpen(true)}>Non-Affiliation Disclaimer</span>
-			<Dialog id="disclaimer" onClose={() => setOpen(false)} open={open}>
+			<span onClick={() => setDisclaimerOpen(true)}>
+				Non-Affiliation Disclaimer
+			</span>
+			<Dialog
+				id="disclaimer"
+				onClose={() => setDisclaimerOpen(false)}
+				open={disclaimerOpen}
+			>
 				<DialogTitle>Non-Affiliation Disclaimer</DialogTitle>
 				<DialogContent>
 					<DialogContentText>
@@ -31,9 +37,23 @@ export default function Footer() {
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={() => setOpen(false)}>OK</Button>
+					<Button onClick={() => setDisclaimerOpen(false)}>OK</Button>
 				</DialogActions>
 			</Dialog>
+			<div className="vertical-bar"></div>
+			<div>
+				<span>
+					Powered by{" "}
+					<a
+						href="https://www.cloudflare.com/"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						Cloudflare
+					</a>
+				</span>
+				<img src="/images/cloudflare-logo.png" />
+			</div>
 			<div className="vertical-bar"></div>
 			<span>
 				Site by{" "}

@@ -17,7 +17,7 @@ export default function UpdateBar() {
 		<div>
 			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
 				<span id="update-bar">
-					Date grid, Turnstile, and more{" "}
+					RailForLess.us v3 now runs entirely on Cloudflare 🎉{" "}
 					<span onClick={() => setDialog(true)}>Read more</span>
 				</span>
 				<IconButton onClick={() => setOpen(false)} size="small">
@@ -34,6 +34,47 @@ export default function UpdateBar() {
 				</IconButton>
 				<DialogContent>
 					<DialogContentText>
+						<h2>RailForLess.us v3</h2>
+						<br></br>
+						We are excited to announce that after months of development we have
+						finally migrated all of our backend services from Microsoft Azure to
+						Cloudflare. This transition began over a year ago when we first
+						transitioned our hosting to{" "}
+						<a
+							href="https://pages.cloudflare.com/"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							Cloudflare Pages
+						</a>
+						, since then we have transitioned our CAPTCHA service to{" "}
+						<a
+							href="https://www.cloudflare.com/products/turnstile/"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							Cloudflare Turnstile
+						</a>{" "}
+						and now our entire backend to run on{" "}
+						<a
+							href="https://workers.cloudflare.com/"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							Cloudflare Workers
+						</a>
+						. This marks the third complete redesign of our backend and with it
+						you can expect faster searches with more frequent status updates.
+						Additionally, we have leveraged Cloudflare's vast network to
+						eliminate the need for some of our most expensive proxies, allowing
+						us to reduce our monthly fundraising goal for the time being. Other
+						improvements include route icons and various bug fixes. Thank you to
+						all who donated this past month, your donations are what allow us to
+						continually improve.
+						<br></br>
+						<br></br>
+						<hr></hr>
+						<br></br>
 						<h2>Date grid, Turnstile, and more</h2>
 						<br></br>
 						This month we're excited to introduce a major new feature and

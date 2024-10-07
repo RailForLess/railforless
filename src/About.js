@@ -72,15 +72,15 @@ export default function About() {
 				<div id="meet-the-devs-container">
 					<div>
 						<figure>
-							<img alt="Sean Eddy" src="/images/sean-headshot.jpg" />
+							<img alt="Sean Eddy" src="/images/sean-headshot.png" />
 							<figcaption>Sean Eddy</figcaption>
 							<figcaption>UI/UX Designer</figcaption>
 						</figure>
 						<p>
-							Sean is a senior at the University of Arizona studying Computer
-							Science. He enjoys exploring the Sonoran Desert on his bike,
-							trying Tucson's Mexican restaurants, and designing Lego models.
-							Learn more about him and his projects at{" "}
+							Sean is a graduate student at the University of Arizona studying
+							Computer Science. He enjoys exploring the Sonoran Desert on his
+							bike, trying Tucson's Mexican restaurants, and designing Lego
+							models. Learn more about him and his projects at{" "}
 							<a href="https://seaneddy.com" rel="noreferrer" target="_blank">
 								seaneddy.com
 							</a>

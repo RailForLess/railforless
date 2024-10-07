@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as d3 from "d3";
+import { routesInfo } from "./routesInfo";
 import "./Map.css";
 import ZoomOutMapIcon from "@mui/icons-material/ZoomOutMap";
 
@@ -12,7 +13,6 @@ export default function Map({
 	updateMap,
 	route,
 	setRoute,
-	routeLinks,
 }) {
 	const [loaded, setLoaded] = useState(false);
 	const silverService = ["Palmetto", "Silver-Meteor", "Silver-Star"];
@@ -467,20 +467,22 @@ export default function Map({
 		d3.select("#map-svg").call(zoom.transform, d3.zoomIdentity.scale(1));
 	}
 
+	const routeInfo = routesInfo[route.replaceAll("-", " ").replace("_", "/")];
+
 	return (
 		<div id="map-container">
 			<svg id="map-svg"></svg>
 			{route && route !== "Any-route" && (
-				<a
-					href={`https://www.amtrak.com/routes/${
-						routeLinks[route.replaceAll("-", " ").replace("_", "/")]
-					}-train.html`}
-					id="route-box"
-					rel="noreferrer"
-					target="_blank"
-				>
-					{route.replaceAll("-", " ").replace("_", "/")}
-				</a>
+				<div id="route-box">
+					<span>{routeInfo.icon}</span>
+					<a
+						href={`https://www.amtrak.com/routes/${routeInfo.link}-train.html`}
+						rel="noreferrer"
+						target="_blank"
+					>
+						{route.replaceAll("-", " ").replace("_", "/")}
+					</a>
+				</div>
 			)}
 			<ZoomOutMapIcon id="zoom-out-button" onClick={reset} />
 		</div>

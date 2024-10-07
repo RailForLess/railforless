@@ -1,4 +1,3 @@
-import Ably from "ably/promises";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
@@ -6,7 +5,6 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import pako from "pako";
 import DateRangePopover from "./DateRangePopover";
 import FareClassSelect from "./FareClassSelect";
 import Settings from "./Settings";
@@ -22,8 +20,6 @@ import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -189,26 +185,20 @@ export default function Form({
 
 				document.getElementById("root").style.height = "auto";
 				setRoundTrip(cached.roundTrip);
-				//setTravelerTypes(JSON.parse(localStorage.getItem("travelerTypes")));
 				setOrigin(stations.find((station) => station.id === cached.origin));
 				setDestination(
 					stations.find((station) => station.id === cached.destination)
 				);
-				//setFlexible(JSON.parse(localStorage.getItem("flexible")));
-				//setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
-				setDateRangeStart(dayjs(cached.dates[0]).utc());
-				setDateRangeEnd(dayjs(cached.dates[cached.dates.length - 1]).utc());
-				setDateRangeStartSearch(dayjs(cached.dates[0]).utc());
-				setDateRangeEndSearch(
-					dayjs(cached.dates[cached.dates.length - 1]).utc()
-				);
+				setDateRangeStart(dayjs(cached.startDate).utc());
+				setDateRangeEnd(dayjs(cached.endDate).utc());
+				setDateRangeStartSearch(dayjs(cached.startDate).utc());
+				setDateRangeEndSearch(dayjs(cached.endDate).utc());
 				setDateTimeRequested(dayjs.utc(cached.dateTimeRequested));
 				setFares(cached.trips);
 			}
 		} else if (mode === "search") {
 			if (stations.length > 0 && checkSearchId()) {
 				setRoundTrip(id.split("_").length === 2);
-				//setTravelerTypes(JSON.parse(localStorage.getItem("travelerTypes")));
 				setOrigin(
 					stations.find(
 						(station) => station.id === id.split("_")[0].split("-")[0]
@@ -219,8 +209,6 @@ export default function Form({
 						(station) => station.id === id.split("_")[0].split("-")[1]
 					)
 				);
-				//setFlexible(JSON.parse(localStorage.getItem("flexible")));
-				//setTripDuration(JSON.parse(localStorage.getItem("tripDuration")));
 				setDateRangeStart(
 					dayjs(id.split("_")[1].split("-")[0], "M/D/YY", true).utc()
 				);
@@ -320,21 +308,9 @@ export default function Form({
 		setUpdateMap((updateMap) => !updateMap);
 	}
 
-	let wakeRes;
-	async function wake() {
-		wakeRes = await fetch(`${process.env.REACT_APP_API_DOMAIN}/wake`);
-	}
-	const [wakeError, setWakeError] = useState(false);
 	const [devDialog, setDevDialog] = useState(false);
 
 	function startup() {
-		wake();
-		setTimeout(() => {
-			if (!wakeRes || wakeRes.status !== 200) {
-				setWakeError(true);
-			}
-		}, 10000);
-
 		if (!localStorage.getItem("geolocate")) {
 			localStorage.setItem("geolocate", "true");
 			localStorage.setItem("stationFormat", "name-and-code");
@@ -407,9 +383,6 @@ export default function Form({
 		if (fares.length > 0 || searchError) {
 			newSearch();
 		} else if (searching) {
-			if (clientState) {
-				clientState.close();
-			}
 			setSearching(false);
 			setTimeout(() => {
 				setUpdateMap((updateMap) => !updateMap);
@@ -442,88 +415,67 @@ export default function Form({
 		});
 	}
 
-	const [clientState, setClientState] = useState(null);
-
 	async function search() {
 		setProgressPercent(0);
 		setProgressText("Connecting...");
 		setSearching(true);
 
-		const dates = [];
-		let date = dateRangeStart.subtract(1, "d");
-		do {
-			date = date.add(1, "d");
-			dates.push(`dates[]=${date.format("YYYY-MM-DDTHH:mm:ss")}`);
-		} while (!date.isSame(dateRangeEnd, "D"));
+		const params = new URLSearchParams({
+			origin: origin.code,
+			destination: destination.code,
+			startDate: dateRangeStart.toISOString(),
+			endDate: dateRangeEnd.toISOString(),
+			roundTrip,
+			bedrooms,
+			familyRooms,
+		});
 
-		const response = await fetch(
-			`${process.env.REACT_APP_API_DOMAIN}/token?origin=${
-				origin.code
-			}&destination=${destination.code}&${dates.join(
-				"&"
-			)}&bedrooms=${bedrooms}&familyRooms=${familyRooms}&roundTrip=${roundTrip}`,
+		const tokenResponse = await fetch(
+			`${process.env.REACT_APP_API_DOMAIN}/token?${params}`,
 			{
-				headers: process.env.REACT_APP_AUTH_STRING
-					? { "railsavers-auth": process.env.REACT_APP_AUTH_STRING }
-					: { "captcha-token": await getTurnstileToken() },
+				headers: process.env.REACT_APP_AUTH_KEY
+					? { "railforless-auth": process.env.REACT_APP_AUTH_KEY }
+					: { "auth-turnstile": await getTurnstileToken() },
 			}
 		);
-
-		if (response.status !== 200) {
+		if (tokenResponse.status !== 200) {
 			setProgressText(
-				response.status === 401
+				tokenResponse.status === 401
 					? "Turnstile validation failed"
-					: `API connection failed with HTTP status ${response.status}`
+					: `API connection failed with HTTP status ${tokenResponse.status}`
 			);
 			setSearchError(true);
 			return;
 		}
 
-		const tokenRequest = await response.json();
+		params.append("token", (await tokenResponse.json()).token);
 
-		const channelName = tokenRequest.channel;
-
-		const client = Ably.Realtime.Promise({
-			authCallback: async (tokenParams, callback) => {
-				callback(null, tokenRequest.tokenDetails);
-			},
-		});
-		setClientState(client);
-
+		const tripsResponse = new WebSocket(
+			`${process.env.REACT_APP_API_DOMAIN.replace(
+				/^http(s)?:\/\//,
+				"ws$1://"
+			)}/trips?${params}`
+		);
 		let cacheId = 0;
-		let resultBytes = new Uint8Array([]);
-
-		client.connection.on("connected", () => {
-			const channel = client.channels.get(channelName);
-			channel.subscribe((message) => {
-				if (message.name === "status" || message.name === "warning") {
-					setProgressText(message.data.message);
-					setProgressPercent(message.data.percentComplete);
-				} else if (message.name === "cache-id") {
-					cacheId = message.data;
-				} else if (message.name === "result") {
-					resultBytes = new Uint8Array([
-						...resultBytes,
-						...new Uint8Array(message.data),
-					]);
-				} else if (message.name === "result-last") {
-					resultBytes = new Uint8Array([
-						...resultBytes,
-						...new Uint8Array(message.data),
-					]);
-					client.close();
-					setSearching(false);
-					const fares = pako.inflate(resultBytes, { to: "string" });
-					setFares(JSON.parse(fares));
-					setTimeout(() => navigate(`/cached/${cacheId}`), 100);
-					document.getElementById("root").style.height = "auto";
-					return;
-				} else if (message.name === "error") {
-					setProgressText(message.data);
-					setSearchError(true);
-				}
-			});
-		});
+		tripsResponse.onmessage = (event) => {
+			const data = JSON.parse(event.data);
+			if (data.event === "status") {
+				setProgressText(data.message.message);
+				setProgressPercent(data.message.percentComplete);
+			} else if (data.event === "cache-id") {
+				cacheId = data.message;
+			} else if (data.event === "result") {
+				setSearching(false);
+				console.log(data.message);
+				setFares(data.message);
+				setTimeout(() => navigate(`/cached/${cacheId}`), 100);
+				document.getElementById("root").style.height = "auto";
+				return;
+			} else {
+				setProgressText(data.message);
+				setSearchError(true);
+			}
+		};
 	}
 
 	useEffect(() => {
@@ -685,7 +637,7 @@ export default function Form({
 					variant="extended"
 					size="medium"
 					sx={{
-						backgroundColor: fares.length > 0 || searching ? "red" : "#89B3F7",
+						backgroundColor: searching ? "red" : "#89B3F7",
 						bottom: `-${
 							!searching &&
 							fares.length === 0 &&
@@ -697,18 +649,14 @@ export default function Form({
 						":hover": { bgcolor: !searching ? "primary.hover" : "red" },
 					}}
 				>
-					{fares.length > 0 || searchError ? (
-						<ArrowBackIcon sx={{ mr: 1 }} />
-					) : searching ? (
+					{searching ? (
 						<CancelIcon sx={{ mr: 1 }} />
+					) : fares.length > 0 ? (
+						<ArrowBackIcon sx={{ mr: 1 }} />
 					) : (
 						<TravelExploreIcon sx={{ mr: 1 }} />
 					)}
-					{fares.length > 0 || searchError
-						? "Back"
-						: searching
-						? "Cancel"
-						: "Search"}
+					{searching ? "Cancel" : fares.length > 0 ? "New search" : "Search"}
 				</Fab>
 				{errorType !== 1 && (
 					<Dialog onClose={() => setSleeperOpen(false)} open={sleeperOpen}>
@@ -763,14 +711,6 @@ export default function Form({
 						</Button>
 					</DialogActions>
 				</Dialog>
-				<Snackbar open={wakeError}>
-					<Alert severity="error" variant="filled">
-						<AlertTitle sx={{ textAlign: "left" }}>
-							API Connection Failed
-						</AlertTitle>
-						Could not reach https://api.railsave.rs/wake
-					</Alert>
-				</Snackbar>
 				<Snackbar
 					action={
 						<Button onClick={handleCancelSearch} variant="contained">

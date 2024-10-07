@@ -52,7 +52,7 @@ export default function Footer() {
 						Cloudflare
 					</a>
 				</span>
-				<img src="/images/cloudflare-logo.png" />
+				<img alt="Cloudflare logo" src="/images/cloudflare-logo.png" />
 			</div>
 			<div className="vertical-bar"></div>
 			<span>

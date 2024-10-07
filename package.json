@@ -1,5 +1,5 @@
 {
-	"name": "rail-for-less",
+	"name": "railforless",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -12,11 +12,9 @@
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^13.5.0",
-		"ably": "^1.2.48",
 		"d3": "^7.8.5",
 		"dayjs": "^1.11.10",
-		"pako": "^2.1.0",
-		"rail-for-less": "file:",
+		"railforless": "file:",
 		"react": "^18.2.0",
 		"react-animated-numbers": "^0.17.1",
 		"react-dom": "^18.2.0",

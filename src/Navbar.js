@@ -20,7 +20,7 @@ export default function Navbar() {
 				<a onClick={() => setDonateDialog(true)}>Donate</a>
 				<a href="mailto:contact@railforless.us">Contact</a>
 				<a
-					href={`https://github.com/tikkisean/rail-for-less${
+					href={`https://github.com/RailForLess/railforless${
 						process.env.REACT_APP_API_DOMAIN.includes("dev") ? "/tree/dev" : ""
 					}`}
 					rel="noopener noreferrer"

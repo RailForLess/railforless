@@ -468,12 +468,14 @@ export default function Form({
 				setSearching(false);
 				console.log(data.message);
 				setFares(data.message);
+				tripsResponse.close();
 				setTimeout(() => navigate(`/cached/${cacheId}`), 100);
 				document.getElementById("root").style.height = "auto";
 				return;
 			} else {
 				setProgressText(data.message);
 				setSearchError(true);
+				tripsResponse.close();
 			}
 		};
 	}

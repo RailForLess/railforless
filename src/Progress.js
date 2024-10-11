@@ -9,6 +9,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 export default function Progress({
 	progressPercent,
 	progressText,
+	searchAnimationsBool,
 	searchError,
 }) {
 	const observer = new MutationObserver((mutations) => {
@@ -53,7 +54,7 @@ export default function Progress({
 							fontStyle={{ fontSize: "7rem" }}
 							transitions={() => ({
 								type: "spring",
-								duration: 0.5,
+								duration: searchAnimationsBool ? 0.5 : 0,
 							})}
 						/>
 					) : (

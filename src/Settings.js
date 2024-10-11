@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Settings.css";
 import SettingsIcon from "@mui/icons-material/Settings";
+import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -21,6 +22,8 @@ export default function Settings({
 	setNearbyCitiesBool,
 	stationFormat,
 	setStationFormat,
+	searchAnimationsBool,
+	setSearchAnimationsBool,
 }) {
 	const [anchor, setAnchor] = useState(null);
 
@@ -40,8 +43,16 @@ export default function Settings({
 	}
 
 	function handleStationFormat(newStationFormat) {
-		localStorage.setItem("station-format", newStationFormat);
 		setStationFormat(newStationFormat);
+		localStorage.setItem("station-format", JSON.stringify(newStationFormat));
+	}
+
+	function handleSearchAnimations() {
+		setSearchAnimationsBool(!searchAnimationsBool);
+		localStorage.setItem(
+			"search-animations",
+			JSON.stringify(!searchAnimationsBool)
+		);
 	}
 
 	return (
@@ -83,6 +94,7 @@ export default function Settings({
 							onChange={() => setFamilyRooms(!familyRooms)}
 						/>
 					</div>
+					<Divider />
 					<div className="settings-row">
 						<span>Geolocation</span>
 						<Switch checked={geolocateBool} onChange={handleGeolocate} />
@@ -110,6 +122,14 @@ export default function Settings({
 								code only
 							</MenuItem>
 						</Select>
+					</div>
+					<Divider />
+					<div className="settings-row">
+						<span>Search animations</span>
+						<Switch
+							checked={searchAnimationsBool}
+							onChange={handleSearchAnimations}
+						/>
 					</div>
 				</div>
 			</Menu>

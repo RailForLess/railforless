@@ -76,6 +76,8 @@ export default function Form({
 	setDateTimeRequested,
 	showTurnstile,
 	setShowTurnstile,
+	searchAnimationsBool,
+	setSearchAnimationsBool,
 }) {
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -466,7 +468,6 @@ export default function Form({
 				cacheId = data.message;
 			} else if (data.event === "result") {
 				setSearching(false);
-				console.log(data.message);
 				setFares(data.message);
 				tripsResponse.close();
 				setTimeout(() => navigate(`/cached/${cacheId}`), 100);
@@ -528,6 +529,8 @@ export default function Form({
 						setNearbyCitiesBool={setNearbyCitiesBool}
 						stationFormat={stationFormat}
 						setStationFormat={setStationFormat}
+						searchAnimationsBool={searchAnimationsBool}
+						setSearchAnimationsBool={setSearchAnimationsBool}
 					/>
 				)}
 			</div>

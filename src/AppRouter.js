@@ -11,6 +11,12 @@ export default function AppRouter() {
 	const [searchError, setSearchError] = useState(false);
 	const [showTurnstile, setShowTurnstile] = useState(false);
 
+	const [searchAnimationsBool, setSearchAnimationsBool] = useState(
+		localStorage.getItem("search-animations")
+			? JSON.parse(localStorage.getItem("search-animations"))
+			: true
+	);
+
 	return (
 		<main>
 			<BrowserRouter>
@@ -26,6 +32,8 @@ export default function AppRouter() {
 								setSearchError={setSearchError}
 								showTurnstile={showTurnstile}
 								setShowTurnstile={setShowTurnstile}
+								searchAnimationsBool={searchAnimationsBool}
+								setSearchAnimationsBool={setSearchAnimationsBool}
 							/>
 						}
 					/>
@@ -46,7 +54,7 @@ export default function AppRouter() {
 					<Route path="*" element={<NotFound msg={"Invalid URL"} />} />
 				</Routes>
 			</BrowserRouter>
-			{searching && !searchError && !showTurnstile && (
+			{searching && !searchError && !showTurnstile && searchAnimationsBool && (
 				<img alt="" id="acela" src="/images/acela.svg" />
 			)}
 		</main>

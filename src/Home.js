@@ -18,6 +18,8 @@ export default function Home({
 	setSearchError,
 	showTurnstile,
 	setShowTurnstile,
+	searchAnimationsBool,
+	setSearchAnimationsBool,
 }) {
 	const navigate = useNavigate();
 
@@ -158,6 +160,8 @@ export default function Home({
 					setDateTimeRequested={setDateTimeRequested}
 					showTurnstile={showTurnstile}
 					setShowTurnstile={setShowTurnstile}
+					searchAnimationsBool={searchAnimationsBool}
+					setSearchAnimationsBool={setSearchAnimationsBool}
 				/>
 				{fares.length > 0 && stations.length > 0 ? (
 					<Fares
@@ -182,6 +186,7 @@ export default function Home({
 					<Progress
 						progressPercent={progressPercent}
 						progressText={progressText}
+						searchAnimationsBool={searchAnimationsBool}
 						searchError={searchError}
 					/>
 				) : mode && mode === "cached" ? (

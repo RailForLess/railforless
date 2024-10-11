@@ -623,6 +623,8 @@ export default function Form({
 						strict={strict}
 						setStrict={setStrict}
 						searching={searching || fares.length > 1}
+						setBedrooms={setBedrooms}
+						setFamilyRooms={setFamilyRooms}
 					/>
 					<DateRangePopover
 						roundTrip={roundTrip}

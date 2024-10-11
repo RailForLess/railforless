@@ -9,6 +9,9 @@ import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 
 export default function Settings({
+	remindAddAccommsBool,
+	setRemindAddAccommsBool,
+	handleRemindAddAccomms,
 	bedrooms,
 	setBedrooms,
 	familyRooms,
@@ -92,6 +95,13 @@ export default function Settings({
 						<Switch
 							checked={familyRooms}
 							onChange={() => setFamilyRooms(!familyRooms)}
+						/>
+					</div>
+					<div className="settings-row">
+						<span>Remind if unselected</span>
+						<Switch
+							checked={remindAddAccommsBool}
+							onChange={handleRemindAddAccomms}
 						/>
 					</div>
 					<Divider />

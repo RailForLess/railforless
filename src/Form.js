@@ -21,12 +21,14 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Fab from "@mui/material/Fab";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
 dayjs.extend(utc);
@@ -256,6 +258,12 @@ export default function Form({
 		}
 	}, [location]);
 
+	const [remindAddAccommsBool, setRemindAddAccommsBool] = useState(
+		localStorage.getItem("remind-add-accomms")
+			? JSON.parse(localStorage.getItem("remind-add-accomms"))
+			: true
+	);
+
 	const [geolocateBool, setGeolocateBool] = useState(
 		localStorage.getItem("geolocate")
 			? JSON.parse(localStorage.getItem("geolocate"))
@@ -389,17 +397,20 @@ export default function Form({
 			setTimeout(() => {
 				setUpdateMap((updateMap) => !updateMap);
 			}, 500);
+		} else if (errorType === 1) {
+			setShowSearchErrors(false);
+			setTimeout(() => {
+				setShowSearchErrors(true);
+			}, 0);
+		} else if (
+			remindAddAccommsBool &&
+			!bedrooms &&
+			!familyRooms &&
+			!["First", "Roomette"].includes(fareClass)
+		) {
+			setSleeperOpen(true);
 		} else {
-			if (errorType === 1) {
-				setShowSearchErrors(false);
-				setTimeout(() => {
-					setShowSearchErrors(true);
-				}, 0);
-			} else if (!bedrooms && !familyRooms) {
-				setSleeperOpen(true);
-			} else {
-				setShowTurnstile(true);
-			}
+			setShowTurnstile(true);
 		}
 	}
 
@@ -487,6 +498,14 @@ export default function Form({
 		}
 	}, [showTurnstile]);
 
+	function handleRemindAddAccomms() {
+		setRemindAddAccommsBool(!remindAddAccommsBool);
+		localStorage.setItem(
+			"remind-add-accomms",
+			JSON.stringify(!remindAddAccommsBool)
+		);
+	}
+
 	return (
 		<form id="form" style={{ marginBottom: fares.length === 0 ? "2rem" : 0 }}>
 			<div className="input-row secondary-input">
@@ -505,6 +524,8 @@ export default function Form({
 							strict={strict}
 							setStrict={setStrict}
 							searching={searching}
+							setBedrooms={setBedrooms}
+							setFamilyRooms={setFamilyRooms}
 						/>
 					</div>
 				) : (
@@ -516,6 +537,9 @@ export default function Form({
 				)}
 				{!searching && fares.length === 0 && (
 					<Settings
+						remindAddAccommsBool={remindAddAccommsBool}
+						setRemindAddAccommsBool={setRemindAddAccommsBool}
+						handleRemindAddAccomms={handleRemindAddAccomms}
 						bedrooms={bedrooms}
 						setBedrooms={setBedrooms}
 						familyRooms={familyRooms}
@@ -682,6 +706,15 @@ export default function Form({
 							<DialogContentText>
 								{`Include Bedrooms and/or Family Rooms in search? This may lengthen wait times, especially for round trip and/or multi-leg trips.`}
 							</DialogContentText>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={!remindAddAccommsBool}
+										onChange={handleRemindAddAccomms}
+									/>
+								}
+								label="Don't ask me again"
+							/>
 						</DialogContent>
 						<DialogActions>
 							<Button

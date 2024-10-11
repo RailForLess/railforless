@@ -14,8 +14,15 @@ export default function FareClassSelect({
 	strict,
 	setStrict,
 	searching,
+	setBedrooms,
+	setFamilyRooms,
 }) {
 	const [selected, setSelected] = useState(false);
+
+	useEffect(() => {
+		setBedrooms(value === "Sleeper" || value === "Bedroom");
+		setFamilyRooms(value === "Sleeper" || value === "Family Room");
+	}, [value]);
 
 	useEffect(() => {
 		if (!values.includes(value)) {

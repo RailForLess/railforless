@@ -12,7 +12,9 @@ export default function AppRouter() {
 	const [showTurnstile, setShowTurnstile] = useState(false);
 
 	const [searchAnimationsBool, setSearchAnimationsBool] = useState(
-		localStorage.getItem("search-animations")
+		window.matchMedia("(prefers-reduced-motion)").matches
+			? false
+			: localStorage.getItem("search-animations")
 			? JSON.parse(localStorage.getItem("search-animations"))
 			: true
 	);

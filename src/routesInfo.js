@@ -11,7 +11,7 @@ export const routesInfo = {
 	"Capitol Corridor": { icon: "🌉", link: "capitol-corridor" },
 	"Capitol Limited": { icon: "🏛️", link: "capitol-limited" },
 	Cardinal: { icon: "🐦", link: "cardinal" },
-	Carolinian: { icon: "🌻", link: "carolinian-piedmont" },
+	Carolinian: { icon: "🐿️", link: "carolinian-piedmont" },
 	"City Of New Orleans": { icon: "🎷", link: "city-of-new-orleans" },
 	"Coast Starlight": { icon: "🌊", link: "coast-starlight" },
 	Crescent: { icon: "🌙", link: "crescent" },

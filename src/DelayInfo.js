@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./DelayInfo.css";
-import DepartureBoardIcon from "@mui/icons-material/DepartureBoard";
+import ScheduleIcon from "@mui/icons-material/Schedule";
 import Popover from "@mui/material/Popover";
 
 export default function DelayInfo({ isDept, leg }) {
@@ -17,7 +17,7 @@ export default function DelayInfo({ isDept, leg }) {
 
 	return (
 		<div className="delay-icon-container">
-			<DepartureBoardIcon
+			<ScheduleIcon
 				onMouseEnter={(e) => setAnchor(e.currentTarget)}
 				onMouseLeave={() => setAnchor(null)}
 				sx={{

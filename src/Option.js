@@ -9,10 +9,10 @@ import AirportShuttleIcon from "@mui/icons-material/AirportShuttle";
 import ChairIcon from "@mui/icons-material/Chair";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import LocalCafeIcon from "@mui/icons-material/LocalCafe";
 import LuggageIcon from "@mui/icons-material/Luggage";
-import NoTransferIcon from "@mui/icons-material/NoTransfer";
 import PedalBikeIcon from "@mui/icons-material/PedalBike";
 import PetsIcon from "@mui/icons-material/Pets";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
@@ -240,9 +240,9 @@ export default function Option({
 											<div className="dot-end"></div>
 											<div>
 												{leg.type === "TRAIN" ? (
-													<DirectionsBusIcon />
+													<DirectionsRailwayIcon />
 												) : (
-													<NoTransferIcon />
+													<DirectionsBusIcon />
 												)}
 											</div>
 										</div>
@@ -316,6 +316,14 @@ export default function Option({
 															target="_blank"
 														>
 															{leg.route}
+														</a>
+													) : leg.route === "Connecting Bus" ? (
+														<a
+															href="https://www.amtrak.com/thruway-connecting-services-multiply-your-travel-destinations"
+															rel="noreferrer"
+															target="_blank"
+														>
+															Connecting Bus
 														</a>
 													) : (
 														<span>{leg.route}</span>

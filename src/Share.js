@@ -22,9 +22,9 @@ export default function Share({
 	const [copy, setCopy] = useState(false);
 	const [search, setSearch] = useState(false);
 
-	const domain = window.location.href.split("/").slice(0, 3).join("/");
+	const domain = process.env.REACT_APP_API_DOMAIN.replace("api.", "");
 	const link = !search
-		? window.location.href
+		? `${domain}/${window.location.href.match(/\/(cached\/.*)/)[1]}`
 		: `${domain}/search/${origin.code}-${
 				destination.code
 		  }_${dateRangeStart.format("M/D/YY")}-${dateRangeEnd.format("M/D/YY")}${

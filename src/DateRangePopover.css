@@ -13,11 +13,9 @@ form svg[data-testid="CalendarMonthIcon"] {
 	width: auto !important;
 }
 
-.MuiDayCalendar-weekContainer {
-	margin: 0 !important;
-}
-
 .MuiPickersDay-root {
+	border-style: dashed none !important;
+	border-width: 2px !important;
 	margin: 0 !important;
 	padding: 1.25rem !important;
 }
@@ -27,6 +25,7 @@ form svg[data-testid="CalendarMonthIcon"] {
 }
 
 .MuiPickersLayout-root {
+	margin-bottom: -1rem;
 	overflow: visible !important;
 }
 
@@ -89,7 +88,7 @@ form svg[data-testid="CalendarMonthIcon"] {
 	display: flex;
 	flex-direction: column;
 	gap: 0.5rem;
-	padding: 1.5rem;
+	padding: 1rem;
 }
 
 #date-range-text-container .MuiButton-root {

@@ -192,6 +192,10 @@ export default function DateRangePopover({
 		},
 	}));
 
+	const isHover =
+		!hoverStartDate.isSame(dateRangeStart, "d") ||
+		!hoverEndDate.isSame(dateRangeEnd, "d");
+
 	const CustomDay = (props) => {
 		const { day, ...other } = props;
 		const isIntermediateDay =
@@ -217,15 +221,25 @@ export default function DateRangePopover({
 						}
 					}
 				}}
-				selected={isStartDate || (multipleDates && isEndDate)}
+				selected={
+					isStartDate ||
+					day.isSame(dateRangeStart, "d") ||
+					(multipleDates && (isEndDate || day.isSame(dateRangeEnd, "d")))
+				}
 				style={{
 					backgroundColor: flexible
 						? isIntermediateDay
 							? "rgba(144, 202, 249, 0.08)"
-							: ""
-						: "",
+							: "transparent"
+						: "transparent",
+					borderColor:
+						isIntermediateDay && isHover
+							? "rgb(255, 255, 255, 0.12)"
+							: "transparent",
 					borderRadius: flexible
-						? isStartDate || day.get("d") === 0 || day.get("D") === 1
+						? isStartDate && isEndDate
+							? "50%"
+							: isStartDate || day.get("d") === 0 || day.get("D") === 1
 							? "50% 0 0 50%"
 							: isEndDate ||
 							  day.get("d") === 6 ||
@@ -367,6 +381,9 @@ export default function DateRangePopover({
 							{multipleDates && (
 								<div>
 									<Button
+										color={
+											error.includes("date is after") ? "error" : "primary"
+										}
 										endIcon={<SwapHorizIcon />}
 										onClick={() => {
 											setDateRangeStart(dateRangeEnd);

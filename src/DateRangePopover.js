@@ -1,16 +1,25 @@
 import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import "./DateRangePopover.css";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
+import SwitchLeftIcon from "@mui/icons-material/SwitchLeft";
+import SwitchRightIcon from "@mui/icons-material/SwitchRight";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Popover from "@mui/material/Popover";
 import Select from "@mui/material/Select";
+import { styled } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
+import { PickersDay } from "@mui/x-date-pickers/PickersDay";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 dayjs.extend(utc);
 
 export default function DateRangePopover({
@@ -28,35 +37,91 @@ export default function DateRangePopover({
 	setDateRangeStartSearch,
 	setDateRangeEndSearch,
 	fares,
-	searching,
 	newSearch,
+	fixedDates,
 }) {
-	const error =
-		dateRangeStart.isAfter(dateRangeEnd) ||
-		dateRangeEnd.isBefore(dateRangeStart)
-			? `${flexible ? "Start" : "Dept"} date (${dateRangeStart.format(
-					"M/D"
-			  )}) is after ${flexible ? "end" : "return"} date (${dateRangeEnd.format(
-					"M/D"
-			  )})`
+	const multipleDates = roundTrip || flexible;
+
+	const error = multipleDates
+		? dateRangeStart.isAfter(dateRangeEnd) ||
+		  dateRangeEnd.isBefore(dateRangeStart)
+			? `${flexible ? "Start" : "Dept"} date is after ${
+					flexible ? "end" : "return"
+			  } date`
 			: dateRangeEnd.diff(dateRangeStart, "d") + 1 > (roundTrip ? 45 : 90)
 			? `${flexible ? "Date range" : "Trip duration"} greater than ${
 					roundTrip ? 45 : 90
 			  } days`
-			: "";
+			: ""
+		: "";
 
 	const [shakeError, setShakeError] = useState(true);
 
-	function getDateRangeString() {
-		return flexible
-			? `${
-					roundTrip && tripDuration.val
-						? `${tripDuration.val} ${tripDuration.type} trip in`
-						: "Anytime"
-			  } ${dateRangeStart.format("M/D")}-${dateRangeEnd.format("M/D")}`
-			: `Dept ${dateRangeStart.format("M/D")}${
-					roundTrip ? `, Return ${dateRangeEnd.format("M/D")}` : ""
-			  }`;
+	const [dateRangeStartSelect, setDateRangeStartSelect] = useState(true);
+
+	function getDateRangeString(highlight = false) {
+		return highlight ? (
+			flexible ? (
+				<div id="date-range-string">
+					<span>
+						{roundTrip && tripDuration.val
+							? `${tripDuration.val} ${tripDuration.type} trip in`
+							: "Anytime"}
+						&nbsp;
+					</span>
+					<span
+						id={dateRangeStartSelect ? "date-range-highlight" : ""}
+						onClick={() => setDateRangeStartSelect(true)}
+						style={{ cursor: "pointer" }}
+					>
+						{dateRangeStart.format("M/D")}
+					</span>
+					<span>-</span>
+					<span
+						id={!dateRangeStartSelect ? "date-range-highlight" : ""}
+						onClick={() => setDateRangeStartSelect(false)}
+						style={{ cursor: "pointer" }}
+					>
+						{dateRangeEnd.format("M/D")}
+					</span>
+				</div>
+			) : (
+				<div id="date-range-string">
+					<span>Dept&nbsp;</span>
+					<span
+						id={
+							dateRangeStartSelect && multipleDates
+								? "date-range-highlight"
+								: ""
+						}
+						onClick={() => setDateRangeStartSelect(true)}
+						style={{ cursor: multipleDates ? "pointer" : "auto" }}
+					>
+						{dateRangeStart.format("M/D")}
+					</span>
+					{roundTrip && <span>, Return&nbsp;</span>}
+					{roundTrip && (
+						<span
+							id={!dateRangeStartSelect ? "date-range-highlight" : ""}
+							onClick={() => setDateRangeStartSelect(false)}
+							style={{ cursor: multipleDates ? "pointer" : "auto" }}
+						>
+							{dateRangeEnd.format("M/D")}
+						</span>
+					)}
+				</div>
+			)
+		) : flexible ? (
+			`${
+				roundTrip && tripDuration.val
+					? `${tripDuration.val} ${tripDuration.type} trip in`
+					: "Anytime"
+			} ${dateRangeStart.format("M/D")}-${dateRangeEnd.format("M/D")}`
+		) : (
+			`Dept ${dateRangeStart.format("M/D")}${
+				roundTrip ? `, Return ${dateRangeEnd.format("M/D")}` : ""
+			}`
+		);
 	}
 
 	useEffect(() => {
@@ -93,15 +158,87 @@ export default function DateRangePopover({
 			}, 0);
 		} else {
 			setAnchor(null);
+			setDateRangeStartSelect(true);
 		}
 	}
 
-	function handleDateRangeStart(newDateRangeStart) {
-		setDateRangeStart(newDateRangeStart);
-		if (!roundTrip && !searching && fares.length === 0) {
-			setDateRangeEnd(newDateRangeStart);
+	function handleDateRangeChange(newDateRange) {
+		if (multipleDates) {
+			if (dateRangeStartSelect) {
+				setDateRangeStart(newDateRange);
+			} else {
+				setDateRangeEnd(newDateRange);
+			}
+		} else {
+			setDateRangeStart(newDateRange);
 		}
 	}
+
+	const [hoverStartDate, setHoverStartDate] = useState(dateRangeStart);
+	const [hoverEndDate, setHoverEndDate] = useState(dateRangeEnd);
+
+	useEffect(() => {
+		setHoverStartDate(dateRangeStart);
+	}, [dateRangeStart]);
+
+	useEffect(() => {
+		setHoverEndDate(dateRangeEnd);
+	}, [dateRangeEnd]);
+
+	const PickersDayStyled = styled(PickersDay)(({ theme }) => ({
+		"&.Mui-selected": {
+			backgroundColor: theme.palette.primary.main,
+			color: theme.palette.primary.contrastText,
+		},
+	}));
+
+	const CustomDay = (props) => {
+		const { day, ...other } = props;
+		const isIntermediateDay =
+			day.isSameOrAfter(hoverStartDate, "d") &&
+			day.isSameOrBefore(hoverEndDate, "d");
+		const isStartDate = day.isSame(hoverStartDate, "d");
+		const isEndDate = day.isSame(hoverEndDate, "d");
+		return (
+			<PickersDayStyled
+				{...other}
+				day={day}
+				onClick={() => setDateRangeStartSelect(!dateRangeStartSelect)}
+				onMouseLeave={() => {
+					setHoverStartDate(dateRangeStart);
+					setHoverEndDate(dateRangeEnd);
+				}}
+				onMouseOver={() => {
+					if (flexible) {
+						if (dateRangeStartSelect) {
+							setHoverStartDate(day);
+						} else {
+							setHoverEndDate(day);
+						}
+					}
+				}}
+				selected={isStartDate || (multipleDates && isEndDate)}
+				style={{
+					backgroundColor: flexible
+						? isIntermediateDay
+							? "rgba(144, 202, 249, 0.08)"
+							: ""
+						: "",
+					borderRadius: flexible
+						? isStartDate || day.get("d") === 0 || day.get("D") === 1
+							? "50% 0 0 50%"
+							: isEndDate ||
+							  day.get("d") === 6 ||
+							  day.isSame(day.endOf("M"), "d")
+							? "0 50% 50% 0"
+							: isIntermediateDay
+							? 0
+							: "50%"
+						: "50%",
+				}}
+			/>
+		);
+	};
 
 	const [anchor, setAnchor] = useState(null);
 
@@ -225,41 +362,71 @@ export default function DateRangePopover({
 								<hr></hr>
 							</div>
 						)}
-						<span
-							className={`${error ? "error-text" : ""}${
-								shakeError && error ? " error-critical" : ""
-							}`}
-							id="date-range-string"
-						>
-							{error ? error : getDateRangeString()}
-						</span>
-						{fares.length > 0 && !error && (
-							<div id="date-range-warning">
-								*Dates locked to current search{" "}
-								<Button onClick={newSearch} variant="outlined">
-									New search
-								</Button>
-							</div>
-						)}
-						<div id="date-picker-container">
-							<StaticDatePicker
-								className="date-range-start"
-								maxDate={maxDate}
-								minDate={minDate}
-								onChange={handleDateRangeStart}
-								slots={{ toolbar: () => {} }}
-								value={dateRangeStart}
-							></StaticDatePicker>
-							<StaticDatePicker
-								className="date-range-end"
-								maxDate={maxDate}
-								minDate={minDate}
-								onChange={(newDateRangeEnd) => setDateRangeEnd(newDateRangeEnd)}
-								slots={{ toolbar: () => {} }}
-								sx={{ opacity: roundTrip || flexible ? 1 : 0 }}
-								value={dateRangeEnd}
-							></StaticDatePicker>
+						<div id="date-range-text-container">
+							{getDateRangeString(true)}
+							{multipleDates && (
+								<div>
+									<Button
+										endIcon={<SwapHorizIcon />}
+										onClick={() => {
+											setDateRangeStart(dateRangeEnd);
+											setDateRangeEnd(dateRangeStart);
+										}}
+										variant="outlined"
+									>
+										Swap dates
+									</Button>
+									<Button
+										endIcon={
+											dateRangeStartSelect ? (
+												<SwitchLeftIcon />
+											) : (
+												<SwitchRightIcon />
+											)
+										}
+										onClick={() =>
+											setDateRangeStartSelect(!dateRangeStartSelect)
+										}
+										variant="outlined"
+									>
+										Switch date
+									</Button>
+								</div>
+							)}
+							{error && (
+								<span
+									className={`error-text${
+										shakeError && error ? " error-critical" : ""
+									}`}
+									style={{ textAlign: "center" }}
+								>
+									{error}
+								</span>
+							)}
+							{fixedDates && (
+								<div id="date-range-warning">
+									*Dates locked to current search{" "}
+									<Button onClick={newSearch} variant="outlined">
+										New search
+									</Button>
+								</div>
+							)}
 						</div>
+						<StaticDatePicker
+							disableHighlightToday
+							maxDate={maxDate}
+							minDate={minDate}
+							onChange={handleDateRangeChange}
+							renderDay={() => console.log("yo")}
+							slots={{ day: CustomDay, toolbar: () => {} }}
+							value={
+								multipleDates
+									? dateRangeStartSelect
+										? dateRangeStart
+										: dateRangeEnd
+									: dateRangeStart
+							}
+						></StaticDatePicker>
 					</div>
 					<div className="options">
 						<Button disableRipple onClick={handleClose} variant="text">

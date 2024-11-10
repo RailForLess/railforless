@@ -23,13 +23,16 @@ export default function Share({
 	const [search, setSearch] = useState(false);
 
 	const domain = process.env.REACT_APP_API_DOMAIN.replace("api.", "");
-	const link = !search
-		? `${domain}/${window.location.href.match(/\/(cached\/.*)/)[1]}`
-		: `${domain}/search/${origin.code}-${
-				destination.code
-		  }_${dateRangeStart.format("M/D/YY")}-${dateRangeEnd.format("M/D/YY")}${
-				!roundTrip ? "_oneWay" : ""
-		  }`;
+	const match = window.location.href.match(/\/(cached\/.*)/);
+	const link = match
+		? !search
+			? `${domain}/${match[1]}`
+			: `${domain}/search/${origin.code}-${
+					destination.code
+			  }_${dateRangeStart.format("M/D/YY")}-${dateRangeEnd.format("M/D/YY")}${
+					!roundTrip ? "_oneWay" : ""
+			  }`
+		: "";
 
 	const [anchor, setAnchor] = useState(null);
 

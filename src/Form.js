@@ -607,6 +607,7 @@ export default function Form({
 						fares={fares}
 						searching={searching}
 						newSearch={newSearch}
+						fixedDates={false}
 					/>
 				</div>
 			) : (
@@ -643,6 +644,7 @@ export default function Form({
 						fares={fares}
 						searching={searching}
 						newSearch={newSearch}
+						fixedDates={true}
 					/>
 				</div>
 			)}

@@ -2,10 +2,32 @@ form svg[data-testid="CalendarMonthIcon"] {
 	color: white !important;
 }
 
+.css-1sxhwwk-MuiButtonBase-root-MuiPickersDay-root:focus {
+	background-color: transparent !important;
+}
+
 .MuiDateCalendar-root {
 	height: auto !important;
 	margin: 0;
+	transform: scale(1.1);
 	width: auto !important;
+}
+
+.MuiDayCalendar-weekContainer {
+	margin: 0 !important;
+}
+
+.MuiPickersDay-root {
+	margin: 0 !important;
+	padding: 1.25rem !important;
+}
+
+.MuiPickersDay-root.Mui-selected {
+	background-color: #89b3f7 !important;
+}
+
+.MuiPickersLayout-root {
+	overflow: visible !important;
 }
 
 .MuiTimePicker-root {
@@ -34,6 +56,12 @@ form svg[data-testid="CalendarMonthIcon"] {
 	text-align: center;
 }
 
+#date-range-highlight {
+	text-decoration: underline solid #9dc0f9;
+	border-radius: 0.25rem;
+	padding: 0.25rem;
+}
+
 #date-range-popover li {
 	background-color: transparent !important;
 	color: #c3c3c4 !important;
@@ -48,10 +76,30 @@ form svg[data-testid="CalendarMonthIcon"] {
 }
 
 #date-range-string {
-	display: inline-block;
-	padding: 1rem;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	font-size: 1.5rem;
 	text-align: center;
 	width: 100%;
+}
+
+#date-range-text-container {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1.5rem;
+}
+
+#date-range-text-container .MuiButton-root {
+	font-size: 0.75rem;
+	padding: 0.25rem 0.5rem;
+}
+
+#date-range-text-container div:nth-child(2) {
+	display: flex;
+	gap: 1rem;
 }
 
 #date-range-warning {
@@ -60,12 +108,6 @@ form svg[data-testid="CalendarMonthIcon"] {
 	display: flex;
 	gap: 1rem;
 	padding: 0 1rem;
-}
-
-#date-picker-container {
-	align-items: center;
-	display: flex;
-	flex-wrap: wrap;
 }
 
 #date-picker-container > div {
@@ -79,4 +121,10 @@ form svg[data-testid="CalendarMonthIcon"] {
 	flex-wrap: wrap;
 	gap: 1rem;
 	padding: 1rem;
+}
+
+@media all and (min-width: 481px) {
+	#date-range-popover {
+		min-width: 23rem;
+	}
 }

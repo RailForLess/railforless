@@ -203,6 +203,20 @@ export default function DateRangePopover({
 			day.isSameOrBefore(hoverEndDate, "d");
 		const isStartDate = day.isSame(hoverStartDate, "d");
 		const isEndDate = day.isSame(hoverEndDate, "d");
+		const leftBorders = flexible
+			? isStartDate || day.get("d") === 0 || day.get("D") === 1
+				? "50%"
+				: isIntermediateDay
+				? 0
+				: "50%"
+			: "50%";
+		const rightBorders = flexible
+			? isEndDate || day.get("d") === 6 || day.isSame(day.endOf("M"), "d")
+				? "50%"
+				: isIntermediateDay
+				? 0
+				: "50%"
+			: "50%";
 		return (
 			<PickersDayStyled
 				{...other}
@@ -236,26 +250,10 @@ export default function DateRangePopover({
 						isIntermediateDay && isHover
 							? "rgb(255, 255, 255, 0.12)"
 							: "transparent",
-					borderBottomLeftRadius: flexible
-						? isStartDate || day.get("d") === 0 || day.get("D") === 1
-							? "50%"
-							: 0
-						: "50%",
-					borderBottomRightRadius: flexible
-						? isEndDate || day.get("d") === 6 || day.isSame(day.endOf("M"), "d")
-							? "50%"
-							: 0
-						: "50%",
-					borderTopLeftRadius: flexible
-						? isStartDate || day.get("d") === 0 || day.get("D") === 1
-							? "50%"
-							: 0
-						: "50%",
-					borderTopRightRadius: flexible
-						? isEndDate || day.get("d") === 6 || day.isSame(day.endOf("M"), "d")
-							? "50%"
-							: 0
-						: "50%",
+					borderBottomLeftRadius: leftBorders,
+					borderBottomRightRadius: rightBorders,
+					borderTopLeftRadius: leftBorders,
+					borderTopRightRadius: rightBorders,
 				}}
 			/>
 		);

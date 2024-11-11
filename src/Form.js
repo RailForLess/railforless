@@ -3,6 +3,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import utc from "dayjs/plugin/utc";
+import Cookies from "js-cookie";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DateRangePopover from "./DateRangePopover";
@@ -31,6 +32,7 @@ import Fab from "@mui/material/Fab";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import IconButton from "@mui/material/IconButton";
 import Snackbar from "@mui/material/Snackbar";
+
 dayjs.extend(utc);
 dayjs.extend(customParseFormat);
 dayjs.extend(isSameOrAfter);
@@ -428,12 +430,49 @@ export default function Form({
 		});
 	}
 
+	const wsRef = useRef();
+
 	async function search() {
 		setProgressPercent(0);
 		setProgressText("Connecting...");
 		setSearching(true);
 
-		const params = new URLSearchParams({
+		if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
+			if (!Cookies.get("token")) {
+				const tokenResponse = await fetch(
+					`${process.env.REACT_APP_API_DOMAIN}/authorize`,
+					{
+						headers: process.env.REACT_APP_AUTH_KEY
+							? { "railforless-auth": process.env.REACT_APP_AUTH_KEY }
+							: { "auth-turnstile": await getTurnstileToken() },
+					}
+				);
+				if (tokenResponse.status !== 200) {
+					setProgressText(
+						tokenResponse.status === 401
+							? "Turnstile validation failed"
+							: `API connection failed with HTTP status ${tokenResponse.status}`
+					);
+					setSearchError(true);
+					return;
+				}
+				const cookie = await tokenResponse.json();
+				Cookies.set("token", cookie.access_token, {
+					expires: cookie.expires_in / (60 * 60 * 24),
+					secure: true,
+					sameSite: "strict",
+				});
+			}
+			wsRef.current = new WebSocket(
+				`${process.env.REACT_APP_API_DOMAIN.replace(
+					/^http(s)?:\/\//,
+					"ws$1://"
+				)}/connect?token=${Cookies.get("token")}`
+			);
+		}
+		setShowTurnstile(false);
+
+		const wsSearch = JSON.stringify({
 			origin: origin.code,
 			destination: destination.code,
 			startDate: dateRangeStart.toISOString(),
@@ -443,34 +482,17 @@ export default function Form({
 			familyRooms,
 		});
 
-		const tokenResponse = await fetch(
-			`${process.env.REACT_APP_API_DOMAIN}/token?${params}`,
-			{
-				headers: process.env.REACT_APP_AUTH_KEY
-					? { "railforless-auth": process.env.REACT_APP_AUTH_KEY }
-					: { "auth-turnstile": await getTurnstileToken() },
-			}
-		);
-		if (tokenResponse.status !== 200) {
-			setProgressText(
-				tokenResponse.status === 401
-					? "Turnstile validation failed"
-					: `API connection failed with HTTP status ${tokenResponse.status}`
-			);
-			setSearchError(true);
-			return;
+		if (wsRef.current.readyState !== WebSocket.OPEN) {
+			wsRef.current.onopen = () => wsRef.current.send(wsSearch);
+		} else {
+			wsRef.current.send(wsSearch);
 		}
 
-		params.append("token", (await tokenResponse.json()).token);
-
-		const tripsResponse = new WebSocket(
-			`${process.env.REACT_APP_API_DOMAIN.replace(
-				/^http(s)?:\/\//,
-				"ws$1://"
-			)}/trips?${params}`
-		);
 		let cacheId = 0;
-		tripsResponse.onmessage = (event) => {
+		wsRef.current.onmessage = (event) => {
+			if (typeof event.data !== "string") {
+				return;
+			}
 			const data = JSON.parse(event.data);
 			if (data.event === "status") {
 				setProgressText(data.message.message);
@@ -480,14 +502,12 @@ export default function Form({
 			} else if (data.event === "result") {
 				setSearching(false);
 				setFares(data.message);
-				tripsResponse.close();
 				setTimeout(() => navigate(`/cached/${cacheId}`), 100);
 				document.getElementById("root").style.height = "auto";
 				return;
 			} else {
 				setProgressText(data.message);
 				setSearchError(true);
-				tripsResponse.close();
 			}
 		};
 	}

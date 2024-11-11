@@ -17,7 +17,7 @@ export default function UpdateBar() {
 		<div>
 			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
 				<span id="update-bar">
-					RailForLess.us v3 now runs entirely on Cloudflare 🎉{" "}
+					RailForLess.us v3---lightning fast searches powered by Cloudflare{" "}
 					<span onClick={() => setDialog(true)}>Read more</span>
 				</span>
 				<IconButton onClick={() => setOpen(false)} size="small">
@@ -36,10 +36,12 @@ export default function UpdateBar() {
 					<DialogContentText>
 						<h2>RailForLess.us v3</h2>
 						<br></br>
-						We are excited to announce that after months of development we have
-						finally migrated all of our backend services from Microsoft Azure to
-						Cloudflare. This transition began over a year ago when we first
-						transitioned our hosting to{" "}
+						This latest iteration of the project is the result of yet another
+						complete redesign of our backend architecture, and a slew of UI
+						tweaks in response to user feedback. We have now finally migrated
+						all of our backend services from Microsoft Azure to Cloudflare. This
+						transition began over a year ago when we first transitioned our
+						hosting to{" "}
 						<a
 							href="https://pages.cloudflare.com/"
 							rel="noopener noreferrer"
@@ -54,8 +56,8 @@ export default function UpdateBar() {
 							target="_blank"
 						>
 							Cloudflare Turnstile
-						</a>{" "}
-						and now our entire backend to run on{" "}
+						</a>
+						, and now our entire backend to run on{" "}
 						<a
 							href="https://workers.cloudflare.com/"
 							rel="noopener noreferrer"
@@ -65,12 +67,28 @@ export default function UpdateBar() {
 						</a>
 						. This marks the third complete redesign of our backend and with it
 						you can expect faster searches with more frequent status updates.
-						Additionally, we have leveraged Cloudflare's vast network to
-						eliminate the need for some of our most expensive proxies, allowing
-						us to reduce our monthly fundraising goal for the time being. Other
-						improvements include route icons and various bug fixes. Thank you to
-						all who donated this past month, your donations are what allow us to
-						continually improve.
+						Through clever insights about the design of the Amtrak API and the
+						use of new Cloudflare services we have lowered search times to a
+						limit we long thought was impossible. Additionally, we have
+						leveraged Cloudflare's vast network to eliminate the need for some
+						of our most expensive proxies, allowing us to reduce our monthly
+						fundraising goal for the time being.
+						<br></br>
+						<br></br>
+						With these backend changes come a variety of frontend improvements,
+						many in direct response to user feedback. Some of these changes
+						include a new custom date range selector, route icons, a more
+						accurate geolocation API, smarter station recognition, more
+						customization when viewing fares, and accessibility improvements.
+						<br></br>
+						<br></br>
+						Thank you to all who donated to fund this iteration, your donations
+						are what allow us to continually improve. Much of this update was
+						informed by generous user feedback—reach out at{" "}
+						<a href="mailto:contact@railforless.us">
+							contact@railforless.us
+						</a>{" "}
+						to let us know how we can improve.
 						<br></br>
 						<br></br>
 						<hr></hr>

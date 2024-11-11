@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./DelayInfo.css";
-import ScheduleIcon from "@mui/icons-material/Schedule";
+import HistoryIcon from "@mui/icons-material/History";
 import Popover from "@mui/material/Popover";
 
 export default function DelayInfo({ isDept, leg }) {
@@ -17,7 +17,7 @@ export default function DelayInfo({ isDept, leg }) {
 
 	return (
 		<div className="delay-icon-container">
-			<ScheduleIcon
+			<HistoryIcon
 				onMouseEnter={(e) => setAnchor(e.currentTarget)}
 				onMouseLeave={() => setAnchor(null)}
 				sx={{

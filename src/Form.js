@@ -556,7 +556,6 @@ export default function Form({
 				{!searching && fares.length === 0 && (
 					<Settings
 						remindAddAccommsBool={remindAddAccommsBool}
-						setRemindAddAccommsBool={setRemindAddAccommsBool}
 						handleRemindAddAccomms={handleRemindAddAccomms}
 						bedrooms={bedrooms}
 						setBedrooms={setBedrooms}

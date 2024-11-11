@@ -10,7 +10,6 @@ import Switch from "@mui/material/Switch";
 
 export default function Settings({
 	remindAddAccommsBool,
-	setRemindAddAccommsBool,
 	handleRemindAddAccomms,
 	bedrooms,
 	setBedrooms,

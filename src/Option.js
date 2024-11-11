@@ -40,6 +40,7 @@ export default function Option({
 	returnDays,
 	usePoints,
 	fareFormatter,
+	showTimes,
 }) {
 	function getRouteSummary(option) {
 		const routeSummary = [
@@ -194,9 +195,17 @@ export default function Option({
 						{roundTrip
 							? `${option.departureDateTime.format(
 									isDisabled ? "M/D" : "ddd, M/D"
-							  )}-${option.arrivalDateTime.format(
+							  )}${
+									showTimes
+										? ` (${option.departureDateTime.format("h:mm A")})`
+										: ""
+							  }-${option.arrivalDateTime.format(
 									isDisabled ? "M/D" : "ddd, M/D"
-							  )}`
+							  )}${
+									showTimes
+										? ` (${option.arrivalDateTime.format("h:mm A")})`
+										: ""
+							  }`
 							: option.departureDateTime.format("ddd, MMM D")}
 					</span>
 					<div className="vertical-bar"></div>

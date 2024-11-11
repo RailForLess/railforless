@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import "./Fares.css";
 import DateGrid from "./DateGrid";
 import Donation from "./Donation";
+import FaresSettings from "./FaresSettings";
 import Filters from "./Filters";
 import Option from "./Option";
 import PriceGraph from "./PriceGraph";
@@ -769,6 +770,8 @@ export default function Fares({
 			? Math.round(fare * pointsMultiplier).toLocaleString()
 			: `$${fare.toLocaleString()}`;
 
+	const [showTimes, setShowTimes] = useState(false);
+
 	return (
 		<div id="fares-container">
 			<Donation />
@@ -798,7 +801,7 @@ export default function Fares({
 				</div>
 			)}
 			<div id="fares-filters">
-				<div style={{ order: 0 }}>
+				<div>
 					<span>Sort by</span>
 					<Select
 						onChange={(e) => setSort(e.target.value)}
@@ -827,19 +830,14 @@ export default function Fares({
 						onRowsPerPageChange={(e) => setRowsPerPage(e.target.value)}
 						onPageChange={(e, newPage) => setPage(newPage)}
 						rowsPerPage={rowsPerPage}
-						sx={{ order: window.innerWidth > 480 ? 1 : 2 }}
 						page={page}
 					/>
 				)}
-				<FormControlLabel
-					control={
-						<Switch
-							checked={usePoints}
-							onChange={() => setUsePoints(!usePoints)}
-						/>
-					}
-					label="Use points"
-					sx={{ order: window.innerWidth > 480 ? 2 : 3 }}
+				<FaresSettings
+					usePoints={usePoints}
+					setUsePoints={setUsePoints}
+					showTimes={showTimes}
+					setShowTimes={setShowTimes}
 				/>
 				<Share
 					origin={origin}
@@ -907,6 +905,7 @@ export default function Fares({
 								returnDays={returnDays}
 								usePoints={usePoints}
 								fareFormatter={fareFormatter}
+								showTimes={showTimes}
 							/>
 						))}
 				</div>

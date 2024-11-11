@@ -175,19 +175,19 @@
 	padding: 0 1.75rem !important;
 }
 
+.option-container {
+	border-radius: 1rem !important;
+}
+
 .option-summary {
 	align-items: center;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.25rem;
-	justify-content: space-between;
+	justify-content: space-around;
 	margin-right: 1rem !important;
 	row-gap: 0.5rem;
 	width: 100%;
-}
-
-.option-container {
-	border-radius: 1rem !important;
 }
 
 .station-container {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import ErrorIcon from "@mui/icons-material/Error";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
@@ -16,7 +17,7 @@ export default function StationSelect({
 	nearbyCitiesBool,
 	stationFormat,
 }) {
-	const filterStations = (options, state) => {
+	function filterStations(options, state) {
 		const nearbyCitiesStations = [];
 		const input = state.inputValue.toLowerCase();
 		if (input && nearbyCitiesBool) {
@@ -55,7 +56,18 @@ export default function StationSelect({
 					.sort((a, b) => a.group.localeCompare(b.group))
 			)
 			.concat(filteredOptions.filter((option) => option.group !== "Nearby"));
-	};
+	}
+
+	const [open, setOpen] = useState(false);
+
+	function autocompleteCode(e, code) {
+		const match = stations.find((option) => option.code === code);
+		if (match) {
+			departing ? setOrigin(match) : setDestination(match);
+			setUpdateMap((updateMap) => !updateMap);
+			setOpen(false);
+		}
+	}
 
 	const getStationIcon = (option, station) =>
 		option.id === station.id ? (
@@ -86,11 +98,15 @@ export default function StationSelect({
 				departing ? setOrigin(v) : setDestination(v);
 				setUpdateMap((updateMap) => !updateMap);
 			}}
+			onClose={() => setOpen(false)}
+			onInputChange={autocompleteCode}
+			open={open}
 			options={stations}
 			renderInput={(params) => (
 				<TextField
 					{...params}
 					label={departing ? "Departing" : "Arriving"}
+					onFocus={() => setOpen(true)}
 					placeholder="name/code/state/city"
 				/>
 			)}

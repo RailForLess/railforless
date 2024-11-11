@@ -683,6 +683,7 @@ export default function Fares({
 			}
 		}
 		setSortedOptions(newSortedOptions);
+		setPage(0);
 		if (initialLoad.current) {
 			setTimeout(() => setLoading(false), 200);
 			initialLoad.current = false;
@@ -761,6 +762,10 @@ export default function Fares({
 
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
+
+	useEffect(() => {
+		setPage(0);
+	}, [rowsPerPage]);
 
 	const [usePoints, setUsePoints] = useState(false);
 

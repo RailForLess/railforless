@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Home.css";
 import Fares from "./Fares";
@@ -75,7 +75,9 @@ export default function Home({
 		setMsg(msg);
 	}
 
-	function newSearch() {
+	const [refreshCount, setRefreshCount] = useState(0);
+
+	function newSearch(refresh = false) {
 		setDateTimeRequested(null);
 		setFares([]);
 		navigate("/");
@@ -105,7 +107,16 @@ export default function Home({
 			);
 			setDateRangeEndSearch(dayjs.utc().startOf("d").add(1, "M").endOf("M"));
 		}
+		if (refresh) {
+			setRefreshCount(refreshCount + 1);
+		}
 	}
+
+	useEffect(() => {
+		if (refreshCount) {
+			setShowTurnstile(true);
+		}
+	}, [refreshCount]);
 
 	const [dateTimeRequested, setDateTimeRequested] = useState(null);
 

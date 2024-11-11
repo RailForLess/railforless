@@ -18,10 +18,12 @@ import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import CancelIcon from "@mui/icons-material/Cancel";
 import ErrorIcon from "@mui/icons-material/Error";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
+import ReplayIcon from "@mui/icons-material/Replay";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import SyncAltIcon from "@mui/icons-material/SyncAlt";
 import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 import Checkbox from "@mui/material/Checkbox";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -680,46 +682,65 @@ export default function Form({
 					</div>
 				))}
 			<div style={{ height: 0 }}>
-				<Fab
-					color="primary"
-					id={searching ? "cancel-search" : ""}
-					onClick={handleSearch}
-					variant="extended"
-					size="medium"
-					sx={{
-						backgroundColor:
-							fares.length === 0 && !searchError && searching
-								? "red"
-								: "#89B3F7",
-						bottom: `-${
-							!searching &&
-							fares.length === 0 &&
-							(errorType > 1 || (showSearchErrors && errorType === 1))
-								? "2.5"
-								: "1.75"
-						}rem`,
-						transition: "0.5s bottom",
-						":hover": {
-							bgcolor:
-								fares.length === 0 && !searchError && searching
-									? "red"
-									: "primary.hover",
-						},
-					}}
-				>
-					{fares.length > 0 || searchError ? (
-						<ArrowBackIcon sx={{ mr: 1 }} />
-					) : searching ? (
-						<CancelIcon sx={{ mr: 1 }} />
-					) : (
-						<TravelExploreIcon sx={{ mr: 1 }} />
-					)}
-					{fares.length > 0 || searchError
-						? "New search"
-						: searching
-						? "Cancel"
-						: "Search"}
-				</Fab>
+				{(fares.length > 0 || searchError || !searching) && (
+					<ButtonGroup
+						sx={{
+							bottom: `-${
+								!searching &&
+								fares.length === 0 &&
+								(errorType > 1 || (showSearchErrors && errorType === 1))
+									? "2.5"
+									: "1.75"
+							}rem`,
+							position: "relative",
+							transition: "0.5s bottom",
+						}}
+					>
+						<Fab
+							color="primary"
+							id={searching ? "cancel-search" : ""}
+							onClick={handleSearch}
+							variant="extended"
+							size="medium"
+							sx={{
+								backgroundColor:
+									fares.length === 0 && !searchError && searching
+										? "red"
+										: "#89B3F7",
+								borderRadius:
+									fares.length > 0 || searchError ? "20px 0 0 20px" : "20px",
+								":hover": {
+									bgcolor:
+										fares.length === 0 && !searchError && searching
+											? "red"
+											: "primary.hover",
+								},
+							}}
+						>
+							{fares.length > 0 || searchError ? (
+								<ArrowBackIcon sx={{ mr: 1 }} />
+							) : searching ? (
+								<CancelIcon sx={{ mr: 1 }} />
+							) : (
+								<TravelExploreIcon sx={{ mr: 1 }} />
+							)}
+							{fares.length > 0 || searchError ? "New search" : "Search"}
+						</Fab>
+						{(fares.length > 0 || searchError) && (
+							<Button
+								onClick={() => newSearch(true)}
+								startIcon={<ReplayIcon />}
+								sx={{
+									borderRadius: "0 20px 20px 0",
+									":hover": { bgcolor: "primary.hover" },
+								}}
+								variant="contained"
+							>
+								Refresh
+							</Button>
+						)}
+					</ButtonGroup>
+				)}
 				{errorType !== 1 && (
 					<Dialog onClose={() => setSleeperOpen(false)} open={sleeperOpen}>
 						<DialogTitle>Additional Accommodations</DialogTitle>

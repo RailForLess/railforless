@@ -54,7 +54,7 @@ export default function Progress({
 							fontStyle={{ fontSize: "7rem" }}
 							transitions={() => ({
 								type: "spring",
-								duration: searchAnimationsBool ? 0.5 : 0,
+								duration: searchAnimationsBool ? 0.25 : 0,
 							})}
 						/>
 					) : (

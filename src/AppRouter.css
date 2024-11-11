@@ -19,7 +19,7 @@ main {
 	flex-direction: column;
 	overflow-y: hidden;
 	padding-bottom: 2rem;
-	width: 50%;
+	width: 1000px;
 }
 
 .recent-search-button {

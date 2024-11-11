@@ -77,7 +77,7 @@ export default function Home({
 
 	const [refreshCount, setRefreshCount] = useState(0);
 
-	function newSearch(refresh = false) {
+	function newSearch(refresh) {
 		setDateTimeRequested(null);
 		setFares([]);
 		navigate("/");

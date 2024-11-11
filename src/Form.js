@@ -393,7 +393,7 @@ export default function Form({
 
 	function handleSearch() {
 		if (fares.length > 0 || searchError) {
-			newSearch();
+			newSearch(false);
 		} else if (searching) {
 			setSearching(false);
 			setTimeout(() => {
@@ -623,7 +623,6 @@ export default function Form({
 						maxDate={dayjs.utc().startOf("d").add(11, "M").subtract(2, "d")}
 						setDateRangeStartSearch={setDateRangeStartSearch}
 						setDateRangeEndSearch={setDateRangeEndSearch}
-						fares={fares}
 						searching={searching}
 						newSearch={newSearch}
 						fixedDates={false}

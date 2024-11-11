@@ -37,7 +37,6 @@ export default function DateRangePopover({
 	maxDate,
 	setDateRangeStartSearch,
 	setDateRangeEndSearch,
-	fares,
 	newSearch,
 	fixedDates,
 }) {
@@ -431,7 +430,7 @@ export default function DateRangePopover({
 							{fixedDates && (
 								<div id="date-range-warning">
 									*Dates locked to current search{" "}
-									<Button onClick={newSearch} variant="outlined">
+									<Button onClick={() => newSearch(false)} variant="outlined">
 										New search
 									</Button>
 								</div>

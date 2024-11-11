@@ -9,8 +9,14 @@ form svg[data-testid="CalendarMonthIcon"] {
 .MuiDateCalendar-root {
 	height: auto !important;
 	margin: 0;
+	overflow-x: clip !important;
+	overflow-y: visible !important;
 	transform: scale(1.1);
 	width: auto !important;
+}
+
+.MuiTimePicker-root {
+	width: 10rem;
 }
 
 .MuiPickersDay-root {
@@ -25,12 +31,12 @@ form svg[data-testid="CalendarMonthIcon"] {
 }
 
 .MuiPickersLayout-root {
-	margin-bottom: -1rem;
+	margin-bottom: 1rem;
 	overflow: visible !important;
 }
 
-.MuiTimePicker-root {
-	width: 10rem;
+.MuiPickersSlideTransition-root {
+	overflow: visible !important;
 }
 
 .textfield-disabled input {

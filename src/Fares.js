@@ -4,7 +4,7 @@ import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Fares.css";
 import DateGrid from "./DateGrid";
 import Donation from "./Donation";
@@ -42,6 +42,8 @@ export default function Fares({
 	fares,
 	dateTimeRequested,
 }) {
+	const initialLoad = useRef(true);
+
 	const numTravelers = Object.values(travelerTypes).reduce((a, b) => a + b, 0);
 
 	const getNeededInventory = (legAccommodation) =>
@@ -680,7 +682,12 @@ export default function Fares({
 			}
 		}
 		setSortedOptions(newSortedOptions);
-		setLoading(false);
+		if (initialLoad.current) {
+			setTimeout(() => setLoading(false), 200);
+			initialLoad.current = false;
+		} else {
+			setLoading(false);
+		}
 	}
 
 	useEffect(() => {

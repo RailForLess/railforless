@@ -1,5 +1,5 @@
 #acela {
-	animation: acela 3s ease-in 1s infinite;
+	animation: acela 2s linear 1s infinite;
 	bottom: 0;
 	left: -100%;
 	position: absolute;
@@ -50,8 +50,8 @@
 	0% {
 		left: -100%;
 	}
-	33% {
-		left: -100%;
+	66% {
+		left: 100%;
 	}
 	100% {
 		left: 100%;

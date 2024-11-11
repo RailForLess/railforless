@@ -288,7 +288,7 @@ export default function Form({
 		if (localStorage.getItem("geolocate") === "false" || origin) {
 			return;
 		}
-		let res = await fetch("https://freeipapi.com/api/json");
+		let res = await fetch(`${process.env.REACT_APP_API_DOMAIN}/geolocate`);
 		if (res.status !== 200) {
 			return;
 		}
@@ -299,18 +299,16 @@ export default function Form({
 		let sortedStationsData = [...stationsData]
 			.sort(
 				(a, b) =>
-					Math.sqrt(
-						(a.lon - res.longitude) ** 2 + (a.lat - res.latitude) ** 2
-					) -
-					Math.sqrt((b.lon - res.longitude) ** 2 + (b.lat - res.latitude) ** 2)
+					Math.sqrt((a.lon - res.lon) ** 2 + (a.lat - res.lat) ** 2) -
+					Math.sqrt((b.lon - res.lon) ** 2 + (b.lat - res.lat) ** 2)
 			)
 			.slice(0, 5)
 			.map((station) => ({ ...station, group: "Nearby" }))
 			.concat(stationsData);
 		if (
 			Math.sqrt(
-				(sortedStationsData[0].lon - res.longitude) ** 2 +
-					(sortedStationsData[0].lat - res.latitude) ** 2
+				(sortedStationsData[0].lon - res.lon) ** 2 +
+					(sortedStationsData[0].lat - res.lat) ** 2
 			) >= 4
 		) {
 			return;

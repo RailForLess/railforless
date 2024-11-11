@@ -57,9 +57,7 @@ time as students.
 
 # Meet the developers
 
-<img alt="Headshot of Sean Eddy" height="300" src="https://github.com/
-tikkisean/rail-for-less/blob/main/public/images/sean-headshot.png"
-width="300">
+<img alt="Headshot of Sean Eddy" height="300" src="https://github.com/tikkisean/rail-for-less/blob/main/public/images/sean-headshot.png" width="300">
 
 ## Sean Eddy
 
@@ -73,9 +71,7 @@ models. Learn more about him and his projects at
 
 ---
 
-<img alt="Headshot of Riley Nielsen" height="300" src="https://
-github.com/tikkisean/rail-for-less/blob/main/public/images/
-riley-headshot.jpg" width="300">
+<img alt="Headshot of Riley Nielsen" height="300" src="https://github.com/tikkisean/rail-for-less/blob/main/public/images/riley-headshot.jpg" width="300">
 
 ## Riley Nielsen
 

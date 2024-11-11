@@ -64,7 +64,10 @@ export default function DateGrid({
 	const [option, setOption] = useState(null);
 
 	return (
-		<Accordion defaultExpanded={window.innerWidth > 480}>
+		<Accordion
+			defaultExpanded={window.innerWidth > 480}
+			sx={{ marginTop: "0 !important" }}
+		>
 			<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 				Date grid
 			</AccordionSummary>

@@ -237,18 +237,25 @@ export default function DateRangePopover({
 						isIntermediateDay && isHover
 							? "rgb(255, 255, 255, 0.12)"
 							: "transparent",
-					borderRadius: flexible
-						? isStartDate && isEndDate
+					borderBottomLeftRadius: flexible
+						? isStartDate || day.get("d") === 0 || day.get("D") === 1
 							? "50%"
-							: isStartDate || day.get("d") === 0 || day.get("D") === 1
-							? "50% 0 0 50%"
-							: isEndDate ||
-							  day.get("d") === 6 ||
-							  day.isSame(day.endOf("M"), "d")
-							? "0 50% 50% 0"
-							: isIntermediateDay
-							? 0
-							: "50%"
+							: 0
+						: "50%",
+					borderBottomRightRadius: flexible
+						? isEndDate || day.get("d") === 6 || day.isSame(day.endOf("M"), "d")
+							? "50%"
+							: 0
+						: "50%",
+					borderTopLeftRadius: flexible
+						? isStartDate || day.get("d") === 0 || day.get("D") === 1
+							? "50%"
+							: 0
+						: "50%",
+					borderTopRightRadius: flexible
+						? isEndDate || day.get("d") === 6 || day.isSame(day.endOf("M"), "d")
+							? "50%"
+							: 0
 						: "50%",
 				}}
 			/>

@@ -184,7 +184,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.25rem;
-	justify-content: space-around;
+	justify-content: space-between;
 	margin-right: 1rem !important;
 	row-gap: 0.5rem;
 	width: 100%;

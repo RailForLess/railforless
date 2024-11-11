@@ -435,7 +435,6 @@ export default function DateRangePopover({
 							maxDate={maxDate}
 							minDate={minDate}
 							onChange={handleDateRangeChange}
-							renderDay={() => console.log("yo")}
 							slots={{ day: CustomDay, toolbar: () => {} }}
 							value={
 								multipleDates

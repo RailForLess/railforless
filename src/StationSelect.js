@@ -42,7 +42,11 @@ export default function StationSelect({
 		const nearbyStations = filteredOptions.filter(
 			(option) => option.group === "Nearby"
 		);
-		return nearbyStations
+		const codeMatch = options.find(
+			(option) => option.code.toLowerCase() === input
+		);
+		return (codeMatch ? [codeMatch] : [])
+			.concat(nearbyStations)
 			.concat(
 				[
 					...new Map(
@@ -52,10 +56,16 @@ export default function StationSelect({
 						])
 					).values(),
 				]
+					.filter((option) => option.code.toLowerCase() !== input)
 					.sort((a, b) => a.name.localeCompare(b.name))
 					.sort((a, b) => a.group.localeCompare(b.group))
 			)
-			.concat(filteredOptions.filter((option) => option.group !== "Nearby"));
+			.concat(
+				filteredOptions.filter(
+					(option) =>
+						option.group !== "Nearby" && option.code.toLowerCase() !== input
+				)
+			);
 	}
 
 	const [open, setOpen] = useState(false);

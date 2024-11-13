@@ -154,9 +154,11 @@ export default function Fares({
 
 	async function updateAllOptions() {
 		const CBN = {
-			name: "Canadian Border",
+			id: "CBN",
+			name: "Canadian Border Niagara Falls",
 			code: "CBN",
 			routes: ["Maple-Leaf"],
+			connections: [],
 		};
 		const newAllOptions = [];
 		const fareClasses = new Set(["Any class"]);

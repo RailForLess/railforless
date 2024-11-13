@@ -224,7 +224,7 @@ export default function Map({
 
 		const projection = d3.geoAlbersUsa();
 
-		d3.json("/json/states.json").then((states) => {
+		d3.json("/json/states.geojson").then((states) => {
 			projection.fitSize([width, height], states);
 			const geoGenerator = d3.geoPath(projection);
 
@@ -340,12 +340,13 @@ export default function Map({
 				.data(states.features)
 				.join("path")
 				.attr("d", geoGenerator)
+				.attr("fill-rule", "evenodd")
 				.attr("fill", "rgb(54, 55, 58)")
 				.attr("stroke", "rgba(255, 255, 255, 0.25)")
 				.attr("class", "state")
 				.attr("id", (d) => d.id);
 
-			d3.json("/json/routes.json").then((routes) => {
+			d3.json("/json/routes.geojson").then((routes) => {
 				svg
 					.append("g")
 					.attr("id", "routes")

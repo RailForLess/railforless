@@ -510,11 +510,11 @@
 		"city": "Berlin",
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
-		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
+		"routes": ["Amtrak-Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
 		"lat": 41.6356,
 		"lon": -72.7653,
 		"nearbyCities": ["New Britain, CT", "Bristol, CT", "Middletown, CT"],
-		"connections": ["Hartford Line"]
+		"connections": ["Amtrak-Hartford-Line"]
 	},
 	{
 		"id": "BFD",
@@ -699,7 +699,7 @@
 		"city": "Brookhaven",
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 31.5831,
 		"lon": -90.4411,
 		"nearbyCities": [],
@@ -894,7 +894,7 @@
 		"city": "Carbondale",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
-		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
+		"routes": ["City-Of-New-Orleans", "Illini", "Saluki"],
 		"lat": 37.7242,
 		"lon": -89.2164,
 		"nearbyCities": ["Cape Girardeau, MO"],
@@ -907,7 +907,7 @@
 		"city": "Centralia",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
-		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
+		"routes": ["City-Of-New-Orleans", "Illini", "Saluki"],
 		"lat": 38.5275,
 		"lon": -89.1361,
 		"nearbyCities": [],
@@ -926,7 +926,7 @@
 			"California-Zephyr",
 			"Capitol-Limited",
 			"Cardinal",
-			"City-of-New-Orleans",
+			"City-Of-New-Orleans",
 			"Empire-Builder",
 			"Hiawatha-Service",
 			"Illini",
@@ -952,7 +952,7 @@
 		"city": "Champaign",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
-		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
+		"routes": ["City-Of-New-Orleans", "Illini", "Saluki"],
 		"lat": 40.1158,
 		"lon": -88.2411,
 		"nearbyCities": ["Champaign, IL", "Urbana, IL"],
@@ -1831,7 +1831,7 @@
 		"city": "Effingham",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
-		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
+		"routes": ["City-Of-New-Orleans", "Illini", "Saluki"],
 		"lat": 39.1169,
 		"lon": -88.5472,
 		"nearbyCities": ["Evansville, IN", "Owensboro, KY"],
@@ -2275,7 +2275,7 @@
 		"city": "Fulton",
 		"stateShort": "KY",
 		"stateLong": "Kentucky",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 36.5236,
 		"lon": -88.8872,
 		"nearbyCities": [
@@ -2705,7 +2705,7 @@
 		"city": "Greenwood",
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 33.5169,
 		"lon": -90.1764,
 		"nearbyCities": [],
@@ -2788,7 +2788,7 @@
 		"city": "Hazlehurst",
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 31.8614,
 		"lon": -90.3944,
 		"nearbyCities": [],
@@ -2841,7 +2841,7 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": [
-			"Hartford-Line",
+			"Amtrak-Hartford-Line",
 			"Northeast-Regional",
 			"Valley-Flyer",
 			"Vermonter"
@@ -2849,7 +2849,7 @@
 		"lat": 41.7689,
 		"lon": -72.6817,
 		"nearbyCities": ["Hartford, CT"],
-		"connections": ["Hartford Line"]
+		"connections": ["Amtrak-Hartford-Line"]
 	},
 	{
 		"id": "HFY",
@@ -2942,7 +2942,7 @@
 		"city": "Hammond",
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 30.5072,
 		"lon": -90.4619,
 		"nearbyCities": ["Baton Rouge, LA"],
@@ -2968,7 +2968,7 @@
 		"city": "Homewood",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
-		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
+		"routes": ["City-Of-New-Orleans", "Illini", "Saluki"],
 		"lat": 41.5625,
 		"lon": -87.6686,
 		"nearbyCities": ["Tinley Park, IL"],
@@ -3180,7 +3180,7 @@
 		"city": "Jackson",
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 32.3011,
 		"lon": -90.1911,
 		"nearbyCities": ["Jackson, MS"],
@@ -3383,7 +3383,7 @@
 		"city": "Kankakee",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
-		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
+		"routes": ["City-Of-New-Orleans", "Illini", "Saluki"],
 		"lat": 41.1193,
 		"lon": -87.8656,
 		"nearbyCities": [],
@@ -3938,7 +3938,7 @@
 		"city": "Mattoon",
 		"stateShort": "IL",
 		"stateLong": "Illinois",
-		"routes": ["City-of-New-Orleans", "Illini", "Saluki"],
+		"routes": ["City-Of-New-Orleans", "Illini", "Saluki"],
 		"lat": 39.4828,
 		"lon": -88.3761,
 		"nearbyCities": [],
@@ -3977,7 +3977,7 @@
 		"city": "McComb",
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 31.2444,
 		"lon": -90.4511,
 		"nearbyCities": [],
@@ -4030,7 +4030,7 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": [
-			"Hartford-Line",
+			"Amtrak-Hartford-Line",
 			"Northeast-Regional",
 			"Valley-Flyer",
 			"Vermonter"
@@ -4038,7 +4038,7 @@
 		"lat": 41.5394,
 		"lon": -72.8008,
 		"nearbyCities": ["Meriden, CT"],
-		"connections": ["Hartford Line"]
+		"connections": ["Amtrak-Hartford-Line"]
 	},
 	{
 		"id": "MDR",
@@ -4086,7 +4086,7 @@
 		"city": "Memphis",
 		"stateShort": "TN",
 		"stateLong": "Tennessee",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 35.1322,
 		"lon": -90.0594,
 		"nearbyCities": [
@@ -4233,7 +4233,7 @@
 		"city": "Marks",
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 34.2583,
 		"lon": -90.2722,
 		"nearbyCities": [],
@@ -4507,7 +4507,7 @@
 		"city": "Newbern",
 		"stateShort": "TN",
 		"stateLong": "Tennessee",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 36.1125,
 		"lon": -89.2625,
 		"nearbyCities": ["Jackson, TN"],
@@ -4637,7 +4637,7 @@
 		"stateLong": "Connecticut",
 		"routes": [
 			"Acela",
-			"Hartford-Line",
+			"Amtrak-Hartford-Line",
 			"Northeast-Regional",
 			"Valley-Flyer",
 			"Vermonter"
@@ -4645,7 +4645,11 @@
 		"lat": 41.2975,
 		"lon": -72.9267,
 		"nearbyCities": ["West Haven, CT", "Shelton, CT"],
-		"connections": ["Hartford Line", "Metro-North Railroad", "Shore Line East"]
+		"connections": [
+			"Amtrak-Hartford-Line",
+			"Metro-North Railroad",
+			"Shore Line East"
+		]
 	},
 	{
 		"id": "NIB",
@@ -4693,7 +4697,7 @@
 		"city": "New Orleans",
 		"stateShort": "LA",
 		"stateLong": "Louisiana",
-		"routes": ["City-of-New-Orleans", "Crescent", "Sunset-Limited"],
+		"routes": ["City-Of-New-Orleans", "Crescent", "Sunset-Limited"],
 		"lat": 29.9461,
 		"lon": -90.0786,
 		"nearbyCities": ["New Orleans, LA", "Kenner, LA"],
@@ -6668,7 +6672,7 @@
 		"stateShort": "MA",
 		"stateLong": "Massachusetts",
 		"routes": [
-			"Hartford-Line",
+			"Amtrak-Hartford-Line",
 			"Lake-Shore-Limited",
 			"Northeast-Regional",
 			"Valley-Flyer",
@@ -6677,7 +6681,7 @@
 		"lat": 42.1061,
 		"lon": -72.5931,
 		"nearbyCities": ["Springfield, MA", "Chicopee, MA", "Westfield, MA"],
-		"connections": ["Hartford Line"]
+		"connections": ["Amtrak-Hartford-Line"]
 	},
 	{
 		"id": "SPI",
@@ -6821,11 +6825,15 @@
 		"city": "New Haven",
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
-		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
+		"routes": ["Amtrak-Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
 		"lat": 41.3058,
 		"lon": -72.9217,
 		"nearbyCities": ["New Haven, CT"],
-		"connections": ["Hartford Line", "Metro-North Railroad", "Shore Line East"]
+		"connections": [
+			"Amtrak-Hartford-Line",
+			"Metro-North Railroad",
+			"Shore Line East"
+		]
 	},
 	{
 		"id": "STW",
@@ -7419,11 +7427,11 @@
 		"city": "Wallingford",
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
-		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
+		"routes": ["Amtrak-Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
 		"lat": 41.4569,
 		"lon": -72.8249,
 		"nearbyCities": ["Waterbury, CT"],
-		"connections": ["Hartford Line"]
+		"connections": ["Amtrak-Hartford-Line"]
 	},
 	{
 		"id": "WFH",
@@ -7572,11 +7580,11 @@
 		"city": "Windsor",
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
-		"routes": ["Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
+		"routes": ["Amtrak-Hartford-Line", "Northeast-Regional", "Valley-Flyer"],
 		"lat": 41.8521,
 		"lon": -72.6422,
 		"nearbyCities": [],
-		"connections": ["Hartford Line"]
+		"connections": ["Amtrak-Hartford-Line"]
 	},
 	{
 		"id": "WNL",
@@ -7586,7 +7594,7 @@
 		"stateShort": "CT",
 		"stateLong": "Connecticut",
 		"routes": [
-			"Hartford-Line",
+			"Amtrak-Hartford-Line",
 			"Northeast-Regional",
 			"Valley-Flyer",
 			"Vermonter"
@@ -7594,7 +7602,7 @@
 		"lat": 41.9139,
 		"lon": -72.6261,
 		"nearbyCities": [],
-		"connections": ["Hartford Line"]
+		"connections": ["Amtrak-Hartford-Line"]
 	},
 	{
 		"id": "WNM",
@@ -7804,7 +7812,7 @@
 		"city": "Yazoo City",
 		"stateShort": "MS",
 		"stateLong": "Mississippi",
-		"routes": ["City-of-New-Orleans"],
+		"routes": ["City-Of-New-Orleans"],
 		"lat": 32.8483,
 		"lon": -90.4153,
 		"nearbyCities": ["Monroe, LA"],

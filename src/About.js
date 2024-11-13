@@ -7,7 +7,7 @@ export default function About() {
 				<h1>Our mission</h1>
 				<p>
 					RailForLess.us was created to modernize the Amtrak booking
-					experience—-matching competitors in other transportation sectors like
+					experience—matching competitors in other transportation sectors like
 					Google Flights. With increasing investment in passenger rail and a
 					growing desire for more climate-friendly transportation solutions the
 					need for a modern Amtrak booking service is greater now than ever

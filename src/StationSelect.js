@@ -120,20 +120,22 @@ export default function StationSelect({
 					placeholder="name/code/state/city"
 				/>
 			)}
-			renderOption={(props, option) => (
-				<Box
-					component="li"
-					sx={{
-						paddingLeft: destination ? "0 !important" : "",
-						"& > svg": { margin: "0 0.5rem" },
-					}}
-					{...props}
-				>
-					{(departing ? destination : origin) &&
-						getStationIcon(option, departing ? destination : origin)}
-					{getStationLabels(option)}
-				</Box>
-			)}
+			renderOption={(props, option) => {
+				const oppStation = departing ? destination : origin;
+				return (
+					<Box
+						component="li"
+						sx={{
+							paddingLeft: oppStation ? "0.5rem !important" : "",
+							"& > svg": { margin: "0 0.5rem" },
+						}}
+						{...props}
+					>
+						{oppStation && getStationIcon(option, oppStation)}
+						{getStationLabels(option)}
+					</Box>
+				);
+			}}
 			groupBy={(station) => station.group}
 			value={departing ? origin : destination}
 		/>

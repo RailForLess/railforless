@@ -14,8 +14,8 @@ export default function AppRouter() {
 	const [searchAnimationsBool, setSearchAnimationsBool] = useState(
 		window.matchMedia("(prefers-reduced-motion)").matches
 			? false
-			: localStorage.getItem("search-animations")
-			? JSON.parse(localStorage.getItem("search-animations"))
+			: localStorage.getItem("searchAnimations")
+			? JSON.parse(localStorage.getItem("searchAnimations"))
 			: true
 	);
 

@@ -41,18 +41,18 @@ export default function Settings({
 
 	function handleNearbyCities() {
 		setNearbyCitiesBool(!nearbyCitiesBool);
-		localStorage.setItem("nearby-cities", JSON.stringify(!nearbyCitiesBool));
+		localStorage.setItem("nearbyCities", JSON.stringify(!nearbyCitiesBool));
 	}
 
 	function handleStationFormat(newStationFormat) {
 		setStationFormat(newStationFormat);
-		localStorage.setItem("station-format", JSON.stringify(newStationFormat));
+		localStorage.setItem("stationFormat", newStationFormat);
 	}
 
 	function handleSearchAnimations() {
 		setSearchAnimationsBool(!searchAnimationsBool);
 		localStorage.setItem(
-			"search-animations",
+			"searchAnimations",
 			JSON.stringify(!searchAnimationsBool)
 		);
 	}

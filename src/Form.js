@@ -263,8 +263,8 @@ export default function Form({
 	}, [location]);
 
 	const [remindAddAccommsBool, setRemindAddAccommsBool] = useState(
-		localStorage.getItem("remind-add-accomms")
-			? JSON.parse(localStorage.getItem("remind-add-accomms"))
+		localStorage.getItem("remindAddAccomms")
+			? JSON.parse(localStorage.getItem("remindAddAccomms"))
 			: true
 	);
 
@@ -283,7 +283,9 @@ export default function Form({
 	const [stationFormat, setStationFormat] = useState(
 		localStorage.getItem("stationFormat")
 			? localStorage.getItem("stationFormat")
-			: "name-and-code"
+			: window.innerWidth > 480
+			? "name-and-code"
+			: "name-only"
 	);
 
 	async function geolocate(stationsData) {
@@ -323,9 +325,15 @@ export default function Form({
 	const [devDialog, setDevDialog] = useState(false);
 
 	function startup() {
-		if (!localStorage.getItem("geolocate")) {
+		if (!localStorage.getItem("remindAddAccomms")) {
+			localStorage.setItem("remindAddAccomms", "true");
 			localStorage.setItem("geolocate", "true");
-			localStorage.setItem("stationFormat", "name-and-code");
+			localStorage.setItem("nearbyCities", "true");
+			localStorage.setItem(
+				"stationFormat",
+				window.innerWidth > 480 ? "name-and-code" : "name-only"
+			);
+			localStorage.setItem("searchAnimations", "true");
 		}
 
 		fetch("/json/stations.json")
@@ -521,7 +529,7 @@ export default function Form({
 	function handleRemindAddAccomms() {
 		setRemindAddAccommsBool(!remindAddAccommsBool);
 		localStorage.setItem(
-			"remind-add-accomms",
+			"remindAddAccomms",
 			JSON.stringify(!remindAddAccommsBool)
 		);
 	}
@@ -590,14 +598,16 @@ export default function Form({
 						nearbyCitiesBool={nearbyCitiesBool}
 						stationFormat={stationFormat}
 					/>
-					<IconButton
-						disabled={!destination}
-						disableRipple
-						onClick={swapStations}
-						style={{ transform: `rotate(${swapped ? 180 : 0}deg)` }}
-					>
-						<SwapHorizIcon size="large" />
-					</IconButton>
+					{window.innerWidth > 480 && (
+						<IconButton
+							disabled={!destination}
+							disableRipple
+							onClick={swapStations}
+							style={{ transform: `rotate(${swapped ? 180 : 0}deg)` }}
+						>
+							<SwapHorizIcon size="large" />
+						</IconButton>
+					)}
 					<StationSelect
 						departing={false}
 						origin={origin}

@@ -283,9 +283,7 @@ export default function Form({
 	const [stationFormat, setStationFormat] = useState(
 		localStorage.getItem("stationFormat")
 			? localStorage.getItem("stationFormat")
-			: window.innerWidth > 480
-			? "name-and-code"
-			: "name-only"
+			: "name-and-code"
 	);
 
 	async function geolocate(stationsData) {
@@ -598,16 +596,14 @@ export default function Form({
 						nearbyCitiesBool={nearbyCitiesBool}
 						stationFormat={stationFormat}
 					/>
-					{window.innerWidth > 480 && (
-						<IconButton
-							disabled={!destination}
-							disableRipple
-							onClick={swapStations}
-							style={{ transform: `rotate(${swapped ? 180 : 0}deg)` }}
-						>
-							<SwapHorizIcon size="large" />
-						</IconButton>
-					)}
+					<IconButton
+						disabled={!destination}
+						disableRipple
+						onClick={swapStations}
+						style={{ transform: `rotate(${swapped ? 180 : 0}deg)` }}
+					>
+						<SwapHorizIcon size="large" />
+					</IconButton>
 					<StationSelect
 						departing={false}
 						origin={origin}

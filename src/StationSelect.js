@@ -4,6 +4,7 @@ import ErrorIcon from "@mui/icons-material/Error";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
+import Popper from "@mui/material/Popper";
 import TextField from "@mui/material/TextField";
 
 export default function StationSelect({
@@ -100,7 +101,9 @@ export default function StationSelect({
 			disableClearable
 			disabled={!departing && !origin}
 			filterOptions={filterStations}
-			getOptionLabel={getStationLabels}
+			getOptionLabel={
+				window.innerWidth > 480 ? getStationLabels : (option) => option.code
+			}
 			isOptionEqualToValue={(option, value) => option.id === value.id}
 			loadingText="Getting stations..."
 			noOptionsText="No stations found"
@@ -112,6 +115,13 @@ export default function StationSelect({
 			onInputChange={autocompleteCode}
 			open={open}
 			options={stations}
+			PopperComponent={(props) => (
+				<Popper
+					{...props}
+					placement="bottom-start"
+					sx={{ width: window.innerWidth <= 480 ? "80% !important" : "" }}
+				/>
+			)}
 			renderInput={(params) => (
 				<TextField
 					{...params}

@@ -10,22 +10,19 @@ footer {
 }
 
 footer > * {
-	color: lightgray;
+	color: lightgray !important;
 }
 
-footer a,
-footer span {
-	color: lightgray;
+footer > a {
+	align-items: center;
+	display: flex;
+	gap: 0.5rem;
 }
 
 footer > div {
 	align-items: center;
 	display: flex;
 	gap: 0.5rem;
-}
-
-footer img {
-	height: 1.5rem;
 }
 
 footer > span:first-child {

@@ -21,7 +21,7 @@ export default function DelayInfo({ isDept, leg }) {
 				onMouseEnter={(e) => setAnchor(e.currentTarget)}
 				onMouseLeave={() => setAnchor(null)}
 				sx={{
-					color: color,
+					color,
 				}}
 			/>
 			<Popover
@@ -43,7 +43,7 @@ export default function DelayInfo({ isDept, leg }) {
 						<span>{time.add(station.avgDelay, "m").format("h:mm A")}</span>
 						<span
 							style={{
-								color: color,
+								color,
 							}}
 						>
 							{` (${Math.abs(station.avgDelay)} min ${

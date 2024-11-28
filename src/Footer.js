@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Footer.css";
+import DoneIcon from "@mui/icons-material/Done";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -9,6 +11,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 export default function Footer() {
 	const [disclaimerOpen, setDisclaimerOpen] = useState(false);
+
+	const [status, setStatus] = useState(false);
+
+	useEffect(() => {
+		async function checkStatus() {
+			setStatus((await fetch(`${process.env.REACT_APP_API_DOMAIN}/status`)).ok);
+		}
+		checkStatus();
+	}, []);
 
 	return (
 		<footer>
@@ -40,21 +51,7 @@ export default function Footer() {
 					<Button onClick={() => setDisclaimerOpen(false)}>OK</Button>
 				</DialogActions>
 			</Dialog>
-			<div className="vertical-bar"></div>
-			<div>
-				<span>
-					Powered by{" "}
-					<a
-						href="https://www.cloudflare.com/"
-						rel="noopener noreferrer"
-						target="_blank"
-					>
-						Cloudflare
-					</a>
-				</span>
-				<img alt="Cloudflare logo" src="/images/cloudflare-logo.png" />
-			</div>
-			<div className="vertical-bar"></div>
+			<div className="vertical-bar" />
 			<span>
 				Site by{" "}
 				<a
@@ -66,6 +63,19 @@ export default function Footer() {
 				</a>{" "}
 				and Riley Nielsen
 			</span>
+			<div className="vertical-bar" />
+			<a
+				href="https://status.railforless.us/"
+				rel="noopener noreferrer"
+				target="_blank"
+			>
+				{status ? "All systems operational" : "Service disruption"}
+				{status ? (
+					<DoneIcon sx={{ color: "rgb(129, 201, 149)" }} />
+				) : (
+					<WarningAmberIcon sx={{ color: "indianred" }} />
+				)}
+			</a>
 		</footer>
 	);
 }

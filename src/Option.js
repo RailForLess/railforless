@@ -67,15 +67,7 @@ export default function Option({
 	}
 
 	const getClassSummary = (option) =>
-		[
-			...new Set(
-				[].concat(
-					...option.travelLegs.map((trip) =>
-						trip.travelLegs.map((leg) => leg.legAccommodation.class)
-					)
-				)
-			),
-		]
+		[...new Set([].concat(...option.travelLegs.map((trip) => trip.class)))]
 			.sort()
 			.join("/");
 
@@ -236,6 +228,8 @@ export default function Option({
 								<span>{j ? "Return" : "Departure"}</span>
 								<span className="dot">·</span>
 								<span>{trip.departureDateTime.format("ddd, MMM D")}</span>
+								<span className="dot">·</span>
+								<span>{trip.class}</span>
 							</div>
 							<span>{fareFormatter(trip.fare)}</span>
 						</div>

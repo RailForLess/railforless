@@ -242,7 +242,10 @@ export default function Fares({
 			const newAccommodations = [];
 			for (const accommodation of option.accommodations) {
 				let isValid = true;
-				const newAccommodation = { legAccommodations: [] };
+				const newAccommodation = {
+					class: accommodation.class,
+					legAccommodations: [],
+				};
 				for (const [
 					i,
 					travelLeg,
@@ -318,7 +321,10 @@ export default function Fares({
 				i,
 				legAccommodation,
 			] of newAccommodation.legAccommodations.entries()) {
-				option.travelLegs[i].legAccommodation = legAccommodation;
+				option.class = newAccommodation.class;
+				option.travelLegs[i].legAccommodation = {
+					...legAccommodation,
+				};
 			}
 			option.fare = newAccommodation.fare;
 			newAvailableOptionsInDateRange.push(option);

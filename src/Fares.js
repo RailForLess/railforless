@@ -14,11 +14,9 @@ import Option from "./Option";
 import PriceGraph from "./PriceGraph";
 import Share from "./Share";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
-import Switch from "@mui/material/Switch";
 import TablePagination from "@mui/material/TablePagination";
 
 dayjs.extend(advancedFormat);
@@ -62,40 +60,35 @@ export default function Fares({
 			  )
 			: numTravelers;
 
-	const isDiscountEligible = (legAccommodation, route, senior) =>
-		!(route !== "Acela" && legAccommodation.class === "Business") &&
-		!(legAccommodation.class === "First") &&
+	const getFare = (legAccommodation, accommodation, leg) =>
+		(travelerTypes.numAdults + travelerTypes.numYouth) *
+			legAccommodation.fare.rail +
+		Math.ceil(
+			travelerTypes.numSeniors *
+				(legAccommodation.fare.rail *
+					(isDiscountEligible(accommodation, leg, true) ? 0.9 : 1)) +
+				travelerTypes.numChildren *
+					(legAccommodation.fare.rail *
+						(isDiscountEligible(accommodation, leg, false) ? 0.5 : 1)) +
+				(travelerTypes.numInfants -
+					(travelerTypes.numAdults + travelerTypes.numSeniors) >
+				0
+					? (travelerTypes.numInfants -
+							(travelerTypes.numAdults + travelerTypes.numSeniors)) *
+					  (legAccommodation.fare.rail *
+							(isDiscountEligible(accommodation, leg, false) ? 0.5 : 1))
+					: 0)
+		) +
+		legAccommodation.neededInventory * legAccommodation.fare.accommodation;
+
+	const isDiscountEligible = (accommodation, leg, senior) =>
+		!(leg.route !== "Acela" && accommodation.class === "Business") &&
+		!(accommodation.class === "First") &&
 		!(
 			!senior &&
-			route === "Acela" &&
-			[1, 2, 3, 4, 5].includes(
-				dayjs(legAccommodation.departureDateTime).get("d")
-			)
+			leg.route === "Acela" &&
+			[1, 2, 3, 4, 5].includes(dayjs(leg.departureDateTime).get("d"))
 		);
-
-	function getFare(legAccommodation, route) {
-		return (
-			(travelerTypes.numAdults + travelerTypes.numYouth) *
-				legAccommodation.fare.rail +
-			Math.ceil(
-				travelerTypes.numSeniors *
-					(legAccommodation.fare.rail *
-						(isDiscountEligible(legAccommodation, route, true) ? 0.9 : 1)) +
-					travelerTypes.numChildren *
-						(legAccommodation.fare.rail *
-							(isDiscountEligible(legAccommodation, route, false) ? 0.5 : 1)) +
-					(travelerTypes.numInfants -
-						(travelerTypes.numAdults + travelerTypes.numSeniors) >
-					0
-						? (travelerTypes.numInfants -
-								(travelerTypes.numAdults + travelerTypes.numSeniors)) *
-						  (legAccommodation.fare.rail *
-								(isDiscountEligible(legAccommodation, route, false) ? 0.5 : 1))
-						: 0)
-			) +
-			legAccommodation.neededInventory * legAccommodation.fare.accommodation
-		);
-	}
 
 	const [allOptions, setAllOptions] = useState([]);
 	const [optionsInDateRange, setOptionsInDateRange] = useState([]);
@@ -165,39 +158,20 @@ export default function Fares({
 		const newRoutes = new Set();
 		for (const date of structuredClone(fares)) {
 			for (const option of date.options) {
-				for (const travelLeg of option.travelLegs) {
-					travelLeg.legAccommodations = [];
-				}
-				for (const accommodation of option.accommodations.filter(
-					(accommodation) =>
-						["Coach", "Business", "First", "Sleeper"].includes(
-							accommodation.class
-						)
-				)) {
+				for (const accommodation of option.accommodations) {
 					fareClasses.add(accommodation.class);
-					for (const [
-						i,
-						travelLeg,
-					] of accommodation.legAccommodations.entries()) {
+					for (const travelLeg of accommodation.legAccommodations) {
 						for (const legAccommodation of travelLeg) {
-							if (i > 0 || legAccommodation.fare.total !== 0) {
-								if (
-									["Roomette", "Bedroom", "Family Room"].includes(
-										legAccommodation.name
-									)
-								) {
-									fareClasses.add(legAccommodation.name);
-								}
-								option.travelLegs[i].legAccommodations.push({
-									class: accommodation.class,
-									fareFamily: accommodation.fareFamily,
-									...legAccommodation,
-								});
+							if (
+								["Roomette", "Bedroom", "Family Room"].includes(
+									legAccommodation.name
+								)
+							) {
+								fareClasses.add(legAccommodation.name);
 							}
 						}
 					}
 				}
-				delete option.accommodations;
 				for (const travelLeg of option.travelLegs) {
 					const originStation = stations.find(
 						(station) => station.id === travelLeg.origin
@@ -265,61 +239,89 @@ export default function Fares({
 			fareClass
 		);
 		for (const option of structuredClone(options)) {
-			let isValid = true;
-			for (const leg of option.travelLegs) {
-				leg.legAccommodations = leg.legAccommodations
-					.map((legAccommodation) => ({
-						...legAccommodation,
-						neededInventory: getNeededInventory(legAccommodation),
-					}))
-					.filter(
-						(legAccommodation) =>
-							legAccommodation.availableInventory >=
-								legAccommodation.neededInventory &&
-							(fareClass === "Any class" ||
-								(legAccommodation.class ===
-									(isSleeper ? "Sleeper" : fareClass) &&
+			const newAccommodations = [];
+			for (const accommodation of option.accommodations) {
+				let isValid = true;
+				const newAccommodation = { legAccommodations: [] };
+				for (const [
+					i,
+					travelLeg,
+				] of accommodation.legAccommodations.entries()) {
+					const newTravelLeg = [];
+					for (const legAccommodation of travelLeg) {
+						if (
+							!(
+								fareClass === "Any class" ||
+								(accommodation.class === (isSleeper ? "Sleeper" : fareClass) &&
 									(!strict ||
 										(fareClass === "Sleeper" &&
 											["Roomette", "Bedroom", "Family Room"].includes(
 												legAccommodation.name
 											)) ||
-										legAccommodation.name.includes(fareClass))))
-					)
-					.map((legAccommodation) => ({
-						...legAccommodation,
-						fare: getFare(legAccommodation, leg.route),
-					}));
-				if (leg.legAccommodations.length > 0) {
-					const match = leg.legAccommodations.find(
-						(legAccommodation) => legAccommodation.name === fareClass
+										legAccommodation.name.includes(fareClass)))
+							)
+						) {
+							break;
+						}
+						legAccommodation.neededInventory =
+							getNeededInventory(legAccommodation);
+						if (
+							legAccommodation.availableInventory >=
+							legAccommodation.neededInventory
+						) {
+							newTravelLeg.push({
+								...legAccommodation,
+								fare: getFare(
+									legAccommodation,
+									accommodation,
+									option.travelLegs[i]
+								),
+							});
+						}
+					}
+					if (newTravelLeg.length === 0) {
+						isValid = false;
+						break;
+					}
+					const match = newTravelLeg.find(
+						(newLegAccommodation) => newLegAccommodation.name === fareClass
 					);
-					const cheapest = leg.legAccommodations.reduce((a, b) =>
+					const cheapest = newTravelLeg.reduce((a, b) =>
 						a.fare <= b.fare ? a : b
 					);
-					leg.legAccommodation = isSleeper
-						? match
-							? match
-							: cheapest
-						: cheapest;
-					delete leg.legAccommodations;
-					leg.fare = leg.legAccommodation.fare;
-				} else {
-					isValid = false;
-					break;
+					newAccommodation.legAccommodations.push(
+						isSleeper ? (match ? match : cheapest) : cheapest
+					);
+				}
+				if (
+					isValid &&
+					(isSleeper
+						? newAccommodation.legAccommodations.some(
+								(legAccommodation) => legAccommodation.name === fareClass
+						  )
+						: true)
+				) {
+					newAccommodations.push({
+						...newAccommodation,
+						fare: newAccommodation.legAccommodations[0].fare,
+					});
 				}
 			}
-			if (
-				isValid &&
-				(isSleeper
-					? option.travelLegs.some(
-							(leg) => leg.legAccommodation.name === fareClass
-					  )
-					: true)
-			) {
-				option.fare = option.travelLegs.reduce((a, b) => a + b.fare, 0);
-				newAvailableOptionsInDateRange.push(option);
+			if (newAccommodations.length === 0) {
+				continue;
 			}
+			delete option.accommodations;
+			const newAccommodation = newAccommodations.reduce((a, b) =>
+				a.fare <= b.fare ? a : b
+			);
+			for (const [
+				i,
+				legAccommodation,
+			] of newAccommodation.legAccommodations.entries()) {
+				option.travelLegs[i].legAccommodation = legAccommodation;
+			}
+			option.fare = newAccommodation.fare;
+			newAvailableOptionsInDateRange.push(option);
 		}
 		setAvailableOptionsInDateRange(newAvailableOptionsInDateRange);
 		updateRoundtripOptions(newAvailableOptionsInDateRange);

@@ -440,19 +440,23 @@ export default function Fares({
 								(leg) => leg.amenities && leg.amenities.includes(amenity)
 							)
 						) &&
-						includedAddItems.every(
-							(includedAddItem) =>
-								deptOption.addItems &&
-								deptOption.addItems
-									.map((addItem) => addItem.type)
-									.includes(includedAddItem)
+						includedAddItems.every((includedAddItem) =>
+							deptOption.travelLegs.some(
+								(leg) =>
+									leg.addItems &&
+									leg.addItems
+										.map((addItem) => addItem.type)
+										.includes(includedAddItem)
+							)
 						) &&
-						includedAddItems.every(
-							(includedAddItem) =>
-								returnOption.addItems &&
-								returnOption.addItems
-									.map((addItem) => addItem.type)
-									.includes(includedAddItem)
+						includedAddItems.every((includedAddItem) =>
+							returnOption.travelLegs.some(
+								(leg) =>
+									leg.addItems &&
+									leg.addItems
+										.map((addItem) => addItem.type)
+										.includes(includedAddItem)
+							)
 						)
 					) {
 						newRoundtripOptions.push({
@@ -500,12 +504,14 @@ export default function Fares({
 								(leg) => leg.amenities && leg.amenities.includes(amenity)
 							)
 						) &&
-						includedAddItems.every(
-							(includedAddItem) =>
-								option.addItems &&
-								option.addItems
-									.map((addItem) => addItem.type)
-									.includes(includedAddItem)
+						includedAddItems.every((includedAddItem) =>
+							option.travelLegs.some(
+								(leg) =>
+									leg.addItems &&
+									leg.addItems
+										.map((addItem) => addItem.type)
+										.includes(includedAddItem)
+							)
 						)
 				)
 				.map((option) => ({

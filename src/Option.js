@@ -423,7 +423,7 @@ export default function Option({
 										</div>
 									</div>
 									{((leg.amenities && leg.amenities.length > 0) ||
-										(trip.addItems && trip.addItems.length > 0)) && (
+										(leg.addItems && leg.addItems.length > 0)) && (
 										<div className="leg-amenities-container">
 											<div>
 												{leg.amenities &&
@@ -436,11 +436,11 @@ export default function Option({
 													))}
 												{leg.amenities &&
 													leg.amenities.length > 0 &&
-													trip.addItems &&
-													trip.addItems.length > 0 && <hr></hr>}
-												{trip.addItems &&
-													trip.addItems.length > 0 &&
-													trip.addItems
+													leg.addItems &&
+													leg.addItems.length > 0 && <hr></hr>}
+												{leg.addItems &&
+													leg.addItems.length > 0 &&
+													leg.addItems
 														.sort((a, b) => a.type.localeCompare(b.type))
 														.map((addItem, i) => (
 															<div key={`addItem-${i}`}>

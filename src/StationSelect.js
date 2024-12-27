@@ -96,6 +96,17 @@ export default function StationSelect({
 			? station.name
 			: station.code;
 
+	function handleChange(e, v) {
+		departing ? setOrigin(v) : setDestination(v);
+		if (["LOR", "SFA"].includes(v.id)) {
+			const oppStation = stations.find(
+				(station) => station.id === (v.id === "LOR" ? "SFA" : "LOR")
+			);
+			departing ? setDestination(oppStation) : setOrigin(oppStation);
+		}
+		setUpdateMap((updateMap) => !updateMap);
+	}
+
 	return (
 		<Autocomplete
 			disableClearable
@@ -107,10 +118,7 @@ export default function StationSelect({
 			isOptionEqualToValue={(option, value) => option.id === value.id}
 			loadingText="Getting stations..."
 			noOptionsText="No stations found"
-			onChange={(e, v) => {
-				departing ? setOrigin(v) : setDestination(v);
-				setUpdateMap((updateMap) => !updateMap);
-			}}
+			onChange={handleChange}
 			onClose={() => setOpen(false)}
 			onInputChange={autocompleteCode}
 			open={open}

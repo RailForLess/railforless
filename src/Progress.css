@@ -41,6 +41,10 @@
 	font-size: 5rem;
 }
 
+#progress-percent {
+	font-size: 7rem;
+}
+
 #progress-text {
 	font-size: 1.5rem;
 	text-align: center;

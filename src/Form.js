@@ -502,7 +502,7 @@ export default function Form({
 			const data = JSON.parse(event.data);
 			if (data.event === "status") {
 				setProgressText(data.message.message);
-				setProgressPercent(data.message.percentComplete);
+				setProgressPercent(Math.round(data.message.percentComplete * 100));
 			} else if (data.event === "cache-id") {
 				cacheId = data.message;
 			} else if (data.event === "result") {

@@ -197,7 +197,6 @@ export default function Home({
 					<Progress
 						progressPercent={progressPercent}
 						progressText={progressText}
-						searchAnimationsBool={searchAnimationsBool}
 						searchError={searchError}
 					/>
 				) : mode && mode === "cached" ? (

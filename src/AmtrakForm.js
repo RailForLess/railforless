@@ -65,6 +65,7 @@ export default function AmtrakForm({
 			/>
 			{travelerTypesArray.map((travelerType, i) => (
 				<input
+					key={travelerType}
 					type="hidden"
 					name={`wdf_person_type${i + 1}`}
 					value={travelerType}

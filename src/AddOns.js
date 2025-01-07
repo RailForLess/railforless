@@ -106,7 +106,6 @@ export default function AddItems({ addItems, setAddItems }) {
 							control={
 								<Checkbox
 									checked={addItems[addItem]}
-									defaultChecked
 									onChange={(e) =>
 										setAddItems({ ...addItems, [addItem]: e.target.checked })
 									}

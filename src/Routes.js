@@ -76,6 +76,7 @@ export default function Routes({ routes, setRoutes }) {
 							routesInfo[route.replaceAll("-", " ").replace("_", "/")];
 						return (
 							<CheckboxRow
+								key={route}
 								values={routes}
 								setValues={setRoutes}
 								value={route}

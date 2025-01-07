@@ -16,7 +16,6 @@ export default function CheckboxRow({ values, setValues, value, label }) {
 				control={
 					<Checkbox
 						checked={values[value]}
-						defaultChecked
 						onChange={(e) =>
 							setValues({ ...values, [value]: e.target.checked })
 						}

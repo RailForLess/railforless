@@ -112,7 +112,6 @@ export default function Amenities({ amenities, setAmenities }) {
 							control={
 								<Checkbox
 									checked={amenities[amenity]}
-									defaultChecked
 									onChange={(e) =>
 										setAmenities({ ...amenities, [amenity]: e.target.checked })
 									}

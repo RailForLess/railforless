@@ -478,11 +478,18 @@ export default function Form({
 		}
 		setShowTurnstile(false);
 
+		let dateRangeEndLocal = dateRangeEnd;
+		if (!roundTrip && !flexible) {
+			dateRangeEndLocal = dateRangeStart.endOf("d");
+			setDateRangeEnd(dateRangeEndLocal);
+			setDateRangeEndSearch(dateRangeEndLocal);
+		}
+
 		const wsSearch = JSON.stringify({
 			origin: origin.code,
 			destination: destination.code,
 			startDate: dateRangeStart.toISOString(),
-			endDate: dateRangeEnd.toISOString(),
+			endDate: dateRangeEndLocal.toISOString(),
 			roundTrip,
 			bedrooms,
 			familyRooms,

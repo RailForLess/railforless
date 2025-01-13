@@ -16,6 +16,7 @@ import "./Form.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import CancelIcon from "@mui/icons-material/Cancel";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import ErrorIcon from "@mui/icons-material/Error";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
 import ReplayIcon from "@mui/icons-material/Replay";
@@ -84,6 +85,8 @@ export default function Form({
 	setShowTurnstile,
 	searchAnimationsBool,
 	setSearchAnimationsBool,
+	swapped,
+	swapStations,
 }) {
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -298,7 +301,8 @@ export default function Form({
 		if (window.location.pathname !== "/") {
 			return;
 		}
-		let sortedStationsData = [...stationsData]
+		let sortedStationsData = stationsData
+			.filter((station) => !station.thruway)
 			.sort(
 				(a, b) =>
 					Math.sqrt((a.lon - res.lon) ** 2 + (a.lat - res.lat) ** 2) -
@@ -342,7 +346,7 @@ export default function Form({
 					.map((station) => ({ ...station, group: station.stateLong }));
 				setStations(data);
 				if (window.location.pathname === "/") {
-					setTimeout(() => geolocate(data), 500);
+					geolocate(data);
 				}
 			});
 	}
@@ -357,15 +361,6 @@ export default function Form({
 
 	const [bedrooms, setBedrooms] = useState(false);
 	const [familyRooms, setFamilyRooms] = useState(false);
-
-	const [swapped, setSwapped] = useState(false);
-
-	function swapStations() {
-		setSwapped(!swapped);
-		setDestination(origin);
-		setOrigin(destination);
-		setUpdateMap((updateMap) => !updateMap);
-	}
 
 	let errorType = 0;
 	let errorText = "";
@@ -384,10 +379,15 @@ export default function Form({
 	} else if (
 		origin &&
 		destination &&
+		!origin.thruway &&
+		!destination.thruway &&
 		!origin.routes.some((route) => destination.routes.includes(route))
 	) {
 		errorText = "Transfer required";
 		errorType = 2;
+	} else if (origin && destination && (origin.thruway || destination.thruway)) {
+		errorText = "Bus connection";
+		errorType = 3;
 	}
 	const [showSearchErrors, setShowSearchErrors] = useState(false);
 
@@ -602,6 +602,7 @@ export default function Form({
 						stations={stations}
 						nearbyCitiesBool={nearbyCitiesBool}
 						stationFormat={stationFormat}
+						swapStations={swapStations}
 					/>
 					<IconButton
 						disabled={!destination}
@@ -621,6 +622,7 @@ export default function Form({
 						stations={stations}
 						nearbyCitiesBool={nearbyCitiesBool}
 						stationFormat={stationFormat}
+						swapStations={swapStations}
 					/>
 					<DateRangePopover
 						roundTrip={roundTrip}
@@ -689,7 +691,11 @@ export default function Form({
 					</div>
 				) : (
 					<div className="error-text">
-						<RailwayAlertIcon fontSize="small" />
+						{errorType === 2 ? (
+							<RailwayAlertIcon fontSize="small" />
+						) : (
+							<DirectionsBusIcon fontSize="small" />
+						)}
 						<span>{errorText}</span>
 					</div>
 				))}

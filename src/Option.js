@@ -286,31 +286,40 @@ export default function Option({
 														)}
 													</div>
 												</div>
-												{leg.origin.connections.length > 0 && (
-													<div>
-														{leg.origin.connections.map((connection, l) => (
-															<div
-																className="connection"
-																key={`option-${i}-${j}-${k}-${l}`}
-															>
-																<img
-																	alt={`${connection} logo`}
-																	src={`/images/connections/${connection
-																		.toLowerCase()
-																		.replaceAll(" ", "-")
-																		.replaceAll('"', "'")}.png`}
-																/>
-																<span>{connection}</span>
-															</div>
-														))}
-													</div>
-												)}
+												{!leg.origin.thruway &&
+													leg.origin.connections.length > 0 && (
+														<div>
+															{leg.origin.connections.map((connection, l) => (
+																<div
+																	className="connection"
+																	key={`option-${i}-${j}-${k}-${l}`}
+																>
+																	<img
+																		alt={`${connection} logo`}
+																		src={`/images/connections/${connection
+																			.toLowerCase()
+																			.replaceAll(" ", "-")
+																			.replaceAll('"', "'")}.png`}
+																	/>
+																	<span>{connection}</span>
+																</div>
+															))}
+														</div>
+													)}
 											</div>
 											<div>
 												<span>{getDuration(leg.elapsedSeconds)}</span>
 												<div>
 													<span>{leg.trainId}</span>
-													{routesInfo[leg.route] ? (
+													{leg.route === "Connecting Bus" ? (
+														<a
+															href="https://www.amtrak.com/thruway-connecting-services-multiply-your-travel-destinations"
+															rel="noreferrer"
+															target="_blank"
+														>
+															Connecting Bus
+														</a>
+													) : routesInfo[leg.route] ? (
 														<a
 															href={`https://www.amtrak.com/routes/${
 																routesInfo[leg.route].link
@@ -319,14 +328,6 @@ export default function Option({
 															target="_blank"
 														>
 															{leg.route}
-														</a>
-													) : leg.route === "Connecting Bus" ? (
-														<a
-															href="https://www.amtrak.com/thruway-connecting-services-multiply-your-travel-destinations"
-															rel="noreferrer"
-															target="_blank"
-														>
-															Connecting Bus
 														</a>
 													) : (
 														<span>{leg.route}</span>
@@ -368,27 +369,28 @@ export default function Option({
 														)}
 													</div>
 												</div>
-												{leg.destination.connections.length > 0 && (
-													<div>
-														{leg.destination.connections.map(
-															(connection, l) => (
-																<div
-																	className="connection"
-																	key={`option-${i}-${j}-${k}-${l}`}
-																>
-																	<img
-																		alt={`${connection} logo`}
-																		src={`/images/connections/${connection
-																			.toLowerCase()
-																			.replaceAll(" ", "-")
-																			.replaceAll('"', "'")}.png`}
-																	/>
-																	<span>{connection}</span>
-																</div>
-															)
-														)}
-													</div>
-												)}
+												{!leg.destination.thruway &&
+													leg.destination.connections.length > 0 && (
+														<div>
+															{leg.destination.connections.map(
+																(connection, l) => (
+																	<div
+																		className="connection"
+																		key={`option-${i}-${j}-${k}-${l}`}
+																	>
+																		<img
+																			alt={`${connection} logo`}
+																			src={`/images/connections/${connection
+																				.toLowerCase()
+																				.replaceAll(" ", "-")
+																				.replaceAll('"', "'")}.png`}
+																		/>
+																		<span>{connection}</span>
+																	</div>
+																)
+															)}
+														</div>
+													)}
 											</div>
 										</div>
 									</div>

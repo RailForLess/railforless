@@ -1,11 +1,13 @@
 import { useState } from "react";
+import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
-import ErrorIcon from "@mui/icons-material/Error";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
+import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import TextField from "@mui/material/TextField";
+import Tooltip from "@mui/material/Tooltip";
 
 export default function StationSelect({
 	departing,
@@ -17,12 +19,16 @@ export default function StationSelect({
 	stations,
 	nearbyCitiesBool,
 	stationFormat,
+	swapStations,
 }) {
 	function filterStations(options, state) {
+		if (state.inputValue.trim() === "") {
+			return options.filter((option) => option.group === "Nearby");
+		}
 		const nearbyCitiesStations = [];
 		const input = state.inputValue.toLowerCase();
 		if (input && nearbyCitiesBool) {
-			for (const option of options) {
+			for (const option of options.filter((option) => !option.thruway)) {
 				for (const nearbyCity of option.nearbyCities.filter((city) =>
 					city.toLowerCase().includes(input)
 				)) {
@@ -37,7 +43,6 @@ export default function StationSelect({
 			(option) =>
 				option.name.toLowerCase().includes(input) ||
 				option.code.toLowerCase().includes(input) ||
-				option.stateLong.toLowerCase().includes(input) ||
 				option.city.toLowerCase().includes(input)
 		);
 		const nearbyStations = filteredOptions.filter(
@@ -66,28 +71,69 @@ export default function StationSelect({
 					(option) =>
 						option.group !== "Nearby" && option.code.toLowerCase() !== input
 				)
-			);
+			)
+			.slice(0, 100);
 	}
 
+	const [input, setInput] = useState("");
 	const [open, setOpen] = useState(false);
 
-	function autocompleteCode(e, code) {
-		const match = stations.find((option) => option.code === code);
-		if (match) {
-			departing ? setOrigin(match) : setDestination(match);
+	function handleChange(id) {
+		setInput(id);
+		if (id === "") {
+			return;
+		} else if (!id) {
+			departing ? setOrigin(null) : setDestination(null);
 			setUpdateMap((updateMap) => !updateMap);
-			setOpen(false);
+			return;
+		} else if (typeof id === "object") {
+			id = id.id;
 		}
+		const match = stations.find((option) => option.code === id);
+		if (!match) {
+			return;
+		}
+		setOpen(false);
+		if (["LOR", "SFA"].includes(id)) {
+			departing ? setOrigin(match) : setDestination(match);
+			const oppStation = stations.find(
+				(station) => station.id === (id === "LOR" ? "SFA" : "LOR")
+			);
+			departing ? setDestination(oppStation) : setOrigin(oppStation);
+		} else if (
+			(departing && destination && id === destination.id) ||
+			(!departing && origin && id === origin.id)
+		) {
+			swapStations();
+		} else {
+			departing ? setOrigin(match) : setDestination(match);
+		}
+		setUpdateMap((updateMap) => !updateMap);
 	}
 
-	const getStationIcon = (option, station) =>
-		option.id === station.id ? (
-			<ErrorIcon fontSize="small" />
-		) : option.routes.some((route) => station.routes.includes(route)) ? (
-			<DirectionsRailwayIcon fontSize="small" />
-		) : (
-			<RailwayAlertIcon fontSize="small" />
-		);
+	const getStationIcon = (option, oppStation) => (
+		<Tooltip
+			title={
+				option.id === oppStation.id
+					? "Swap stations"
+					: option.thruway || oppStation.thruway
+					? "Bus connection"
+					: option.routes.some((route) => oppStation.routes.includes(route))
+					? "Direct route"
+					: "Transfer required"
+			}
+		>
+			{option.id === oppStation.id ? (
+				<SwapHorizIcon fontSize="small" />
+			) : option.thruway ? (
+				<DirectionsBusIcon fontSize="small" />
+			) : option.routes.some((route) => oppStation.routes.includes(route)) ? (
+				<DirectionsRailwayIcon fontSize="small" />
+			) : (
+				<RailwayAlertIcon fontSize="small" />
+			)}
+		</Tooltip>
+	);
 
 	const getStationLabels = (station) =>
 		stationFormat === "name-and-code"
@@ -96,20 +142,12 @@ export default function StationSelect({
 			? station.name
 			: station.code;
 
-	function handleChange(e, v) {
-		departing ? setOrigin(v) : setDestination(v);
-		if (["LOR", "SFA"].includes(v.id)) {
-			const oppStation = stations.find(
-				(station) => station.id === (v.id === "LOR" ? "SFA" : "LOR")
-			);
-			departing ? setDestination(oppStation) : setOrigin(oppStation);
-		}
-		setUpdateMap((updateMap) => !updateMap);
-	}
+	const oppStation = departing ? destination : origin;
+	const showIcons = oppStation && !oppStation.thruway;
 
 	return (
 		<Autocomplete
-			disableClearable
+			disableClearable={window.innerWidth <= 480}
 			disabled={!departing && !origin}
 			filterOptions={filterStations}
 			getOptionLabel={
@@ -117,10 +155,10 @@ export default function StationSelect({
 			}
 			isOptionEqualToValue={(option, value) => option.id === value.id}
 			loadingText="Getting stations..."
-			noOptionsText="No stations found"
-			onChange={handleChange}
+			noOptionsText={input ? "No stations found" : "Enter a station"}
+			onChange={(e, v) => handleChange(v)}
 			onClose={() => setOpen(false)}
-			onInputChange={autocompleteCode}
+			onInputChange={(e, v) => handleChange(v)}
 			open={open}
 			options={stations}
 			PopperComponent={(props) => (
@@ -135,21 +173,20 @@ export default function StationSelect({
 					{...params}
 					label={departing ? "Departing" : "Arriving"}
 					onFocus={() => setOpen(true)}
-					placeholder="name/code/state/city"
+					placeholder="name/code/city"
 				/>
 			)}
 			renderOption={(props, option) => {
-				const oppStation = departing ? destination : origin;
 				return (
 					<Box
 						component="li"
 						sx={{
-							paddingLeft: oppStation ? "0.5rem !important" : "",
+							paddingLeft: showIcons ? "0.5rem !important" : "",
 							"& > svg": { margin: "0 0.5rem" },
 						}}
 						{...props}
 					>
-						{oppStation && getStationIcon(option, oppStation)}
+						{showIcons && getStationIcon(option, oppStation)}
 						{getStationLabels(option)}
 					</Box>
 				);

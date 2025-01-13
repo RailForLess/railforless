@@ -17,7 +17,7 @@ export default function UpdateBar() {
 		<div>
 			<div id="update-bar-container" style={{ display: open ? "" : "none" }}>
 				<span id="update-bar">
-					RailForLess.us v3—lightning fast searches powered by Cloudflare{" "}
+					Amtrak Thruway services now supported!{" "}
 					<span onClick={() => setDialog(true)}>Read more</span>
 				</span>
 				<IconButton onClick={() => setOpen(false)} size="small">
@@ -34,6 +34,36 @@ export default function UpdateBar() {
 				</IconButton>
 				<DialogContent>
 					<DialogContentText>
+						<h2>January 2025 Feature Update</h2>
+						<br></br>
+						New year, new features! We're excited to announce RailForLess now
+						supports{" "}
+						<a
+							href="https://www.amtrak.com/thruway-connecting-services-multiply-your-travel-destinations"
+							rel="noopener noreferrer"
+							target="_blank"
+						>
+							Amtrak Thruway
+						</a>{" "}
+						stations and services. You can now use RailForLess to plan more
+						complex trips with bus connections, with more than double the
+						stations to choose from. Other changes include a revamped map and
+						station selection process ensuring data synchronization and quick
+						load times when selecting stations.
+						<br></br>
+						<br></br>
+						We're thankful for the support we've received these past few months
+						that have allowed us to continue to improve RailForLess despite
+						financial and logistical hurdles. Have a feature you'd like to see
+						implemented in 2025? Reach out at{" "}
+						<a href="mailto:contact@railforless.us">
+							contact@railforless.us
+						</a>{" "}
+						and let us know.
+						<br></br>
+						<br></br>
+						<hr></hr>
+						<br></br>
 						<h2>RailForLess.us v3</h2>
 						<br></br>
 						This latest iteration of the project is the result of yet another

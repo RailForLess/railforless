@@ -92,9 +92,7 @@ export default function Home({
 			"Bedroom",
 			"Family Room",
 		]);
-		setTimeout(() => {
-			setUpdateMap((updateMap) => !updateMap);
-		}, 500);
+		setUpdateMap((updateMap) => !updateMap);
 		setSearching(false);
 		setSearchError(false);
 		if (dateRangeStart.isBefore(dayjs.utc().startOf("d").add(1, "d"))) {
@@ -119,6 +117,15 @@ export default function Home({
 	}, [refreshCount]);
 
 	const [dateTimeRequested, setDateTimeRequested] = useState(null);
+
+	const [swapped, setSwapped] = useState(false);
+
+	function swapStations() {
+		setSwapped(!swapped);
+		setDestination(origin);
+		setOrigin(destination);
+		setUpdateMap((updateMap) => !updateMap);
+	}
 
 	return !notFound ? (
 		<div className="main-container">
@@ -173,6 +180,8 @@ export default function Home({
 					setShowTurnstile={setShowTurnstile}
 					searchAnimationsBool={searchAnimationsBool}
 					setSearchAnimationsBool={setSearchAnimationsBool}
+					swapped={swapped}
+					swapStations={swapStations}
 				/>
 				{fares.length > 0 && stations.length > 0 ? (
 					<Fares
@@ -209,6 +218,7 @@ export default function Home({
 						destination={destination}
 						setDestination={setDestination}
 						updateMap={updateMap}
+						setUpdateMap={setUpdateMap}
 						route={route}
 						setRoute={setRoute}
 					/>

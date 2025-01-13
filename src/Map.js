@@ -255,6 +255,9 @@ export default function Map({
 	function handleStationClick(id, click = true, isDestination = null) {
 		let x0, y0, x1, y1;
 		const element = d3.select(`#${id}`);
+		if (element.empty()) {
+			return;
+		}
 		if (element.attr("origin") === "true") {
 			if (click) {
 				setOrigin(null);

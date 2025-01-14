@@ -689,15 +689,6 @@
 		"thruway": false
 	},
 	{
-		"city": "Burbank",
-		"code": "BBK",
-		"id": "BBK",
-		"name": "Burbank–Downtown",
-		"stateLong": "California",
-		"stateShort": "CA",
-		"thruway": true
-	},
-	{
 		"city": "Barstow",
 		"code": "BBS",
 		"id": "BBS",
@@ -1350,15 +1341,6 @@
 		"stateLong": "California",
 		"stateShort": "CA",
 		"thruway": false
-	},
-	{
-		"city": "Burbank",
-		"code": "BUR",
-		"id": "BUR",
-		"name": "Burbank Airport- South",
-		"stateLong": "California",
-		"stateShort": "CA",
-		"thruway": true
 	},
 	{
 		"city": "Buena Vista",

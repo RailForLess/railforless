@@ -338,7 +338,7 @@ export default function Form({
 			localStorage.setItem("searchAnimations", "true");
 		}
 
-		fetch("/json/stations.json")
+		fetch(`${process.env.REACT_APP_API_DOMAIN}/stations`)
 			.then((res) => res.json())
 			.then((data) => {
 				data = data

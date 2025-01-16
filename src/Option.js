@@ -286,7 +286,7 @@ export default function Option({
 														)}
 													</div>
 												</div>
-												{!leg.origin.thruway &&
+												{leg.origin.connections &&
 													leg.origin.connections.length > 0 && (
 														<div>
 															{leg.origin.connections.map((connection, l) => (
@@ -369,7 +369,7 @@ export default function Option({
 														)}
 													</div>
 												</div>
-												{!leg.destination.thruway &&
+												{leg.destination.connections &&
 													leg.destination.connections.length > 0 && (
 														<div>
 															{leg.destination.connections.map(

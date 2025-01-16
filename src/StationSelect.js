@@ -28,7 +28,7 @@ export default function StationSelect({
 		const nearbyCitiesStations = [];
 		const input = state.inputValue.toLowerCase();
 		if (input && nearbyCitiesBool) {
-			for (const option of options.filter((option) => !option.thruway)) {
+			for (const option of options.filter((option) => option.nearbyCities)) {
 				for (const nearbyCity of option.nearbyCities.filter((city) =>
 					city.toLowerCase().includes(input)
 				)) {

@@ -264,7 +264,7 @@ export default function Fares({
 										legAccommodation.name.includes(fareClass)))
 							)
 						) {
-							break;
+							continue;
 						}
 						legAccommodation.neededInventory =
 							getNeededInventory(legAccommodation);
@@ -306,7 +306,9 @@ export default function Fares({
 				) {
 					newAccommodations.push({
 						...newAccommodation,
-						fare: newAccommodation.legAccommodations[0].fare,
+						fare: newAccommodation.legAccommodations.reduce((a, b) =>
+							b.fare ? b : a
+						).fare,
 					});
 				}
 			}

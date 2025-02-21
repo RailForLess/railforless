@@ -128,7 +128,12 @@ export default function Option({
 									.subtract(30, "d")
 									.format("YYYYMMDD")}&date_end=${dayjs()
 									.subtract(1, "d")
-									.format("YYYYMMDD")}`
+									.format("YYYYMMDD")}`,
+									{
+									  headers: {
+										"X-Amtrak-Status": "allow"
+									  }
+									}
 							);
 							let data = await res.json();
 							data = {

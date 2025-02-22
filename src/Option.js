@@ -122,18 +122,13 @@ export default function Option({
 					for (const station of [travelLeg.origin, travelLeg.destination]) {
 						if (!avgDelays[`${travelLeg.trainId}${station.code}`]) {
 							let res = await fetch(
-								`https://juckins.net/amtrak_status/archive/html/api/api.php?num=${
+								`https://juckins.net/amtrak_api/api.php?num=${
 									travelLeg.trainId
 								}&station=${station.code}&date_start=${dayjs()
 									.subtract(30, "d")
 									.format("YYYYMMDD")}&date_end=${dayjs()
 									.subtract(1, "d")
-									.format("YYYYMMDD")}`,
-									{
-									  headers: {
-										"X-Amtrak-Status": "allow"
-									  }
-									}
+									.format("YYYYMMDD")}`
 							);
 							let data = await res.json();
 							data = {

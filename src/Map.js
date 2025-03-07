@@ -25,10 +25,10 @@ export default function Map({
 	const originRef = useRef(origin);
 	const startTime = useRef(Date.now());
 	const [loaded, setLoaded] = useState(false);
-	const silverService = ["Palmetto", "Silver-Meteor", "Silver-Star"];
+	const silverService = ["Palmetto", "Silver-Meteor"];
 
 	const getRouteID = (route) =>
-		silverService.includes(route) ? "Silver-Service_Palmetto" : route;
+		silverService.includes(route) ? "Silver-Meteor_Palmetto" : route;
 
 	useEffect(() => {
 		originRef.current = origin;
@@ -59,7 +59,7 @@ export default function Map({
 		if (routeString === "Any-route") {
 			return false;
 		}
-		if (routeString === "Silver-Service_Palmetto") {
+		if (routeString === "Silver-Meteor_Palmetto") {
 			return !silverService.some((route) => station.routes.includes(route));
 		} else {
 			return !station.routes.includes(routeString);

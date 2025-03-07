@@ -62,7 +62,7 @@ export default function Map({
 		if (routeString === "Silver-Meteor_Palmetto") {
 			return !silverService.some((route) => station.routes.includes(route));
 		} else {
-			return !station.routes.includes(routeString);
+			return !station.routes?.includes(routeString);
 		}
 	}
 

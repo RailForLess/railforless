@@ -147,7 +147,7 @@ export default function UpdateBar() {
 						search results, showing progress towards the current month's
 						fundraising goal. Additionally, we have created a{" "}
 						<a
-							href="https://buymeacoffee.com/seaneddy/membership"
+							href="https://buymeacoffee.com/railforless/membership"
 							rel="noopener noreferrer"
 							target="_blank"
 						>
@@ -259,7 +259,7 @@ export default function UpdateBar() {
 						<a href="mailto:contact@railforless.us">contact@railforless.us</a>.
 						If you found any of these changes useful, consider{" "}
 						<a
-							href="https://www.buymeacoffee.com/seaneddy"
+							href="https://www.buymeacoffee.com/railforless"
 							rel="noopener noreferrer"
 							target="_blank"
 						>

@@ -66,7 +66,7 @@ export default function Feedback() {
 					)}
 					{submit && (
 						<a
-							href="https://www.buymeacoffee.com/seaneddy"
+							href="https://www.buymeacoffee.com/railforless"
 							id="donate-button"
 							rel="noopener noreferrer"
 							target="_blank"

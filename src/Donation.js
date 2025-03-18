@@ -32,7 +32,7 @@ export default function Donation({ defaultExpanded = false }) {
 	const DonateButton = () => (
 		<Button
 			endIcon={<VolunteerActivismIcon />}
-			href="https://www.buymeacoffee.com/seaneddy"
+			href="https://www.buymeacoffee.com/railforless"
 			target="_blank"
 			variant="outlined"
 		>
@@ -84,7 +84,7 @@ export default function Donation({ defaultExpanded = false }) {
 							us develop new features and provide a better service than Amtrak
 							with a donation today. Consider{" "}
 							<a
-								href="https://buymeacoffee.com/seaneddy/membership"
+								href="https://buymeacoffee.com/railforless/membership"
 								rel="noreferrer"
 								target="_blank"
 							>
@@ -102,7 +102,7 @@ export default function Donation({ defaultExpanded = false }) {
 							us develop new features and provide a better service than Amtrak
 							with a donation today. Consider{" "}
 							<a
-								href="https://buymeacoffee.com/seaneddy/membership"
+								href="https://buymeacoffee.com/railforless/membership"
 								rel="noreferrer"
 								target="_blank"
 							>

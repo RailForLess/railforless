@@ -8,7 +8,16 @@ import { LineChart } from "@mui/x-charts/LineChart";
 
 export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 	const graphXFormatter = (date) => dayjs(date).format("M/D");
-	const graphYFormatter = (fare) => (fare ? fareFormatter(fare) : null);
+	const graphYAxisFormatter = (fare) => (fare ? fareFormatter(fare) : null);
+	const graphYFormatter = (fare) =>
+		fare ? `As low as ${graphYAxisFormatter(fare)}` : "No options available";
+
+	const showMark = graphYData.some(
+		(y, i) =>
+			y !== null &&
+			(graphYData[i - 1] ?? null) === null &&
+			(graphYData[i + 1] ?? null) === null
+	);
 
 	return (
 		<Accordion defaultExpanded>
@@ -22,8 +31,9 @@ export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 						series={[
 							{
 								area: true,
+								color: "#4693FF",
 								data: graphYData,
-								showMark: false,
+								showMark,
 								valueFormatter: graphYFormatter,
 							},
 						]}
@@ -39,7 +49,7 @@ export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 							{
 								max: graphYData.reduce((a, b) => (a > b ? a : b)),
 								min: graphYData.reduce((a, b) => (a < b ? a : b)) * (3 / 4),
-								valueFormatter: graphYFormatter,
+								valueFormatter: graphYAxisFormatter,
 							},
 						]}
 					>

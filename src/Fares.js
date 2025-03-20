@@ -558,28 +558,17 @@ export default function Fares({
 			.sort((a, b) => a.departureDateTime - b.departureDateTime);
 		const newGraphX = [];
 		const newGraphY = [];
-		let prevPrevDate = null;
 		let prevDate = options[0].departureDateTime;
 		let minFare = options[0].fare;
 		for (const option of options) {
 			const curDate = option.departureDateTime;
 			const curFare = option.fare;
 			if (curDate.format("M/D") !== prevDate.format("M/D")) {
-				if (
-					curDate.diff(prevDate, "d") > 1 &&
-					(prevPrevDate === null || prevDate.diff(prevPrevDate, "d") > 1)
-				) {
-					newGraphX.push(prevDate.subtract(12, "h").toDate());
-					newGraphY.push(minFare);
-					newGraphX.push(prevDate.add(12, "h").toDate());
-					newGraphY.push(minFare);
-				} else {
-					newGraphX.push(prevDate.toDate());
-					newGraphY.push(minFare);
-				}
-				prevPrevDate = prevDate;
+				newGraphX.push(prevDate.toDate());
+				newGraphY.push(minFare);
 				if (prevDate.format("M/D") !== curDate.subtract(1, "d").format("M/D")) {
 					while (prevDate.format("M/D") !== curDate.format("M/D")) {
+						// add null dates to create visual separation
 						newGraphX.push(prevDate.toDate());
 						newGraphY.push(null);
 						prevDate = prevDate.add(1, "d");

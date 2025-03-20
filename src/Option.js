@@ -156,8 +156,8 @@ export default function Option({
 		}
 	}
 
-	function isClear() {
-		return (
+	function getDaysFilters() {
+		return !(
 			Object.keys(outboundDays)
 				.filter((day) => !outboundDays[day])
 				.map((day) => Number(day)).length === 0 &&
@@ -167,7 +167,7 @@ export default function Option({
 		);
 	}
 
-	const isDisabled = isClear();
+	const daysFilters = getDaysFilters();
 
 	return (
 		<Accordion
@@ -186,19 +186,17 @@ export default function Option({
 					<span>
 						{roundTrip
 							? `${option.departureDateTime.format(
-									isDisabled ? "M/D" : "ddd, M/D"
-							  )}${
-									showTimes
-										? ` (${option.departureDateTime.format("h:mm A")})`
-										: ""
-							  }-${option.arrivalDateTime.format(
-									isDisabled ? "M/D" : "ddd, M/D"
-							  )}${
-									showTimes
-										? ` (${option.arrivalDateTime.format("h:mm A")})`
-										: ""
-							  }`
-							: option.departureDateTime.format("ddd, MMM D")}
+									`${`${daysFilters ? "ddd, " : ""}M/D`}${
+										showTimes ? " (h:mm A)" : ""
+									}`
+							  )}—${option.arrivalDateTime.format(
+									`${`${daysFilters ? "ddd, " : ""}M/D`}${
+										showTimes ? " (h:mm A)" : ""
+									}`
+							  )}`
+							: option.departureDateTime.format(
+									`ddd, MMM D${showTimes ? " (h:mm A)" : ""}`
+							  )}
 					</span>
 					<div className="vertical-bar"></div>
 					<span>{getDuration(option.elapsedSeconds)}</span>

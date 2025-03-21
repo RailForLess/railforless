@@ -152,17 +152,43 @@ export default function Map({
 				d3.select(`#${station.id}`).raise();
 			}
 		});
+		if (transformRef.current.k === 1) {
+			d3.selectAll(".station")
+				.filter((station) => station.popular)
+				.sort((a, b) => a.frequency - b.frequency)
+				.raise();
+		}
+		const scaleFactor = 0.25;
+		const radiusScale = d3
+			.scalePow()
+			.exponent(scaleFactor)
+			.domain([0, 1])
+			.range([0, 25]);
+		const strokeScale = d3
+			.scalePow()
+			.exponent(scaleFactor)
+			.domain([0, 1])
+			.range([0, 3]);
+		const fontScale = d3
+			.scalePow()
+			.exponent(scaleFactor)
+			.domain([0, 1])
+			.range([0, 20]);
 		d3.selectAll(".station[selected='false'] circle")
 			.transition()
 			.duration(duration)
 			.attr("r", (d) =>
-				transformRef.current.k === 1 || disableStation(routeString, d)
+				transformRef.current.k === 1 && d.popular
+					? radiusScale(d.frequency)
+					: transformRef.current.k === 1 || disableStation(routeString, d)
 					? 3 / transformRef.current.k
 					: 15 / transformRef.current.k
 			)
 			.attr("stroke", "black")
 			.attr("stroke-width", (d) =>
-				transformRef.current.k === 1 || disableStation(routeString, d)
+				transformRef.current.k === 1 && d.popular
+					? strokeScale(d.frequency)
+					: transformRef.current.k === 1 || disableStation(routeString, d)
 					? 0.5 / transformRef.current.k
 					: 2 / transformRef.current.k
 			);
@@ -170,13 +196,17 @@ export default function Map({
 			.transition()
 			.duration(duration)
 			.attr("r", (d) =>
-				transformRef.current.k === 1 || disableStation(routeString, d)
+				transformRef.current.k === 1 && d.popular
+					? radiusScale(d.frequency)
+					: transformRef.current.k === 1 || disableStation(routeString, d)
 					? 3 / transformRef.current.k
 					: 30 / transformRef.current.k
 			)
-			.attr("stroke", "white")
+			.attr("stroke", transformRef.current.k !== 1 ? "white" : "black")
 			.attr("stroke-width", (d) =>
-				transformRef.current.k === 1 || disableStation(routeString, d)
+				transformRef.current.k === 1 && d.popular
+					? strokeScale(d.frequency)
+					: transformRef.current.k === 1 || disableStation(routeString, d)
 					? 0.5 / transformRef.current.k
 					: 4 / transformRef.current.k
 			);
@@ -184,7 +214,9 @@ export default function Map({
 			.transition()
 			.duration(duration)
 			.attr("font-size", (d) =>
-				transformRef.current.k === 1 || disableStation(routeString, d)
+				transformRef.current.k === 1 && d.popular
+					? fontScale(d.frequency)
+					: transformRef.current.k === 1 || disableStation(routeString, d)
 					? 0
 					: 10 / transformRef.current.k
 			);
@@ -192,7 +224,9 @@ export default function Map({
 			.transition()
 			.duration(duration)
 			.attr("font-size", (d) =>
-				transformRef.current.k === 1 || disableStation(routeString, d)
+				transformRef.current.k === 1 && d.popular
+					? fontScale(d.frequency)
+					: transformRef.current.k === 1 || disableStation(routeString, d)
 					? 0
 					: 20 / transformRef.current.k
 			);
@@ -432,9 +466,16 @@ export default function Map({
 					type: "FeatureCollection",
 					features: [],
 				};
-				for (const station of stationsJSON.filter(
+				const trainStations = stationsJSON.filter(
 					(station) => !station.thruway
-				)) {
+				);
+				const popularStations = new Set(
+					trainStations
+						.sort((a, b) => b.frequency - a.frequency)
+						.slice(0, 25)
+						.map((station) => station.id)
+				);
+				for (const station of trainStations) {
 					stationsGeoJSON.features.push({
 						type: "Feature",
 						geometry: {
@@ -443,6 +484,8 @@ export default function Map({
 						},
 						id: station.id,
 						routes: JSON.stringify(station.routes),
+						frequency: station.frequency,
+						popular: popularStations.has(station.id),
 					});
 				}
 				const station = svg.current
@@ -455,6 +498,8 @@ export default function Map({
 					.attr("origin", "false")
 					.attr("destination", "false")
 					.attr("routes", (d) => d.routes)
+					.attr("frequency", (d) => d.frequency)
+					.attr("popular", (d) => d.popular)
 					.attr("selected", "false")
 					.attr("class", "station")
 					.attr("id", (d) => d.id)
@@ -498,6 +543,9 @@ export default function Map({
 					.attr("font-weight", "bold")
 					.attr("pointer-events", "none")
 					.text((d) => d.id);
+				d3.selectAll(".station")
+					.sort((a, b) => a.frequency - b.frequency)
+					.raise();
 			});
 		});
 	}

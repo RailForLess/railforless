@@ -225,7 +225,11 @@ export default function Option({
 							<div>
 								<span>{j ? "Return" : "Departure"}</span>
 								<span className="dot">·</span>
-								<span>{trip.departureDateTime.format("ddd, MMM D")}</span>
+								<span>{`${trip.departureDateTime.format("ddd, MMM D")}${
+									trip.arrivalDateTime.isAfter(trip.departureDateTime, "D")
+										? `—${trip.arrivalDateTime.format("ddd, MMM D")}`
+										: ""
+								}`}</span>
 								<span className="dot">·</span>
 								<span>{trip.class}</span>
 							</div>

@@ -53,4 +53,5 @@ export const routesInfo = {
 	"Valley Flyer": { icon: "🍇", link: "valley-flyer" },
 	Vermonter: { icon: "🛷", link: "vermonter" },
 	Wolverine: { icon: "🐺", link: "michigan-services" },
+	"Mardi Gras Service": { icon: "🎭", link: "mardi-gras-service" }
 };

@@ -11,8 +11,8 @@ form svg[data-testid="CalendarMonthIcon"] {
 	margin: 0;
 	overflow-x: clip !important;
 	overflow-y: visible !important;
-	transform: scale(1.1);
 	width: auto !important;
+	zoom: 1.1;
 }
 
 .MuiTimePicker-root {

@@ -519,7 +519,9 @@ export default function Form({
 				document.getElementById("root").style.height = "auto";
 				return;
 			} else {
-				setProgressText(data.message);
+				setProgressText(
+					Array.isArray(data.message) ? data.message[0].message : data.message
+				);
 				setSearchError(true);
 			}
 		};

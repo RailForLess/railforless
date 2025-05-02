@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 export default function TravelerTypeSelect({ value, setValue, searching }) {
 	const addInfo = {
 		numAdults: "16+",
-		numSeniors: "55+",
+		numSeniors: "65+",
 		numYouth: "13 - 15",
 		numChildren: "2 - 12",
 		numInfants: "Under 2",

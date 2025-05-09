@@ -488,8 +488,8 @@ export default function Form({
 		const wsSearch = JSON.stringify({
 			origin: origin.code,
 			destination: destination.code,
-			startDate: dateRangeStart.toISOString(),
-			endDate: dateRangeEndLocal.toISOString(),
+			startDate: dateRangeStart.startOf("D").toISOString(),
+			endDate: dateRangeEndLocal.startOf("D").toISOString(),
 			roundTrip,
 			bedrooms,
 			familyRooms,

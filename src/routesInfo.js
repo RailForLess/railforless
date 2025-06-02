@@ -33,6 +33,7 @@ export const routesInfo = {
 		link: "lincoln-service-missouri-river-runner",
 	},
 	"Maple Leaf": { icon: "🍁", link: "maple-leaf" },
+	"Mardi Gras Service": { icon: "🎭", link: "mardi-gras-service" },
 	"Missouri River Runner": {
 		icon: "💦",
 		link: "lincoln-service-missouri-river-runner",
@@ -52,6 +53,5 @@ export const routesInfo = {
 	"Texas Eagle": { icon: "🦅", link: "texas-eagle" },
 	"Valley Flyer": { icon: "🍇", link: "valley-flyer" },
 	Vermonter: { icon: "🛷", link: "vermonter" },
-	Wolverine: { icon: "🐺", link: "michigan-services" },
-	"Mardi Gras Service": { icon: "🎭", link: "mardi-gras-service" }
+	Wolverine: { icon: "🐺", link: "michigan-services" }
 };

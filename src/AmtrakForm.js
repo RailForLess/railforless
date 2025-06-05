@@ -28,11 +28,8 @@ export default function AmtrakForm({
 	function handleSubmit(e) {
 		e.preventDefault();
 		e.stopPropagation();
-		submit();
-	}
-
-	function submit() {
 		document.getElementById(`amtrak-form-${i}`).submit();
+		window.rybbit.event("Book on amtrak.com Button Clicked");
 	}
 
 	return (

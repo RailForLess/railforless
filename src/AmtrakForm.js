@@ -29,7 +29,6 @@ export default function AmtrakForm({
 		e.preventDefault();
 		e.stopPropagation();
 		document.getElementById(`amtrak-form-${i}`).submit();
-		window.rybbit.event("Book on amtrak.com Button Clicked");
 	}
 
 	return (
@@ -78,6 +77,7 @@ export default function AmtrakForm({
 				onClick={(e) => handleSubmit(e)}
 				type="submit"
 				variant="outlined"
+				data-rybbit-event="book_amtrak_clicked"
 			>
 				Book on amtrak.com
 			</Button>

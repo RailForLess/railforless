@@ -722,6 +722,7 @@ export default function Form({
 							onClick={handleSearch}
 							variant="extended"
 							size="medium"
+							data-rybbit-event="search"
 							sx={{
 								backgroundColor:
 									fares.length === 0 && !searchError && searching
@@ -825,7 +826,7 @@ export default function Form({
 				</Dialog>
 				<Snackbar
 					action={
-						<Button onClick={handleCancelSearch} variant="contained">
+						<Button onClick={handleCancelSearch} variant="contained" data-rybbit-event="cancel">
 							Cancel
 						</Button>
 					}

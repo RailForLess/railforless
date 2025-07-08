@@ -34,6 +34,7 @@ export default function Progress({
 							onClick={() => window.location.reload()}
 							sx={{ marginTop: "1rem" }}
 							variant="contained"
+							data-rybbit-event="refresh"
 						>
 							Reload page
 						</Button>

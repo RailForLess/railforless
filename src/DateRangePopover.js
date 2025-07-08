@@ -428,7 +428,7 @@ export default function DateRangePopover({
 							{fixedDates && (
 								<div id="date-range-warning">
 									*Dates locked to current search{" "}
-									<Button onClick={() => newSearch(false)} variant="outlined">
+									<Button onClick={() => newSearch(false)} variant="outlined" data-rybbit-event="new_search">
 										New search
 									</Button>
 								</div>

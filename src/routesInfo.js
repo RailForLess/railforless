@@ -33,7 +33,7 @@ export const routesInfo = {
 		link: "lincoln-service-missouri-river-runner",
 	},
 	"Maple Leaf": { icon: "🍁", link: "maple-leaf" },
-	"Mardi Gras Service": { icon: "🎭", link: "mardi-gras-service" },
+	"Mardi Gras Service": { icon: "🎭", link: "amtrak-mardi-gras-service" },
 	"Missouri River Runner": {
 		icon: "💦",
 		link: "lincoln-service-missouri-river-runner",

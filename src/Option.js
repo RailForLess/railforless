@@ -322,14 +322,12 @@ export default function Option({
 															Connecting Bus
 														</a>
 													) : routesInfo[leg.route] ? (
-														<a
-															href={`https://www.amtrak.com/routes/${
-																routesInfo[leg.route].link
-															}-train.html`}
-															rel="noreferrer"
-															target="_blank"
-														>
-															{leg.route}
+															<a
+																href={`https://www.amtrak.com/routes/${routesInfo[leg.route].link}${leg.route !== "Mardi Gras Service" ? "-train.html" : ""}`}
+																rel="noreferrer"
+																target="_blank"
+															>
+																{leg.route}
 														</a>
 													) : (
 														<span>{leg.route}</span>

@@ -56,8 +56,8 @@ export default function UpdateBar() {
 						that have allowed us to continue to improve RailForLess despite
 						financial and logistical hurdles. Have a feature you'd like to see
 						implemented in 2025? Reach out at{" "}
-						<a href="mailto:contact@railforless.us">
-							contact@railforless.us
+						<a href="mailto:info@railforless.us">
+							info@railforless.us
 						</a>{" "}
 						and let us know.
 						<br></br>
@@ -115,8 +115,8 @@ export default function UpdateBar() {
 						Thank you to all who donated to fund this iteration, your donations
 						are what allow us to continually improve. Much of this update was
 						informed by generous user feedback—reach out at{" "}
-						<a href="mailto:contact@railforless.us">
-							contact@railforless.us
+						<a href="mailto:info@railforless.us">
+							info@railforless.us
 						</a>{" "}
 						to let us know how we can improve.
 						<br></br>
@@ -169,8 +169,8 @@ export default function UpdateBar() {
 						directly through Amtrak without restrictions. Try sharing a search
 						with the new Share menu today! As always, do not hesitate to reach
 						out at{" "}
-						<a href="mailto:contact@railforless.us">
-							contact@railforless.us
+						<a href="mailto:info@railforless.us">
+							info@railforless.us
 						</a>{" "}
 						with any comments/concerns.
 						<br></br>
@@ -256,7 +256,7 @@ export default function UpdateBar() {
 						<br></br>
 						Many of these changes were made directly in response to emails we
 						received—don't hesitate to reach out with any suggestions at{" "}
-						<a href="mailto:contact@railforless.us">contact@railforless.us</a>.
+						<a href="mailto:info@railforless.us">info@railforless.us</a>.
 						If you found any of these changes useful, consider{" "}
 						<a
 							href="https://www.buymeacoffee.com/railforless"

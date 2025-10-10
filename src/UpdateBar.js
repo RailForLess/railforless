@@ -34,6 +34,22 @@ export default function UpdateBar() {
 				</IconButton>
 				<DialogContent>
 					<DialogContentText>
+						<h2>All Aboard Amtrak's Mardi Gras Service!</h2>
+						Get ready to ride the rails to the Gulf Coast! Amtrak has announced its new 
+						<a href="https://www.amtrak.com/Mardi-Gras-Service"
+							rel="noopener noreferrer"
+							target="_blank">
+								Mardi Gras Service
+							</a>
+						, connecting New Orleans, Louisiana, and Mobile, Alabama, with the first trains departing on August 18, 2025.
+						<br></br>
+						This exciting new route will offer twice-daily departures, providing a convenient and scenic way to travel between these two vibrant cities. The Mardi Gras service will also include stops in Bay St. Louis, Gulfport, Biloxi, and Pascagoula, Mississippi, restoring passenger train service to the Mississippi Gulf Coast for the first time in nearly two decades.
+						<br></br>
+						We have updated our map and internal data to reflect this new service. Hover over the Gulf Coast route to see the new train and book your tickets today! Be among the first to experience the return of this historic route.
+						<br></br>
+						<br></br>
+						<hr></hr>
+						<br></br>
 						<h2>January 2025 Feature Update</h2>
 						<br></br>
 						New year, new features! We're excited to announce RailForLess now

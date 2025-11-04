@@ -125,7 +125,7 @@ export default function Map({
 		d3.selectAll(".route[selected='false']")
 			.transition()
 			.duration(duration)
-			.attr("stroke", "red")
+			.attr("stroke", function(d) { return getRouteColor(d); })
 			.attr(
 				"stroke-width",
 				transformRef.current.k === 1 ? 2 : 5 / transformRef.current.k
@@ -245,11 +245,17 @@ export default function Map({
 			});
 	}, 0);
 
+	function getRouteColor(routeData) {
+		return routeData.properties && routeData.properties.brightline === true ? "yellow" : "red";
+	}
+
 	function routeMouseout(d) {
 		const prevRoute = d3.select(`#${d.id}`);
 		if (prevRoute.attr("route") === "false") {
+			// Get the original route data to determine the correct color
+			const routeData = prevRoute.datum();
 			prevRoute
-				.attr("stroke", "red")
+				.attr("stroke", getRouteColor(routeData))
 				.attr("stroke-width", prevRoute.attr("stroke-width") / 2)
 				.attr("selected", "false");
 		}
@@ -443,7 +449,7 @@ export default function Map({
 					.join("path")
 					.attr("d", geoGenerator.current)
 					.attr("fill", "transparent")
-					.attr("stroke", "red")
+					.attr("stroke", (d) => getRouteColor(d))
 					.attr("stroke-width", 2)
 					.attr("cursor", "pointer")
 					.attr("route", "false")

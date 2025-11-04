@@ -7,6 +7,7 @@ export const routesInfo = {
 	"Berkshire Flyer": { icon: "🌳", link: "berkshire-flyer" },
 	"Blue Water": { icon: "💧", link: "michigan-services" },
 	Borealis: { icon: "🌌", link: "borealis" },
+	Brightline: { icon: "✨", link: "brightline" },
 	"California Zephyr": { icon: "🌄", link: "california-zephyr" },
 	"Capitol Corridor": { icon: "🌉", link: "capitol-corridor" },
 	"Capitol Limited": { icon: "🏛️", link: "capitol-limited" },

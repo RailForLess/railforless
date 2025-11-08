@@ -54,6 +54,6 @@ export const routesInfo = {
 	"Texas Eagle": { icon: "🦅", link: "texas-eagle" },
 	"Valley Flyer": { icon: "🍇", link: "valley-flyer" },
 	Vermonter: { icon: "🛷", link: "vermonter" },
-	"Winter-Park-Express": { icon: "❄️", link: "winter-park-express" },
+	"Winter Park Express": { icon: "❄️", link: "winter-park-express" },
 	Wolverine: { icon: "🐺", link: "michigan-services" }
 };

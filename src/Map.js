@@ -565,7 +565,7 @@ export default function Map({
 				<div id="route-box">
 					<span>{routeInfo.icon}</span>
 					<a
-						href={`https://www.amtrak.com/routes/${routeInfo.link}-train.html`}
+						href={`https://www.amtrak.com/routes/${routeInfo.link}${routeInfo !== "Mardi Gras Service" ? "-train" : ""}`}
 						rel="noreferrer"
 						target="_blank"
 					>

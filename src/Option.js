@@ -277,14 +277,18 @@ export default function Option({
 															{leg.departureDateTime.format("h:mm A")}
 														</span>
 														<span className="dot">·</span>
-														{leg.origin.code !== "CBN" ? (
+														{leg.destination.code !== "CBN" ? (
 															<a
-																href={`https://www.amtrak.com/stations/${leg.origin.code}.html`}
+																href="https://www.amtrak.com/crossing-the-us-canadian-border"
 																rel="noreferrer"
 																target="_blank"
-															>{`${leg.origin.name} (${leg.origin.code})`}</a>
+															>{`${leg.destination.name} (${leg.destination.code})`}</a>
 														) : (
-															<span>{`${leg.origin.name} (${leg.origin.code})`}</span>
+															<a
+																href={`https://www.amtrak.com/stations/${leg.destination.id}`}
+																rel="noreferrer"
+																target="_blank"
+															>{`${leg.destination.name} (${leg.destination.code})`}</a>
 														)}
 													</div>
 												</div>
@@ -323,7 +327,7 @@ export default function Option({
 														</a>
 													) : routesInfo[leg.route] ? (
 															<a
-																href={`https://www.amtrak.com/routes/${routesInfo[leg.route].link}${leg.route !== "Mardi Gras Service" ? "-train.html" : ""}`}
+																href={`https://www.amtrak.com/routes/${routesInfo[leg.route].link}${leg.route !== "Mardi Gras Service" ? "-train" : ""}`}
 																rel="noreferrer"
 																target="_blank"
 															>
@@ -360,12 +364,16 @@ export default function Option({
 														<span className="dot">·</span>
 														{leg.destination.code !== "CBN" ? (
 															<a
-																href={`https://www.amtrak.com/stations/${leg.destination.code}.html`}
+																href="https://www.amtrak.com/crossing-the-us-canadian-border"
 																rel="noreferrer"
 																target="_blank"
 															>{`${leg.destination.name} (${leg.destination.code})`}</a>
 														) : (
-															<span>{`${leg.destination.name} (${leg.destination.code})`}</span>
+															<a
+																href={`https://www.amtrak.com/stations/${leg.destination.id}`}
+																rel="noreferrer"
+																target="_blank"
+															>{`${leg.destination.name} (${leg.destination.code})`}</a>
 														)}
 													</div>
 												</div>

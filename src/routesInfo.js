@@ -46,7 +46,7 @@ export const routesInfo = {
 	"Pere Marquette": { icon: "⛵", link: "michigan-services" },
 	Piedmont: { icon: "🏞️", link: "carolinian-piedmont" },
 	Saluki: { icon: "🐕", link: "illinois-services" },
-	"San Joaquins": { icon: "🧺", link: "san-joaquins" },
+	"Gold Runner": { icon: "🏃", link: "gold-runner" },
 	"Silver Meteor": { icon: "🌠", link: "silver-service-palmetto" },
 	"Silver Meteor/Palmetto": { icon: "🌴", link: "silver-service-palmetto" },
 	"Southwest Chief": { icon: "🌵", link: "southwest-chief" },

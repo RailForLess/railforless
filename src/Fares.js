@@ -266,11 +266,14 @@ export default function Fares({
 						) {
 							continue;
 						}
+						if (usePoints && (accommodation.fareFamily === "SAL" || accommodation.fareFamily === "FLX")) //Amtrak won't sell these types for points
+							continue;
 						legAccommodation.neededInventory =
 							getNeededInventory(legAccommodation);
 						if (
 							legAccommodation.availableInventory >=
-							legAccommodation.neededInventory
+							legAccommodation.neededInventory 
+							|| legAccommodation.availableInventory === -1 //Brightline rarely provides inventory
 						) {
 							newTravelLeg.push({
 								...legAccommodation,

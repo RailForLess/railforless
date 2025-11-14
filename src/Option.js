@@ -74,7 +74,7 @@ export default function Option({
 	const [expanded, setExpanded] = useState(false);
 
 	const getFareFamily = (fareFamily) =>
-		fareFamily === "SAL" ? "Sale" : fareFamily === "VLU" ? "Value" : "Flex";
+		fareFamily === "SAL" ? "Sale" : fareFamily === "VLU" ? "Value" : fareFamily === "FLX" ? "Flex" : "";
 
 	const getAmenityIcon = (amenity) =>
 		amenity === "Cafe" ? (
@@ -410,19 +410,19 @@ export default function Option({
 												leg.legAccommodation.neededInventory > 1 ? "s" : ""
 											}`}</span>
 											<div>
-												{leg.legAccommodation.fareFamily !== "NA" && (
+												{getFareFamily(leg.legAccommodation.fareFamily) && leg.legAccommodation.fareFamily !== "NA" && (
 													<span>{`(${getFareFamily(
 														leg.legAccommodation.fareFamily
 													)})`}</span>
-												)}
-												<span
+												)}								
+												{leg.legAccommodation.availableInventory > -1 && (<span
 													style={{
 														color:
 															leg.legAccommodation.availableInventory < 10
 																? "indianred"
 																: "#9aa0a6",
 													}}
-												>{`${leg.legAccommodation.availableInventory} left at this price`}</span>
+												>{`${leg.legAccommodation.availableInventory} left at this price`}</span>)}
 											</div>
 										</div>
 									</div>

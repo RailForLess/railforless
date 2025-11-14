@@ -244,6 +244,7 @@ export default function Fares({
 				let isValid = true;
 				const newAccommodation = {
 					class: accommodation.class,
+					fareFamily: accommodation.fareFamily,
 					legAccommodations: [],
 				};
 				for (const [
@@ -329,6 +330,7 @@ export default function Fares({
 				option.class = newAccommodation.class;
 				option.travelLegs[i].legAccommodation = {
 					...legAccommodation,
+					fareFamily: newAccommodation.fareFamily,
 				};
 			}
 			option.fare = newAccommodation.fare;

@@ -277,18 +277,18 @@ export default function Option({
 															{leg.departureDateTime.format("h:mm A")}
 														</span>
 														<span className="dot">·</span>
-														{leg.destination.code !== "CBN" ? (
+														{leg.origin.code !== "CBN" ? (
 															<a
 																href="https://www.amtrak.com/crossing-the-us-canadian-border"
 																rel="noreferrer"
 																target="_blank"
-															>{`${leg.destination.name} (${leg.destination.code})`}</a>
+															>{`${leg.origin.name} (${leg.origin.code})`}</a>
 														) : (
 															<a
-																href={`https://www.amtrak.com/stations/${leg.destination.id}`}
+																href={`https://www.amtrak.com/stations/${leg.origin.id}`}
 																rel="noreferrer"
 																target="_blank"
-															>{`${leg.destination.name} (${leg.destination.code})`}</a>
+															>{`${leg.origin.name} (${leg.origin.code})`}</a>
 														)}
 													</div>
 												</div>

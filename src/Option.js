@@ -277,19 +277,24 @@ export default function Option({
 															{leg.departureDateTime.format("h:mm A")}
 														</span>
 														<span className="dot">·</span>
-														{leg.origin.code !== "CBN" ? (
+														{leg.destination.code === "CBN" ? (
 															<a
 																href="https://www.amtrak.com/crossing-the-us-canadian-border"
 																rel="noreferrer"
 																target="_blank"
 															>{`${leg.origin.name} (${leg.origin.code})`}</a>
-														) : (
+														) : leg.route !== "Brightline" ? (
 															<a
 																href={`https://www.amtrak.com/stations/${leg.origin.id}`}
 																rel="noreferrer"
 																target="_blank"
 															>{`${leg.origin.name} (${leg.origin.code})`}</a>
-														)}
+														) : (
+															<a
+																href={leg.origin.link}
+																rel="noreferrer"
+																target="_blank"
+															>{`${leg.origin.name} (${leg.origin.code})`}</a>)}
 													</div>
 												</div>
 												{leg.origin.connections &&
@@ -317,17 +322,9 @@ export default function Option({
 												<span>{getDuration(leg.elapsedSeconds)}</span>
 												<div>
 													<span>{leg.trainId}</span>
-													{leg.route === "Connecting Bus" ? (
-														<a
-															href="https://www.amtrak.com/thruway-connecting-services-multiply-your-travel-destinations"
-															rel="noreferrer"
-															target="_blank"
-														>
-															Connecting Bus
-														</a>
-													) : routesInfo[leg.route] ? (
+													{routesInfo[leg.route] ? (
 															<a
-																href={`https://www.amtrak.com/routes/${routesInfo[leg.route].link}${leg.route !== "Mardi Gras Service" ? "-train" : ""}`}
+																href={routesInfo[leg.route].link}
 																rel="noreferrer"
 																target="_blank"
 															>
@@ -362,19 +359,24 @@ export default function Option({
 													<div>
 														<span>{leg.arrivalDateTime.format("h:mm A")}</span>
 														<span className="dot">·</span>
-														{leg.destination.code !== "CBN" ? (
+														{leg.destination.code === "CBN" ? (
 															<a
 																href="https://www.amtrak.com/crossing-the-us-canadian-border"
 																rel="noreferrer"
 																target="_blank"
 															>{`${leg.destination.name} (${leg.destination.code})`}</a>
-														) : (
+														) : leg.route !== "Brightline" ? (
 															<a
 																href={`https://www.amtrak.com/stations/${leg.destination.id}`}
 																rel="noreferrer"
 																target="_blank"
 															>{`${leg.destination.name} (${leg.destination.code})`}</a>
-														)}
+														) : (
+															<a
+																href={leg.destination.link}
+																rel="noreferrer"
+																target="_blank"
+															>{`${leg.destination.name} (${leg.destination.code})`}</a>)}
 													</div>
 												</div>
 												{leg.destination.connections &&

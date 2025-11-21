@@ -1,6 +1,23 @@
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import Button from "@mui/material/Button";
 
+function translateBrightlineIDToCode(id) {
+	switch (id) {
+	case "ORLb":
+		return "MCO";
+	case "WPT":
+		return "WPB";
+	case "BOC":
+		return "RRN";
+	case "FTLb":
+		return "FBT";
+	case "MIAb":
+		return "EKW";
+	default:
+		return id; // leave Amtrak and other codes untouched
+	}
+}
+
 export default function AmtrakForm({
 	i,
 	option,
@@ -32,6 +49,17 @@ export default function AmtrakForm({
 	}
 
 	return (
+		(option.origin.routes.includes("Brightline") || option.destination.routes.includes("Brightline")) ?
+		<Button
+				endIcon={<OpenInNewIcon />}
+				href={`https://www.gobrightline.com/booking?from=${translateBrightlineIDToCode(option.origin.code)}&to=${translateBrightlineIDToCode(option.destination.code)}&adults=1&start_date=${option.departureDateTime.format("YYYY-MM-DD")}&end_date=${option.travelLegs.length > 1 ? option.arrivalDateTime.format("YYYY-MM-DD") : ""}`}
+				target="_blank"
+				rel="noopener noreferrer"
+				variant="outlined"
+				data-rybbit-event="book_amtrak_clicked"
+			>
+				Book on gobrightline.com
+			</Button> :
 		<form
 			action="https://www.amtrak.com/services/journeysearch"
 			id={`amtrak-form-${i}`}

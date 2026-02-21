@@ -46,9 +46,11 @@ export default function DelayInfo({ isDept, leg }) {
 								color,
 							}}
 						>
-							{` (${Math.abs(station.avgDelay)} min ${
-								station.avgDelay >= 0 ? "late" : "early"
-							})`}
+							{station.avgDelay === 0
+								? " (on time)"
+								: ` (${Math.abs(station.avgDelay)} min ${
+										station.avgDelay > 0 ? "late" : "early"
+								  })`}
 						</span>
 						<span style={{ color: "#9aa0a6" }}>{` ${
 							isDept ? "from" : "to"

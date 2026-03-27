@@ -19,7 +19,7 @@ nav a {
 	text-decoration: none;
 }
 
-nav > a:last-child {
+nav > a:nth-last-child(-n+2) {
 	display: flex;
 }
 

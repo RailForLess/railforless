@@ -15,6 +15,9 @@ export default function Navbar() {
 	return (
 		<header>
 			<nav>
+				<Link to={useLocation().pathname === "/alerts" ? "/" : "/alerts"}>
+					{useLocation().pathname === "/alerts" ? "Home" : "Price Alerts"}
+				</Link>
 				<Link to={useLocation().pathname === "/about" ? "/" : "/about"}>
 					{useLocation().pathname === "/about" ? "Home" : "About"}
 				</Link>

@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
+import Alerts from "./Alerts";
 import Home from "./Home";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
+import Subscribed from "./Subscribed";
+import Unsubscribed from "./Unsubscribed";
 import "./AppRouter.css";
 
 export default function AppRouter() {
@@ -40,6 +43,9 @@ export default function AppRouter() {
 						}
 					/>
 					<Route path="/about" element={<About />} />
+					<Route path="/alerts" element={<Alerts />} />
+					<Route path="/subscribed" element={<Subscribed />} />
+					<Route path="/unsubscribed" element={<Unsubscribed />} />
 					<Route
 						path="/:mode/*"
 						element={

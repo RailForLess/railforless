@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import About from "./About";
+import Footer from "./Footer";
 import Home from "./Home";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
+import Privacy from "./Privacy";
+import Subscribed from "./Subscribed";
+import Terms from "./Terms";
+import Unsubscribed from "./Unsubscribed";
 import "./AppRouter.css";
 
 export default function AppRouter() {
@@ -40,6 +45,11 @@ export default function AppRouter() {
 						}
 					/>
 					<Route path="/about" element={<About />} />
+					<Route path="/alerts" element={<Alerts />} />
+					<Route path="/privacy" element={<Privacy />} />
+					<Route path="/subscribed" element={<Subscribed />} />
+					<Route path="/terms" element={<Terms />} />
+					<Route path="/unsubscribed" element={<Unsubscribed />} />
 					<Route
 						path="/:mode/*"
 						element={
@@ -55,6 +65,7 @@ export default function AppRouter() {
 					/>
 					<Route path="*" element={<NotFound msg={"Invalid URL"} />} />
 				</Routes>
+				<Footer />
 			</BrowserRouter>
 			{searching && !searchError && !showTurnstile && searchAnimationsBool && (
 				<img alt="" id="acela" src="/images/acela.svg" />

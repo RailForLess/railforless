@@ -1,5 +1,4 @@
 import AppRouter from "./AppRouter";
-import Footer from "./Footer";
 import UpdateBar from "./UpdateBar";
 import "./App.css";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -32,7 +31,6 @@ export default function App() {
 				<div className="fade-in">
 					<UpdateBar />
 					<AppRouter />
-					<Footer />
 				</div>
 			</LocalizationProvider>
 		</ThemeProvider>

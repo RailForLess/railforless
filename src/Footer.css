@@ -25,26 +25,17 @@ footer > div {
 	gap: 0.5rem;
 }
 
-footer > span:first-child {
-	cursor: pointer;
-	text-decoration: underline;
-}
-
 .vertical-bar {
 	background-color: rgba(128, 128, 128, 0.5);
 	height: 1.25rem;
 	width: 1px;
 }
 
-#disclaimer a {
-	color: white;
-}
-
 @media all and (max-width: 800px) {
 	footer {
 		flex-direction: column;
 		gap: 1rem;
-		height: 10.5rem;
+		height: 12rem;
 	}
 
 	.vertical-bar {

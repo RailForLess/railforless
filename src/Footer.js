@@ -1,17 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 import DoneIcon from "@mui/icons-material/Done";
 import WarningAmberIcon from "@mui/icons-material/WarningAmber";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 
 export default function Footer() {
-	const [disclaimerOpen, setDisclaimerOpen] = useState(false);
-
 	const [status, setStatus] = useState(false);
 
 	useEffect(() => {
@@ -23,34 +16,9 @@ export default function Footer() {
 
 	return (
 		<footer>
-			<span onClick={() => setDisclaimerOpen(true)}>
-				Non-Affiliation Disclaimer
-			</span>
-			<Dialog
-				id="disclaimer"
-				onClose={() => setDisclaimerOpen(false)}
-				open={disclaimerOpen}
-			>
-				<DialogTitle>Non-Affiliation Disclaimer</DialogTitle>
-				<DialogContent>
-					<DialogContentText>
-						We are not affiliated, associated, authorized, endorsed by, or in
-						any way officially connected with Amtrak, or any of its subsidiaries
-						or its affiliates. The official Amtrak website can be found at{" "}
-						<a
-							href="https://www.amtrak.com"
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							https://www.amtrak.com
-						</a>
-						.
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions>
-					<Button onClick={() => setDisclaimerOpen(false)}>OK</Button>
-				</DialogActions>
-			</Dialog>
+			<Link to="/terms">Terms and Conditions</Link>
+			<div className="vertical-bar" />
+			<Link to="/privacy">Privacy Policy</Link>
 			<div className="vertical-bar" />
 			<span>
 				Site by{" "}

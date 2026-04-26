@@ -11,6 +11,7 @@ export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 	const graphYAxisFormatter = (fare) => (fare ? fareFormatter(fare) : null);
 	const graphYFormatter = (fare) =>
 		fare ? `As low as ${graphYAxisFormatter(fare)}` : "No options available";
+	const graphYValues = graphYData.filter((fare) => fare !== null);
 
 	const showMark = graphYData.some(
 		(y, i) =>
@@ -18,6 +19,10 @@ export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 			(graphYData[i - 1] ?? null) === null &&
 			(graphYData[i + 1] ?? null) === null
 	);
+
+	if (graphYValues.length === 0) {
+		return null;
+	}
 
 	return (
 		<Accordion defaultExpanded>
@@ -27,7 +32,9 @@ export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 			<AccordionDetails>
 				<div id="graph-container">
 					<LineChart
-						height={160}
+						height={224}
+						hideLegend
+						margin={{ top: 16, right: 16, bottom: 28, left: 56 }}
 						series={[
 							{
 								area: true,
@@ -37,6 +44,16 @@ export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 								valueFormatter: graphYFormatter,
 							},
 						]}
+						sx={{
+							width: "100%",
+							"& .MuiAreaElement-root": {
+								fill: "#4693FF",
+								fillOpacity: 0.12,
+							},
+							"& .MuiLineElement-root": {
+								stroke: "#4693FF",
+							},
+						}}
 						xAxis={[
 							{
 								data: graphXData,
@@ -47,25 +64,12 @@ export default function PriceGraph({ graphXData, graphYData, fareFormatter }) {
 						]}
 						yAxis={[
 							{
-								max: graphYData.reduce((a, b) => (a > b ? a : b)),
-								min: graphYData.reduce((a, b) => (a < b ? a : b)) * (3 / 4),
+								max: Math.max(...graphYValues),
+								min: Math.min(...graphYValues) * (3 / 4),
 								valueFormatter: graphYAxisFormatter,
 							},
 						]}
-					>
-						<linearGradient
-							id="graph-gradient"
-							x1="0%"
-							y1="0%"
-							x2="0%"
-							y2="100%"
-						>
-							<stop offset="0%" stopColor="#4693FF" stopOpacity="1"></stop>
-							<stop offset="40%" stopColor="#4693FF" stopOpacity="1"></stop>
-							<stop offset="60%" stopColor="#4693FF" stopOpacity="0"></stop>
-						</linearGradient>
-					</LineChart>
-					<div></div>
+					/>
 				</div>
 			</AccordionDetails>
 		</Accordion>

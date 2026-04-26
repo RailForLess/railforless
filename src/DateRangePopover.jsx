@@ -16,7 +16,7 @@ import { styled } from "@mui/material/styles";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
-import { PickersDay } from "@mui/x-date-pickers/PickersDay";
+import { PickerDay } from "@mui/x-date-pickers/PickerDay";
 import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 
 dayjs.extend(isSameOrAfter);
@@ -185,7 +185,7 @@ export default function DateRangePopover({
 		setHoverEndDate(dateRangeEnd);
 	}, [dateRangeEnd]);
 
-	const PickersDayStyled = styled(PickersDay)(({ theme }) => ({
+	const PickersDayStyled = styled(PickerDay)(({ theme }) => ({
 		"&.Mui-selected": {
 			backgroundColor: theme.palette.primary.main,
 			color: theme.palette.primary.contrastText,

@@ -1,1187 +1,1184 @@
+import { memo } from "react";
 import "./Hero.css";
 
-export default function Hero() {
-	return (
-		<div
-			dangerouslySetInnerHTML={{
-				__html: `<?xml version="1.0" encoding="UTF-8"?>
+const heroSvg = `<?xml version="1.0" encoding="UTF-8"?>
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1250.36 266.51">
                   <defs>
                     <style>
                       .cls-1 {
                         stroke-width: .49px;
                       }
-                
+
                       .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-16, .cls-17, .cls-18, .cls-19, .cls-20, .cls-21, .cls-22, .cls-23, .cls-24, .cls-25, .cls-26, .cls-27, .cls-28, .cls-29, .cls-30, .cls-31, .cls-32, .cls-33, .cls-34, .cls-35, .cls-36, .cls-37, .cls-38, .cls-39, .cls-40, .cls-41, .cls-42, .cls-43, .cls-44, .cls-45, .cls-46, .cls-47, .cls-48, .cls-49, .cls-50, .cls-51, .cls-52, .cls-53, .cls-54, .cls-55, .cls-56, .cls-57, .cls-58, .cls-59, .cls-60, .cls-61, .cls-62, .cls-63, .cls-64, .cls-65, .cls-66, .cls-67, .cls-68, .cls-69, .cls-70, .cls-71, .cls-72, .cls-73, .cls-74, .cls-75, .cls-76, .cls-77, .cls-78, .cls-79, .cls-80, .cls-81, .cls-82, .cls-83, .cls-84, .cls-85, .cls-86, .cls-87, .cls-88, .cls-89, .cls-90, .cls-91, .cls-92, .cls-93, .cls-94, .cls-95, .cls-96, .cls-97, .cls-98, .cls-99, .cls-100, .cls-101, .cls-102, .cls-103, .cls-104, .cls-105, .cls-106, .cls-107, .cls-108, .cls-109, .cls-110, .cls-111, .cls-112, .cls-113, .cls-114, .cls-115, .cls-116, .cls-117, .cls-118, .cls-119, .cls-120, .cls-121, .cls-122, .cls-123, .cls-124, .cls-125, .cls-126, .cls-127, .cls-128, .cls-129, .cls-130, .cls-131, .cls-132, .cls-133, .cls-134, .cls-135, .cls-136, .cls-137, .cls-138, .cls-139, .cls-140, .cls-141, .cls-142, .cls-143, .cls-144, .cls-145, .cls-146, .cls-147, .cls-148, .cls-149, .cls-150, .cls-151, .cls-152, .cls-153, .cls-154, .cls-155, .cls-156, .cls-157, .cls-158, .cls-159, .cls-160, .cls-161, .cls-162, .cls-163, .cls-164, .cls-165, .cls-166, .cls-167, .cls-168, .cls-169, .cls-170, .cls-171, .cls-172, .cls-173, .cls-174, .cls-175, .cls-176, .cls-177, .cls-178, .cls-179, .cls-180, .cls-181, .cls-182, .cls-183, .cls-184, .cls-185, .cls-186, .cls-187, .cls-188, .cls-189, .cls-190, .cls-191, .cls-192, .cls-193, .cls-194, .cls-195, .cls-196, .cls-197, .cls-198, .cls-199, .cls-200, .cls-201, .cls-202, .cls-203, .cls-204, .cls-205, .cls-206, .cls-207, .cls-208, .cls-209, .cls-210, .cls-211, .cls-212, .cls-213, .cls-214, .cls-215, .cls-216, .cls-217, .cls-218, .cls-219, .cls-220, .cls-221, .cls-222, .cls-223, .cls-224, .cls-225, .cls-226, .cls-227, .cls-228, .cls-229, .cls-230, .cls-231, .cls-232, .cls-233, .cls-234, .cls-235, .cls-236, .cls-237, .cls-238, .cls-239, .cls-240, .cls-241, .cls-242, .cls-243, .cls-244, .cls-245, .cls-246, .cls-247, .cls-248, .cls-249, .cls-250, .cls-251, .cls-252, .cls-253, .cls-254, .cls-255, .cls-256, .cls-257, .cls-258, .cls-259, .cls-260, .cls-261, .cls-262, .cls-263, .cls-264, .cls-265, .cls-266, .cls-267 {
                         fill: none;
                       }
-                
+
                       .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-16, .cls-17, .cls-18, .cls-19, .cls-20, .cls-21, .cls-22, .cls-23, .cls-24, .cls-25, .cls-26, .cls-27, .cls-28, .cls-29, .cls-30, .cls-31, .cls-32, .cls-33, .cls-34, .cls-35, .cls-37, .cls-38, .cls-39, .cls-40, .cls-41, .cls-42, .cls-43, .cls-44, .cls-45, .cls-46, .cls-47, .cls-48, .cls-49, .cls-50, .cls-51, .cls-52, .cls-53, .cls-54, .cls-55, .cls-56, .cls-57, .cls-58, .cls-59, .cls-60, .cls-61, .cls-62, .cls-63, .cls-64, .cls-65, .cls-66, .cls-67, .cls-68, .cls-69, .cls-70, .cls-71, .cls-72, .cls-73, .cls-74, .cls-75, .cls-76, .cls-77, .cls-78, .cls-79, .cls-80, .cls-81, .cls-82, .cls-83, .cls-84, .cls-85, .cls-86, .cls-87, .cls-88, .cls-89, .cls-90, .cls-91, .cls-92, .cls-93, .cls-94, .cls-95, .cls-96, .cls-97, .cls-98, .cls-99, .cls-100, .cls-101, .cls-102, .cls-103, .cls-104, .cls-105, .cls-106, .cls-107, .cls-108, .cls-109, .cls-110, .cls-111, .cls-112, .cls-113, .cls-114, .cls-115, .cls-116, .cls-117, .cls-118, .cls-119, .cls-120, .cls-121, .cls-122, .cls-123, .cls-124, .cls-125, .cls-126, .cls-127, .cls-128, .cls-129, .cls-130, .cls-131, .cls-132, .cls-133, .cls-134, .cls-135, .cls-136, .cls-137, .cls-138, .cls-139, .cls-140, .cls-141, .cls-142, .cls-143, .cls-144, .cls-145, .cls-146, .cls-147, .cls-148, .cls-149, .cls-150, .cls-151, .cls-152, .cls-153, .cls-154, .cls-155, .cls-156, .cls-157, .cls-158, .cls-159, .cls-160, .cls-161, .cls-162, .cls-163, .cls-164, .cls-165, .cls-166, .cls-167, .cls-168, .cls-169, .cls-170, .cls-171, .cls-172, .cls-173, .cls-174, .cls-175, .cls-176, .cls-177, .cls-178, .cls-179, .cls-180, .cls-181, .cls-182, .cls-183, .cls-184, .cls-185, .cls-186, .cls-187, .cls-188, .cls-189, .cls-190, .cls-191, .cls-192, .cls-193, .cls-194, .cls-195, .cls-196, .cls-197, .cls-198, .cls-199, .cls-200, .cls-201, .cls-202, .cls-203, .cls-204, .cls-205, .cls-206, .cls-207, .cls-208, .cls-209, .cls-210, .cls-211, .cls-212, .cls-213, .cls-214, .cls-215, .cls-216, .cls-217, .cls-218, .cls-219, .cls-220, .cls-221, .cls-222, .cls-223, .cls-224, .cls-225, .cls-226, .cls-227, .cls-228, .cls-229, .cls-230, .cls-231, .cls-232, .cls-233, .cls-234, .cls-235, .cls-236, .cls-237, .cls-238, .cls-239, .cls-240, .cls-241, .cls-242, .cls-243, .cls-244, .cls-245, .cls-246, .cls-247, .cls-248, .cls-249, .cls-250, .cls-251, .cls-252, .cls-253, .cls-254, .cls-255, .cls-256, .cls-257, .cls-258, .cls-259, .cls-260, .cls-261, .cls-262, .cls-263, .cls-264, .cls-265, .cls-266, .cls-267 {
                         stroke-miterlimit: 10;
                       }
-                
+
                       .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10, .cls-11, .cls-12, .cls-13, .cls-14, .cls-15, .cls-16, .cls-17, .cls-18, .cls-19, .cls-20, .cls-21, .cls-22, .cls-23, .cls-24, .cls-25, .cls-26, .cls-27, .cls-28, .cls-29, .cls-30, .cls-31, .cls-32, .cls-33, .cls-34, .cls-35, .cls-37, .cls-38, .cls-39, .cls-40, .cls-41, .cls-42, .cls-43, .cls-44, .cls-46, .cls-47, .cls-48, .cls-49, .cls-50, .cls-51, .cls-52, .cls-53, .cls-54, .cls-55, .cls-56, .cls-57, .cls-58, .cls-59, .cls-60, .cls-61, .cls-62, .cls-63, .cls-64, .cls-65, .cls-66, .cls-67, .cls-68, .cls-69, .cls-70, .cls-71, .cls-72, .cls-73, .cls-74, .cls-75, .cls-76, .cls-77, .cls-78, .cls-79, .cls-80, .cls-81, .cls-82, .cls-83, .cls-84, .cls-85, .cls-86, .cls-87, .cls-88, .cls-89, .cls-90, .cls-91, .cls-92, .cls-93, .cls-94, .cls-95, .cls-96, .cls-97, .cls-98, .cls-99, .cls-100, .cls-101, .cls-102, .cls-103, .cls-104, .cls-105, .cls-106, .cls-107, .cls-108, .cls-109, .cls-110, .cls-111, .cls-112, .cls-113, .cls-114, .cls-115, .cls-116, .cls-117, .cls-118, .cls-119, .cls-120, .cls-121, .cls-122, .cls-123, .cls-124, .cls-125, .cls-126, .cls-127, .cls-128, .cls-129, .cls-130, .cls-131, .cls-132, .cls-133, .cls-134, .cls-135, .cls-136, .cls-137, .cls-138, .cls-139, .cls-140, .cls-141, .cls-142, .cls-143, .cls-144, .cls-145, .cls-146, .cls-147, .cls-148, .cls-149, .cls-150, .cls-151, .cls-152, .cls-153, .cls-154, .cls-155, .cls-156, .cls-157, .cls-158, .cls-159, .cls-160, .cls-161, .cls-162, .cls-163, .cls-164, .cls-165, .cls-166, .cls-167, .cls-168, .cls-169, .cls-170, .cls-171, .cls-172, .cls-173, .cls-174, .cls-175, .cls-176, .cls-177, .cls-178, .cls-179, .cls-180, .cls-181, .cls-182, .cls-183, .cls-184, .cls-185, .cls-186, .cls-187, .cls-188, .cls-189, .cls-190, .cls-191, .cls-192, .cls-193, .cls-194, .cls-195, .cls-196, .cls-198, .cls-199, .cls-200, .cls-201, .cls-202, .cls-203, .cls-204, .cls-205, .cls-206, .cls-207, .cls-208, .cls-209, .cls-210, .cls-211, .cls-212, .cls-213, .cls-214, .cls-215, .cls-216, .cls-217, .cls-218, .cls-219, .cls-220, .cls-221, .cls-222, .cls-223, .cls-224, .cls-225, .cls-226, .cls-227, .cls-228, .cls-229, .cls-230, .cls-231, .cls-232, .cls-233, .cls-234, .cls-235, .cls-236, .cls-237, .cls-238, .cls-239, .cls-240, .cls-241, .cls-242, .cls-243, .cls-244, .cls-245, .cls-246, .cls-247, .cls-248, .cls-249, .cls-250, .cls-251, .cls-252, .cls-253, .cls-254, .cls-255, .cls-256, .cls-257, .cls-258, .cls-259, .cls-260, .cls-261, .cls-262, .cls-263, .cls-264, .cls-265, .cls-266, .cls-267 {
                         stroke: #fff;
                       }
-                
+
                       .cls-2 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-3 {
                         stroke-width: .32px;
                       }
-                
+
                       .cls-4 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-5 {
                         stroke-width: .2px;
                       }
-                
+
                       .cls-6 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-7 {
                         stroke-width: .5px;
                       }
-                
+
                       .cls-8 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-268 {
                         fill: #f9f6fc;
                       }
-                
+
                       .cls-268, .cls-269, .cls-270, .cls-271, .cls-272, .cls-273, .cls-274, .cls-275, .cls-276, .cls-277, .cls-278, .cls-279, .cls-280, .cls-281, .cls-282, .cls-283, .cls-284, .cls-285, .cls-286, .cls-287, .cls-288, .cls-289, .cls-290 {
                         stroke-width: 0px;
                       }
-                
+
                       .cls-9 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-10 {
                         stroke-width: .41px;
                       }
-                
+
                       .cls-11 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-12 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-13 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-14 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-15 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-269 {
                         fill: url(#linear-gradient);
                       }
-                
+
                       .cls-16 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-270 {
                         fill: #606060;
                       }
-                
+
                       .cls-17 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-18 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-19 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-271 {
                         fill: #525251;
                       }
-                
+
                       .cls-20 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-21 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-22 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-23 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-24 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-25 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-26 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-27 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-28 {
                         stroke-width: .2px;
                       }
-                
+
                       .cls-29 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-30 {
                         stroke-width: .32px;
                       }
-                
+
                       .cls-31 {
                         stroke-width: .41px;
                       }
-                
+
                       .cls-32 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-33 {
                         stroke-width: .48px;
                       }
-                
+
                       .cls-34 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-35 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-36 {
                         stroke-linecap: round;
                         stroke-linejoin: round;
                         stroke-width: .5px;
                       }
-                
+
                       .cls-36, .cls-45, .cls-197 {
                         stroke: #e76a34;
                       }
-                
+
                       .cls-37 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-38 {
                         stroke-width: .42px;
                       }
-                
+
                       .cls-39 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-40 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-41 {
                         stroke-width: .48px;
                       }
-                
+
                       .cls-42 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-43 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-44 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-45 {
                         stroke-width: 3px;
                       }
-                
+
                       .cls-46 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-47 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-48 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-272 {
                         fill: #e76a34;
                       }
-                
+
                       .cls-49 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-50 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-51 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-52 {
                         stroke-width: .29px;
                       }
-                
+
                       .cls-53 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-54 {
                         stroke-width: .32px;
                       }
-                
+
                       .cls-55 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-56 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-57 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-58 {
                         stroke-width: .32px;
                       }
-                
+
                       .cls-59 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-273 {
                         fill: #3c4043;
                       }
-                
+
                       .cls-60 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-61 {
                         stroke-width: .2px;
                       }
-                
+
                       .cls-62 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-63 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-64 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-65 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-66 {
                         stroke-width: .29px;
                       }
-                
+
                       .cls-67 {
                         stroke-width: .42px;
                       }
-                
+
                       .cls-68 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-69 {
                         stroke-width: .4px;
                       }
-                
+
                       .cls-70 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-71 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-274 {
                         fill: #080b0c;
                       }
-                
+
                       .cls-72 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-73 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-74 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-75 {
                         stroke-width: .32px;
                       }
-                
+
                       .cls-76 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-77 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-78 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-79 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-80 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-275 {
                         fill: #fafaf8;
                       }
-                
+
                       .cls-81 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-82 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-83 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-84 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-85 {
                         stroke-width: .29px;
                       }
-                
+
                       .cls-86 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-87 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-276 {
                         fill: #ff0;
                       }
-                
+
                       .cls-88 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-277 {
                         fill: #67c2e9;
                       }
-                
+
                       .cls-89 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-90 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-91 {
                         stroke-width: .4px;
                       }
-                
+
                       .cls-92 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-93 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-94 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-95 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-96 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-97 {
                         stroke-width: .49px;
                       }
-                
+
                       .cls-98 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-99 {
                         stroke-width: .2px;
                       }
-                
+
                       .cls-100 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-101 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-102 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-103 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-104 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-105 {
                         stroke-width: .4px;
                       }
-                
+
                       .cls-106 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-107 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-108 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-109 {
                         stroke-width: .49px;
                       }
-                
+
                       .cls-110 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-111 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-112 {
                         stroke-width: .42px;
                       }
-                
+
                       .cls-113 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-114 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-115 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-116 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-117 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-118 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-119 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-120 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-121 {
                         stroke-width: .42px;
                       }
-                
+
                       .cls-122 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-123 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-278 {
                         fill: #ccc;
                       }
-                
+
                       .cls-124 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-125 {
                         stroke-width: .42px;
                       }
-                
+
                       .cls-126 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-127 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-128 {
                         stroke-width: .5px;
                       }
-                
+
                       .cls-129 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-130 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-131 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-132 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-133 {
                         stroke-width: .28px;
                       }
-                
+
                       .cls-134 {
                         stroke-width: .28px;
                       }
-                
+
                       .cls-135 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-136 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-137 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-138 {
                         stroke-width: .49px;
                       }
-                
+
                       .cls-139 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-279 {
                         fill: #fff;
                       }
-                
+
                       .cls-140 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-141 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-142 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-143 {
                         stroke-width: .41px;
                       }
-                
+
                       .cls-144 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-145 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-146 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-147 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-148 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-149 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-150 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-151 {
                         stroke-width: .28px;
                       }
-                
+
                       .cls-152 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-280 {
                         fill: #1b3572;
                       }
-                
+
                       .cls-153 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-154 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-155 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-156 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-157 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-158 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-159 {
                         stroke-width: .28px;
                       }
-                
+
                       .cls-281 {
                         fill: #aa1d2a;
                       }
-                
+
                       .cls-160 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-161 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-162 {
                         stroke-width: .48px;
                       }
-                
+
                       .cls-163 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-164 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-165 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-166 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-167 {
                         stroke-width: .42px;
                       }
-                
+
                       .cls-168 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-282 {
                         fill: #bfcc20;
                       }
-                
+
                       .cls-169 {
                         stroke-width: .2px;
                       }
-                
+
                       .cls-170 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-171 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-172 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-173 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-174 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-175 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-283 {
                         fill: #3b95c5;
                       }
-                
+
                       .cls-176 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-177 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-178 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-179 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-284 {
                         fill: #b4b5b5;
                       }
-                
+
                       .cls-180 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-181 {
                         stroke-width: .48px;
                       }
-                
+
                       .cls-182 {
                         stroke-width: .45px;
                       }
-                
+
                       .cls-183 {
                         stroke-width: .29px;
                       }
-                
+
                       .cls-184 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-185 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-186 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-187 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-188 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-189 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-190 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-191 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-192 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-193 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-194 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-195 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-196 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-198 {
                         stroke-width: .41px;
                       }
-                
+
                       .cls-199 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-200 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-285 {
                         fill: #405485;
                       }
-                
+
                       .cls-201 {
                         stroke-width: .49px;
                       }
-                
+
                       .cls-202 {
                         stroke-width: .4px;
                       }
-                
+
                       .cls-203 {
                         stroke-width: .29px;
                       }
-                
+
                       .cls-204 {
                         stroke-width: .49px;
                       }
-                
+
                       .cls-205 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-206 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-207 {
                         stroke-width: .5px;
                       }
-                
+
                       .cls-208 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-209 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-286 {
                         fill: #464d19;
                       }
-                
+
                       .cls-210 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-211 {
                         stroke-width: .33px;
                       }
-                
+
                       .cls-212 {
                         stroke-width: .41px;
                       }
-                
+
                       .cls-213 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-214 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-215 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-216 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-217 {
                         stroke-width: .41px;
                       }
-                
+
                       .cls-218 {
                         stroke-width: .28px;
                       }
-                
+
                       .cls-287 {
                         fill: #4ab7ab;
                       }
-                
+
                       .cls-219 {
                         stroke-width: .38px;
                       }
-                
+
                       .cls-288 {
                         fill: #333812;
                       }
-                
+
                       .cls-220 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-221 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-222 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-223 {
                         stroke-width: .27px;
                       }
-                
+
                       .cls-224 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-225 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-226 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-227 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-228 {
                         stroke-width: .28px;
                       }
-                
+
                       .cls-229 {
                         stroke-width: .22px;
                       }
-                
+
                       .cls-230 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-231 {
                         stroke-width: .26px;
                       }
-                
+
                       .cls-232 {
                         stroke-width: .47px;
                       }
-                
+
                       .cls-233 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-234 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-235 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-236 {
                         stroke-width: .23px;
                       }
-                
+
                       .cls-237 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-238 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-289 {
                         fill: #e8e6e6;
                       }
-                
+
                       .cls-239 {
                         stroke-width: .21px;
                       }
-                
+
                       .cls-240 {
                         stroke-width: .46px;
                       }
-                
+
                       .cls-241 {
                         stroke-width: .48px;
                       }
-                
+
                       .cls-242 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-243 {
                         stroke-width: .25px;
                       }
-                
+
                       .cls-244 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-245 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-246 {
                         stroke-width: .48px;
                       }
-                
+
                       .cls-247 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-248 {
                         stroke-width: .37px;
                       }
-                
+
                       .cls-249 {
                         stroke-width: .32px;
                       }
-                
+
                       .cls-250 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-251 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-252 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-253 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-254 {
                         stroke-width: .3px;
                       }
-                
+
                       .cls-255 {
                         stroke-width: .4px;
                       }
-                
+
                       .cls-256 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-257 {
                         stroke-width: .39px;
                       }
-                
+
                       .cls-290 {
                         fill: #f2f2f2;
                       }
-                
+
                       .cls-258 {
                         stroke-width: .28px;
                       }
-                
+
                       .cls-259 {
                         stroke-width: .31px;
                       }
-                
+
                       .cls-260 {
                         stroke-width: .5px;
                       }
-                
+
                       .cls-261 {
                         stroke-width: .35px;
                       }
-                
+
                       .cls-262 {
                         stroke-width: .36px;
                       }
-                
+
                       .cls-263 {
                         stroke-width: .24px;
                       }
-                
+
                       .cls-264 {
                         stroke-width: .43px;
                       }
-                
+
                       .cls-265 {
                         stroke-width: .44px;
                       }
-                
+
                       .cls-266 {
                         stroke-width: .34px;
                       }
-                
+
                       .cls-267 {
                         stroke-width: .31px;
                       }
@@ -2436,8 +2433,10 @@ export default function Hero() {
                       <path class="cls-274" d="M37.74,213.07v-2.63h4.85c.04.83.09,1.69.14,2.63h-4.99Z"/>
                     </g>
                   </g>
-                </svg>`,
-			}}
-		></div>
-	);
+                </svg>`;
+
+function Hero() {
+	return <div dangerouslySetInnerHTML={{ __html: heroSvg }}></div>;
 }
+
+export default memo(Hero);

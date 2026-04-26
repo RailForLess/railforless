@@ -22,7 +22,7 @@ export default function Navbar() {
 				<a href="mailto:info@railforless.us">Contact</a>
 				<a
 					href={`https://github.com/RailForLess/railforless${
-						process.env.REACT_APP_API_DOMAIN.includes("dev") ? "/tree/dev" : ""
+						import.meta.env.VITE_API_DOMAIN.includes("dev") ? "/tree/dev" : ""
 					}`}
 					rel="noopener noreferrer"
 					target="_blank"

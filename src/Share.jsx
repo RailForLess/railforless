@@ -22,7 +22,7 @@ export default function Share({
 	const [copy, setCopy] = useState(false);
 	const [search, setSearch] = useState(false);
 
-	const domain = process.env.REACT_APP_API_DOMAIN.replace("api.", "");
+	const domain = import.meta.env.VITE_API_DOMAIN.replace("api.", "");
 	const match = window.location.href.match(/\/(cached\/.*)/);
 	const link = match
 		? !search

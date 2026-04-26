@@ -20,7 +20,7 @@ export default function Donation({ defaultExpanded = false }) {
 
 	useEffect(() => {
 		async function getData() {
-			const res = await fetch(`${process.env.REACT_APP_API_DOMAIN}/donations`);
+			const res = await fetch(`${import.meta.env.VITE_API_DOMAIN}/donations`);
 			if (res.ok) {
 				setDonations(await res.json());
 			}

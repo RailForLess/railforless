@@ -63,7 +63,7 @@
 	background-color: transparent !important;
 }
 
-.select svg[data-testid="PersonOutlineIcon"] {
+.select svg[data-testid="PersonOutlineOutlinedIcon"] {
 	max-height: 1.25rem;
 }
 

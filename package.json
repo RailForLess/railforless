@@ -1,52 +1,48 @@
 {
-	"name": "railforless",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@emotion/react": "^11.11.1",
-		"@emotion/styled": "^11.11.0",
-		"@mui/icons-material": "^5.14.16",
-		"@mui/material": "^5.14.17",
-		"@mui/x-charts": "^6.19.4",
-		"@mui/x-date-pickers": "^6.20.2",
-		"@testing-library/jest-dom": "^5.16.5",
-		"@testing-library/react": "^13.4.0",
-		"@testing-library/user-event": "^13.5.0",
-		"d3": "^7.8.5",
-		"dayjs": "^1.11.10",
-		"js-cookie": "^3.0.5",
-		"railforless": "file:",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.4.2",
-		"react-scripts": "^5.0.1",
-		"web-vitals": "^2.1.4"
-	},
-	"scripts": {
-		"start": "react-scripts start",
-		"build": "CI=false && react-scripts build",
-		"test": "react-scripts test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
 	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
 		"development": [
 			"last 1 chrome version",
 			"last 1 firefox version",
 			"last 1 safari version"
+		],
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
 		]
 	},
+	"dependencies": {
+		"@emotion/react": "^11.14.0",
+		"@emotion/styled": "^11.14.1",
+		"@mui/icons-material": "^9.0.0",
+		"@mui/material": "^9.0.0",
+		"@mui/x-charts": "^9.0.2",
+		"@mui/x-date-pickers": "^9.0.2",
+		"@testing-library/dom": "^10.4.1",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@testing-library/user-event": "^14.6.1",
+		"d3": "^7.8.5",
+		"dayjs": "^1.11.10",
+		"js-cookie": "^3.0.5",
+		"railforless": "file:",
+		"react": "^19.2.5",
+		"react-dom": "^19.2.5",
+		"react-router-dom": "^6.4.2",
+		"web-vitals": "^2.1.4"
+	},
 	"devDependencies": {
-		"@babel/plugin-proposal-private-property-in-object": "^7.21.11"
-	}
+		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+		"@vitejs/plugin-react": "^6.0.1",
+		"vite": "^8.0.10"
+	},
+	"name": "railforless",
+	"private": true,
+	"scripts": {
+		"build": "vite build",
+		"dev": "vite",
+		"preview": "vite preview",
+		"start": "vite"
+	},
+	"version": "0.1.0"
 }

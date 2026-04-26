@@ -155,7 +155,7 @@ export default function Form({
 				.utc()
 				.isSameOrBefore(
 					dayjs.utc().startOf("d").add(11, "M").subtract(2, "d"),
-					"d"
+					"d",
 				) ||
 			!dayjs(dates[1], "M/D/YY", true)
 				.utc()
@@ -183,7 +183,7 @@ export default function Form({
 		if (mode === "cached") {
 			if (stations.length > 0 && fares.length === 0 && checkCacheId()) {
 				let res = await fetch(
-					`${process.env.REACT_APP_API_DOMAIN}/cached/${id}`
+					`${import.meta.env.VITE_API_DOMAIN}/cached/${id}`,
 				);
 				if (res.status !== 200) {
 					setNotFound(true, "Cached search not found");
@@ -198,7 +198,7 @@ export default function Form({
 				setRoundTrip(cached.roundTrip);
 				setOrigin(stations.find((station) => station.id === cached.origin));
 				setDestination(
-					stations.find((station) => station.id === cached.destination)
+					stations.find((station) => station.id === cached.destination),
 				);
 				setDateRangeStart(dayjs(cached.startDate).utc());
 				setDateRangeEnd(dayjs(cached.endDate).utc());
@@ -212,25 +212,25 @@ export default function Form({
 				setRoundTrip(id.split("_").length === 2);
 				setOrigin(
 					stations.find(
-						(station) => station.id === id.split("_")[0].split("-")[0]
-					)
+						(station) => station.id === id.split("_")[0].split("-")[0],
+					),
 				);
 				setDestination(
 					stations.find(
-						(station) => station.id === id.split("_")[0].split("-")[1]
-					)
+						(station) => station.id === id.split("_")[0].split("-")[1],
+					),
 				);
 				setDateRangeStart(
-					dayjs(id.split("_")[1].split("-")[0], "M/D/YY", true).utc()
+					dayjs(id.split("_")[1].split("-")[0], "M/D/YY", true).utc(),
 				);
 				setDateRangeEnd(
-					dayjs(id.split("_")[1].split("-")[1], "M/D/YY", true).utc()
+					dayjs(id.split("_")[1].split("-")[1], "M/D/YY", true).utc(),
 				);
 				setDateRangeStartSearch(
-					dayjs(id.split("_")[1].split("-")[0], "M/D/YY", true).utc()
+					dayjs(id.split("_")[1].split("-")[0], "M/D/YY", true).utc(),
 				);
 				setDateRangeEndSearch(
-					dayjs(id.split("_")[1].split("-")[1], "M/D/YY", true).utc()
+					dayjs(id.split("_")[1].split("-")[1], "M/D/YY", true).utc(),
 				);
 
 				setSearchSnackbar(true);
@@ -268,32 +268,32 @@ export default function Form({
 	const [remindAddAccommsBool, setRemindAddAccommsBool] = useState(
 		localStorage.getItem("remindAddAccomms")
 			? JSON.parse(localStorage.getItem("remindAddAccomms"))
-			: true
+			: true,
 	);
 
 	const [geolocateBool, setGeolocateBool] = useState(
 		localStorage.getItem("geolocate")
 			? JSON.parse(localStorage.getItem("geolocate"))
-			: true
+			: true,
 	);
 
 	const [nearbyCitiesBool, setNearbyCitiesBool] = useState(
 		localStorage.getItem("nearbyCities")
 			? JSON.parse(localStorage.getItem("nearbyCities"))
-			: true
+			: true,
 	);
 
 	const [stationFormat, setStationFormat] = useState(
 		localStorage.getItem("stationFormat")
 			? localStorage.getItem("stationFormat")
-			: "name-and-code"
+			: "name-and-code",
 	);
 
 	async function geolocate(stationsData) {
 		if (localStorage.getItem("geolocate") === "false" || origin) {
 			return;
 		}
-		let res = await fetch(`${process.env.REACT_APP_API_DOMAIN}/geolocate`);
+		let res = await fetch(`${import.meta.env.VITE_API_DOMAIN}/geolocate`);
 		if (res.status !== 200) {
 			return;
 		}
@@ -306,7 +306,7 @@ export default function Form({
 			.sort(
 				(a, b) =>
 					Math.sqrt((a.lon - res.lon) ** 2 + (a.lat - res.lat) ** 2) -
-					Math.sqrt((b.lon - res.lon) ** 2 + (b.lat - res.lat) ** 2)
+					Math.sqrt((b.lon - res.lon) ** 2 + (b.lat - res.lat) ** 2),
 			)
 			.slice(0, 5)
 			.map((station) => ({ ...station, group: "Nearby" }))
@@ -314,7 +314,7 @@ export default function Form({
 		if (
 			Math.sqrt(
 				(sortedStationsData[0].lon - res.lon) ** 2 +
-					(sortedStationsData[0].lat - res.lat) ** 2
+					(sortedStationsData[0].lat - res.lat) ** 2,
 			) >= 4
 		) {
 			return;
@@ -333,12 +333,12 @@ export default function Form({
 			localStorage.setItem("nearbyCities", "true");
 			localStorage.setItem(
 				"stationFormat",
-				window.innerWidth > 480 ? "name-and-code" : "name-only"
+				window.innerWidth > 480 ? "name-and-code" : "name-only",
 			);
 			localStorage.setItem("searchAnimations", "true");
 		}
 
-		fetch(`${process.env.REACT_APP_API_DOMAIN}/stations`)
+		fetch(`${import.meta.env.VITE_API_DOMAIN}/stations`)
 			.then((res) => res.json())
 			.then((data) => {
 				data = data
@@ -352,7 +352,7 @@ export default function Form({
 	}
 
 	useEffect(() => {
-		if (process.env.REACT_APP_API_DOMAIN.includes("dev")) {
+		if (import.meta.env.VITE_API_DOMAIN.includes("dev")) {
 			setDevDialog(true);
 		} else {
 			startup();
@@ -431,7 +431,7 @@ export default function Form({
 					return res(token);
 				},
 				"refresh-expired": "never",
-				sitekey: "0x4AAAAAAAQXqospSaYctMbi",
+				sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY,
 			});
 		});
 	}
@@ -445,19 +445,18 @@ export default function Form({
 
 		if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
 			if (!Cookies.get("token")) {
+				const token = await getTurnstileToken();
 				const tokenResponse = await fetch(
-					`${process.env.REACT_APP_API_DOMAIN}/authorize`,
+					`${import.meta.env.VITE_API_DOMAIN}/authorize`,
 					{
-						headers: process.env.REACT_APP_AUTH_KEY
-							? { "railforless-auth": process.env.REACT_APP_AUTH_KEY }
-							: { "auth-turnstile": await getTurnstileToken() },
-					}
+						headers: { "auth-turnstile": token },
+					},
 				);
 				if (tokenResponse.status !== 200) {
 					setProgressText(
 						tokenResponse.status === 401
 							? "Turnstile validation failed"
-							: `API connection failed with HTTP status ${tokenResponse.status}`
+							: `API connection failed with HTTP status ${tokenResponse.status}`,
 					);
 					setSearchError(true);
 					return;
@@ -470,10 +469,10 @@ export default function Form({
 				});
 			}
 			wsRef.current = new WebSocket(
-				`${process.env.REACT_APP_API_DOMAIN.replace(
+				`${import.meta.env.VITE_API_DOMAIN.replace(
 					/^http(s)?:\/\//,
-					"ws$1://"
-				)}/connect?token=${Cookies.get("token")}`
+					"ws$1://",
+				)}/connect?token=${Cookies.get("token")}`,
 			);
 		}
 		setShowTurnstile(false);
@@ -520,7 +519,7 @@ export default function Form({
 				return;
 			} else {
 				setProgressText(
-					Array.isArray(data.message) ? data.message[0].message : data.message
+					Array.isArray(data.message) ? data.message[0].message : data.message,
 				);
 				setSearchError(true);
 			}
@@ -537,7 +536,7 @@ export default function Form({
 		setRemindAddAccommsBool(!remindAddAccommsBool);
 		localStorage.setItem(
 			"remindAddAccomms",
-			JSON.stringify(!remindAddAccommsBool)
+			JSON.stringify(!remindAddAccommsBool),
 		);
 	}
 
@@ -826,7 +825,11 @@ export default function Form({
 				</Dialog>
 				<Snackbar
 					action={
-						<Button onClick={handleCancelSearch} variant="contained" data-rybbit-event="cancel">
+						<Button
+							onClick={handleCancelSearch}
+							variant="contained"
+							data-rybbit-event="cancel"
+						>
 							Cancel
 						</Button>
 					}

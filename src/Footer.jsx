@@ -16,7 +16,7 @@ export default function Footer() {
 
 	useEffect(() => {
 		async function checkStatus() {
-			setStatus((await fetch(`${process.env.REACT_APP_API_DOMAIN}/status`)).ok);
+			setStatus((await fetch(`${import.meta.env.VITE_API_DOMAIN}/status`)).ok);
 		}
 		checkStatus();
 	}, []);

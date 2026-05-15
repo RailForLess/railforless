@@ -39,6 +39,7 @@ export const routesInfo = {
 		icon: "💦",
 		link: "https://www.amtrak.com/lincoln-service-missouri-river-runner-train",
 	},
+	NA: { icon: "❓", link: "https://www.amtrak.com" },
 	"Northeast Regional": { icon: "🌆", link: "https://www.amtrak.com/northeast-regional-train" },
 	"Pacific Surfliner": { icon: "🏄‍♂️", link: "https://www.amtrak.com/pacific-surfliner-train" },
 	Palmetto: { icon: "🌿", link: "https://www.amtrak.com/silver-service-palmetto-train" },

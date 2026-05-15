@@ -1,0 +1,36 @@
+#legal-container {
+	gap: 1.5rem;
+	padding: 2rem 0;
+}
+
+#legal-container .section-container {
+	align-items: flex-start;
+	gap: 1rem;
+	padding: 1.5rem 2rem;
+}
+
+#legal-container .section-container h1 {
+	align-self: center;
+	font-size: 1.75rem;
+	text-align: center;
+}
+
+#legal-container .section-container h3 {
+	font-size: 1.1rem;
+	font-weight: 600;
+}
+
+#legal-container .section-container p,
+#legal-container .section-container ul {
+	font-size: 0.9rem;
+	line-height: 1.5;
+	text-align: left;
+}
+
+#legal-container .section-container ul {
+	padding-left: 1.25rem;
+}
+
+#legal-container .section-container ul li {
+	margin-bottom: 0.4rem;
+}

@@ -44,11 +44,9 @@ export default function Alerts() {
 	const [priceThreshold, setPriceThreshold] = useState("");
 	const [singleDay, setSingleDay] = useState(false);
 	const [startDate, setStartDate] = useState(
-		dayjs.utc().startOf("d").add(1, "d")
+		dayjs.utc().startOf("d").add(1, "d"),
 	);
-	const [endDate, setEndDate] = useState(
-		dayjs.utc().startOf("d").add(7, "d")
-	);
+	const [endDate, setEndDate] = useState(dayjs.utc().startOf("d").add(7, "d"));
 
 	const [showTurnstile, setShowTurnstile] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
@@ -117,11 +115,7 @@ export default function Alerts() {
 		errorText = "Select a destination station";
 	} else if (origin.id === destination.id) {
 		errorText = "Origin and destination must be different";
-	} else if (
-		!priceThreshold ||
-		isNaN(priceNum) ||
-		priceNum <= 0
-	) {
+	} else if (!priceThreshold || isNaN(priceNum) || priceNum <= 0) {
 		errorText = "Enter a price threshold greater than $0";
 	} else if (startDate.isBefore(today, "d")) {
 		errorText = "Start date must be today or later";
@@ -190,7 +184,7 @@ export default function Alerts() {
 						"auth-turnstile": token,
 					},
 					body: JSON.stringify(body),
-				}
+				},
 			);
 			if (res.status === 201) {
 				setSuccess(true);
@@ -204,7 +198,7 @@ export default function Alerts() {
 								.map((err) =>
 									typeof err === "string"
 										? err
-										: err.message || JSON.stringify(err)
+										: err.message || JSON.stringify(err),
 								)
 								.join(". ")
 						: "Invalid subscription details";
@@ -242,7 +236,7 @@ export default function Alerts() {
 						"auth-turnstile": token,
 					},
 					body: JSON.stringify({ email: email.trim() }),
-				}
+				},
 			);
 			if (res.ok) {
 				setUnsubscribeSent(true);
@@ -264,8 +258,9 @@ export default function Alerts() {
 					<MailOutlineIcon id="alerts-success-icon" />
 					<h1>Check your email</h1>
 					<p>
-						We sent a verification link to <strong>{email.trim()}</strong>. Click
-						the link to activate your price alert. The link expires in 24 hours.
+						We sent a verification link to <strong>{email.trim()}</strong>.
+						Click the link to activate your price alert. The link expires in 24
+						hours.
 					</p>
 					<Button component={Link} to="/" variant="outlined">
 						Back to home
@@ -280,7 +275,7 @@ export default function Alerts() {
 			<div className="section-container" id="alerts-form-section">
 				<div id="alerts-header">
 					<NotificationsActiveIcon id="alerts-header-icon" />
-					<h1>Price Drop Alerts</h1>
+					<h1>Fare Drop Alerts</h1>
 					<p>
 						Get an email when fares fall below your threshold. We'll watch the
 						route for you and notify you as soon as prices drop.

@@ -44,15 +44,15 @@ export default function DateRangePopover({
 
 	const error = multipleDates
 		? dateRangeStart.isAfter(dateRangeEnd) ||
-		  dateRangeEnd.isBefore(dateRangeStart)
+			dateRangeEnd.isBefore(dateRangeStart)
 			? `${flexible ? "Start" : "Dept"} date is after ${
 					flexible ? "end" : "return"
-			  } date`
+				} date`
 			: dateRangeEnd.diff(dateRangeStart, "d") + 1 > (roundTrip ? 45 : 90)
-			? `${flexible ? "Date range" : "Trip duration"} greater than ${
-					roundTrip ? 45 : 90
-			  } days`
-			: ""
+				? `${flexible ? "Date range" : "Trip duration"} greater than ${
+						roundTrip ? 45 : 90
+					} days`
+				: ""
 		: "";
 
 	const [shakeError, setShakeError] = useState(true);
@@ -145,7 +145,7 @@ export default function DateRangePopover({
 	function removeDialogActions() {
 		setTimeout(() => {
 			[...document.getElementsByClassName("MuiDialogActions-root")].forEach(
-				(e) => e.remove()
+				(e) => e.remove(),
 			);
 		}, 0);
 	}
@@ -207,15 +207,15 @@ export default function DateRangePopover({
 			? isStartDate || day.get("d") === 0 || day.get("D") === 1
 				? "50%"
 				: isIntermediateDay
-				? 0
-				: "50%"
+					? 0
+					: "50%"
 			: "50%";
 		const rightBorders = flexible
 			? isEndDate || day.get("d") === 6 || day.isSame(day.endOf("M"), "d")
 				? "50%"
 				: isIntermediateDay
-				? 0
-				: "50%"
+					? 0
+					: "50%"
 			: "50%";
 		return (
 			<PickersDayStyled
@@ -323,7 +323,7 @@ export default function DateRangePopover({
 												setTripDuration(
 													tripDuration.type === "week"
 														? tripDuration
-														: { type: "week", val: 1 }
+														: { type: "week", val: 1 },
 												)
 											}
 											value={
@@ -334,8 +334,8 @@ export default function DateRangePopover({
 											{[
 												...Array(
 													Math.floor(
-														(dateRangeEnd.diff(dateRangeStart, "d") + 1) / 7
-													)
+														(dateRangeEnd.diff(dateRangeStart, "d") + 1) / 7,
+													),
 												).keys(),
 											].map((i) => (
 												<MenuItem key={`${i + 1}-week`} value={i + 1}>
@@ -361,7 +361,7 @@ export default function DateRangePopover({
 											setTripDuration(
 												tripDuration.type === "day"
 													? tripDuration
-													: { type: "day", val: 1 }
+													: { type: "day", val: 1 },
 											)
 										}
 										value={tripDuration.type === "day" ? tripDuration.val : 1}
@@ -369,7 +369,7 @@ export default function DateRangePopover({
 									>
 										{[
 											...Array(
-												dateRangeEnd.diff(dateRangeStart, "d") + 1
+												dateRangeEnd.diff(dateRangeStart, "d") + 1,
 											).keys(),
 										].map((i) => (
 											<MenuItem key={`${i + 1}-day`} value={i + 1}>
@@ -428,7 +428,11 @@ export default function DateRangePopover({
 							{fixedDates && (
 								<div id="date-range-warning">
 									*Dates locked to current search{" "}
-									<Button onClick={() => newSearch(false)} variant="outlined" data-rybbit-event="new_search">
+									<Button
+										onClick={() => newSearch(false)}
+										variant="outlined"
+										data-rybbit-event="new_search"
+									>
 										New search
 									</Button>
 								</div>
@@ -440,6 +444,11 @@ export default function DateRangePopover({
 							minDate={minDate}
 							onChange={handleDateRangeChange}
 							slots={{ day: CustomDay, toolbar: () => {} }}
+							sx={{
+								".MuiPickersDay-root": {
+									borderStyle: "dashed none !important",
+								},
+							}}
 							value={
 								multipleDates
 									? dateRangeStartSelect

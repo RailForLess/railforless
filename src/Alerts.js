@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import Turnstile from "./Turnstile";
 import "./Alerts.css";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
@@ -43,6 +43,7 @@ export default function Alerts() {
 	const [accommodation, setAccommodation] = useState("coach");
 	const [priceThreshold, setPriceThreshold] = useState("");
 	const [singleDay, setSingleDay] = useState(false);
+	const [trainNumbers, setTrainNumbers] = useState("");
 	const [startDate, setStartDate] = useState(
 		dayjs.utc().startOf("d").add(1, "d"),
 	);
@@ -125,6 +126,32 @@ export default function Alerts() {
 		errorText = "End date must be on or after start date";
 	} else if (!singleDay && rangeDays > 31) {
 		errorText = "Date range must be 31 days or less";
+	} else if (
+		trainNumbers.trim() &&
+		!trainNumbers
+			.split(",")
+			.map((n) => n.trim())
+			.filter(Boolean)
+			.every((n) => /^\d+$/.test(n))
+	) {
+		errorText = "Train numbers must be comma-separated numbers (e.g. 91, 92)";
+	}
+
+	function resetForm() {
+		setEmail("");
+		setOrigin(null);
+		setDestination(null);
+		setAccommodation("coach");
+		setPriceThreshold("");
+		setSingleDay(false);
+		setTrainNumbers("");
+		setStartDate(dayjs.utc().startOf("d").add(1, "d"));
+		setEndDate(dayjs.utc().startOf("d").add(7, "d"));
+		setSubmitError("");
+		setShowErrors(false);
+		setDuplicate(false);
+		setUnsubscribeSent(false);
+		setSuccess(false);
 	}
 
 	function getTurnstileToken() {
@@ -175,8 +202,15 @@ export default function Alerts() {
 			if (!singleDay) {
 				body.end_date = endDate.format("YYYY-MM-DD");
 			}
+			const parsedTrainNumbers = trainNumbers
+				.split(",")
+				.map((n) => n.trim())
+				.filter(Boolean);
+			if (parsedTrainNumbers.length > 0) {
+				body.train_numbers = parsedTrainNumbers;
+			}
 			const res = await fetch(
-				`${process.env.REACT_APP_API_DOMAIN}/subscriptions`,
+				`${process.env.REACT_APP_API_DOMAIN}/v1/subscriptions`,
 				{
 					method: "POST",
 					headers: {
@@ -228,7 +262,7 @@ export default function Alerts() {
 		}
 		try {
 			const res = await fetch(
-				`${process.env.REACT_APP_API_DOMAIN}/subscriptions/unsubscribe-request`,
+				`${process.env.REACT_APP_API_DOMAIN}/v1/subscriptions/unsubscribe-request`,
 				{
 					method: "POST",
 					headers: {
@@ -262,8 +296,8 @@ export default function Alerts() {
 						Click the link to activate your price alert. The link expires in 24
 						hours.
 					</p>
-					<Button component={Link} to="/" variant="outlined">
-						Back to home
+					<Button onClick={resetForm} variant="outlined">
+						Back to price alerts
 					</Button>
 				</div>
 			</div>
@@ -392,6 +426,13 @@ export default function Alerts() {
 							/>
 						)}
 					</div>
+					<TextField
+						fullWidth
+						label="Train numbers (optional)"
+						onChange={(e) => setTrainNumbers(e.target.value)}
+						placeholder="91, 92, 151"
+						value={trainNumbers}
+					/>
 					{showErrors && errorText && (
 						<div className="error-critical error-text" id="alerts-error">
 							<ErrorIcon fontSize="small" />

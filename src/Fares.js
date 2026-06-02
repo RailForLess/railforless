@@ -5,6 +5,7 @@ import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Fares.css";
 import DateGrid from "./DateGrid";
 import Donation from "./Donation";
@@ -13,7 +14,9 @@ import Filters from "./Filters";
 import Option from "./Option";
 import PriceGraph from "./PriceGraph";
 import Share from "./Share";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import RailwayAlertIcon from "@mui/icons-material/RailwayAlert";
+import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Skeleton from "@mui/material/Skeleton";
@@ -863,6 +866,20 @@ export default function Fares({
 					dateRangeEnd={dateRangeEnd}
 					roundTrip={roundTrip}
 				/>
+				<Button
+					component={Link}
+					data-rybbit-event="alert"
+					endIcon={<NotificationsActiveIcon />}
+					to={`/alerts?origin=${origin.code}&destination=${
+						destination.code
+					}&start=${dateRangeStart.format(
+						"YYYY-MM-DD"
+					)}&end=${dateRangeEnd.format("YYYY-MM-DD")}
+					&accommodation=${fareClass}`}
+					variant="outlined"
+				>
+					Alert me
+				</Button>
 			</div>
 			<Filters
 				routes={routes}

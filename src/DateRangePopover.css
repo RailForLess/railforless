@@ -20,7 +20,6 @@ form svg[data-testid="CalendarMonthIcon"] {
 }
 
 .MuiPickersDay-root {
-	border-style: dashed none !important;
 	border-width: 2px !important;
 	margin: 0 !important;
 	padding: 1.25rem !important;

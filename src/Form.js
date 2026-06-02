@@ -431,7 +431,7 @@ export default function Form({
 					return res(token);
 				},
 				"refresh-expired": "never",
-				sitekey: "0x4AAAAAAAQXqospSaYctMbi",
+				sitekey: process.env.REACT_APP_TURNSTILE_SITE_KEY,
 			});
 		});
 	}

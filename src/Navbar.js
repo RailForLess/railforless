@@ -8,8 +8,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import SvgIcon from "@mui/material/SvgIcon";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function Navbar() {
+	const mobile = useMediaQuery("(max-width: 480px)");
+
 	const [donateDialog, setDonateDialog] = useState(false);
 
 	return (
@@ -18,17 +21,26 @@ export default function Navbar() {
 				<Link to={useLocation().pathname === "/about" ? "/" : "/about"}>
 					{useLocation().pathname === "/about" ? "Home" : "About"}
 				</Link>
-				<a onClick={() => setDonateDialog(true)}>Donate</a>
 				<a href="mailto:info@railforless.us">Contact</a>
-				<a
-					href={`https://github.com/RailForLess/railforless${
-						process.env.REACT_APP_API_DOMAIN.includes("dev") ? "/tree/dev" : ""
-					}`}
-					rel="noopener noreferrer"
-					target="_blank"
-				>
-					<GitHubIcon />
-				</a>
+				<a onClick={() => setDonateDialog(true)}>Donate</a>
+				<Link to={useLocation().pathname === "/alerts" ? "/" : "/alerts"}>
+					{useLocation().pathname === "/alerts"
+						? "Home"
+						: `${!mobile ? "Fare " : ""}Alerts`}
+				</Link>
+				{!mobile && (
+					<a
+						href={`https://github.com/RailForLess/railforless${
+							process.env.REACT_APP_API_DOMAIN.includes("dev")
+								? "/tree/dev"
+								: ""
+						}`}
+						rel="noopener noreferrer"
+						target="_blank"
+					>
+						<GitHubIcon />
+					</a>
+				)}
 				<a
 					href="https://discord.gg/4sCWj8Jy9m"
 					rel="noopener noreferrer"

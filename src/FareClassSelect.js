@@ -6,6 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
 import Tooltip from "@mui/material/Tooltip";
+import { BEDROOMS_FAMILY_ROOMS_DISABLED } from "./featureFlags";
 
 export default function FareClassSelect({
 	value,
@@ -20,6 +21,11 @@ export default function FareClassSelect({
 	const [selected, setSelected] = useState(false);
 
 	useEffect(() => {
+		if (BEDROOMS_FAMILY_ROOMS_DISABLED) {
+			setBedrooms(false);
+			setFamilyRooms(false);
+			return;
+		}
 		setBedrooms(value === "Sleeper" || value === "Bedroom");
 		setFamilyRooms(value === "Sleeper" || value === "Family Room");
 	}, [value]);
@@ -44,7 +50,14 @@ export default function FareClassSelect({
 			variant={!searching ? "standard" : "outlined"}
 		>
 			{values.map((fareClass) => (
-				<MenuItem key={fareClass} value={fareClass}>
+				<MenuItem
+					key={fareClass}
+					value={fareClass}
+					disabled={
+						BEDROOMS_FAMILY_ROOMS_DISABLED &&
+						(fareClass === "Bedroom" || fareClass === "Family Room")
+					}
+				>
 					{fareClass.replace(/-/g, " ")}
 				</MenuItem>
 			))}

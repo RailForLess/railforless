@@ -7,6 +7,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import Switch from "@mui/material/Switch";
+import { BEDROOMS_FAMILY_ROOMS_DISABLED } from "./featureFlags";
 
 export default function Settings({
 	remindAddAccommsBool,
@@ -86,6 +87,7 @@ export default function Settings({
 						<span>Bedrooms</span>
 						<Switch
 							checked={bedrooms}
+							disabled={BEDROOMS_FAMILY_ROOMS_DISABLED}
 							onChange={() => setBedrooms(!bedrooms)}
 						/>
 					</div>
@@ -93,6 +95,7 @@ export default function Settings({
 						<span>Family Rooms</span>
 						<Switch
 							checked={familyRooms}
+							disabled={BEDROOMS_FAMILY_ROOMS_DISABLED}
 							onChange={() => setFamilyRooms(!familyRooms)}
 						/>
 					</div>

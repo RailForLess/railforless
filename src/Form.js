@@ -12,6 +12,7 @@ import Settings from "./Settings";
 import StationSelect from "./StationSelect";
 import TravelerTypeSelect from "./TravelerTypeSelect";
 import RoundTripSelect from "./RoundTripSelect";
+import { BEDROOMS_FAMILY_ROOMS_DISABLED } from "./featureFlags";
 import "./Form.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
@@ -411,6 +412,7 @@ export default function Form({
 				setShowSearchErrors(true);
 			}, 0);
 		} else if (
+			!BEDROOMS_FAMILY_ROOMS_DISABLED &&
 			remindAddAccommsBool &&
 			!bedrooms &&
 			!familyRooms &&
@@ -762,7 +764,7 @@ export default function Form({
 						)}
 					</ButtonGroup>
 				)}
-				{errorType !== 1 && (
+				{!BEDROOMS_FAMILY_ROOMS_DISABLED && errorType !== 1 && (
 					<Dialog onClose={() => setSleeperOpen(false)} open={sleeperOpen}>
 						<DialogTitle>Additional Accommodations</DialogTitle>
 						<DialogContent>

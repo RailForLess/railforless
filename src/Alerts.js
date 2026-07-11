@@ -20,6 +20,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Switch from "@mui/material/Switch";
 import TextField from "@mui/material/TextField";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { BEDROOMS_FAMILY_ROOMS_DISABLED } from "./featureFlags";
 
 dayjs.extend(utc);
 
@@ -30,6 +31,10 @@ const ACCOMMODATIONS = [
 	{ value: "bedroom", label: "Bedroom" },
 	{ value: "family_room", label: "Family Room" },
 ];
+
+const isAccommodationDisabled = (value) =>
+	BEDROOMS_FAMILY_ROOMS_DISABLED &&
+	(value === "bedroom" || value === "family_room");
 
 export default function Alerts() {
 	const [searchParams] = useSearchParams();
@@ -91,7 +96,9 @@ export default function Alerts() {
 		const a = searchParams.get("accommodation");
 		if (a) {
 			const match = ACCOMMODATIONS.find((opt) => opt.label === a);
-			if (match) setAccommodation(match.value);
+			if (match && !isAccommodationDisabled(match.value)) {
+				setAccommodation(match.value);
+			}
 		}
 		const p = searchParams.get("price");
 		if (p && !isNaN(parseFloat(p))) {
@@ -375,7 +382,11 @@ export default function Alerts() {
 							value={accommodation}
 						>
 							{ACCOMMODATIONS.map((opt) => (
-								<MenuItem key={opt.value} value={opt.value}>
+								<MenuItem
+									key={opt.value}
+									value={opt.value}
+									disabled={isAccommodationDisabled(opt.value)}
+								>
 									{opt.label}
 								</MenuItem>
 							))}

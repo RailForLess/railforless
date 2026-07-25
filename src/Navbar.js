@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Donation from "./Donation";
 import "./Navbar.css";
+import CloseIcon from "@mui/icons-material/Close";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import IconButton from "@mui/material/IconButton";
 import SvgIcon from "@mui/material/SvgIcon";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -51,13 +51,17 @@ export default function Navbar() {
 					</SvgIcon>
 				</a>
 			</nav>
-			<Dialog onClose={() => setDonateDialog(false)} open={donateDialog}>
+			<Dialog
+				id="donate-dialog"
+				onClose={() => setDonateDialog(false)}
+				open={donateDialog}
+			>
 				<DialogContent sx={{ minWidth: "20rem !important" }}>
-					<Donation defaultExpanded={true} />
+					<IconButton aria-label="close" onClick={() => setDonateDialog(false)}>
+						<CloseIcon />
+					</IconButton>
+					<Donation />
 				</DialogContent>
-				<DialogActions>
-					<Button onClick={() => setDonateDialog(false)}>Close</Button>
-				</DialogActions>
 			</Dialog>
 		</header>
 	);

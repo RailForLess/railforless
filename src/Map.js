@@ -556,7 +556,8 @@ export default function Map({
 		});
 	}
 
-	const routeInfo = routesInfo[route.replaceAll("-", " ").replace("_", "/")];
+	const routeInfo =
+		routesInfo[route.replaceAll("-", " ").replace("_", "/")] ?? routesInfo.NA;
 
 	return (
 		<div id="map-container">

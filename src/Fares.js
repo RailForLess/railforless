@@ -103,7 +103,7 @@ export default function Fares({
 
 	const [routes, setRoutes] = useState({});
 	const [maxLayovers, setMaxLayovers] = useState(3);
-	const [maxPrice, setMaxPrice] = useState(5000);
+	const [maxPrice, setMaxPrice] = useState(2000);
 	const [outboundDeptTime, setOutboundDeptTime] = useState([0, 24]);
 	const [outboundArrivalTime, setOutboundArrivalTime] = useState([0, 24]);
 	const [returnDeptTime, setReturnDeptTime] = useState([0, 24]);
@@ -276,7 +276,7 @@ export default function Fares({
 							getNeededInventory(legAccommodation);
 						if (
 							legAccommodation.availableInventory >=
-							legAccommodation.neededInventory 
+							legAccommodation.neededInventory
 							|| legAccommodation.availableInventory === -1 //Brightline rarely provides inventory
 						) {
 							newTravelLeg.push({
@@ -420,7 +420,7 @@ export default function Fares({
 						) &&
 						deptOption.travelLegs.length - 1 <= maxLayovers &&
 						returnOption.travelLegs.length - 1 <= maxLayovers &&
-						(maxPrice === 5000 ||
+						(maxPrice === 2000 ||
 							(deptOption.fare + returnOption.fare) / numTravelers <=
 								maxPrice) &&
 						Number(deptOption.departureDateTime.format("H")) >=
@@ -505,7 +505,7 @@ export default function Fares({
 							includedRoutes.includes(leg.route)
 						) &&
 						option.travelLegs.length - 1 <= maxLayovers &&
-						(maxPrice === 5000 || option.fare / numTravelers <= maxPrice) &&
+						(maxPrice === 2000 || option.fare / numTravelers <= maxPrice) &&
 						Number(option.departureDateTime.format("H")) >=
 							outboundDeptTime[0] &&
 						Number(option.departureDateTime.format("H")) <=

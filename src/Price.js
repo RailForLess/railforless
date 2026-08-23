@@ -16,14 +16,14 @@ export default function Price({ maxPrice, setMaxPrice }) {
 	const [anchor, setAnchor] = useState(null);
 
 	return (
-		<div className={`filter-${maxPrice === 5000 ? "not-" : ""}selected`}>
+		<div className={`filter-${maxPrice === 2000 ? "not-" : ""}selected`}>
 			<Button
 				className={`filter-button select ${
-					!anchor && renderedMaxPrice === 5000 ? "not-" : ""
+					!anchor && renderedMaxPrice === 2000 ? "not-" : ""
 				}selected`}
 				disableRipple
 				endIcon={
-					renderedMaxPrice === 5000 ? (
+					renderedMaxPrice === 2000 ? (
 						<ArrowDropDownIcon
 							sx={{ transform: `rotate(${Boolean(anchor) ? 180 : 0}deg)` }}
 						/>
@@ -31,7 +31,7 @@ export default function Price({ maxPrice, setMaxPrice }) {
 						<CloseIcon
 							onClick={(e) => {
 								e.stopPropagation();
-								setMaxPrice(5000);
+								setMaxPrice(2000);
 							}}
 							fontSize="small"
 						/>
@@ -40,7 +40,7 @@ export default function Price({ maxPrice, setMaxPrice }) {
 				onClick={(e) => setAnchor(e.currentTarget)}
 				variant="outlined"
 			>
-				{renderedMaxPrice === 5000
+				{renderedMaxPrice === 2000
 					? "Price"
 					: `up to $${renderedMaxPrice.toLocaleString()}`}
 			</Button>
@@ -66,15 +66,15 @@ export default function Price({ maxPrice, setMaxPrice }) {
 					</div>
 					<div className="slider-container">
 						<span>
-							{renderedMaxPrice === 5000
+							{renderedMaxPrice === 2000
 								? "All prices"
 								: `up to $${renderedMaxPrice.toLocaleString()}`}
 						</span>
 						<Slider
-							max={5000}
+							max={2000}
 							onChange={(e, newMaxPrice) => setRenderedMaxPrice(newMaxPrice)}
 							onChangeCommitted={(e, newMaxPrice) => setMaxPrice(newMaxPrice)}
-							step={50}
+							step={25}
 							value={renderedMaxPrice}
 							valueLabelDisplay="auto"
 							valueLabelFormat={(value) => `$${value.toLocaleString()}`}
@@ -82,9 +82,9 @@ export default function Price({ maxPrice, setMaxPrice }) {
 					</div>
 					<div className="options">
 						<Button
-							disabled={renderedMaxPrice === 5000}
+							disabled={renderedMaxPrice === 2000}
 							disableRipple
-							onClick={() => setMaxPrice(5000)}
+							onClick={() => setMaxPrice(2000)}
 						>
 							Clear
 						</Button>

@@ -97,15 +97,6 @@ export default function About() {
 							Riley is a software engineer from Minnesota. He enjoys reading,
 							riding his Onewheel, travel, and creating films in his spare time.
 							Trains and using technology to help others are passions of his.
-							Learn more about him and his projects at{" "}
-							<a
-								href="https://rileynielsen.com"
-								rel="noreferrer"
-								target="_blank"
-							>
-								rileynielsen.com
-							</a>
-							.
 						</p>
 					</div>
 				</div>

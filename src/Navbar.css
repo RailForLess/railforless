@@ -23,6 +23,27 @@ nav > a:nth-last-child(-n + 2) {
 	display: flex;
 }
 
+#donate-dialog .MuiDialog-paper {
+	background: rgb(54, 55, 58);
+	background-image: none;
+	border-radius: 1rem;
+}
+
+#donate-dialog .MuiDialogContent-root {
+	padding: 0;
+	position: relative;
+}
+
+#donate-dialog .MuiIconButton-root {
+	position: absolute;
+	right: 1rem;
+	top: 0.5rem;
+}
+
+#donate-dialog h3 {
+	padding-right: 2.5rem;
+}
+
 @media all and (min-width: 481px) and (max-width: 1099px) {
 	nav {
 		width: 50vw;

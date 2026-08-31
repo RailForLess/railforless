@@ -61,7 +61,10 @@ export default function Footer() {
 				>
 					Sean Eddy
 				</a>{" "}
-				and Riley Nielsen
+				and{" "}
+				<a href="https://rileynielsen.com" rel="noopener" target="_blank">
+					Riley Nielsen
+				</a>
 			</span>
 			<div className="vertical-bar" />
 			<a
